@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ChampionshipProblem
+namespace ChampionshipProblem.Scheme
 {
     using System;
     using System.Collections.Generic;

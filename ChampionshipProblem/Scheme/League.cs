@@ -7,25 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ChampionshipProblem
+namespace ChampionshipProblem.Scheme
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Country
+    public partial class League
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Country()
+        public League()
         {
-            this.Leagues = new HashSet<League>();
             this.Matches = new HashSet<Match>();
         }
     
         public long id { get; set; }
+        public Nullable<long> country_id { get; set; }
         public string name { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<League> Leagues { get; set; }
+        public virtual Country Country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Match> Matches { get; set; }
     }
