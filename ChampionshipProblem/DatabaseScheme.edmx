@@ -1,0 +1,955 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EuropeanSoccerModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=C:\Users\NicolaiFröhlig\source\repos\ChampionshipProblem\ChampionshipProblem\DatabaseFiles\EuropeanSoccer.sqlite" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="League">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="country_id" Type="integer" />
+          <Property Name="name" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="Match">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="country_id" Type="integer" />
+          <Property Name="league_id" Type="integer" />
+          <Property Name="season" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="stage" Type="integer" />
+          <Property Name="date" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="match_api_id" Type="integer" />
+          <Property Name="home_team_api_id" Type="integer" />
+          <Property Name="away_team_api_id" Type="integer" />
+          <Property Name="home_team_goal" Type="integer" />
+          <Property Name="away_team_goal" Type="integer" />
+          <Property Name="home_player_X1" Type="integer" />
+          <Property Name="home_player_X2" Type="integer" />
+          <Property Name="home_player_X3" Type="integer" />
+          <Property Name="home_player_X4" Type="integer" />
+          <Property Name="home_player_X5" Type="integer" />
+          <Property Name="home_player_X6" Type="integer" />
+          <Property Name="home_player_X7" Type="integer" />
+          <Property Name="home_player_X8" Type="integer" />
+          <Property Name="home_player_X9" Type="integer" />
+          <Property Name="home_player_X10" Type="integer" />
+          <Property Name="home_player_X11" Type="integer" />
+          <Property Name="away_player_X1" Type="integer" />
+          <Property Name="away_player_X2" Type="integer" />
+          <Property Name="away_player_X3" Type="integer" />
+          <Property Name="away_player_X4" Type="integer" />
+          <Property Name="away_player_X5" Type="integer" />
+          <Property Name="away_player_X6" Type="integer" />
+          <Property Name="away_player_X7" Type="integer" />
+          <Property Name="away_player_X8" Type="integer" />
+          <Property Name="away_player_X9" Type="integer" />
+          <Property Name="away_player_X10" Type="integer" />
+          <Property Name="away_player_X11" Type="integer" />
+          <Property Name="home_player_Y1" Type="integer" />
+          <Property Name="home_player_Y2" Type="integer" />
+          <Property Name="home_player_Y3" Type="integer" />
+          <Property Name="home_player_Y4" Type="integer" />
+          <Property Name="home_player_Y5" Type="integer" />
+          <Property Name="home_player_Y6" Type="integer" />
+          <Property Name="home_player_Y7" Type="integer" />
+          <Property Name="home_player_Y8" Type="integer" />
+          <Property Name="home_player_Y9" Type="integer" />
+          <Property Name="home_player_Y10" Type="integer" />
+          <Property Name="home_player_Y11" Type="integer" />
+          <Property Name="away_player_Y1" Type="integer" />
+          <Property Name="away_player_Y2" Type="integer" />
+          <Property Name="away_player_Y3" Type="integer" />
+          <Property Name="away_player_Y4" Type="integer" />
+          <Property Name="away_player_Y5" Type="integer" />
+          <Property Name="away_player_Y6" Type="integer" />
+          <Property Name="away_player_Y7" Type="integer" />
+          <Property Name="away_player_Y8" Type="integer" />
+          <Property Name="away_player_Y9" Type="integer" />
+          <Property Name="away_player_Y10" Type="integer" />
+          <Property Name="away_player_Y11" Type="integer" />
+          <Property Name="home_player_1" Type="integer" />
+          <Property Name="home_player_2" Type="integer" />
+          <Property Name="home_player_3" Type="integer" />
+          <Property Name="home_player_4" Type="integer" />
+          <Property Name="home_player_5" Type="integer" />
+          <Property Name="home_player_6" Type="integer" />
+          <Property Name="home_player_7" Type="integer" />
+          <Property Name="home_player_8" Type="integer" />
+          <Property Name="home_player_9" Type="integer" />
+          <Property Name="home_player_10" Type="integer" />
+          <Property Name="home_player_11" Type="integer" />
+          <Property Name="away_player_1" Type="integer" />
+          <Property Name="away_player_2" Type="integer" />
+          <Property Name="away_player_3" Type="integer" />
+          <Property Name="away_player_4" Type="integer" />
+          <Property Name="away_player_5" Type="integer" />
+          <Property Name="away_player_6" Type="integer" />
+          <Property Name="away_player_7" Type="integer" />
+          <Property Name="away_player_8" Type="integer" />
+          <Property Name="away_player_9" Type="integer" />
+          <Property Name="away_player_10" Type="integer" />
+          <Property Name="away_player_11" Type="integer" />
+          <Property Name="goal" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="shoton" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="shotoff" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="foulcommit" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="card" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="cross" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="corner" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="possession" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="B365H" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="B365D" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="B365A" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="BWH" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="BWD" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="BWA" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="IWH" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="IWD" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="IWA" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LBH" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LBD" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LBA" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="PSH" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="PSD" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="PSA" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="WHH" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="WHD" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="WHA" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="SJH" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="SJD" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="SJA" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="VCH" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="VCD" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="VCA" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="GBH" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="GBD" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="GBA" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="BSH" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="BSD" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="BSA" Type="decimal" Precision="53" Scale="0" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="player_api_id" Type="integer" />
+          <Property Name="player_name" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="player_fifa_api_id" Type="integer" />
+          <Property Name="birthday" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="height" Type="integer" />
+          <Property Name="weight" Type="integer" />
+        </EntityType>
+        <EntityType Name="Player_Attributes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="player_fifa_api_id" Type="integer" />
+          <Property Name="player_api_id" Type="integer" />
+          <Property Name="date" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="overall_rating" Type="integer" />
+          <Property Name="potential" Type="integer" />
+          <Property Name="preferred_foot" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="attacking_work_rate" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="defensive_work_rate" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="crossing" Type="integer" />
+          <Property Name="finishing" Type="integer" />
+          <Property Name="heading_accuracy" Type="integer" />
+          <Property Name="short_passing" Type="integer" />
+          <Property Name="volleys" Type="integer" />
+          <Property Name="dribbling" Type="integer" />
+          <Property Name="curve" Type="integer" />
+          <Property Name="free_kick_accuracy" Type="integer" />
+          <Property Name="long_passing" Type="integer" />
+          <Property Name="ball_control" Type="integer" />
+          <Property Name="acceleration" Type="integer" />
+          <Property Name="sprint_speed" Type="integer" />
+          <Property Name="agility" Type="integer" />
+          <Property Name="reactions" Type="integer" />
+          <Property Name="balance" Type="integer" />
+          <Property Name="shot_power" Type="integer" />
+          <Property Name="jumping" Type="integer" />
+          <Property Name="stamina" Type="integer" />
+          <Property Name="strength" Type="integer" />
+          <Property Name="long_shots" Type="integer" />
+          <Property Name="aggression" Type="integer" />
+          <Property Name="interceptions" Type="integer" />
+          <Property Name="positioning" Type="integer" />
+          <Property Name="vision" Type="integer" />
+          <Property Name="penalties" Type="integer" />
+          <Property Name="marking" Type="integer" />
+          <Property Name="standing_tackle" Type="integer" />
+          <Property Name="sliding_tackle" Type="integer" />
+          <Property Name="gk_diving" Type="integer" />
+          <Property Name="gk_handling" Type="integer" />
+          <Property Name="gk_kicking" Type="integer" />
+          <Property Name="gk_positioning" Type="integer" />
+          <Property Name="gk_reflexes" Type="integer" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="team_api_id" Type="integer" />
+          <Property Name="team_fifa_api_id" Type="integer" />
+          <Property Name="team_long_name" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="team_short_name" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="Team_Attributes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="team_fifa_api_id" Type="integer" />
+          <Property Name="team_api_id" Type="integer" />
+          <Property Name="date" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="buildUpPlaySpeed" Type="integer" />
+          <Property Name="buildUpPlaySpeedClass" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="buildUpPlayDribbling" Type="integer" />
+          <Property Name="buildUpPlayDribblingClass" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="buildUpPlayPassing" Type="integer" />
+          <Property Name="buildUpPlayPassingClass" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="buildUpPlayPositioningClass" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="chanceCreationPassing" Type="integer" />
+          <Property Name="chanceCreationPassingClass" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="chanceCreationCrossing" Type="integer" />
+          <Property Name="chanceCreationCrossingClass" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="chanceCreationShooting" Type="integer" />
+          <Property Name="chanceCreationShootingClass" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="chanceCreationPositioningClass" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="defencePressure" Type="integer" />
+          <Property Name="defencePressureClass" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="defenceAggression" Type="integer" />
+          <Property Name="defenceAggressionClass" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="defenceTeamWidth" Type="integer" />
+          <Property Name="defenceTeamWidthClass" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="defenceDefenderLineClass" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <Association Name="FK_League_0_0">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="League" Type="Self.League" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="League">
+              <PropertyRef Name="country_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_0_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_0_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_1_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_1_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_10_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_10_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_11_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_11_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_12_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_12_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_13_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_13_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_14_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_14_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_15_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_15_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_16_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_16_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_17_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_17_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_18_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_18_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_19_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_19_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_2_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_2_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_20_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_20_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_21_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_21_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_22_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_22_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_23_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_23_0" />-->
+        <Association Name="FK_Match_24_0">
+          <End Role="League" Type="Self.League" Multiplicity="0..1" />
+          <End Role="Match" Type="Self.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="League">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="league_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_25_0">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Match" Type="Self.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="country_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_3_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_3_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_4_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_4_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_5_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_5_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_6_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_6_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_7_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_7_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_8_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_8_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Match_9_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Match_9_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Player_Attributes_0_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Player_Attributes_0_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Player_Attributes_1_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Player_Attributes_1_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Team_Attributes_0_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Team_Attributes_0_0" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Team_Attributes_1_0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Team_Attributes_1_0" />-->
+        <EntityContainer Name="EuropeanSoccerModelStoreContainer">
+          <EntitySet Name="Country" EntityType="Self.Country" store:Type="Tables" />
+          <EntitySet Name="League" EntityType="Self.League" store:Type="Tables" />
+          <EntitySet Name="Match" EntityType="Self.Match" store:Type="Tables" />
+          <EntitySet Name="Player" EntityType="Self.Player" store:Type="Tables" />
+          <EntitySet Name="Player_Attributes" EntityType="Self.Player_Attributes" store:Type="Tables" />
+          <EntitySet Name="Team" EntityType="Self.Team" store:Type="Tables" />
+          <EntitySet Name="Team_Attributes" EntityType="Self.Team_Attributes" store:Type="Tables" />
+          <AssociationSet Name="FK_League_0_0" Association="Self.FK_League_0_0">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="League" EntitySet="League" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_24_0" Association="Self.FK_Match_24_0">
+            <End Role="League" EntitySet="League" />
+            <End Role="Match" EntitySet="Match" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_25_0" Association="Self.FK_Match_25_0">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Match" EntitySet="Match" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EuropeanSoccerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Leagues" Relationship="Self.FK_League_0_0" FromRole="Country" ToRole="League" />
+          <NavigationProperty Name="Matches" Relationship="Self.FK_Match_25_0" FromRole="Country" ToRole="Match" />
+        </EntityType>
+        <EntityType Name="League">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="country_id" Type="Int64" />
+          <Property Name="name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_League_0_0" FromRole="League" ToRole="Country" />
+          <NavigationProperty Name="Matches" Relationship="Self.FK_Match_24_0" FromRole="League" ToRole="Match" />
+        </EntityType>
+        <EntityType Name="Match">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="country_id" Type="Int64" />
+          <Property Name="league_id" Type="Int64" />
+          <Property Name="season" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="stage" Type="Int64" />
+          <Property Name="date" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="match_api_id" Type="Int64" />
+          <Property Name="home_team_api_id" Type="Int64" />
+          <Property Name="away_team_api_id" Type="Int64" />
+          <Property Name="home_team_goal" Type="Int64" />
+          <Property Name="away_team_goal" Type="Int64" />
+          <Property Name="home_player_X1" Type="Int64" />
+          <Property Name="home_player_X2" Type="Int64" />
+          <Property Name="home_player_X3" Type="Int64" />
+          <Property Name="home_player_X4" Type="Int64" />
+          <Property Name="home_player_X5" Type="Int64" />
+          <Property Name="home_player_X6" Type="Int64" />
+          <Property Name="home_player_X7" Type="Int64" />
+          <Property Name="home_player_X8" Type="Int64" />
+          <Property Name="home_player_X9" Type="Int64" />
+          <Property Name="home_player_X10" Type="Int64" />
+          <Property Name="home_player_X11" Type="Int64" />
+          <Property Name="away_player_X1" Type="Int64" />
+          <Property Name="away_player_X2" Type="Int64" />
+          <Property Name="away_player_X3" Type="Int64" />
+          <Property Name="away_player_X4" Type="Int64" />
+          <Property Name="away_player_X5" Type="Int64" />
+          <Property Name="away_player_X6" Type="Int64" />
+          <Property Name="away_player_X7" Type="Int64" />
+          <Property Name="away_player_X8" Type="Int64" />
+          <Property Name="away_player_X9" Type="Int64" />
+          <Property Name="away_player_X10" Type="Int64" />
+          <Property Name="away_player_X11" Type="Int64" />
+          <Property Name="home_player_Y1" Type="Int64" />
+          <Property Name="home_player_Y2" Type="Int64" />
+          <Property Name="home_player_Y3" Type="Int64" />
+          <Property Name="home_player_Y4" Type="Int64" />
+          <Property Name="home_player_Y5" Type="Int64" />
+          <Property Name="home_player_Y6" Type="Int64" />
+          <Property Name="home_player_Y7" Type="Int64" />
+          <Property Name="home_player_Y8" Type="Int64" />
+          <Property Name="home_player_Y9" Type="Int64" />
+          <Property Name="home_player_Y10" Type="Int64" />
+          <Property Name="home_player_Y11" Type="Int64" />
+          <Property Name="away_player_Y1" Type="Int64" />
+          <Property Name="away_player_Y2" Type="Int64" />
+          <Property Name="away_player_Y3" Type="Int64" />
+          <Property Name="away_player_Y4" Type="Int64" />
+          <Property Name="away_player_Y5" Type="Int64" />
+          <Property Name="away_player_Y6" Type="Int64" />
+          <Property Name="away_player_Y7" Type="Int64" />
+          <Property Name="away_player_Y8" Type="Int64" />
+          <Property Name="away_player_Y9" Type="Int64" />
+          <Property Name="away_player_Y10" Type="Int64" />
+          <Property Name="away_player_Y11" Type="Int64" />
+          <Property Name="home_player_1" Type="Int64" />
+          <Property Name="home_player_2" Type="Int64" />
+          <Property Name="home_player_3" Type="Int64" />
+          <Property Name="home_player_4" Type="Int64" />
+          <Property Name="home_player_5" Type="Int64" />
+          <Property Name="home_player_6" Type="Int64" />
+          <Property Name="home_player_7" Type="Int64" />
+          <Property Name="home_player_8" Type="Int64" />
+          <Property Name="home_player_9" Type="Int64" />
+          <Property Name="home_player_10" Type="Int64" />
+          <Property Name="home_player_11" Type="Int64" />
+          <Property Name="away_player_1" Type="Int64" />
+          <Property Name="away_player_2" Type="Int64" />
+          <Property Name="away_player_3" Type="Int64" />
+          <Property Name="away_player_4" Type="Int64" />
+          <Property Name="away_player_5" Type="Int64" />
+          <Property Name="away_player_6" Type="Int64" />
+          <Property Name="away_player_7" Type="Int64" />
+          <Property Name="away_player_8" Type="Int64" />
+          <Property Name="away_player_9" Type="Int64" />
+          <Property Name="away_player_10" Type="Int64" />
+          <Property Name="away_player_11" Type="Int64" />
+          <Property Name="goal" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="shoton" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="shotoff" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="foulcommit" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="card" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="cross" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="corner" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="possession" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="B365H" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="B365D" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="B365A" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="BWH" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="BWD" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="BWA" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="IWH" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="IWD" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="IWA" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LBH" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LBD" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LBA" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="PSH" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="PSD" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="PSA" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="WHH" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="WHD" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="WHA" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="SJH" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="SJD" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="SJA" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="VCH" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="VCD" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="VCA" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="GBH" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="GBD" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="GBA" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="BSH" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="BSD" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="BSA" Type="Decimal" Precision="53" Scale="0" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_Match_25_0" FromRole="Match" ToRole="Country" />
+          <NavigationProperty Name="League" Relationship="Self.FK_Match_24_0" FromRole="Match" ToRole="League" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="player_api_id" Type="Int64" />
+          <Property Name="player_name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="player_fifa_api_id" Type="Int64" />
+          <Property Name="birthday" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="height" Type="Int64" />
+          <Property Name="weight" Type="Int64" />
+        </EntityType>
+        <EntityType Name="Player_Attributes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="player_fifa_api_id" Type="Int64" />
+          <Property Name="player_api_id" Type="Int64" />
+          <Property Name="date" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="overall_rating" Type="Int64" />
+          <Property Name="potential" Type="Int64" />
+          <Property Name="preferred_foot" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="attacking_work_rate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="defensive_work_rate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="crossing" Type="Int64" />
+          <Property Name="finishing" Type="Int64" />
+          <Property Name="heading_accuracy" Type="Int64" />
+          <Property Name="short_passing" Type="Int64" />
+          <Property Name="volleys" Type="Int64" />
+          <Property Name="dribbling" Type="Int64" />
+          <Property Name="curve" Type="Int64" />
+          <Property Name="free_kick_accuracy" Type="Int64" />
+          <Property Name="long_passing" Type="Int64" />
+          <Property Name="ball_control" Type="Int64" />
+          <Property Name="acceleration" Type="Int64" />
+          <Property Name="sprint_speed" Type="Int64" />
+          <Property Name="agility" Type="Int64" />
+          <Property Name="reactions" Type="Int64" />
+          <Property Name="balance" Type="Int64" />
+          <Property Name="shot_power" Type="Int64" />
+          <Property Name="jumping" Type="Int64" />
+          <Property Name="stamina" Type="Int64" />
+          <Property Name="strength" Type="Int64" />
+          <Property Name="long_shots" Type="Int64" />
+          <Property Name="aggression" Type="Int64" />
+          <Property Name="interceptions" Type="Int64" />
+          <Property Name="positioning" Type="Int64" />
+          <Property Name="vision" Type="Int64" />
+          <Property Name="penalties" Type="Int64" />
+          <Property Name="marking" Type="Int64" />
+          <Property Name="standing_tackle" Type="Int64" />
+          <Property Name="sliding_tackle" Type="Int64" />
+          <Property Name="gk_diving" Type="Int64" />
+          <Property Name="gk_handling" Type="Int64" />
+          <Property Name="gk_kicking" Type="Int64" />
+          <Property Name="gk_positioning" Type="Int64" />
+          <Property Name="gk_reflexes" Type="Int64" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="team_api_id" Type="Int64" />
+          <Property Name="team_fifa_api_id" Type="Int64" />
+          <Property Name="team_long_name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="team_short_name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Team_Attributes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="team_fifa_api_id" Type="Int64" />
+          <Property Name="team_api_id" Type="Int64" />
+          <Property Name="date" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="buildUpPlaySpeed" Type="Int64" />
+          <Property Name="buildUpPlaySpeedClass" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="buildUpPlayDribbling" Type="Int64" />
+          <Property Name="buildUpPlayDribblingClass" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="buildUpPlayPassing" Type="Int64" />
+          <Property Name="buildUpPlayPassingClass" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="buildUpPlayPositioningClass" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="chanceCreationPassing" Type="Int64" />
+          <Property Name="chanceCreationPassingClass" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="chanceCreationCrossing" Type="Int64" />
+          <Property Name="chanceCreationCrossingClass" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="chanceCreationShooting" Type="Int64" />
+          <Property Name="chanceCreationShootingClass" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="chanceCreationPositioningClass" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="defencePressure" Type="Int64" />
+          <Property Name="defencePressureClass" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="defenceAggression" Type="Int64" />
+          <Property Name="defenceAggressionClass" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="defenceTeamWidth" Type="Int64" />
+          <Property Name="defenceTeamWidthClass" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="defenceDefenderLineClass" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_League_0_0">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="League" Type="Self.League" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="League">
+              <PropertyRef Name="country_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_25_0">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Match" Type="Self.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="country_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_24_0">
+          <End Role="League" Type="Self.League" Multiplicity="0..1" />
+          <End Role="Match" Type="Self.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="League">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="league_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EuropeanSoccerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="Leagues" EntityType="Self.League" />
+          <EntitySet Name="Matches" EntityType="Self.Match" />
+          <EntitySet Name="Players" EntityType="Self.Player" />
+          <EntitySet Name="Player_Attributes" EntityType="Self.Player_Attributes" />
+          <EntitySet Name="Teams" EntityType="Self.Team" />
+          <EntitySet Name="Team_Attributes" EntityType="Self.Team_Attributes" />
+          <AssociationSet Name="FK_League_0_0" Association="Self.FK_League_0_0">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="League" EntitySet="Leagues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_25_0" Association="Self.FK_Match_25_0">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Match" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_24_0" Association="Self.FK_Match_24_0">
+            <End Role="League" EntitySet="Leagues" />
+            <End Role="Match" EntitySet="Matches" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EuropeanSoccerModelStoreContainer" CdmEntityContainer="EuropeanSoccerEntities">
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="EuropeanSoccerModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Leagues">
+            <EntityTypeMapping TypeName="EuropeanSoccerModel.League">
+              <MappingFragment StoreEntitySet="League">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Matches">
+            <EntityTypeMapping TypeName="EuropeanSoccerModel.Match">
+              <MappingFragment StoreEntitySet="Match">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="league_id" ColumnName="league_id" />
+                <ScalarProperty Name="season" ColumnName="season" />
+                <ScalarProperty Name="stage" ColumnName="stage" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="match_api_id" ColumnName="match_api_id" />
+                <ScalarProperty Name="home_team_api_id" ColumnName="home_team_api_id" />
+                <ScalarProperty Name="away_team_api_id" ColumnName="away_team_api_id" />
+                <ScalarProperty Name="home_team_goal" ColumnName="home_team_goal" />
+                <ScalarProperty Name="away_team_goal" ColumnName="away_team_goal" />
+                <ScalarProperty Name="home_player_X1" ColumnName="home_player_X1" />
+                <ScalarProperty Name="home_player_X2" ColumnName="home_player_X2" />
+                <ScalarProperty Name="home_player_X3" ColumnName="home_player_X3" />
+                <ScalarProperty Name="home_player_X4" ColumnName="home_player_X4" />
+                <ScalarProperty Name="home_player_X5" ColumnName="home_player_X5" />
+                <ScalarProperty Name="home_player_X6" ColumnName="home_player_X6" />
+                <ScalarProperty Name="home_player_X7" ColumnName="home_player_X7" />
+                <ScalarProperty Name="home_player_X8" ColumnName="home_player_X8" />
+                <ScalarProperty Name="home_player_X9" ColumnName="home_player_X9" />
+                <ScalarProperty Name="home_player_X10" ColumnName="home_player_X10" />
+                <ScalarProperty Name="home_player_X11" ColumnName="home_player_X11" />
+                <ScalarProperty Name="away_player_X1" ColumnName="away_player_X1" />
+                <ScalarProperty Name="away_player_X2" ColumnName="away_player_X2" />
+                <ScalarProperty Name="away_player_X3" ColumnName="away_player_X3" />
+                <ScalarProperty Name="away_player_X4" ColumnName="away_player_X4" />
+                <ScalarProperty Name="away_player_X5" ColumnName="away_player_X5" />
+                <ScalarProperty Name="away_player_X6" ColumnName="away_player_X6" />
+                <ScalarProperty Name="away_player_X7" ColumnName="away_player_X7" />
+                <ScalarProperty Name="away_player_X8" ColumnName="away_player_X8" />
+                <ScalarProperty Name="away_player_X9" ColumnName="away_player_X9" />
+                <ScalarProperty Name="away_player_X10" ColumnName="away_player_X10" />
+                <ScalarProperty Name="away_player_X11" ColumnName="away_player_X11" />
+                <ScalarProperty Name="home_player_Y1" ColumnName="home_player_Y1" />
+                <ScalarProperty Name="home_player_Y2" ColumnName="home_player_Y2" />
+                <ScalarProperty Name="home_player_Y3" ColumnName="home_player_Y3" />
+                <ScalarProperty Name="home_player_Y4" ColumnName="home_player_Y4" />
+                <ScalarProperty Name="home_player_Y5" ColumnName="home_player_Y5" />
+                <ScalarProperty Name="home_player_Y6" ColumnName="home_player_Y6" />
+                <ScalarProperty Name="home_player_Y7" ColumnName="home_player_Y7" />
+                <ScalarProperty Name="home_player_Y8" ColumnName="home_player_Y8" />
+                <ScalarProperty Name="home_player_Y9" ColumnName="home_player_Y9" />
+                <ScalarProperty Name="home_player_Y10" ColumnName="home_player_Y10" />
+                <ScalarProperty Name="home_player_Y11" ColumnName="home_player_Y11" />
+                <ScalarProperty Name="away_player_Y1" ColumnName="away_player_Y1" />
+                <ScalarProperty Name="away_player_Y2" ColumnName="away_player_Y2" />
+                <ScalarProperty Name="away_player_Y3" ColumnName="away_player_Y3" />
+                <ScalarProperty Name="away_player_Y4" ColumnName="away_player_Y4" />
+                <ScalarProperty Name="away_player_Y5" ColumnName="away_player_Y5" />
+                <ScalarProperty Name="away_player_Y6" ColumnName="away_player_Y6" />
+                <ScalarProperty Name="away_player_Y7" ColumnName="away_player_Y7" />
+                <ScalarProperty Name="away_player_Y8" ColumnName="away_player_Y8" />
+                <ScalarProperty Name="away_player_Y9" ColumnName="away_player_Y9" />
+                <ScalarProperty Name="away_player_Y10" ColumnName="away_player_Y10" />
+                <ScalarProperty Name="away_player_Y11" ColumnName="away_player_Y11" />
+                <ScalarProperty Name="home_player_1" ColumnName="home_player_1" />
+                <ScalarProperty Name="home_player_2" ColumnName="home_player_2" />
+                <ScalarProperty Name="home_player_3" ColumnName="home_player_3" />
+                <ScalarProperty Name="home_player_4" ColumnName="home_player_4" />
+                <ScalarProperty Name="home_player_5" ColumnName="home_player_5" />
+                <ScalarProperty Name="home_player_6" ColumnName="home_player_6" />
+                <ScalarProperty Name="home_player_7" ColumnName="home_player_7" />
+                <ScalarProperty Name="home_player_8" ColumnName="home_player_8" />
+                <ScalarProperty Name="home_player_9" ColumnName="home_player_9" />
+                <ScalarProperty Name="home_player_10" ColumnName="home_player_10" />
+                <ScalarProperty Name="home_player_11" ColumnName="home_player_11" />
+                <ScalarProperty Name="away_player_1" ColumnName="away_player_1" />
+                <ScalarProperty Name="away_player_2" ColumnName="away_player_2" />
+                <ScalarProperty Name="away_player_3" ColumnName="away_player_3" />
+                <ScalarProperty Name="away_player_4" ColumnName="away_player_4" />
+                <ScalarProperty Name="away_player_5" ColumnName="away_player_5" />
+                <ScalarProperty Name="away_player_6" ColumnName="away_player_6" />
+                <ScalarProperty Name="away_player_7" ColumnName="away_player_7" />
+                <ScalarProperty Name="away_player_8" ColumnName="away_player_8" />
+                <ScalarProperty Name="away_player_9" ColumnName="away_player_9" />
+                <ScalarProperty Name="away_player_10" ColumnName="away_player_10" />
+                <ScalarProperty Name="away_player_11" ColumnName="away_player_11" />
+                <ScalarProperty Name="goal" ColumnName="goal" />
+                <ScalarProperty Name="shoton" ColumnName="shoton" />
+                <ScalarProperty Name="shotoff" ColumnName="shotoff" />
+                <ScalarProperty Name="foulcommit" ColumnName="foulcommit" />
+                <ScalarProperty Name="card" ColumnName="card" />
+                <ScalarProperty Name="cross" ColumnName="cross" />
+                <ScalarProperty Name="corner" ColumnName="corner" />
+                <ScalarProperty Name="possession" ColumnName="possession" />
+                <ScalarProperty Name="B365H" ColumnName="B365H" />
+                <ScalarProperty Name="B365D" ColumnName="B365D" />
+                <ScalarProperty Name="B365A" ColumnName="B365A" />
+                <ScalarProperty Name="BWH" ColumnName="BWH" />
+                <ScalarProperty Name="BWD" ColumnName="BWD" />
+                <ScalarProperty Name="BWA" ColumnName="BWA" />
+                <ScalarProperty Name="IWH" ColumnName="IWH" />
+                <ScalarProperty Name="IWD" ColumnName="IWD" />
+                <ScalarProperty Name="IWA" ColumnName="IWA" />
+                <ScalarProperty Name="LBH" ColumnName="LBH" />
+                <ScalarProperty Name="LBD" ColumnName="LBD" />
+                <ScalarProperty Name="LBA" ColumnName="LBA" />
+                <ScalarProperty Name="PSH" ColumnName="PSH" />
+                <ScalarProperty Name="PSD" ColumnName="PSD" />
+                <ScalarProperty Name="PSA" ColumnName="PSA" />
+                <ScalarProperty Name="WHH" ColumnName="WHH" />
+                <ScalarProperty Name="WHD" ColumnName="WHD" />
+                <ScalarProperty Name="WHA" ColumnName="WHA" />
+                <ScalarProperty Name="SJH" ColumnName="SJH" />
+                <ScalarProperty Name="SJD" ColumnName="SJD" />
+                <ScalarProperty Name="SJA" ColumnName="SJA" />
+                <ScalarProperty Name="VCH" ColumnName="VCH" />
+                <ScalarProperty Name="VCD" ColumnName="VCD" />
+                <ScalarProperty Name="VCA" ColumnName="VCA" />
+                <ScalarProperty Name="GBH" ColumnName="GBH" />
+                <ScalarProperty Name="GBD" ColumnName="GBD" />
+                <ScalarProperty Name="GBA" ColumnName="GBA" />
+                <ScalarProperty Name="BSH" ColumnName="BSH" />
+                <ScalarProperty Name="BSD" ColumnName="BSD" />
+                <ScalarProperty Name="BSA" ColumnName="BSA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="EuropeanSoccerModel.Player">
+              <MappingFragment StoreEntitySet="Player">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="player_api_id" ColumnName="player_api_id" />
+                <ScalarProperty Name="player_name" ColumnName="player_name" />
+                <ScalarProperty Name="player_fifa_api_id" ColumnName="player_fifa_api_id" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Player_Attributes">
+            <EntityTypeMapping TypeName="EuropeanSoccerModel.Player_Attributes">
+              <MappingFragment StoreEntitySet="Player_Attributes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="player_fifa_api_id" ColumnName="player_fifa_api_id" />
+                <ScalarProperty Name="player_api_id" ColumnName="player_api_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="overall_rating" ColumnName="overall_rating" />
+                <ScalarProperty Name="potential" ColumnName="potential" />
+                <ScalarProperty Name="preferred_foot" ColumnName="preferred_foot" />
+                <ScalarProperty Name="attacking_work_rate" ColumnName="attacking_work_rate" />
+                <ScalarProperty Name="defensive_work_rate" ColumnName="defensive_work_rate" />
+                <ScalarProperty Name="crossing" ColumnName="crossing" />
+                <ScalarProperty Name="finishing" ColumnName="finishing" />
+                <ScalarProperty Name="heading_accuracy" ColumnName="heading_accuracy" />
+                <ScalarProperty Name="short_passing" ColumnName="short_passing" />
+                <ScalarProperty Name="volleys" ColumnName="volleys" />
+                <ScalarProperty Name="dribbling" ColumnName="dribbling" />
+                <ScalarProperty Name="curve" ColumnName="curve" />
+                <ScalarProperty Name="free_kick_accuracy" ColumnName="free_kick_accuracy" />
+                <ScalarProperty Name="long_passing" ColumnName="long_passing" />
+                <ScalarProperty Name="ball_control" ColumnName="ball_control" />
+                <ScalarProperty Name="acceleration" ColumnName="acceleration" />
+                <ScalarProperty Name="sprint_speed" ColumnName="sprint_speed" />
+                <ScalarProperty Name="agility" ColumnName="agility" />
+                <ScalarProperty Name="reactions" ColumnName="reactions" />
+                <ScalarProperty Name="balance" ColumnName="balance" />
+                <ScalarProperty Name="shot_power" ColumnName="shot_power" />
+                <ScalarProperty Name="jumping" ColumnName="jumping" />
+                <ScalarProperty Name="stamina" ColumnName="stamina" />
+                <ScalarProperty Name="strength" ColumnName="strength" />
+                <ScalarProperty Name="long_shots" ColumnName="long_shots" />
+                <ScalarProperty Name="aggression" ColumnName="aggression" />
+                <ScalarProperty Name="interceptions" ColumnName="interceptions" />
+                <ScalarProperty Name="positioning" ColumnName="positioning" />
+                <ScalarProperty Name="vision" ColumnName="vision" />
+                <ScalarProperty Name="penalties" ColumnName="penalties" />
+                <ScalarProperty Name="marking" ColumnName="marking" />
+                <ScalarProperty Name="standing_tackle" ColumnName="standing_tackle" />
+                <ScalarProperty Name="sliding_tackle" ColumnName="sliding_tackle" />
+                <ScalarProperty Name="gk_diving" ColumnName="gk_diving" />
+                <ScalarProperty Name="gk_handling" ColumnName="gk_handling" />
+                <ScalarProperty Name="gk_kicking" ColumnName="gk_kicking" />
+                <ScalarProperty Name="gk_positioning" ColumnName="gk_positioning" />
+                <ScalarProperty Name="gk_reflexes" ColumnName="gk_reflexes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="EuropeanSoccerModel.Team">
+              <MappingFragment StoreEntitySet="Team">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="team_api_id" ColumnName="team_api_id" />
+                <ScalarProperty Name="team_fifa_api_id" ColumnName="team_fifa_api_id" />
+                <ScalarProperty Name="team_long_name" ColumnName="team_long_name" />
+                <ScalarProperty Name="team_short_name" ColumnName="team_short_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Team_Attributes">
+            <EntityTypeMapping TypeName="EuropeanSoccerModel.Team_Attributes">
+              <MappingFragment StoreEntitySet="Team_Attributes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="team_fifa_api_id" ColumnName="team_fifa_api_id" />
+                <ScalarProperty Name="team_api_id" ColumnName="team_api_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="buildUpPlaySpeed" ColumnName="buildUpPlaySpeed" />
+                <ScalarProperty Name="buildUpPlaySpeedClass" ColumnName="buildUpPlaySpeedClass" />
+                <ScalarProperty Name="buildUpPlayDribbling" ColumnName="buildUpPlayDribbling" />
+                <ScalarProperty Name="buildUpPlayDribblingClass" ColumnName="buildUpPlayDribblingClass" />
+                <ScalarProperty Name="buildUpPlayPassing" ColumnName="buildUpPlayPassing" />
+                <ScalarProperty Name="buildUpPlayPassingClass" ColumnName="buildUpPlayPassingClass" />
+                <ScalarProperty Name="buildUpPlayPositioningClass" ColumnName="buildUpPlayPositioningClass" />
+                <ScalarProperty Name="chanceCreationPassing" ColumnName="chanceCreationPassing" />
+                <ScalarProperty Name="chanceCreationPassingClass" ColumnName="chanceCreationPassingClass" />
+                <ScalarProperty Name="chanceCreationCrossing" ColumnName="chanceCreationCrossing" />
+                <ScalarProperty Name="chanceCreationCrossingClass" ColumnName="chanceCreationCrossingClass" />
+                <ScalarProperty Name="chanceCreationShooting" ColumnName="chanceCreationShooting" />
+                <ScalarProperty Name="chanceCreationShootingClass" ColumnName="chanceCreationShootingClass" />
+                <ScalarProperty Name="chanceCreationPositioningClass" ColumnName="chanceCreationPositioningClass" />
+                <ScalarProperty Name="defencePressure" ColumnName="defencePressure" />
+                <ScalarProperty Name="defencePressureClass" ColumnName="defencePressureClass" />
+                <ScalarProperty Name="defenceAggression" ColumnName="defenceAggression" />
+                <ScalarProperty Name="defenceAggressionClass" ColumnName="defenceAggressionClass" />
+                <ScalarProperty Name="defenceTeamWidth" ColumnName="defenceTeamWidth" />
+                <ScalarProperty Name="defenceTeamWidthClass" ColumnName="defenceTeamWidthClass" />
+                <ScalarProperty Name="defenceDefenderLineClass" ColumnName="defenceDefenderLineClass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
