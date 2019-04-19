@@ -1,7 +1,9 @@
+using ChampionshipProblem.Classes;
 using ChampionshipProblem.Scheme;
+using ChampionshipProblem.Services;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace ChampionshipProblem
@@ -16,7 +18,14 @@ namespace ChampionshipProblem
         {
             using (EuropeanSoccerEntities soccerDb = new EuropeanSoccerEntities())
             {
-                Debug.WriteLine(soccerDb.Leagues.Count());
+                LeagueService leagueService = new LeagueService(soccerDb);
+                League bundesliga = leagueService.GetLeagueByName("Germany 1. Bundesliga");
+                string season = "2010/2011";
+                List<LeagueStandingEntry> standings = leagueService.CalculateStandingForLeague(bundesliga.id, season, 34);
+                foreach(LeagueStandingEntry entry in standings)
+                {
+                    Debug.WriteLine(entry.TeamLongName + ": " + entry.Points + " |(" + entry.Goals + "-" + entry.GoalsConceded + ")");
+                }
             }
 
             Application.EnableVisualStyles();

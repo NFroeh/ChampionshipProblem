@@ -1,0 +1,45 @@
+﻿using ChampionshipProblem.Scheme;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ChampionshipProblem.Services
+{
+    class TeamService
+    {
+        EuropeanSoccerEntities SoccerDb { get; set; }
+
+        public TeamService()
+        {
+            SoccerDb = new EuropeanSoccerEntities();
+        }
+
+        public TeamService(EuropeanSoccerEntities soccerDb)
+        {
+            SoccerDb = soccerDb;
+        }
+
+        public IEnumerable<Team> GetTeamsByLeagueAndSeason(long leagueId, string season)
+        {
+            IEnumerable<Match> matches = new MatchService(SoccerDb).GetMatchesByLeagueAndSeason(leagueId, season);
+            List<Team> teams = new List<Team>();
+            foreach(Match match in matches)
+            {
+                Team homeTeam = this.GetTeamById(match.home_team_api_id);
+                Team awayTeam = this.GetTeamById(match.away_team_api_id);
+
+                if (!teams.Contains(homeTeam)) teams.Add(homeTeam);
+                if (!teams.Contains(awayTeam)) teams.Add(awayTeam);
+            }
+
+            return teams;
+        }
+
+        public Team GetTeamById(long? teamApiId)
+        {
+            return SoccerDb.Teams.Single((team) => team.team_api_id == teamApiId);
+        }
+    }
+}
