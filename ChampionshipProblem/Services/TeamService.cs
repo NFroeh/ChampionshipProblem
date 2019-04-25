@@ -37,6 +37,11 @@ namespace ChampionshipProblem.Services
             return teams;
         }
 
+        public int GetNumberOfTeamsByLeagueAndSeason(long leagueId, string season)
+        {
+            return this.GetTeamsByLeagueAndSeason(leagueId, season).Count();
+        }
+
         public Team GetTeamById(long? teamApiId)
         {
             return SoccerDb.Teams.Single((team) => team.team_api_id == teamApiId);

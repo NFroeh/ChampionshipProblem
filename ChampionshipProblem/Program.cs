@@ -19,13 +19,13 @@ namespace ChampionshipProblem
             using (EuropeanSoccerEntities soccerDb = new EuropeanSoccerEntities())
             {
                 LeagueService leagueService = new LeagueService(soccerDb);
+
                 League bundesliga = leagueService.GetLeagueByName("Germany 1. Bundesliga");
                 string season = "2010/2011";
                 List<LeagueStandingEntry> standings = leagueService.CalculateStandingForLeague(bundesliga.id, season, 34);
-                foreach(LeagueStandingEntry entry in standings)
-                {
-                    Debug.WriteLine(entry.TeamLongName + ": " + entry.Points + " |(" + entry.Goals + "-" + entry.GoalsConceded + ")");
-                }
+
+                // Tabelle ausgeben
+                LeagueStandingService.PrintLeagueStanding(standings);
             }
 
             Application.EnableVisualStyles();
