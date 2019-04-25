@@ -12,11 +12,6 @@ namespace ChampionshipProblem.Services
     {
         EuropeanSoccerEntities SoccerDb { get; set; }
 
-        public MatchService()
-        {
-            SoccerDb = new EuropeanSoccerEntities();
-        }
-
         public MatchService(EuropeanSoccerEntities soccerDb)
         {
             SoccerDb = soccerDb;
@@ -30,6 +25,11 @@ namespace ChampionshipProblem.Services
         public IEnumerable<Match> GetMatchesByLeagueAndSeason(long leagueId, string season)
         {
             return SoccerDb.Matches.Where((match) => match.league_id == leagueId && match.season == season);
+        }
+
+        public List<RemainingMatch> GetRemainingMatches(string leagueName, string season, int stage)
+        {
+            return this.GetRemainingMatches(new LeagueService(this.SoccerDb).GetLeagueByName(leagueName).id, season, stage);
         }
 
         public List<RemainingMatch> GetRemainingMatches(long leagueId, string season, int stage)

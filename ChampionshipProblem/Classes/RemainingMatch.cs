@@ -8,6 +8,11 @@ namespace ChampionshipProblem.Classes
 {
     public class RemainingMatch
     {
+        public RemainingMatch()
+        {
+            MatchResult = MatchResult.Tie;
+        }
+
         public long Id { get; set; }
         public long CountryId { get; set; }
         public long LeagueId { get; set; }
@@ -19,5 +24,6 @@ namespace ChampionshipProblem.Classes
         public long AwayTeamApiId { get; set; }
         public long HomeTeamGoal { get; set; }
         public long AwayTeamGoal { get; set; }
+        public MatchResult MatchResult { get; set; }
     }
 }
