@@ -37,11 +37,11 @@ namespace ChampionshipProblem
                 List<RemainingMatch> remainingMatches = matchService.GetRemainingMatches(leagueName, season, stage);
                 int bestPosition = leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standings, standings.ElementAt(6).TeamApiId.Value);
                 Debug.Print("Beste Position: " + bestPosition);
-            }
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new Form1(soccerDb));
+            }
         }
     }
 }

@@ -59,5 +59,15 @@ namespace ChampionshipProblem.Services
 
             return remainingMatches;
         }
+
+        public long GetNumberOfMatches(long leagueId)
+        {
+            return SoccerDb.Matches.Where((match) => match.league_id == leagueId).Max((match) => match.stage).Value;
+        }
+
+        public IEnumerable<string> GetSeasonsByLeagueId(long leagueId)
+        {
+            return SoccerDb.Matches.Where((match) => match.league_id == leagueId).Select((match) => match.season).Distinct();
+        }
     }
 }

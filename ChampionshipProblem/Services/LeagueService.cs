@@ -26,5 +26,10 @@ namespace ChampionshipProblem.Services
         {
             return SoccerDb.Leagues.Single((league) => league.name == name);
         }
+
+        public IEnumerable<League> GetLeagues()
+        {
+            return SoccerDb.Leagues;
+        }
     }
 }

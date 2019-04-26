@@ -28,63 +28,147 @@ namespace ChampionshipProblem
         /// </summary>
         private void InitializeComponent()
         {
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.debugInstructionsLabel = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.helloWorldLabel = new System.Windows.Forms.Label();
+            this.leagueComboBox = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.Spieltag = new System.Windows.Forms.Label();
+            this.stageComboBox = new System.Windows.Forms.ComboBox();
+            this.standingView = new System.Windows.Forms.DataGridView();
+            this.Team = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Sp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.T = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Pkte = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.seasonComboBox = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.standingView)).BeginInit();
             this.SuspendLayout();
             // 
-            // linkLabel1
+            // leagueComboBox
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(191, 351);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(418, 20);
-            this.linkLabel1.TabIndex = 0;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Click here to continue learning how to build a desktop app!";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.leagueComboBox.DropDownWidth = 250;
+            this.leagueComboBox.FormattingEnabled = true;
+            this.leagueComboBox.Location = new System.Drawing.Point(63, 12);
+            this.leagueComboBox.Name = "leagueComboBox";
+            this.leagueComboBox.Size = new System.Drawing.Size(156, 21);
+            this.leagueComboBox.TabIndex = 0;
+            this.leagueComboBox.SelectedIndexChanged += new System.EventHandler(this.leagueComboBox_SelectedIndexChanged);
             // 
-            // debugInstructionsLabel
+            // label1
             // 
-            this.debugInstructionsLabel.AutoSize = true;
-            this.debugInstructionsLabel.Location = new System.Drawing.Point(146, 107);
-            this.debugInstructionsLabel.Name = "debugInstructionsLabel";
-            this.debugInstructionsLabel.Size = new System.Drawing.Size(532, 20);
-            this.debugInstructionsLabel.TabIndex = 1;
-            this.debugInstructionsLabel.Text = "Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app!";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(8, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(49, 15);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "League";
             // 
-            // button1
+            // Spieltag
             // 
-            this.button1.Location = new System.Drawing.Point(325, 240);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(146, 43);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Click Me!";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Spieltag.AutoSize = true;
+            this.Spieltag.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Spieltag.Location = new System.Drawing.Point(407, 13);
+            this.Spieltag.Name = "Spieltag";
+            this.Spieltag.Size = new System.Drawing.Size(60, 15);
+            this.Spieltag.TabIndex = 2;
+            this.Spieltag.Text = "Matchday";
             // 
-            // helloWorldLabel
+            // stageComboBox
             // 
-            this.helloWorldLabel.AutoSize = true;
-            this.helloWorldLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.helloWorldLabel.Location = new System.Drawing.Point(303, 30);
-            this.helloWorldLabel.Name = "helloWorldLabel";
-            this.helloWorldLabel.Size = new System.Drawing.Size(192, 37);
-            this.helloWorldLabel.TabIndex = 3;
-            this.helloWorldLabel.Text = "Hello World!";
+            this.stageComboBox.FormattingEnabled = true;
+            this.stageComboBox.Location = new System.Drawing.Point(473, 12);
+            this.stageComboBox.Name = "stageComboBox";
+            this.stageComboBox.Size = new System.Drawing.Size(42, 21);
+            this.stageComboBox.TabIndex = 3;
+            this.stageComboBox.SelectedIndexChanged += new System.EventHandler(this.stageComboBox_SelectedIndexChanged);
+            // 
+            // standingView
+            // 
+            this.standingView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.standingView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Team,
+            this.Sp,
+            this.T,
+            this.GT,
+            this.TD,
+            this.Pkte});
+            this.standingView.Location = new System.Drawing.Point(12, 67);
+            this.standingView.Name = "standingView";
+            this.standingView.Size = new System.Drawing.Size(644, 365);
+            this.standingView.TabIndex = 4;
+            // 
+            // Team
+            // 
+            this.Team.HeaderText = "Team";
+            this.Team.Name = "Team";
+            this.Team.ReadOnly = true;
+            // 
+            // Sp
+            // 
+            this.Sp.HeaderText = "Sp";
+            this.Sp.Name = "Sp";
+            this.Sp.ReadOnly = true;
+            // 
+            // T
+            // 
+            this.T.HeaderText = "T";
+            this.T.Name = "T";
+            this.T.ReadOnly = true;
+            // 
+            // GT
+            // 
+            this.GT.HeaderText = "GT";
+            this.GT.Name = "GT";
+            this.GT.ReadOnly = true;
+            // 
+            // TD
+            // 
+            this.TD.HeaderText = "TD";
+            this.TD.Name = "TD";
+            this.TD.ReadOnly = true;
+            // 
+            // Pkte
+            // 
+            this.Pkte.HeaderText = "Pkte";
+            this.Pkte.Name = "Pkte";
+            this.Pkte.ReadOnly = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(225, 13);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(49, 15);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Season";
+            // 
+            // seasonComboBox
+            // 
+            this.seasonComboBox.FormattingEnabled = true;
+            this.seasonComboBox.Location = new System.Drawing.Point(280, 12);
+            this.seasonComboBox.Name = "seasonComboBox";
+            this.seasonComboBox.Size = new System.Drawing.Size(121, 21);
+            this.seasonComboBox.TabIndex = 6;
+            this.seasonComboBox.SelectedIndexChanged += new System.EventHandler(this.seasonComboBox_SelectedIndexChanged);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.helloWorldLabel);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.debugInstructionsLabel);
-            this.Controls.Add(this.linkLabel1);
+            this.ClientSize = new System.Drawing.Size(875, 489);
+            this.Controls.Add(this.seasonComboBox);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.standingView);
+            this.Controls.Add(this.stageComboBox);
+            this.Controls.Add(this.Spieltag);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.leagueComboBox);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.standingView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -92,10 +176,19 @@ namespace ChampionshipProblem
 
         #endregion
 
-        private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Label debugInstructionsLabel;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label helloWorldLabel;
+        private System.Windows.Forms.ComboBox leagueComboBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label Spieltag;
+        private System.Windows.Forms.ComboBox stageComboBox;
+        private System.Windows.Forms.DataGridView standingView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Team;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Sp;
+        private System.Windows.Forms.DataGridViewTextBoxColumn T;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TD;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Pkte;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox seasonComboBox;
     }
 }
 
