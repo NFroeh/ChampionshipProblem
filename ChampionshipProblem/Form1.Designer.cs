@@ -33,12 +33,6 @@ namespace ChampionshipProblem
             this.Spieltag = new System.Windows.Forms.Label();
             this.stageComboBox = new System.Windows.Forms.ComboBox();
             this.standingView = new System.Windows.Forms.DataGridView();
-            this.Team = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Sp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.T = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Pkte = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.seasonComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.standingView)).BeginInit();
@@ -86,53 +80,10 @@ namespace ChampionshipProblem
             // standingView
             // 
             this.standingView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.standingView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Team,
-            this.Sp,
-            this.T,
-            this.GT,
-            this.TD,
-            this.Pkte});
             this.standingView.Location = new System.Drawing.Point(12, 67);
             this.standingView.Name = "standingView";
             this.standingView.Size = new System.Drawing.Size(644, 365);
             this.standingView.TabIndex = 4;
-            // 
-            // Team
-            // 
-            this.Team.HeaderText = "Team";
-            this.Team.Name = "Team";
-            this.Team.ReadOnly = true;
-            // 
-            // Sp
-            // 
-            this.Sp.HeaderText = "Sp";
-            this.Sp.Name = "Sp";
-            this.Sp.ReadOnly = true;
-            // 
-            // T
-            // 
-            this.T.HeaderText = "T";
-            this.T.Name = "T";
-            this.T.ReadOnly = true;
-            // 
-            // GT
-            // 
-            this.GT.HeaderText = "GT";
-            this.GT.Name = "GT";
-            this.GT.ReadOnly = true;
-            // 
-            // TD
-            // 
-            this.TD.HeaderText = "TD";
-            this.TD.Name = "TD";
-            this.TD.ReadOnly = true;
-            // 
-            // Pkte
-            // 
-            this.Pkte.HeaderText = "Pkte";
-            this.Pkte.Name = "Pkte";
-            this.Pkte.ReadOnly = true;
             // 
             // label2
             // 
@@ -181,12 +132,6 @@ namespace ChampionshipProblem
         private System.Windows.Forms.Label Spieltag;
         private System.Windows.Forms.ComboBox stageComboBox;
         private System.Windows.Forms.DataGridView standingView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Team;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Sp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn T;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TD;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Pkte;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox seasonComboBox;
     }

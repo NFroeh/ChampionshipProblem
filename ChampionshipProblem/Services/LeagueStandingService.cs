@@ -104,21 +104,34 @@ namespace ChampionshipProblem.Services
                 if (match.home_team_goal > match.away_team_goal)
                 {
                     home.Points += 3;
+                    home.Wins++;
+                    away.Losses++;
                 }
                 else if (match.home_team_goal < match.away_team_goal)
                 {
+                    home.Losses++;
                     away.Points += 3;
+                    away.Wins++;
                 }
                 else
                 {
+                    home.Ties++;
                     home.Points += 1;
+                    away.Ties++;
                     away.Points += 1;
                 }
 
+                home.Games++;
                 home.Goals += (int)match.home_team_goal.Value;
                 home.GoalsConceded += (int)match.away_team_goal.Value;
+                away.Games++;
                 away.Goals += (int)match.away_team_goal.Value;
                 away.GoalsConceded += (int)match.home_team_goal.Value;
+            }
+
+            foreach(LeagueStandingEntry entry in leagueStandings)
+            {
+                entry.GoalDifference = entry.Goals - entry.GoalsConceded;
             }
 
             leagueStandings = leagueStandings

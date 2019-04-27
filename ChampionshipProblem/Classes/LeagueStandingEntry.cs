@@ -27,10 +27,20 @@ namespace ChampionshipProblem.Classes
 
         public string TeamLongName { get; set; }
 
+        public int Games { get; set; }
+
+        public int Wins { get; set; }
+
+        public int Ties { get; set; }
+
+        public int Losses { get; set; }
+
         public int Points { get; set; }
 
         public int Goals { get; set; }
 
         public int GoalsConceded { get; set; }
+
+        public int GoalDifference { get; set; }
     }
 }
