@@ -84,6 +84,7 @@ namespace ChampionshipProblem
             this.standingView.Name = "standingView";
             this.standingView.Size = new System.Drawing.Size(644, 365);
             this.standingView.TabIndex = 4;
+            this.standingView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.standingView_CellClick);
             // 
             // label2
             // 

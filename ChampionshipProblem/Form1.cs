@@ -25,6 +25,9 @@ namespace ChampionshipProblem
         private League CurrentSelectedLeague;
         private string CurrentSelectedSeason;
         private int CurrentSelectedStage;
+        private IEnumerable<LeagueStandingEntry> LeagueStandingEntries;
+        private MatchService MatchService;
+        private LeagueStandingService LeagueStandingService;
 
         public Form1(EuropeanSoccerEntities soccerDB)
         {
@@ -36,6 +39,9 @@ namespace ChampionshipProblem
             this.StagesComboBox = (ComboBox)this.Controls.Find("stageComboBox", false).First();
             this.SeasonComboBox = (ComboBox)this.Controls.Find("seasonComboBox", false).First();
             this.StandingsView = (DataGridView)this.Controls.Find("standingView", false).First();
+            this.LeagueStandingEntries = new List<LeagueStandingEntry>();
+            this.MatchService = new MatchService(soccerDB);
+            this.LeagueStandingService = null;
 
             // Keine automatische Gernerierung der Spalten in der DataGridView
             StandingsView.AutoGenerateColumns = false;
@@ -59,12 +65,11 @@ namespace ChampionshipProblem
             ComboBox leagueCombox = (ComboBox)sender;
             this.CurrentSelectedLeague = (League)leagueComboBox.SelectedValue;
 
-            MatchService matchService = new MatchService(this.SoccerDb);
-            long stages = matchService.GetNumberOfMatches(this.CurrentSelectedLeague.id);
+            long stages = this.MatchService.GetNumberOfMatches(this.CurrentSelectedLeague.id);
 
             StagesComboBox.DataSource = Enumerable.Range(1, (int)stages).ToArray();
 
-            string[] seasons = matchService.GetSeasonsByLeagueId(this.CurrentSelectedLeague.id).ToArray();
+            string[] seasons = this.MatchService.GetSeasonsByLeagueId(this.CurrentSelectedLeague.id).ToArray();
 
             this.SeasonComboBox.DataSource = seasons;
         }
@@ -84,13 +89,13 @@ namespace ChampionshipProblem
         private void RefreshStandingsView()
         {
             // Service erzeugen
-            LeagueStandingService leagueStandingService = new LeagueStandingService(this.SoccerDb, this.CurrentSelectedLeague.name, this.CurrentSelectedSeason);
+            this.LeagueStandingService = new LeagueStandingService(this.SoccerDb, this.CurrentSelectedLeague.name, this.CurrentSelectedSeason);
 
             //tabelle ermitteln
-            IEnumerable<LeagueStandingEntry> leagueStandingEntries = leagueStandingService.CalculateStandingForLeague(this.CurrentSelectedStage);
+            this.LeagueStandingEntries = this.LeagueStandingService.CalculateStandingForLeague(this.CurrentSelectedStage);
 
-            // Ergebnis setzen
-            this.standingView.DataSource = leagueStandingEntries.ToArray();
+            // Ergebnis LeagueStandingEntries
+            this.standingView.DataSource = this.LeagueStandingEntries.ToArray();
         }
 
         /// <summary>
@@ -213,6 +218,41 @@ namespace ChampionshipProblem
             pointsColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             pointsColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.standingView.Columns.Add(pointsColumn);
+
+            DataGridViewColumn bestPossiblePositionColumn = new DataGridViewTextBoxColumn
+            {
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = "BestPossiblePosition",
+                Name = "Best possible position",
+                Width = 50
+            };
+            bestPossiblePositionColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            bestPossiblePositionColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.standingView.Columns.Add(bestPossiblePositionColumn);
+
+            DataGridViewColumn computeBestColumn = new DataGridViewButtonColumn()
+            {
+                Name = "Compute best position",
+                Text = "Compute best position",
+                UseColumnTextForButtonValue = true,
+                Width = 150
+            };
+            computeBestColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            computeBestColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.standingView.Columns.Add(computeBestColumn);
+        }
+
+        private void standingView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == this.StandingsView.Columns["Compute best position"].Index)
+            {
+                DataGridViewRow selectedRow = this.StandingsView.Rows[e.RowIndex];
+                LeagueStandingEntry entry = (LeagueStandingEntry)selectedRow.DataBoundItem;
+
+                // Service erzeugen
+                entry.BestPossiblePosition = this.LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
+                this.StandingsView.Refresh();
+            }
         }
     }
 }

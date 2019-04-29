@@ -34,6 +34,11 @@ namespace ChampionshipProblem.Services
 
         public int CalculateBestPossibleFinalPositionForTeam(int stage, IEnumerable<LeagueStandingEntry> leagueStandingEntries, long teamApiId)
         {
+            if (stage < 19)
+            {
+                return 1;
+            }
+
             MatchService matchService = new MatchService(this.SoccerDb);
             List<RemainingMatch> remainingMatches = matchService.GetRemainingMatches(this.LeagueId, this.Season, stage).ToList();
             int bestPosition = int.MaxValue;
