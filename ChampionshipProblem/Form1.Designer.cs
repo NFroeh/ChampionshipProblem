@@ -82,7 +82,7 @@ namespace ChampionshipProblem
             this.standingView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.standingView.Location = new System.Drawing.Point(12, 67);
             this.standingView.Name = "standingView";
-            this.standingView.Size = new System.Drawing.Size(644, 365);
+            this.standingView.Size = new System.Drawing.Size(938, 365);
             this.standingView.TabIndex = 4;
             this.standingView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.standingView_CellClick);
             // 
@@ -109,7 +109,7 @@ namespace ChampionshipProblem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(875, 489);
+            this.ClientSize = new System.Drawing.Size(962, 489);
             this.Controls.Add(this.seasonComboBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.standingView);

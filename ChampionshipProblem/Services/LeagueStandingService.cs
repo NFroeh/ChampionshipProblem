@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ChampionshipProblem.Services
@@ -34,27 +35,106 @@ namespace ChampionshipProblem.Services
 
         public int CalculateBestPossibleFinalPositionForTeam(int stage, IEnumerable<LeagueStandingEntry> leagueStandingEntries, long teamApiId)
         {
-            if (stage < 19)
+            MatchService matchService = new MatchService(this.SoccerDb);
+            long numberOfMatches = matchService.GetNumberOfMatches(this.LeagueId);
+
+            // Wenn erst die Hälfte der Spiele gespielt ist, kann noch jeder Platz erreicht werden
+            if (stage <= numberOfMatches / 2)
             {
                 return 1;
             }
 
-            MatchService matchService = new MatchService(this.SoccerDb);
-            List<RemainingMatch> remainingMatches = matchService.GetRemainingMatches(this.LeagueId, this.Season, stage).ToList();
-            int bestPosition = int.MaxValue;
-
-            // Durchlaufe alle möglichen Spielkombinationen
-            for (int possibilityIndex = 0; possibilityIndex < Math.Pow(3, remainingMatches.Count()); possibilityIndex++)
+            // Wenn es der letzte Spieltag ist, steht die Position fest
+            if (stage == numberOfMatches)
             {
+                return leagueStandingEntries.ToList().IndexOf(leagueStandingEntries.Single((entry) => entry.TeamApiId == teamApiId)) + 1;
+            }
+
+            // Die fehlenden Spiele ermitteln
+            List<RemainingMatch> remainingMatches = matchService.GetRemainingMatches(this.LeagueId, this.Season, stage).ToList();
+
+            // Liste kopieren, da sonst die Einträge verändert werden 
+            List<LeagueStandingEntry> leagueStandings = new List<LeagueStandingEntry>();
+            foreach (LeagueStandingEntry entry in leagueStandingEntries)
+            {
+                LeagueStandingEntry newEntry = new LeagueStandingEntry(entry.TeamId, entry.TeamApiId, entry.TeamShortName, entry.TeamLongName)
+                {
+                    Points = entry.Points
+                };
+
+                leagueStandings.Add(newEntry);
+            }
+
+            // Berechnung mit den ermittelten Werten durchführen (Liste hier kopieren, dass diese nicht in der Ansicht geändert wird)
+            return LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandings, remainingMatches, teamApiId, ((int) numberOfMatches - stage));
+        }
+
+        public static int CalculateBestPossibleFinalPositionForTeam(IEnumerable<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, long teamApiId, int numberOfMissingStages)
+        {
+            // Als Erstes die Liste kopieren, dass die Ansicht nicht verändert wird
+            var positionLock = new object();
+            int bestPosition = int.MaxValue;
+            LeagueStandingEntry leagueStandingEntry = leagueStandingEntries.Single((entry) => entry.TeamApiId == teamApiId);
+
+            // Nun die Teams ermitteln, welche unerreichbar sind für das Team
+            List<LeagueStandingEntry> unconsideredEntries = new List<LeagueStandingEntry>();
+            foreach (LeagueStandingEntry entry in leagueStandingEntries)
+            {
+                // Falls das Team nurnoch Punktgleich (oder weniger) oder Punktgleich oder mehr Punkte erreichen kann, dann das Team immer gewinnen lassen
+                if ((entry.Points + (numberOfMissingStages * 3) <= leagueStandingEntry.Points) ||
+                    (entry.Points > leagueStandingEntry.Points + (numberOfMissingStages * 3)))
+                {
+                    unconsideredEntries.Add(entry);
+                }
+            }
+
+            // Vorbereitung der fehlenden Matches
+            foreach (RemainingMatch remainingMatch in remainingMatches.ToList())
+            {
+                LeagueStandingEntry homeEntry = unconsideredEntries.Find((entry) => entry.TeamApiId == remainingMatch.HomeTeamApiId);
+                LeagueStandingEntry guestEntry = unconsideredEntries.Find((entry) => entry.TeamApiId == remainingMatch.AwayTeamApiId);
+
+                // Zuerst alle Spiele, welche dem betrachteten Team sind auf "Sieg" setzen
+                if (remainingMatch.AwayTeamApiId == teamApiId)
+                {
+                    remainingMatch.MatchResult = MatchResult.WinGuest;
+                    leagueStandingEntry.Points += 3;
+                    remainingMatches.Remove(remainingMatch);
+                }
+                else if (remainingMatch.HomeTeamApiId == teamApiId)
+                {
+                    remainingMatch.MatchResult = MatchResult.WinHome;
+                    leagueStandingEntry.Points += 3;
+                    remainingMatches.Remove(remainingMatch);
+                }
+                else if(homeEntry != null)
+                {
+                    remainingMatch.MatchResult = MatchResult.WinHome;
+                    homeEntry.Points += 3;
+                    remainingMatches.Remove(remainingMatch);
+                }
+                else if(guestEntry != null)
+                {
+                    remainingMatch.MatchResult = MatchResult.WinGuest;
+                    guestEntry.Points += 3;
+                    remainingMatches.Remove(remainingMatch);
+                }
+            }
+
+            // Die Entries neu sortieren
+            Parallel.For(0, (int) Math.Pow(3, remainingMatches.Count()), (index) =>
+            {
+                if (index % 10000 == 0) Debug.WriteLine(index);
+
                 // Hole die ternäre Repräsentation der Zahl
-                string ternary = possibilityIndex.ConvertToBase(3);
-                
+                string ternary = index.ConvertToBase(3);
+
                 // Durchlaufe die Begegnungen, um die Ergebnisse zu setzen
                 for (int matchIndex = 0; matchIndex < remainingMatches.Count(); matchIndex++)
                 {
                     // Entweder Unentschieden setzen oder den Match Wert ermitteln, falls vorhanden
                     // Hier muss der Char vorher in einen String umgewandelt werden, da sonst die Konvertierung nach ASCI gemacht wird
-                    byte matchResult = (matchIndex < ternary.Length)? Convert.ToByte(ternary[matchIndex].ToString()) : (byte)0;
+                    byte matchResult = (matchIndex < ternary.Length) ? Convert.ToByte(ternary[matchIndex].ToString()) : (byte)0;
 
                     remainingMatches[matchIndex].MatchResult = (MatchResult)matchResult;
 
@@ -62,7 +142,48 @@ namespace ChampionshipProblem.Services
                 }
 
                 // Berechne die Tabelle für die RemainingMatches und dem aktuellen Tabellenstand
-                List<LeagueStandingEntry> leagueStanding = this.CalculateLeagueStandingForRemainingMatches(leagueStandingEntries, remainingMatches);
+                List<LeagueStandingEntry> leagueStanding = LeagueStandingService.CalculateLeagueStandingForRemainingMatches(leagueStandingEntries, remainingMatches);
+
+                // Überprüfen, ob es eine neue beste Position gibt
+                LeagueStandingEntry teamEntry = leagueStanding.Single((entry) => entry.TeamApiId == teamApiId);
+                int position = leagueStanding.IndexOf(teamEntry) + 1;
+
+                // Noch die Positionen der Teams welche gleich viele Punkte haben, aber über diesem Team stehen abziehen
+                int numberOfTeamsWithSamePointsAndShorterName = leagueStanding.Where((entry) => entry.Points == teamEntry.Points && entry.TeamShortName.CompareTo(teamEntry.TeamShortName) == -1).Count();
+                position -= numberOfTeamsWithSamePointsAndShorterName;
+                lock (positionLock)
+                {
+                    if (position < (int) bestPosition)
+                    {
+                        bestPosition = position;
+                    }
+                }
+                
+            });
+
+            /*
+            // Durchlaufe alle möglichen Spielkombinationen
+            for (int possibilityIndex = 0; possibilityIndex < Math.Pow(3, remainingMatches.Count()); possibilityIndex++)
+            {
+                if (possibilityIndex % 1000 == 0) Debug.WriteLine(possibilityIndex);
+
+                // Hole die ternäre Repräsentation der Zahl
+                string ternary = possibilityIndex.ConvertToBase(3);
+
+                // Durchlaufe die Begegnungen, um die Ergebnisse zu setzen
+                for (int matchIndex = 0; matchIndex < remainingMatches.Count(); matchIndex++)
+                {
+                    // Entweder Unentschieden setzen oder den Match Wert ermitteln, falls vorhanden
+                    // Hier muss der Char vorher in einen String umgewandelt werden, da sonst die Konvertierung nach ASCI gemacht wird
+                    byte matchResult = (matchIndex < ternary.Length) ? Convert.ToByte(ternary[matchIndex].ToString()) : (byte)0;
+
+                    remainingMatches[matchIndex].MatchResult = (MatchResult)matchResult;
+
+                    // Hier könnte jetzt noch die Toreanzahl gesetzt werden
+                }
+
+                // Berechne die Tabelle für die RemainingMatches und dem aktuellen Tabellenstand
+                List<LeagueStandingEntry> leagueStanding = LeagueStandingService.CalculateLeagueStandingForRemainingMatches(leagueStandingEntries, remainingMatches);
 
                 // Überprüfen, ob es eine neue beste Position gibt
                 LeagueStandingEntry teamEntry = leagueStanding.Single((entry) => entry.TeamApiId == teamApiId);
@@ -75,7 +196,7 @@ namespace ChampionshipProblem.Services
                 {
                     bestPosition = position;
                 }
-            }
+            }*/
 
             return bestPosition;
         }
@@ -159,7 +280,7 @@ namespace ChampionshipProblem.Services
             }
         }
 
-        private List<LeagueStandingEntry> CalculateLeagueStandingForRemainingMatches(IEnumerable<LeagueStandingEntry> leagueStandingEntries, IEnumerable<RemainingMatch> remainingMatches)
+        private static List<LeagueStandingEntry> CalculateLeagueStandingForRemainingMatches(IEnumerable<LeagueStandingEntry> leagueStandingEntries, IEnumerable<RemainingMatch> remainingMatches)
         {
             List<LeagueStandingEntry> leagueStandings = new List<LeagueStandingEntry>();
 
@@ -193,7 +314,7 @@ namespace ChampionshipProblem.Services
 
             leagueStandings = leagueStandings
                 .OrderByDescending((entry) => entry.Points)
-                .ThenByDescending((entry) => entry.TeamShortName)
+                .ThenBy((entry) => entry.TeamShortName)
                 .ToList();
 
             return leagueStandings;
