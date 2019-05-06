@@ -65,9 +65,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LeagueStandingServiceTest.cs" />
+    <Compile Include="BestPossiblePositionTest.cs" />
+    <Compile Include="CanBeChampionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestUtils.cs" />
+    <Compile Include="WorstPossiblePositionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

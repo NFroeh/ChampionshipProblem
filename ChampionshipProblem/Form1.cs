@@ -92,7 +92,7 @@ namespace ChampionshipProblem
             this.LeagueStandingService = new LeagueStandingService(this.SoccerDb, this.CurrentSelectedLeague.name, this.CurrentSelectedSeason);
 
             //tabelle ermitteln
-            this.LeagueStandingEntries = this.LeagueStandingService.CalculateStandingForLeague(this.CurrentSelectedStage);
+            this.LeagueStandingEntries = this.LeagueStandingService.CalculateStanding(this.CurrentSelectedStage);
 
             // Ergebnis LeagueStandingEntries
             this.standingView.DataSource = this.LeagueStandingEntries.ToArray();
@@ -104,6 +104,18 @@ namespace ChampionshipProblem
         private void GenerateStandingsViewColumns()
         {
             // Die Spalten der DataGridView hinzufügen
+            DataGridViewColumn positionColumn = new DataGridViewTextBoxColumn
+            {
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = "Position",
+                Name = "P",
+                ReadOnly = true,
+                Width = 20
+            };
+            positionColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            positionColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.standingView.Columns.Add(positionColumn);
+
             DataGridViewColumn teamColumn = new DataGridViewTextBoxColumn
             {
                 CellTemplate = new DataGridViewTextBoxCell(),
@@ -116,7 +128,6 @@ namespace ChampionshipProblem
             teamColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.standingView.Columns.Add(teamColumn);
 
-            // Die Spalten der DataGridView hinzufügen
             DataGridViewColumn gamesColumn = new DataGridViewTextBoxColumn
             {
                 CellTemplate = new DataGridViewTextBoxCell(),
@@ -129,7 +140,6 @@ namespace ChampionshipProblem
             gamesColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.standingView.Columns.Add(gamesColumn);
 
-            // Die Spalten der DataGridView hinzufügen
             DataGridViewColumn winsColumn = new DataGridViewTextBoxColumn
             {
                 CellTemplate = new DataGridViewTextBoxCell(),
@@ -142,7 +152,6 @@ namespace ChampionshipProblem
             winsColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.standingView.Columns.Add(winsColumn);
 
-            // Die Spalten der DataGridView hinzufügen
             DataGridViewColumn tiescolumn = new DataGridViewTextBoxColumn
             {
                 CellTemplate = new DataGridViewTextBoxCell(),
@@ -155,7 +164,6 @@ namespace ChampionshipProblem
             tiescolumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.standingView.Columns.Add(tiescolumn);
 
-            // Die Spalten der DataGridView hinzufügen
             DataGridViewColumn lossesColumn = new DataGridViewTextBoxColumn
             {
                 CellTemplate = new DataGridViewTextBoxCell(),
@@ -168,7 +176,6 @@ namespace ChampionshipProblem
             lossesColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.standingView.Columns.Add(lossesColumn);
 
-            // Die Spalten der DataGridView hinzufügen
             DataGridViewColumn goalsColumn = new DataGridViewTextBoxColumn
             {
                 CellTemplate = new DataGridViewTextBoxCell(),
@@ -181,7 +188,6 @@ namespace ChampionshipProblem
             goalsColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.standingView.Columns.Add(goalsColumn);
 
-            // Die Spalten der DataGridView hinzufügen
             DataGridViewColumn goalsConcededColumn = new DataGridViewTextBoxColumn
             {
                 CellTemplate = new DataGridViewTextBoxCell(),
@@ -194,7 +200,6 @@ namespace ChampionshipProblem
             goalsConcededColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.standingView.Columns.Add(goalsConcededColumn);
 
-            // Die Spalten der DataGridView hinzufügen
             DataGridViewColumn goalDifferenceColumn = new DataGridViewTextBoxColumn
             {
                 CellTemplate = new DataGridViewTextBoxCell(),
@@ -207,7 +212,6 @@ namespace ChampionshipProblem
             goalDifferenceColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.standingView.Columns.Add(goalDifferenceColumn);
 
-            // Die Spalten der DataGridView hinzufügen
             DataGridViewColumn pointsColumn = new DataGridViewTextBoxColumn
             {
                 CellTemplate = new DataGridViewTextBoxCell(),
@@ -230,6 +234,28 @@ namespace ChampionshipProblem
             bestPossiblePositionColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.standingView.Columns.Add(bestPossiblePositionColumn);
 
+            DataGridViewColumn worstPossiblePositionColumn = new DataGridViewTextBoxColumn
+            {
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = "WorstPossiblePosition",
+                Name = "Worst possible position",
+                Width = 50
+            };
+            worstPossiblePositionColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            worstPossiblePositionColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.standingView.Columns.Add(worstPossiblePositionColumn);
+
+            DataGridViewColumn canWinChampionshipColumn = new DataGridViewTextBoxColumn
+            {
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = "CanWinChampionship",
+                Name = "Possible Champion",
+                Width = 70
+            };
+            canWinChampionshipColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            canWinChampionshipColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.standingView.Columns.Add(canWinChampionshipColumn);
+
             DataGridViewColumn computeBestColumn = new DataGridViewButtonColumn()
             {
                 Name = "Compute best position",
@@ -240,6 +266,28 @@ namespace ChampionshipProblem
             computeBestColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             computeBestColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.standingView.Columns.Add(computeBestColumn);
+
+            DataGridViewColumn computerWorstColumn = new DataGridViewButtonColumn()
+            {
+                Name = "Compute worst position",
+                Text = "Compute worst position",
+                UseColumnTextForButtonValue = true,
+                Width = 150
+            };
+            computerWorstColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            computerWorstColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.standingView.Columns.Add(computerWorstColumn);
+
+            DataGridViewColumn computeCanWinColumn = new DataGridViewButtonColumn()
+            {
+                Name = "Compute possible championship",
+                Text = "Compute possible championship",
+                UseColumnTextForButtonValue = true,
+                Width = 185
+            };
+            computeCanWinColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            computeCanWinColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.standingView.Columns.Add(computeCanWinColumn);
         }
 
         private void standingView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -249,8 +297,26 @@ namespace ChampionshipProblem
                 DataGridViewRow selectedRow = this.StandingsView.Rows[e.RowIndex];
                 LeagueStandingEntry entry = (LeagueStandingEntry)selectedRow.DataBoundItem;
 
-                // Service erzeugen
                 entry.BestPossiblePosition = this.LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
+                this.StandingsView.Refresh();
+            }
+
+            if (e.ColumnIndex == this.StandingsView.Columns["Compute worst position"].Index)
+            {
+                DataGridViewRow selectedRow = this.StandingsView.Rows[e.RowIndex];
+                LeagueStandingEntry entry = (LeagueStandingEntry)selectedRow.DataBoundItem;
+
+                entry.WorstPossiblePosition = this.LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
+                this.StandingsView.Refresh();
+            }
+
+            if (e.ColumnIndex == this.StandingsView.Columns["Compute possible championship"].Index)
+            {
+                DataGridViewRow selectedRow = this.StandingsView.Rows[e.RowIndex];
+                LeagueStandingEntry entry = (LeagueStandingEntry)selectedRow.DataBoundItem;
+
+                // Ausrechnen
+                entry.CanWinChampionship = this.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
                 this.StandingsView.Refresh();
             }
         }

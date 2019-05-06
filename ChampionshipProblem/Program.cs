@@ -25,11 +25,11 @@ namespace ChampionshipProblem
                 string season = "2010/2011";
                 LeagueStandingService leagueStandingService = new LeagueStandingService(soccerDb, leagueName, season);
 
-                List<LeagueStandingEntry> standings = leagueStandingService.CalculateStandingForLeague(34);
+                List<LeagueStandingEntry> standings = leagueStandingService.CalculateStanding(34);
 
                 // Eine neue Berechnung anstellen
                 int stage = 33;
-                standings = leagueStandingService.CalculateStandingForLeague(stage);
+                standings = leagueStandingService.CalculateStanding(stage);
 
                 // Tabelle ausgeben
                 LeagueStandingService.PrintLeagueStanding(standings);

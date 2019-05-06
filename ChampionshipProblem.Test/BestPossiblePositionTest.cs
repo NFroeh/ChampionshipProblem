@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ChampionshipProblem.Test
 {
     [TestClass]
-    public class LeagueStandingServiceTest
+    public class BestPossiblePositionTest
     {
         [TestMethod]
         public void Season1991Test()
@@ -40,7 +40,7 @@ namespace ChampionshipProblem.Test
 
                 LeagueStandingService leagueStandingService = new LeagueStandingService(soccerDb, leagueName, season);
 
-                List<LeagueStandingEntry> standing = leagueStandingService.CalculateStandingForLeague(stage);
+                List<LeagueStandingEntry> standing = leagueStandingService.CalculateStanding(stage);
                 leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing, standing[4].TeamApiId.Value);
             }
         }
@@ -58,7 +58,7 @@ namespace ChampionshipProblem.Test
 
                 LeagueStandingService leagueStandingService = new LeagueStandingService(soccerDb, leagueName, season);
 
-                List<LeagueStandingEntry> standing = leagueStandingService.CalculateStandingForLeague(stage);
+                List<LeagueStandingEntry> standing = leagueStandingService.CalculateStanding(stage);
                 Assert.AreEqual(1, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing, standing[0].TeamApiId.Value));
                 Assert.AreEqual(2, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing, standing[1].TeamApiId.Value));
                 Assert.AreEqual(2, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing, standing[2].TeamApiId.Value));

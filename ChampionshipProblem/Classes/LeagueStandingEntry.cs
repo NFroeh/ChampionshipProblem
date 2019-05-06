@@ -19,6 +19,9 @@ namespace ChampionshipProblem.Classes
             this.GoalsConceded = 0;
             this.GoalDifference = 0;
             this.BestPossiblePosition = null;
+            this.WorstPossiblePosition = null;
+            this.CanWinChampionship = null;
+            this.Position = 0;
         }
 
         public int TeamId { get; set; }
@@ -45,6 +48,12 @@ namespace ChampionshipProblem.Classes
 
         public int GoalDifference { get; set; }
 
+        public int Position { get; set; }
+
         public int? BestPossiblePosition { get; set; }
+
+        public int? WorstPossiblePosition { get; set; }
+
+        public bool? CanWinChampionship { get; set; }
     }
 }
