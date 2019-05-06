@@ -21,13 +21,17 @@ namespace ChampionshipProblem
         public EuropeanSoccerEntities SoccerDb;
         private ComboBox StagesComboBox;
         private ComboBox SeasonComboBox;
+        private ComboBox RemainingMatchesComboBox;
         private DataGridView StandingsView;
+        private DataGridView RemainingMatchesView;
         private League CurrentSelectedLeague;
         private string CurrentSelectedSeason;
         private int CurrentSelectedStage;
+        private int CurrentSelectedRemainingMatchStage;
         private IEnumerable<LeagueStandingEntry> LeagueStandingEntries;
         private MatchService MatchService;
         private LeagueStandingService LeagueStandingService;
+        private long NumberOfStages; 
 
         public Form1(EuropeanSoccerEntities soccerDB)
         {
@@ -38,17 +42,26 @@ namespace ChampionshipProblem
             this.SoccerDb = soccerDB;
             this.StagesComboBox = (ComboBox)this.Controls.Find("stageComboBox", false).First();
             this.SeasonComboBox = (ComboBox)this.Controls.Find("seasonComboBox", false).First();
+            this.RemainingMatchesComboBox = (ComboBox)this.Controls.Find("remainingMatchComboBox", false).First();
             this.StandingsView = (DataGridView)this.Controls.Find("standingView", false).First();
+            this.RemainingMatchesView = (DataGridView)this.Controls.Find("remainingMatchesView", false).First();
             this.LeagueStandingEntries = new List<LeagueStandingEntry>();
             this.MatchService = new MatchService(soccerDB);
             this.LeagueStandingService = null;
 
-            // Keine automatische Gernerierung der Spalten in der DataGridView
-            StandingsView.AutoGenerateColumns = false;
+            // Keine automatische Generierung der Spalten in der DataGridView
+            this.StandingsView.AutoGenerateColumns = false;
+            this.RemainingMatchesView.AutoGenerateColumns = false;
+
+            // Die Selektorspalte ausblenden
+            this.StandingsView.RowHeadersVisible = false;
+            this.RemainingMatchesView.RowHeadersVisible = false;
 
             this.CurrentSelectedLeague = null;
             this.CurrentSelectedSeason = null;
             this.CurrentSelectedStage = 1;
+            this.CurrentSelectedRemainingMatchStage = 2;
+            this.NumberOfStages = 0;
             ComboBox leagueComboBox = (ComboBox)this.Controls.Find("leagueComboBox", false).First();
 
             // Die Ligen als Datengrundlage setzen
@@ -56,8 +69,11 @@ namespace ChampionshipProblem
             leagueComboBox.DataSource = leagues;
             leagueComboBox.DisplayMember = "name";
 
-            // Spalten des Grids generieren
+            // Spalten des standingView generieren
             this.GenerateStandingsViewColumns();
+
+            // Spalten des remainingMatchesView generieren
+            this.GenerateRemainingMatchesViewColumns();
         }
 
         private void leagueComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -66,9 +82,10 @@ namespace ChampionshipProblem
             this.CurrentSelectedLeague = (League)leagueComboBox.SelectedValue;
 
             long stages = this.MatchService.GetNumberOfMatches(this.CurrentSelectedLeague.id);
-
+            this.NumberOfStages = this.MatchService.GetNumberOfMatches(this.CurrentSelectedLeague.id);
             StagesComboBox.DataSource = Enumerable.Range(1, (int)stages).ToArray();
-
+            RemainingMatchesComboBox.DataSource = Enumerable.Range(((int)this.CurrentSelectedStage + 1), (int)this.NumberOfStages).ToArray();
+            
             string[] seasons = this.MatchService.GetSeasonsByLeagueId(this.CurrentSelectedLeague.id).ToArray();
 
             this.SeasonComboBox.DataSource = seasons;
@@ -77,27 +94,69 @@ namespace ChampionshipProblem
         private void stageComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.CurrentSelectedStage = (int) StagesComboBox.SelectedValue;
-            this.RefreshStandingsView();
+            RemainingMatchesComboBox.DataSource = Enumerable.Range(((int)this.CurrentSelectedStage + 1), (int)this.NumberOfStages).ToArray();
+            this.CurrentSelectedRemainingMatchStage = (this.CurrentSelectedStage + 1);
+            this.RefreshView();
         }
 
         private void seasonComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.CurrentSelectedSeason = (string)this.SeasonComboBox.SelectedValue;
-            this.RefreshStandingsView();
+            this.RefreshView();
         }
 
-        private void RefreshStandingsView()
+        private void RefreshView()
         {
             // Service erzeugen
             this.LeagueStandingService = new LeagueStandingService(this.SoccerDb, this.CurrentSelectedLeague.name, this.CurrentSelectedSeason);
 
-            //tabelle ermitteln
+            // Tabelle ermitteln
             this.LeagueStandingEntries = this.LeagueStandingService.CalculateStanding(this.CurrentSelectedStage);
+
+            // Fehlende Spiele ermitteln
+            IEnumerable<RemainingMatch> remainingMatches = new MatchService(this.SoccerDb).GetRemainingMatches(this.CurrentSelectedLeague.id, this.CurrentSelectedSeason, this.CurrentSelectedStage);
+
+            // Remaining-Matches setzen
+            this.remainingMatchesView.DataSource = remainingMatches.Where((match) => match.Stage == this.CurrentSelectedRemainingMatchStage).ToArray();
 
             // Ergebnis LeagueStandingEntries
             this.standingView.DataSource = this.LeagueStandingEntries.ToArray();
         }
 
+        #region GenerateRemainingMatchesViewColumns
+        /// <summary>
+        /// Methode zum Generieren der Spalten für das Grid mit den fehlenden Spielen.
+        /// </summary>
+        private void GenerateRemainingMatchesViewColumns()
+        {
+            // Die Spalten der DataGridView hinzufügen
+            DataGridViewColumn homeColumn = new DataGridViewTextBoxColumn
+            {
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = "HomeTeamName",
+                Name = "Home",
+                ReadOnly = true,
+                Width = 200
+            };
+            homeColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            homeColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.remainingMatchesView.Columns.Add(homeColumn);
+
+            DataGridViewColumn awayColumn = new DataGridViewTextBoxColumn
+            {
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = "AwayTeamName",
+                Name = "Away",
+                ReadOnly = true,
+                Width = 200
+            };
+            awayColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            awayColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.remainingMatchesView.Columns.Add(awayColumn);
+        }
+        #endregion
+
+        #region GenerateStandingsViewColumns
         /// <summary>
         /// Methode zum Erstellen der Spalten der Tabelle.
         /// </summary>
@@ -289,6 +348,7 @@ namespace ChampionshipProblem
             computeCanWinColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.standingView.Columns.Add(computeCanWinColumn);
         }
+        #endregion
 
         private void standingView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -319,6 +379,12 @@ namespace ChampionshipProblem
                 entry.CanWinChampionship = this.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
                 this.StandingsView.Refresh();
             }
+        }
+
+        private void remainingMatchComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.CurrentSelectedRemainingMatchStage = (int)this.RemainingMatchesComboBox.SelectedValue;
+            this.RefreshView();
         }
     }
 }

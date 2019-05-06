@@ -34,11 +34,16 @@ namespace ChampionshipProblem.Services
 
         public List<RemainingMatch> GetRemainingMatches(long leagueId, string season, int stage)
         {
+            // Services erzeugen
+            TeamService teamService = new TeamService(this.SoccerDb);
+
             IEnumerable<Match> matchesToConvert = SoccerDb.Matches.Where((match) => match.league_id == leagueId && match.season == season && match.stage > stage);
 
             List<RemainingMatch> remainingMatches = new List<RemainingMatch>();
+            IEnumerable<Team> teams = teamService.GetTeamsByLeagueAndSeason(leagueId, season);
+            Dictionary<long, string> teamNameToId = teamService.GetIdNameCollectionByLeagueAndSeason(leagueId, season);
 
-            foreach(Match match in matchesToConvert)
+            foreach (Match match in matchesToConvert)
             {
                 RemainingMatch remainingMatch = new RemainingMatch()
                 {
@@ -51,6 +56,8 @@ namespace ChampionshipProblem.Services
                     Date = match.date,
                     AwayTeamApiId = match.away_team_api_id.Value,
                     AwayTeamGoal = match.away_team_goal.Value,
+                    HomeTeamName = teamNameToId[match.home_team_api_id.Value],
+                    AwayTeamName = teamNameToId[match.away_team_api_id.Value],
                     HomeTeamApiId = match.home_team_api_id.Value,
                     HomeTeamGoal = match.home_team_goal.Value,
                 };

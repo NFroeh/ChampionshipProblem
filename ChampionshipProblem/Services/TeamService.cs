@@ -46,5 +46,18 @@ namespace ChampionshipProblem.Services
         {
             return SoccerDb.Teams.Single((team) => team.team_api_id == teamApiId);
         }
+
+        public Dictionary<long, string> GetIdNameCollectionByLeagueAndSeason(long leagueId, string season)
+        {
+            IEnumerable<Team> teams = this.GetTeamsByLeagueAndSeason(leagueId, season);
+            Dictionary<long, string> idNameCollection = new Dictionary<long, string>();
+
+            foreach(Team team in teams)
+            {
+                idNameCollection.Add(team.team_api_id.Value, team.team_long_name);
+            }
+
+            return idNameCollection;
+        }
     }
 }

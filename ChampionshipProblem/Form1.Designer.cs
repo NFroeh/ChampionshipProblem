@@ -35,7 +35,11 @@ namespace ChampionshipProblem
             this.standingView = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.seasonComboBox = new System.Windows.Forms.ComboBox();
+            this.remainingMatchesView = new System.Windows.Forms.DataGridView();
+            this.remainingMatchesLabel = new System.Windows.Forms.Label();
+            this.remainingMatchComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.standingView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.remainingMatchesView)).BeginInit();
             this.SuspendLayout();
             // 
             // leagueComboBox
@@ -82,7 +86,7 @@ namespace ChampionshipProblem
             this.standingView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.standingView.Location = new System.Drawing.Point(12, 39);
             this.standingView.Name = "standingView";
-            this.standingView.Size = new System.Drawing.Size(1430, 514);
+            this.standingView.Size = new System.Drawing.Size(1118, 514);
             this.standingView.TabIndex = 4;
             this.standingView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.standingView_CellClick);
             // 
@@ -105,11 +109,41 @@ namespace ChampionshipProblem
             this.seasonComboBox.TabIndex = 6;
             this.seasonComboBox.SelectedIndexChanged += new System.EventHandler(this.seasonComboBox_SelectedIndexChanged);
             // 
+            // remainingMatchesView
+            // 
+            this.remainingMatchesView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.remainingMatchesView.Location = new System.Drawing.Point(1136, 39);
+            this.remainingMatchesView.Name = "remainingMatchesView";
+            this.remainingMatchesView.Size = new System.Drawing.Size(400, 448);
+            this.remainingMatchesView.TabIndex = 7;
+            // 
+            // remainingMatchesLabel
+            // 
+            this.remainingMatchesLabel.AutoSize = true;
+            this.remainingMatchesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.remainingMatchesLabel.Location = new System.Drawing.Point(1133, 13);
+            this.remainingMatchesLabel.Name = "remainingMatchesLabel";
+            this.remainingMatchesLabel.Size = new System.Drawing.Size(161, 15);
+            this.remainingMatchesLabel.TabIndex = 8;
+            this.remainingMatchesLabel.Text = "Stage of remaining matches";
+            // 
+            // remainingMatchComboBox
+            // 
+            this.remainingMatchComboBox.FormattingEnabled = true;
+            this.remainingMatchComboBox.Location = new System.Drawing.Point(1300, 13);
+            this.remainingMatchComboBox.Name = "remainingMatchComboBox";
+            this.remainingMatchComboBox.Size = new System.Drawing.Size(42, 21);
+            this.remainingMatchComboBox.TabIndex = 10;
+            this.remainingMatchComboBox.SelectedIndexChanged += new System.EventHandler(this.remainingMatchComboBox_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1443, 553);
+            this.ClientSize = new System.Drawing.Size(1548, 602);
+            this.Controls.Add(this.remainingMatchComboBox);
+            this.Controls.Add(this.remainingMatchesLabel);
+            this.Controls.Add(this.remainingMatchesView);
             this.Controls.Add(this.seasonComboBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.standingView);
@@ -121,6 +155,7 @@ namespace ChampionshipProblem
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.standingView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.remainingMatchesView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,6 +170,9 @@ namespace ChampionshipProblem
         private System.Windows.Forms.DataGridView standingView;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox seasonComboBox;
+        private System.Windows.Forms.DataGridView remainingMatchesView;
+        private System.Windows.Forms.Label remainingMatchesLabel;
+        private System.Windows.Forms.ComboBox remainingMatchComboBox;
     }
 }
 

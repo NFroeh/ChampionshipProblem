@@ -22,6 +22,8 @@ namespace ChampionshipProblem.Classes
         public long MatchApiId { get; set; }
         public long HomeTeamApiId { get; set; }
         public long AwayTeamApiId { get; set; }
+        public string HomeTeamName { get; set; }
+        public string AwayTeamName { get; set; }
         public long HomeTeamGoal { get; set; }
         public long AwayTeamGoal { get; set; }
         public MatchResult MatchResult { get; set; }
