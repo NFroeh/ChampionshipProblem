@@ -22,6 +22,7 @@ namespace ChampionshipProblem.Classes
             this.WorstPossiblePosition = null;
             this.CanWinChampionship = null;
             this.Position = 0;
+            this.LastElapsedTime = null;
         }
 
         public int TeamId { get; set; }
@@ -55,5 +56,7 @@ namespace ChampionshipProblem.Classes
         public int? WorstPossiblePosition { get; set; }
 
         public bool? CanWinChampionship { get; set; }
+
+        public double? LastElapsedTime { get; set; }
     }
 }

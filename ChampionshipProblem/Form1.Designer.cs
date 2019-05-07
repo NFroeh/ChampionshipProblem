@@ -1,6 +1,6 @@
 namespace ChampionshipProblem
 {
-    partial class Form1
+    partial class ChampionshipProblemForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,29 +28,29 @@ namespace ChampionshipProblem
         /// </summary>
         private void InitializeComponent()
         {
-            this.leagueComboBox = new System.Windows.Forms.ComboBox();
+            this.LeagueComboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Spieltag = new System.Windows.Forms.Label();
-            this.stageComboBox = new System.Windows.Forms.ComboBox();
-            this.standingView = new System.Windows.Forms.DataGridView();
+            this.StageComboBox = new System.Windows.Forms.ComboBox();
+            this.StandingsView = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
-            this.seasonComboBox = new System.Windows.Forms.ComboBox();
-            this.remainingMatchesView = new System.Windows.Forms.DataGridView();
+            this.SeasonComboBox = new System.Windows.Forms.ComboBox();
+            this.RemainingMatchesView = new System.Windows.Forms.DataGridView();
             this.remainingMatchesLabel = new System.Windows.Forms.Label();
-            this.remainingMatchComboBox = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.standingView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.remainingMatchesView)).BeginInit();
+            this.RemainingMatchComboBox = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.StandingsView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RemainingMatchesView)).BeginInit();
             this.SuspendLayout();
             // 
-            // leagueComboBox
+            // LeagueComboBox
             // 
-            this.leagueComboBox.DropDownWidth = 250;
-            this.leagueComboBox.FormattingEnabled = true;
-            this.leagueComboBox.Location = new System.Drawing.Point(63, 12);
-            this.leagueComboBox.Name = "leagueComboBox";
-            this.leagueComboBox.Size = new System.Drawing.Size(156, 21);
-            this.leagueComboBox.TabIndex = 0;
-            this.leagueComboBox.SelectedIndexChanged += new System.EventHandler(this.leagueComboBox_SelectedIndexChanged);
+            this.LeagueComboBox.DropDownWidth = 250;
+            this.LeagueComboBox.FormattingEnabled = true;
+            this.LeagueComboBox.Location = new System.Drawing.Point(63, 12);
+            this.LeagueComboBox.Name = "LeagueComboBox";
+            this.LeagueComboBox.Size = new System.Drawing.Size(156, 21);
+            this.LeagueComboBox.TabIndex = 0;
+            this.LeagueComboBox.SelectedIndexChanged += new System.EventHandler(this.LeagueComboBox_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -72,23 +72,24 @@ namespace ChampionshipProblem
             this.Spieltag.TabIndex = 2;
             this.Spieltag.Text = "Matchday";
             // 
-            // stageComboBox
+            // StageComboBox
             // 
-            this.stageComboBox.FormattingEnabled = true;
-            this.stageComboBox.Location = new System.Drawing.Point(473, 12);
-            this.stageComboBox.Name = "stageComboBox";
-            this.stageComboBox.Size = new System.Drawing.Size(42, 21);
-            this.stageComboBox.TabIndex = 3;
-            this.stageComboBox.SelectedIndexChanged += new System.EventHandler(this.stageComboBox_SelectedIndexChanged);
+            this.StageComboBox.FormattingEnabled = true;
+            this.StageComboBox.Location = new System.Drawing.Point(473, 12);
+            this.StageComboBox.Name = "StageComboBox";
+            this.StageComboBox.Size = new System.Drawing.Size(42, 21);
+            this.StageComboBox.TabIndex = 3;
+            this.StageComboBox.SelectedIndexChanged += new System.EventHandler(this.StageComboBox_SelectedIndexChanged);
             // 
-            // standingView
+            // StandingsView
             // 
-            this.standingView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.standingView.Location = new System.Drawing.Point(12, 39);
-            this.standingView.Name = "standingView";
-            this.standingView.Size = new System.Drawing.Size(1118, 514);
-            this.standingView.TabIndex = 4;
-            this.standingView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.standingView_CellClick);
+            this.StandingsView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.StandingsView.Location = new System.Drawing.Point(12, 39);
+            this.StandingsView.Name = "StandingsView";
+            this.StandingsView.Size = new System.Drawing.Size(1118, 514);
+            this.StandingsView.TabIndex = 4;
+            this.StandingsView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.StandingsView_CellClick);
+            this.StandingsView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.StandingsView_CellFormatting);
             // 
             // label2
             // 
@@ -100,22 +101,22 @@ namespace ChampionshipProblem
             this.label2.TabIndex = 5;
             this.label2.Text = "Season";
             // 
-            // seasonComboBox
+            // SeasonComboBox
             // 
-            this.seasonComboBox.FormattingEnabled = true;
-            this.seasonComboBox.Location = new System.Drawing.Point(280, 12);
-            this.seasonComboBox.Name = "seasonComboBox";
-            this.seasonComboBox.Size = new System.Drawing.Size(121, 21);
-            this.seasonComboBox.TabIndex = 6;
-            this.seasonComboBox.SelectedIndexChanged += new System.EventHandler(this.seasonComboBox_SelectedIndexChanged);
+            this.SeasonComboBox.FormattingEnabled = true;
+            this.SeasonComboBox.Location = new System.Drawing.Point(280, 12);
+            this.SeasonComboBox.Name = "SeasonComboBox";
+            this.SeasonComboBox.Size = new System.Drawing.Size(121, 21);
+            this.SeasonComboBox.TabIndex = 6;
+            this.SeasonComboBox.SelectedIndexChanged += new System.EventHandler(this.SeasonComboBox_SelectedIndexChanged);
             // 
-            // remainingMatchesView
+            // RemainingMatchesView
             // 
-            this.remainingMatchesView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.remainingMatchesView.Location = new System.Drawing.Point(1136, 39);
-            this.remainingMatchesView.Name = "remainingMatchesView";
-            this.remainingMatchesView.Size = new System.Drawing.Size(400, 448);
-            this.remainingMatchesView.TabIndex = 7;
+            this.RemainingMatchesView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.RemainingMatchesView.Location = new System.Drawing.Point(1136, 39);
+            this.RemainingMatchesView.Name = "RemainingMatchesView";
+            this.RemainingMatchesView.Size = new System.Drawing.Size(400, 448);
+            this.RemainingMatchesView.TabIndex = 7;
             // 
             // remainingMatchesLabel
             // 
@@ -127,35 +128,35 @@ namespace ChampionshipProblem
             this.remainingMatchesLabel.TabIndex = 8;
             this.remainingMatchesLabel.Text = "Stage of remaining matches";
             // 
-            // remainingMatchComboBox
+            // RemainingMatchComboBox
             // 
-            this.remainingMatchComboBox.FormattingEnabled = true;
-            this.remainingMatchComboBox.Location = new System.Drawing.Point(1300, 13);
-            this.remainingMatchComboBox.Name = "remainingMatchComboBox";
-            this.remainingMatchComboBox.Size = new System.Drawing.Size(42, 21);
-            this.remainingMatchComboBox.TabIndex = 10;
-            this.remainingMatchComboBox.SelectedIndexChanged += new System.EventHandler(this.remainingMatchComboBox_SelectedIndexChanged);
+            this.RemainingMatchComboBox.FormattingEnabled = true;
+            this.RemainingMatchComboBox.Location = new System.Drawing.Point(1300, 13);
+            this.RemainingMatchComboBox.Name = "RemainingMatchComboBox";
+            this.RemainingMatchComboBox.Size = new System.Drawing.Size(42, 21);
+            this.RemainingMatchComboBox.TabIndex = 10;
+            this.RemainingMatchComboBox.SelectedIndexChanged += new System.EventHandler(this.RemainingMatchComboBox_SelectedIndexChanged);
             // 
-            // Form1
+            // ChampionshipProblemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1548, 602);
-            this.Controls.Add(this.remainingMatchComboBox);
+            this.Controls.Add(this.RemainingMatchComboBox);
             this.Controls.Add(this.remainingMatchesLabel);
-            this.Controls.Add(this.remainingMatchesView);
-            this.Controls.Add(this.seasonComboBox);
+            this.Controls.Add(this.RemainingMatchesView);
+            this.Controls.Add(this.SeasonComboBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.standingView);
-            this.Controls.Add(this.stageComboBox);
+            this.Controls.Add(this.StandingsView);
+            this.Controls.Add(this.StageComboBox);
             this.Controls.Add(this.Spieltag);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.leagueComboBox);
+            this.Controls.Add(this.LeagueComboBox);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.standingView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.remainingMatchesView)).EndInit();
+            this.Name = "ChampionshipProblemForm";
+            this.Text = "ChampionshipProblemForm";
+            ((System.ComponentModel.ISupportInitialize)(this.StandingsView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RemainingMatchesView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,16 +164,16 @@ namespace ChampionshipProblem
 
         #endregion
 
-        private System.Windows.Forms.ComboBox leagueComboBox;
+        private System.Windows.Forms.ComboBox LeagueComboBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label Spieltag;
-        private System.Windows.Forms.ComboBox stageComboBox;
-        private System.Windows.Forms.DataGridView standingView;
+        private System.Windows.Forms.ComboBox StageComboBox;
+        private System.Windows.Forms.DataGridView StandingsView;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox seasonComboBox;
-        private System.Windows.Forms.DataGridView remainingMatchesView;
+        private System.Windows.Forms.ComboBox SeasonComboBox;
+        private System.Windows.Forms.DataGridView RemainingMatchesView;
         private System.Windows.Forms.Label remainingMatchesLabel;
-        private System.Windows.Forms.ComboBox remainingMatchComboBox;
+        private System.Windows.Forms.ComboBox RemainingMatchComboBox;
     }
 }
 

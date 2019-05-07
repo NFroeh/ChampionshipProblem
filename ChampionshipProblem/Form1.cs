@@ -3,12 +3,9 @@ using ChampionshipProblem.Scheme;
 using ChampionshipProblem.Services;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 // This is the code for your desktop app.
@@ -16,58 +13,94 @@ using System.Windows.Forms;
 
 namespace ChampionshipProblem
 {
-    public partial class Form1 : Form
+    /// <summary>
+    /// Klasse repräsentiert das Form.
+    /// </summary>
+    public partial class ChampionshipProblemForm : Form
     {
+        #region fields
+        /// <summary>
+        /// Die Datenbankverbindung.
+        /// </summary>
         public EuropeanSoccerEntities SoccerDb;
-        private ComboBox StagesComboBox;
-        private ComboBox SeasonComboBox;
-        private ComboBox RemainingMatchesComboBox;
-        private DataGridView StandingsView;
-        private DataGridView RemainingMatchesView;
-        private League CurrentSelectedLeague;
-        private string CurrentSelectedSeason;
-        private int CurrentSelectedStage;
-        private int CurrentSelectedRemainingMatchStage;
-        private IEnumerable<LeagueStandingEntry> LeagueStandingEntries;
-        private MatchService MatchService;
-        private LeagueStandingService LeagueStandingService;
-        private long NumberOfStages; 
 
-        public Form1(EuropeanSoccerEntities soccerDB)
+        /// <summary>
+        /// Die aktuell ausgewählte Liga.
+        /// </summary>
+        private League CurrentSelectedLeague;
+
+        /// <summary>
+        /// Die aktuell ausgewählte Saison.
+        /// </summary>
+        private string CurrentSelectedSeason;
+
+        /// <summary>
+        /// Der aktuell ausgewählte Spieltag.
+        /// </summary>
+        private int CurrentSelectedStage;
+
+        /// <summary>
+        /// Der aktuell ausgewählte verbleibende Spieltag.
+        /// </summary>
+        private int CurrentSelectedRemainingMatchStage;
+
+        /// <summary>
+        /// Die aktuelle Tabelle
+        /// </summary>
+        private IEnumerable<LeagueStandingEntry> LeagueStandingEntries;
+
+        /// <summary>
+        /// Der MatchService.
+        /// </summary>
+        private MatchService MatchService;
+
+        /// <summary>
+        /// Der LeagueStandingService;
+        /// </summary>
+        private LeagueStandingService LeagueStandingService;
+
+        /// <summary>
+        /// Die Anzahl der aktuellen Spieltage.
+        /// </summary>
+        private int NumberOfStages;
+        #endregion
+
+        #region ctors
+        /// <summary>
+        /// Konstruktor zum Intialisieren der Instanzvariablen.
+        /// </summary>
+        /// <param name="soccerDB">Die Datenbank-Verbindung</param>
+        public ChampionshipProblemForm(EuropeanSoccerEntities soccerDB)
         {
             // Komponenten initialisieren
             InitializeComponent();
 
+            // Service erzeugen
             LeagueService leagueService = new LeagueService(soccerDB);
+
+            // Parameter merken oder erzeugen
             this.SoccerDb = soccerDB;
-            this.StagesComboBox = (ComboBox)this.Controls.Find("stageComboBox", false).First();
-            this.SeasonComboBox = (ComboBox)this.Controls.Find("seasonComboBox", false).First();
-            this.RemainingMatchesComboBox = (ComboBox)this.Controls.Find("remainingMatchComboBox", false).First();
-            this.StandingsView = (DataGridView)this.Controls.Find("standingView", false).First();
-            this.RemainingMatchesView = (DataGridView)this.Controls.Find("remainingMatchesView", false).First();
             this.LeagueStandingEntries = new List<LeagueStandingEntry>();
             this.MatchService = new MatchService(soccerDB);
             this.LeagueStandingService = null;
-
-            // Keine automatische Generierung der Spalten in der DataGridView
-            this.StandingsView.AutoGenerateColumns = false;
-            this.RemainingMatchesView.AutoGenerateColumns = false;
-
-            // Die Selektorspalte ausblenden
-            this.StandingsView.RowHeadersVisible = false;
-            this.RemainingMatchesView.RowHeadersVisible = false;
-
             this.CurrentSelectedLeague = null;
             this.CurrentSelectedSeason = null;
             this.CurrentSelectedStage = 1;
             this.CurrentSelectedRemainingMatchStage = 2;
             this.NumberOfStages = 0;
-            ComboBox leagueComboBox = (ComboBox)this.Controls.Find("leagueComboBox", false).First();
+
+            // Keine automatische Generierung der Spalten in der DataGridView
+            StandingsView.AutoGenerateColumns = false;
+            RemainingMatchesView.AutoGenerateColumns = false;
+
+            // Die Selektorspalte ausblenden
+            StandingsView.RowHeadersVisible = false;
+            RemainingMatchesView.RowHeadersVisible = false;
 
             // Die Ligen als Datengrundlage setzen
             List<League> leagues = leagueService.GetLeagues().ToList();
-            leagueComboBox.DataSource = leagues;
-            leagueComboBox.DisplayMember = "name";
+            LeagueComboBox.DataSource = leagues;
+            LeagueComboBox.DisplayMember = "name";
 
             // Spalten des standingView generieren
             this.GenerateStandingsViewColumns();
@@ -75,37 +108,137 @@ namespace ChampionshipProblem
             // Spalten des remainingMatchesView generieren
             this.GenerateRemainingMatchesViewColumns();
         }
+        #endregion
 
-        private void leagueComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        #region LeagueComboBox_SelectedIndexChanged
+        /// <summary>
+        /// Methode wird ausgeführt, wenn die LeagueComboBox geändert wird.
+        /// </summary>
+        /// <param name="sender">Der Sender.</param>
+        /// <param name="e">Die Argumente.</param>
+        private void LeagueComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboBox leagueCombox = (ComboBox)sender;
-            this.CurrentSelectedLeague = (League)leagueComboBox.SelectedValue;
+            // Die Liga ermitteln
+            this.CurrentSelectedLeague = (League)LeagueComboBox.SelectedValue;
 
-            long stages = this.MatchService.GetNumberOfMatches(this.CurrentSelectedLeague.id);
-            this.NumberOfStages = this.MatchService.GetNumberOfMatches(this.CurrentSelectedLeague.id);
-            StagesComboBox.DataSource = Enumerable.Range(1, (int)stages).ToArray();
-            RemainingMatchesComboBox.DataSource = Enumerable.Range(((int)this.CurrentSelectedStage + 1), (int)this.NumberOfStages).ToArray();
-            
+            // Die Saisons ermitteln und setzen
             string[] seasons = this.MatchService.GetSeasonsByLeagueId(this.CurrentSelectedLeague.id).ToArray();
-
             this.SeasonComboBox.DataSource = seasons;
-        }
 
-        private void stageComboBox_SelectedIndexChanged(object sender, EventArgs e)
+            // Die Anzahl der Spieltage ermitteln und setzen
+            this.NumberOfStages = (int)this.MatchService.GetNumberOfMatches(this.CurrentSelectedLeague.id);
+            StageComboBox.DataSource = Enumerable.Range(1, this.NumberOfStages).ToArray();
+        }
+        #endregion
+
+        #region SeasonComboBox_SelectedIndexChanged
+        /// <summary>
+        /// Methode wird ausgeführt, wenn ein neuer Wert in der SeasonComboBox ausgewählt wurde.
+        /// </summary>
+        /// <param name="sender">Der Sender.</param>
+        /// <param name="e">Die Argumente.</param>
+        private void SeasonComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.CurrentSelectedStage = (int) StagesComboBox.SelectedValue;
-            RemainingMatchesComboBox.DataSource = Enumerable.Range(((int)this.CurrentSelectedStage + 1), (int)this.NumberOfStages).ToArray();
+            this.CurrentSelectedSeason = (string)SeasonComboBox.SelectedValue;
+            this.RefreshStandings();
+        }
+        #endregion
+
+        #region StageComboBox_SelectedIndexChanged
+        /// <summary>
+        /// Methode wird ausgeführt, wenn ein neuer Wert in der StageComboBox ausgewählt wurde.
+        /// </summary>
+        /// <param name="sender">Der Sender.</param>
+        /// <param name="e">Die Argumente.</param>
+        private void StageComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Die aktuelle Stage ermitteln
+            this.CurrentSelectedStage = (int) StageComboBox.SelectedValue;
+
+            // Die neue RemainingStage-Range setzen
+            RemainingMatchComboBox.DataSource = Enumerable.Range(this.CurrentSelectedStage + 1, this.NumberOfStages).ToArray();
+
+            // Den Index neu setzen für die RemainingMatchStage
             this.CurrentSelectedRemainingMatchStage = (this.CurrentSelectedStage + 1);
-            this.RefreshView();
-        }
 
-        private void seasonComboBox_SelectedIndexChanged(object sender, EventArgs e)
+            // Die View aktualisieren
+            this.RefreshStandings();
+        }
+        #endregion
+
+        #region StandingsView_CellClick
+        /// <summary>
+        /// Methode wird ausgeführt, wenn auf eine Zelle der Tabelle geklickt wird.
+        /// </summary>
+        /// <param name="sender">Der Sender.</param>
+        /// <param name="e">Die Argumente</param>
+        private void StandingsView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            this.CurrentSelectedSeason = (string)this.SeasonComboBox.SelectedValue;
-            this.RefreshView();
-        }
+            if (e.ColumnIndex == this.StandingsView.Columns["Compute best position"].Index)
+            {
+                DataGridViewRow selectedRow = this.StandingsView.Rows[e.RowIndex];
+                LeagueStandingEntry entry = (LeagueStandingEntry)selectedRow.DataBoundItem;
 
-        private void RefreshView()
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                entry.BestPossiblePosition = this.LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
+                stopwatch.Stop();
+                Debug.WriteLine(stopwatch.ElapsedMilliseconds);
+                entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
+                this.StandingsView.Refresh();
+            }
+
+            if (e.ColumnIndex == this.StandingsView.Columns["Compute worst position"].Index)
+            {
+                DataGridViewRow selectedRow = this.StandingsView.Rows[e.RowIndex];
+                LeagueStandingEntry entry = (LeagueStandingEntry)selectedRow.DataBoundItem;
+
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                entry.WorstPossiblePosition = this.LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
+                stopwatch.Stop();
+                Debug.WriteLine(stopwatch.ElapsedMilliseconds);
+                entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
+                this.StandingsView.Refresh();
+            }
+
+            if (e.ColumnIndex == this.StandingsView.Columns["Compute possible championship"].Index)
+            {
+                DataGridViewRow selectedRow = this.StandingsView.Rows[e.RowIndex];
+                LeagueStandingEntry entry = (LeagueStandingEntry)selectedRow.DataBoundItem;
+
+                // Ausrechnen
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                entry.CanWinChampionship = this.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
+                stopwatch.Stop();
+                entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
+                this.StandingsView.Refresh();
+            }
+        }
+        #endregion
+
+        #region RemainingMatchComboBox_SelectedIndexChanged
+        /// <summary>
+        /// Methode wird ausgeführt, wenn die RemainingMatchComboBox geändert wird.
+        /// </summary>
+        /// <param name="sender">Der Sender.</param>
+        /// <param name="e">Die Argumente.</param>
+        private void RemainingMatchComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Neuer Parameter holen
+            this.CurrentSelectedRemainingMatchStage = (int)RemainingMatchComboBox.SelectedValue;
+
+            // Fehlende Spiele ermitteln
+            IEnumerable<RemainingMatch> remainingMatchesForSingleStage = this.MatchService.GetRemainingMatchesForSingleStage(this.CurrentSelectedLeague.id, this.CurrentSelectedSeason, this.CurrentSelectedRemainingMatchStage);
+
+            // Remaining-Matches setzen
+            this.RemainingMatchesView.DataSource = remainingMatchesForSingleStage.ToArray();
+        }
+        #endregion
+
+        #region RefreshStandings
+        /// <summary>
+        /// Methode zum Aktualisieren der Tabelle.
+        /// </summary>
+        private void RefreshStandings()
         {
             // Service erzeugen
             this.LeagueStandingService = new LeagueStandingService(this.SoccerDb, this.CurrentSelectedLeague.name, this.CurrentSelectedSeason);
@@ -113,15 +246,10 @@ namespace ChampionshipProblem
             // Tabelle ermitteln
             this.LeagueStandingEntries = this.LeagueStandingService.CalculateStanding(this.CurrentSelectedStage);
 
-            // Fehlende Spiele ermitteln
-            IEnumerable<RemainingMatch> remainingMatches = new MatchService(this.SoccerDb).GetRemainingMatches(this.CurrentSelectedLeague.id, this.CurrentSelectedSeason, this.CurrentSelectedStage);
-
-            // Remaining-Matches setzen
-            this.remainingMatchesView.DataSource = remainingMatches.Where((match) => match.Stage == this.CurrentSelectedRemainingMatchStage).ToArray();
-
-            // Ergebnis LeagueStandingEntries
-            this.standingView.DataSource = this.LeagueStandingEntries.ToArray();
+            // Die Tabelle binden
+            this.StandingsView.DataSource = this.LeagueStandingEntries.ToArray();
         }
+        #endregion
 
         #region GenerateRemainingMatchesViewColumns
         /// <summary>
@@ -140,7 +268,7 @@ namespace ChampionshipProblem
             };
             homeColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             homeColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.remainingMatchesView.Columns.Add(homeColumn);
+            this.RemainingMatchesView.Columns.Add(homeColumn);
 
             DataGridViewColumn awayColumn = new DataGridViewTextBoxColumn
             {
@@ -152,7 +280,7 @@ namespace ChampionshipProblem
             };
             awayColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             awayColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.remainingMatchesView.Columns.Add(awayColumn);
+            RemainingMatchesView.Columns.Add(awayColumn);
         }
         #endregion
 
@@ -173,7 +301,7 @@ namespace ChampionshipProblem
             };
             positionColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             positionColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.standingView.Columns.Add(positionColumn);
+            this.StandingsView.Columns.Add(positionColumn);
 
             DataGridViewColumn teamColumn = new DataGridViewTextBoxColumn
             {
@@ -185,7 +313,7 @@ namespace ChampionshipProblem
             };
             teamColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             teamColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.standingView.Columns.Add(teamColumn);
+            this.StandingsView.Columns.Add(teamColumn);
 
             DataGridViewColumn gamesColumn = new DataGridViewTextBoxColumn
             {
@@ -197,7 +325,7 @@ namespace ChampionshipProblem
             };
             gamesColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             gamesColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.standingView.Columns.Add(gamesColumn);
+            this.StandingsView.Columns.Add(gamesColumn);
 
             DataGridViewColumn winsColumn = new DataGridViewTextBoxColumn
             {
@@ -209,7 +337,7 @@ namespace ChampionshipProblem
             };
             winsColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             winsColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.standingView.Columns.Add(winsColumn);
+            this.StandingsView.Columns.Add(winsColumn);
 
             DataGridViewColumn tiescolumn = new DataGridViewTextBoxColumn
             {
@@ -221,7 +349,7 @@ namespace ChampionshipProblem
             };
             tiescolumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             tiescolumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.standingView.Columns.Add(tiescolumn);
+            this.StandingsView.Columns.Add(tiescolumn);
 
             DataGridViewColumn lossesColumn = new DataGridViewTextBoxColumn
             {
@@ -233,7 +361,7 @@ namespace ChampionshipProblem
             };
             lossesColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             lossesColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.standingView.Columns.Add(lossesColumn);
+            this.StandingsView.Columns.Add(lossesColumn);
 
             DataGridViewColumn goalsColumn = new DataGridViewTextBoxColumn
             {
@@ -245,7 +373,7 @@ namespace ChampionshipProblem
             };
             goalsColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             goalsColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.standingView.Columns.Add(goalsColumn);
+            this.StandingsView.Columns.Add(goalsColumn);
 
             DataGridViewColumn goalsConcededColumn = new DataGridViewTextBoxColumn
             {
@@ -257,7 +385,7 @@ namespace ChampionshipProblem
             };
             goalsConcededColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             goalsConcededColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.standingView.Columns.Add(goalsConcededColumn);
+            this.StandingsView.Columns.Add(goalsConcededColumn);
 
             DataGridViewColumn goalDifferenceColumn = new DataGridViewTextBoxColumn
             {
@@ -269,7 +397,7 @@ namespace ChampionshipProblem
             };
             goalDifferenceColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             goalDifferenceColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.standingView.Columns.Add(goalDifferenceColumn);
+            this.StandingsView.Columns.Add(goalDifferenceColumn);
 
             DataGridViewColumn pointsColumn = new DataGridViewTextBoxColumn
             {
@@ -280,7 +408,7 @@ namespace ChampionshipProblem
             };
             pointsColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             pointsColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.standingView.Columns.Add(pointsColumn);
+            this.StandingsView.Columns.Add(pointsColumn);
 
             DataGridViewColumn bestPossiblePositionColumn = new DataGridViewTextBoxColumn
             {
@@ -291,7 +419,7 @@ namespace ChampionshipProblem
             };
             bestPossiblePositionColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             bestPossiblePositionColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.standingView.Columns.Add(bestPossiblePositionColumn);
+            this.StandingsView.Columns.Add(bestPossiblePositionColumn);
 
             DataGridViewColumn worstPossiblePositionColumn = new DataGridViewTextBoxColumn
             {
@@ -302,7 +430,7 @@ namespace ChampionshipProblem
             };
             worstPossiblePositionColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             worstPossiblePositionColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.standingView.Columns.Add(worstPossiblePositionColumn);
+            this.StandingsView.Columns.Add(worstPossiblePositionColumn);
 
             DataGridViewColumn canWinChampionshipColumn = new DataGridViewTextBoxColumn
             {
@@ -313,78 +441,74 @@ namespace ChampionshipProblem
             };
             canWinChampionshipColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             canWinChampionshipColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.standingView.Columns.Add(canWinChampionshipColumn);
+            this.StandingsView.Columns.Add(canWinChampionshipColumn);
 
             DataGridViewColumn computeBestColumn = new DataGridViewButtonColumn()
             {
                 Name = "Compute best position",
-                Text = "Compute best position",
+                Text = "=>!",
                 UseColumnTextForButtonValue = true,
-                Width = 150
+                Width = 75
             };
             computeBestColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             computeBestColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.standingView.Columns.Add(computeBestColumn);
+            this.StandingsView.Columns.Add(computeBestColumn);
 
             DataGridViewColumn computerWorstColumn = new DataGridViewButtonColumn()
             {
                 Name = "Compute worst position",
-                Text = "Compute worst position",
+                Text = "=>!",
                 UseColumnTextForButtonValue = true,
-                Width = 150
+                Width = 75
             };
             computerWorstColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             computerWorstColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.standingView.Columns.Add(computerWorstColumn);
+            this.StandingsView.Columns.Add(computerWorstColumn);
 
             DataGridViewColumn computeCanWinColumn = new DataGridViewButtonColumn()
             {
                 Name = "Compute possible championship",
-                Text = "Compute possible championship",
+                Text = "=>!",
                 UseColumnTextForButtonValue = true,
-                Width = 185
+                Width = 80
             };
             computeCanWinColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             computeCanWinColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.standingView.Columns.Add(computeCanWinColumn);
+            this.StandingsView.Columns.Add(computeCanWinColumn);
+
+            DataGridViewColumn lastElapsedTimeColumn = new DataGridViewTextBoxColumn
+            {
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = "LastElapsedTime",
+                Name = "Last elapsed time in ms",
+                Width = 60
+            };
+            lastElapsedTimeColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            lastElapsedTimeColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            lastElapsedTimeColumn.DefaultCellStyle.Format = "0.000##";
+            lastElapsedTimeColumn.ValueType = typeof(double);
+            this.StandingsView.Columns.Add(lastElapsedTimeColumn);
         }
         #endregion
 
-        private void standingView_CellClick(object sender, DataGridViewCellEventArgs e)
+        #region StandingsView_CellFormatting
+        /// <summary>
+        /// Methode wird aufgerufen, wenn eine Zelle der StandingsView formatiert werden soll.
+        /// </summary>
+        /// <param name="sender">Der Sender.</param>
+        /// <param name="e">Die Argumente.</param>
+        private void StandingsView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == this.StandingsView.Columns["Compute best position"].Index)
+            // Wenn es die Spalte ist, ob der Verein noch Meister werden kann, dann den bool-Value umrechnen
+            if (e.ColumnIndex == this.StandingsView.Columns["Possible Champion"].Index)
             {
-                DataGridViewRow selectedRow = this.StandingsView.Rows[e.RowIndex];
-                LeagueStandingEntry entry = (LeagueStandingEntry)selectedRow.DataBoundItem;
-
-                entry.BestPossiblePosition = this.LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
-                this.StandingsView.Refresh();
-            }
-
-            if (e.ColumnIndex == this.StandingsView.Columns["Compute worst position"].Index)
-            {
-                DataGridViewRow selectedRow = this.StandingsView.Rows[e.RowIndex];
-                LeagueStandingEntry entry = (LeagueStandingEntry)selectedRow.DataBoundItem;
-
-                entry.WorstPossiblePosition = this.LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
-                this.StandingsView.Refresh();
-            }
-
-            if (e.ColumnIndex == this.StandingsView.Columns["Compute possible championship"].Index)
-            {
-                DataGridViewRow selectedRow = this.StandingsView.Rows[e.RowIndex];
-                LeagueStandingEntry entry = (LeagueStandingEntry)selectedRow.DataBoundItem;
-
-                // Ausrechnen
-                entry.CanWinChampionship = this.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
-                this.StandingsView.Refresh();
+                if (e.Value is bool value)
+                {
+                    e.Value = (value) ? "Yes" : "No";
+                    e.FormattingApplied = true;
+                }
             }
         }
-
-        private void remainingMatchComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.CurrentSelectedRemainingMatchStage = (int)this.RemainingMatchesComboBox.SelectedValue;
-            this.RefreshView();
-        }
+        #endregion
     }
 }
