@@ -124,10 +124,6 @@ namespace ChampionshipProblem
             // Die Saisons ermitteln und setzen
             string[] seasons = this.MatchService.GetSeasonsByLeagueId(this.CurrentSelectedLeague.id).ToArray();
             this.SeasonComboBox.DataSource = seasons;
-
-            // Die Anzahl der Spieltage ermitteln und setzen
-            this.NumberOfStages = (int)this.MatchService.GetNumberOfMatches(this.CurrentSelectedLeague.id);
-            StageComboBox.DataSource = Enumerable.Range(1, this.NumberOfStages).ToArray();
         }
         #endregion
 
@@ -140,6 +136,11 @@ namespace ChampionshipProblem
         private void SeasonComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.CurrentSelectedSeason = (string)SeasonComboBox.SelectedValue;
+
+            // Die Anzahl der Spieltage ermitteln und setzen (Bei Saisonänderung kann auch die Anzahl der Mannschaften verändert worden sein)
+            this.NumberOfStages = (int)this.MatchService.GetNumberOfMatches(this.CurrentSelectedLeague.id, this.CurrentSelectedSeason);
+            StageComboBox.DataSource = Enumerable.Range(1, this.NumberOfStages).ToArray();
+
             this.RefreshStandings();
         }
         #endregion

@@ -102,9 +102,9 @@ namespace ChampionshipProblem.Services
             return remainingMatches;
         }
 
-        public long GetNumberOfMatches(long leagueId)
+        public long GetNumberOfMatches(long leagueId, string season)
         {
-            return SoccerDb.Matches.Where((match) => match.league_id == leagueId).Max((match) => match.stage).Value;
+            return SoccerDb.Matches.Where((match) => match.league_id == leagueId && match.season == season).Max((match) => match.stage).Value;
         }
 
         public IEnumerable<string> GetSeasonsByLeagueId(long leagueId)
