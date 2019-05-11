@@ -70,6 +70,7 @@
     <Compile Include="Classes\MatchResult.cs" />
     <Compile Include="Classes\RemainingMatch.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />
+    <Compile Include="Extensions\LongExtensions.cs" />
     <Compile Include="Scheme\Country.cs">
       <DependentUpon>DatabaseScheme.tt</DependentUpon>
     </Compile>

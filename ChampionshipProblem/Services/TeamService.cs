@@ -18,7 +18,7 @@ namespace ChampionshipProblem.Services
 
         public IEnumerable<Team> GetTeamsByLeagueAndSeason(long leagueId, string season)
         {
-            IEnumerable<Match> matches = new MatchService(ChampionshipViewModel).GetMatchesByLeagueAndSeason(leagueId, season);
+            IEnumerable<Match> matches = ChampionshipViewModel.MatchService.GetMatchesByLeagueAndSeason(leagueId, season);
             List<Team> teams = new List<Team>();
             foreach(Match match in matches)
             {

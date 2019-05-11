@@ -50,16 +50,12 @@ namespace ChampionshipProblem.Services
         /// <param name="season">Die Saison.</param>
         public LeagueStandingService(ChampionshipViewModel championshipViewModel, string leagueName, string season)
         {
-            // Services erstellen
-            LeagueService leagueService = new LeagueService(championshipViewModel);
-            TeamService teamService = new TeamService(championshipViewModel);
-
             // Parameter merken und ermitteln
             this.ChampionshipViewModel = championshipViewModel;
-            this.League = leagueService.GetLeagueByName(leagueName);
+            this.League = this.ChampionshipViewModel.LeagueService.GetLeagueByName(leagueName);
             this.LeagueId = this.League.id;
             this.Season = season;
-            this.Teams = teamService.GetTeamsByLeagueAndSeason(this.League.id, season);
+            this.Teams = this.ChampionshipViewModel.TeamService.GetTeamsByLeagueAndSeason(this.League.id, season);
         }
         #endregion
 
@@ -74,8 +70,7 @@ namespace ChampionshipProblem.Services
         public int CalculateBestPossibleFinalPositionForTeam(int stage, IEnumerable<LeagueStandingEntry> leagueStandingEntries, long teamApiId)
         {
             // Service erzeugen und Anzahl der Spiele ermitteln
-            MatchService matchService = new MatchService(this.ChampionshipViewModel);
-            long numberOfMatches = matchService.GetNumberOfMatches(this.LeagueId, this.Season);
+            long numberOfMatches = this.ChampionshipViewModel.MatchService.GetNumberOfMatches(this.LeagueId, this.Season);
 
             // Wenn erst die Hälfte der Spiele gespielt ist, kann noch jeder Platz erreicht werden
             if (stage <= numberOfMatches / 2)
@@ -90,7 +85,7 @@ namespace ChampionshipProblem.Services
             }
 
             // Die fehlenden Spiele ermitteln
-            List<RemainingMatch> remainingMatches = matchService.GetRemainingMatches(this.LeagueId, this.Season, stage).ToList();
+            List<RemainingMatch> remainingMatches = this.ChampionshipViewModel.MatchService.GetRemainingMatches(this.LeagueId, this.Season, stage).ToList();
 
             // Liste kopieren, da sonst die Einträge verändert werden 
             List<LeagueStandingEntry> leagueStandings = new List<LeagueStandingEntry>();
@@ -171,7 +166,7 @@ namespace ChampionshipProblem.Services
             }
 
             // Die Entries neu sortieren
-            Parallel.For(0, (int) Math.Pow(3, remainingMatches.Count()), (index, loopState) =>
+            Parallel.For(0, (long) Math.Pow(3, remainingMatches.Count()), (index, loopState) =>
             {
                 // Hole die ternäre Repräsentation der Zahl
                 string ternary = index.ConvertToBase(3);
@@ -195,12 +190,14 @@ namespace ChampionshipProblem.Services
                 LeagueStandingEntry teamEntry = leagueStanding.Single((entry) => entry.TeamApiId == teamApiId);
                 int position = leagueStanding.IndexOf(teamEntry) + 1;
 
+                Debug.WriteLine(position);
+
                 // Noch die Positionen der Teams welche gleich viele Punkte haben, aber über diesem Team stehen abziehen
                 int numberOfTeamsWithSamePointsAndShorterName = leagueStanding.Where((entry) => entry.Points == teamEntry.Points && entry.TeamShortName.CompareTo(teamEntry.TeamShortName) == -1).Count();
                 position -= numberOfTeamsWithSamePointsAndShorterName;
                 lock (positionLock)
                 {
-                    if (position < (int) bestPosition)
+                    if (position < bestPosition)
                     {
                         bestPosition = position;
 
@@ -226,8 +223,7 @@ namespace ChampionshipProblem.Services
         /// <returns>Die schlechtmöglichste Position.</returns>
         public int CalculateWorstPossibleFinalPositionForTeam(int stage, IEnumerable<LeagueStandingEntry> leagueStandingEntries, long teamApiId)
         {
-            MatchService matchService = new MatchService(this.ChampionshipViewModel);
-            long numberOfMatches = matchService.GetNumberOfMatches(this.LeagueId, this.Season);
+            long numberOfMatches = this.ChampionshipViewModel.MatchService.GetNumberOfMatches(this.LeagueId, this.Season);
 
             // Wenn erst die Hälfte der Spiele gespielt ist, kann noch jeder Platz erreicht werden
             if (stage <= numberOfMatches / 2)
@@ -242,7 +238,7 @@ namespace ChampionshipProblem.Services
             }
 
             // Die fehlenden Spiele ermitteln
-            List<RemainingMatch> remainingMatches = matchService.GetRemainingMatches(this.LeagueId, this.Season, stage).ToList();
+            List<RemainingMatch> remainingMatches = this.ChampionshipViewModel.MatchService.GetRemainingMatches(this.LeagueId, this.Season, stage).ToList();
 
             // Liste kopieren, da sonst die Einträge verändert werden 
             List<LeagueStandingEntry> leagueStandings = new List<LeagueStandingEntry>();
@@ -324,7 +320,7 @@ namespace ChampionshipProblem.Services
             }
 
             // Die Entries neu sortieren
-            Parallel.For(0, (int)Math.Pow(3, remainingMatches.Count()), (index, loopState) =>
+            Parallel.For(0, (long)Math.Pow(3, remainingMatches.Count()), (index, loopState) =>
             {
                 // Hole die ternäre Repräsentation der Zahl
                 string ternary = index.ConvertToBase(3);
@@ -378,9 +374,8 @@ namespace ChampionshipProblem.Services
         /// <returns>Ob die Mannschaft noch Meister werden kann.</returns>
         public bool CalculateIfTeamCanWinChampionship(int stage, IEnumerable<LeagueStandingEntry> leagueStandingEntries, long teamApiId)
         {
-            // Service erzeugen und Anzahl der Spiele ermitteln
-            MatchService matchService = new MatchService(this.ChampionshipViewModel);
-            long numberOfMatches = matchService.GetNumberOfMatches(this.LeagueId, this.Season);
+            // Anzahl der Spiele ermitteln
+            long numberOfMatches = this.ChampionshipViewModel.MatchService.GetNumberOfMatches(this.LeagueId, this.Season);
 
             // Wenn erst die Hälfte der Spiele gespielt ist, kann noch jeder Platz erreicht werden
             if (stage <= numberOfMatches / 2)
@@ -395,7 +390,7 @@ namespace ChampionshipProblem.Services
             }
 
             // Die fehlenden Spiele ermitteln
-            List<RemainingMatch> remainingMatches = matchService.GetRemainingMatches(this.LeagueId, this.Season, stage).ToList();
+            List<RemainingMatch> remainingMatches = this.ChampionshipViewModel.MatchService.GetRemainingMatches(this.LeagueId, this.Season, stage).ToList();
 
             // Liste kopieren, da sonst die Einträge verändert werden 
             List<LeagueStandingEntry> leagueStandings = new List<LeagueStandingEntry>();
@@ -481,7 +476,7 @@ namespace ChampionshipProblem.Services
             }
 
             // Die Entries neu sortieren
-            Parallel.For(0, (int)Math.Pow(3, remainingMatches.Count()), (index, loopState) =>
+            Parallel.For(0, (long)Math.Pow(3, remainingMatches.Count()), (index, loopState) =>
             {
                 // Hole die ternäre Repräsentation der Zahl
                 string ternary = index.ConvertToBase(3);
@@ -528,11 +523,9 @@ namespace ChampionshipProblem.Services
         {
             // Entitäten und Services erzeugen
             List<LeagueStandingEntry> leagueStandings = new List<LeagueStandingEntry>();
-            MatchService matchService = new MatchService(this.ChampionshipViewModel);
-            LeagueService leagueService = new LeagueService(this.ChampionshipViewModel);
 
             // Die Liga ermitteln
-            League currentLeague = leagueService.GetLeague(this.LeagueId);
+            League currentLeague = this.ChampionshipViewModel.LeagueService.GetLeague(this.LeagueId);
 
             // Für jedes Team einen Eintrag anlegen
             foreach (Team team in this.Teams)
@@ -542,7 +535,7 @@ namespace ChampionshipProblem.Services
             }
 
             // Die Spiele ermitteln
-            IEnumerable<Match> matchesTilStage = matchService.GetMatchesUntilStage(this.LeagueId, this.Season, stage);
+            IEnumerable<Match> matchesTilStage = this.ChampionshipViewModel.MatchService.GetMatchesUntilStage(this.LeagueId, this.Season, stage);
 
             // Die Spiele durchlaufen und werten
             foreach (Match match in matchesTilStage)

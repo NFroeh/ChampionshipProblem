@@ -29,7 +29,7 @@ namespace ChampionshipProblem.Services
 
         public List<RemainingMatch> GetRemainingMatches(string leagueName, string season, int stage)
         {
-            return this.GetRemainingMatches(new LeagueService(this.ChampionshipViewModel).GetLeagueByName(leagueName).id, season, stage);
+            return this.GetRemainingMatches(this.ChampionshipViewModel.LeagueService.GetLeagueByName(leagueName).id, season, stage);
         }
 
         public List<RemainingMatch> GetRemainingMatches(long leagueId, string season, int stage)
@@ -69,14 +69,11 @@ namespace ChampionshipProblem.Services
 
         public List<RemainingMatch> GetRemainingMatchesForSingleStage(long leagueId, string season, int stage)
         {
-            // Services erzeugen
-            TeamService teamService = new TeamService(this.ChampionshipViewModel);
-
             IEnumerable<Match> matchesToConvert = ChampionshipViewModel.Matches.Where((match) => match.league_id == leagueId && match.season == season && match.stage == stage);
 
             List<RemainingMatch> remainingMatches = new List<RemainingMatch>();
-            IEnumerable<Team> teams = teamService.GetTeamsByLeagueAndSeason(leagueId, season);
-            Dictionary<long, string> teamNameToId = teamService.GetIdNameCollectionByLeagueAndSeason(leagueId, season);
+            IEnumerable<Team> teams = this.ChampionshipViewModel.TeamService.GetTeamsByLeagueAndSeason(leagueId, season);
+            Dictionary<long, string> teamNameToId = this.ChampionshipViewModel.TeamService.GetIdNameCollectionByLeagueAndSeason(leagueId, season);
 
             foreach (Match match in matchesToConvert)
             {

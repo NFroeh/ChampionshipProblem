@@ -81,5 +81,24 @@ namespace ChampionshipProblem.Test
             Assert.AreEqual(15, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing, standing[16].TeamApiId.Value));
             Assert.AreEqual(18, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing, standing[17].TeamApiId.Value));
         }
+
+        [TestMethod]
+        public void FranceBasicTest()
+        {
+            // Datengrundlage erstellen
+            ChampionshipViewModel championshipViewModel = new ChampionshipViewModel();
+
+            LeagueService leagueService = new LeagueService(championshipViewModel);
+            MatchService matchService = new MatchService(championshipViewModel);
+            string leagueName = "France Ligue 1";
+            string season = "2008/2009";
+            int stage = 33;
+
+            LeagueStandingService leagueStandingService = new LeagueStandingService(championshipViewModel, leagueName, season);
+
+            List<LeagueStandingEntry> standing = leagueStandingService.CalculateStanding(stage);
+            Assert.AreEqual(2, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing, standing[6].TeamApiId.Value));
+            Assert.AreEqual(3, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing, standing[7].TeamApiId.Value));
+        }
     }
 }
