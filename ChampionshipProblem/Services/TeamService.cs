@@ -7,23 +7,18 @@ using System.Threading.Tasks;
 
 namespace ChampionshipProblem.Services
 {
-    class TeamService
+    public class TeamService
     {
-        EuropeanSoccerEntities SoccerDb { get; set; }
+        public ChampionshipViewModel ChampionshipViewModel { get; set; }
 
-        public TeamService()
+        public TeamService(ChampionshipViewModel championshipViewModel)
         {
-            SoccerDb = new EuropeanSoccerEntities();
-        }
-
-        public TeamService(EuropeanSoccerEntities soccerDb)
-        {
-            SoccerDb = soccerDb;
+            ChampionshipViewModel = championshipViewModel;
         }
 
         public IEnumerable<Team> GetTeamsByLeagueAndSeason(long leagueId, string season)
         {
-            IEnumerable<Match> matches = new MatchService(SoccerDb).GetMatchesByLeagueAndSeason(leagueId, season);
+            IEnumerable<Match> matches = new MatchService(ChampionshipViewModel).GetMatchesByLeagueAndSeason(leagueId, season);
             List<Team> teams = new List<Team>();
             foreach(Match match in matches)
             {
@@ -44,7 +39,7 @@ namespace ChampionshipProblem.Services
 
         public Team GetTeamById(long? teamApiId)
         {
-            return SoccerDb.Teams.Single((team) => team.team_api_id == teamApiId);
+            return ChampionshipViewModel.Teams.Single((team) => team.team_api_id == teamApiId);
         }
 
         public Dictionary<long, string> GetIdNameCollectionByLeagueAndSeason(long leagueId, string season)

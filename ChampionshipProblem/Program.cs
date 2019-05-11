@@ -17,12 +17,12 @@ namespace ChampionshipProblem
         [STAThread]
         static void Main()
         {
-            using (EuropeanSoccerEntities soccerDb = new EuropeanSoccerEntities())
-            {
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new ChampionshipProblemForm(soccerDb));
-            }
+            // Datengrundlage erstellen
+            ChampionshipViewModel championshipViewModel = new ChampionshipViewModel();
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new ChampionshipProblemForm(championshipViewModel));
         }
     }
 }

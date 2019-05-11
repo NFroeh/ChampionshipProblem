@@ -10,26 +10,26 @@ namespace ChampionshipProblem.Services
 {
     public class LeagueService
     {
-        EuropeanSoccerEntities SoccerDb { get; set; }
+        public ChampionshipViewModel ChampionshipViewModel { get; set; }
 
-        public LeagueService(EuropeanSoccerEntities soccerDb)
+        public LeagueService(ChampionshipViewModel championshipViewModel)
         {
-            SoccerDb = soccerDb;
+            ChampionshipViewModel = championshipViewModel;
         }
 
         public League GetLeague(long leagueId)
         {
-            return SoccerDb.Leagues.Single((league) => league.id == leagueId);
+            return ChampionshipViewModel.Leagues.Single((league) => league.id == leagueId);
         }
 
         public League GetLeagueByName(string name)
         {
-            return SoccerDb.Leagues.Single((league) => league.name == name);
+            return ChampionshipViewModel.Leagues.Single((league) => league.name == name);
         }
 
         public IEnumerable<League> GetLeagues()
         {
-            return SoccerDb.Leagues;
+            return ChampionshipViewModel.Leagues;
         }
     }
 }

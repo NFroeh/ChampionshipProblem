@@ -20,9 +20,9 @@ namespace ChampionshipProblem
     {
         #region fields
         /// <summary>
-        /// Die Datenbankverbindung.
+        /// Die Daten.
         /// </summary>
-        public EuropeanSoccerEntities SoccerDb;
+        public ChampionshipViewModel ChampionshipViewModel;
 
         /// <summary>
         /// Die aktuell ausgewählte Liga.
@@ -50,16 +50,6 @@ namespace ChampionshipProblem
         private IEnumerable<LeagueStandingEntry> LeagueStandingEntries;
 
         /// <summary>
-        /// Der MatchService.
-        /// </summary>
-        private MatchService MatchService;
-
-        /// <summary>
-        /// Der LeagueStandingService;
-        /// </summary>
-        private LeagueStandingService LeagueStandingService;
-
-        /// <summary>
         /// Die Anzahl der aktuellen Spieltage.
         /// </summary>
         private int NumberOfStages;
@@ -70,19 +60,14 @@ namespace ChampionshipProblem
         /// Konstruktor zum Intialisieren der Instanzvariablen.
         /// </summary>
         /// <param name="soccerDB">Die Datenbank-Verbindung</param>
-        public ChampionshipProblemForm(EuropeanSoccerEntities soccerDB)
+        public ChampionshipProblemForm(ChampionshipViewModel championshipViewModel)
         {
             // Komponenten initialisieren
             InitializeComponent();
 
-            // Service erzeugen
-            LeagueService leagueService = new LeagueService(soccerDB);
-
             // Parameter merken oder erzeugen
-            this.SoccerDb = soccerDB;
+            this.ChampionshipViewModel = championshipViewModel;
             this.LeagueStandingEntries = new List<LeagueStandingEntry>();
-            this.MatchService = new MatchService(soccerDB);
-            this.LeagueStandingService = null;
             this.CurrentSelectedLeague = null;
             this.CurrentSelectedSeason = null;
             this.CurrentSelectedStage = 1;
@@ -98,7 +83,7 @@ namespace ChampionshipProblem
             RemainingMatchesView.RowHeadersVisible = false;
 
             // Die Ligen als Datengrundlage setzen
-            List<League> leagues = leagueService.GetLeagues().ToList();
+            List<League> leagues = championshipViewModel.LeagueService.GetLeagues().ToList();
             LeagueComboBox.DataSource = leagues;
             LeagueComboBox.DisplayMember = "name";
 
@@ -122,7 +107,7 @@ namespace ChampionshipProblem
             this.CurrentSelectedLeague = (League)LeagueComboBox.SelectedValue;
 
             // Die Saisons ermitteln und setzen
-            string[] seasons = this.MatchService.GetSeasonsByLeagueId(this.CurrentSelectedLeague.id).ToArray();
+            string[] seasons = this.ChampionshipViewModel.MatchService.GetSeasonsByLeagueId(this.CurrentSelectedLeague.id).ToArray();
             this.SeasonComboBox.DataSource = seasons;
         }
         #endregion
@@ -138,7 +123,7 @@ namespace ChampionshipProblem
             this.CurrentSelectedSeason = (string)SeasonComboBox.SelectedValue;
 
             // Die Anzahl der Spieltage ermitteln und setzen (Bei Saisonänderung kann auch die Anzahl der Mannschaften verändert worden sein)
-            this.NumberOfStages = (int)this.MatchService.GetNumberOfMatches(this.CurrentSelectedLeague.id, this.CurrentSelectedSeason);
+            this.NumberOfStages = (int)this.ChampionshipViewModel.MatchService.GetNumberOfMatches(this.CurrentSelectedLeague.id, this.CurrentSelectedSeason);
             StageComboBox.DataSource = Enumerable.Range(1, this.NumberOfStages).ToArray();
 
             this.RefreshStandings();
@@ -181,7 +166,7 @@ namespace ChampionshipProblem
                 LeagueStandingEntry entry = (LeagueStandingEntry)selectedRow.DataBoundItem;
 
                 Stopwatch stopwatch = Stopwatch.StartNew();
-                entry.BestPossiblePosition = this.LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
+                entry.BestPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
                 stopwatch.Stop();
                 Debug.WriteLine(stopwatch.ElapsedMilliseconds);
                 entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
@@ -194,7 +179,7 @@ namespace ChampionshipProblem
                 LeagueStandingEntry entry = (LeagueStandingEntry)selectedRow.DataBoundItem;
 
                 Stopwatch stopwatch = Stopwatch.StartNew();
-                entry.WorstPossiblePosition = this.LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
+                entry.WorstPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
                 stopwatch.Stop();
                 Debug.WriteLine(stopwatch.ElapsedMilliseconds);
                 entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
@@ -208,7 +193,7 @@ namespace ChampionshipProblem
 
                 // Ausrechnen
                 Stopwatch stopwatch = Stopwatch.StartNew();
-                entry.CanWinChampionship = this.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
+                entry.CanWinChampionship = this.ChampionshipViewModel.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
                 stopwatch.Stop();
                 entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
                 this.StandingsView.Refresh();
@@ -228,7 +213,7 @@ namespace ChampionshipProblem
             this.CurrentSelectedRemainingMatchStage = (int)RemainingMatchComboBox.SelectedValue;
 
             // Fehlende Spiele ermitteln
-            IEnumerable<RemainingMatch> remainingMatchesForSingleStage = this.MatchService.GetRemainingMatchesForSingleStage(this.CurrentSelectedLeague.id, this.CurrentSelectedSeason, this.CurrentSelectedRemainingMatchStage);
+            IEnumerable<RemainingMatch> remainingMatchesForSingleStage = this.ChampionshipViewModel.MatchService.GetRemainingMatchesForSingleStage(this.CurrentSelectedLeague.id, this.CurrentSelectedSeason, this.CurrentSelectedRemainingMatchStage);
 
             // Remaining-Matches setzen
             this.RemainingMatchesView.DataSource = remainingMatchesForSingleStage.ToArray();
@@ -241,11 +226,11 @@ namespace ChampionshipProblem
         /// </summary>
         private void RefreshStandings()
         {
-            // Service erzeugen
-            this.LeagueStandingService = new LeagueStandingService(this.SoccerDb, this.CurrentSelectedLeague.name, this.CurrentSelectedSeason);
+            // Service im ViewModel erzeugen lassen
+            this.ChampionshipViewModel.SetLeagueAndSeason(this.CurrentSelectedLeague.name, this.CurrentSelectedSeason);
 
             // Tabelle ermitteln
-            this.LeagueStandingEntries = this.LeagueStandingService.CalculateStanding(this.CurrentSelectedStage);
+            this.LeagueStandingEntries = this.ChampionshipViewModel.LeagueStandingService.CalculateStanding(this.CurrentSelectedStage);
 
             // Die Tabelle binden
             this.StandingsView.DataSource = this.LeagueStandingEntries.ToArray();

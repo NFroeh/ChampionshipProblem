@@ -10,34 +10,34 @@ namespace ChampionshipProblem.Services
 {
     public class MatchService
     {
-        EuropeanSoccerEntities SoccerDb { get; set; }
+        public ChampionshipViewModel ChampionshipViewModel { get; set; }
 
-        public MatchService(EuropeanSoccerEntities soccerDb)
+        public MatchService(ChampionshipViewModel championshipViewModel)
         {
-            SoccerDb = soccerDb;
+            ChampionshipViewModel = championshipViewModel;
         }
 
         public IEnumerable<Match> GetMatchesUntilStage(long leagueId, string season, int stage)
         {
-            return SoccerDb.Matches.Where((match) => match.league_id == leagueId && match.season == season && match.stage <= stage);
+            return ChampionshipViewModel.Matches.Where((match) => match.league_id == leagueId && match.season == season && match.stage <= stage);
         }
 
         public IEnumerable<Match> GetMatchesByLeagueAndSeason(long leagueId, string season)
         {
-            return SoccerDb.Matches.Where((match) => match.league_id == leagueId && match.season == season);
+            return ChampionshipViewModel.Matches.Where((match) => match.league_id == leagueId && match.season == season);
         }
 
         public List<RemainingMatch> GetRemainingMatches(string leagueName, string season, int stage)
         {
-            return this.GetRemainingMatches(new LeagueService(this.SoccerDb).GetLeagueByName(leagueName).id, season, stage);
+            return this.GetRemainingMatches(new LeagueService(this.ChampionshipViewModel).GetLeagueByName(leagueName).id, season, stage);
         }
 
         public List<RemainingMatch> GetRemainingMatches(long leagueId, string season, int stage)
         {
             // Services erzeugen
-            TeamService teamService = new TeamService(this.SoccerDb);
+            TeamService teamService = new TeamService(this.ChampionshipViewModel);
 
-            IEnumerable<Match> matchesToConvert = SoccerDb.Matches.Where((match) => match.league_id == leagueId && match.season == season && match.stage > stage);
+            IEnumerable<Match> matchesToConvert = ChampionshipViewModel.Matches.Where((match) => match.league_id == leagueId && match.season == season && match.stage > stage);
 
             List<RemainingMatch> remainingMatches = new List<RemainingMatch>();
             IEnumerable<Team> teams = teamService.GetTeamsByLeagueAndSeason(leagueId, season);
@@ -70,9 +70,9 @@ namespace ChampionshipProblem.Services
         public List<RemainingMatch> GetRemainingMatchesForSingleStage(long leagueId, string season, int stage)
         {
             // Services erzeugen
-            TeamService teamService = new TeamService(this.SoccerDb);
+            TeamService teamService = new TeamService(this.ChampionshipViewModel);
 
-            IEnumerable<Match> matchesToConvert = SoccerDb.Matches.Where((match) => match.league_id == leagueId && match.season == season && match.stage == stage);
+            IEnumerable<Match> matchesToConvert = ChampionshipViewModel.Matches.Where((match) => match.league_id == leagueId && match.season == season && match.stage == stage);
 
             List<RemainingMatch> remainingMatches = new List<RemainingMatch>();
             IEnumerable<Team> teams = teamService.GetTeamsByLeagueAndSeason(leagueId, season);
@@ -104,12 +104,12 @@ namespace ChampionshipProblem.Services
 
         public long GetNumberOfMatches(long leagueId, string season)
         {
-            return SoccerDb.Matches.Where((match) => match.league_id == leagueId && match.season == season).Max((match) => match.stage).Value;
+            return ChampionshipViewModel.Matches.Where((match) => match.league_id == leagueId && match.season == season).Max((match) => match.stage).Value;
         }
 
         public IEnumerable<string> GetSeasonsByLeagueId(long leagueId)
         {
-            return SoccerDb.Matches.Where((match) => match.league_id == leagueId).Select((match) => match.season).Distinct();
+            return ChampionshipViewModel.Matches.Where((match) => match.league_id == leagueId).Select((match) => match.season).Distinct();
         }
     }
 }

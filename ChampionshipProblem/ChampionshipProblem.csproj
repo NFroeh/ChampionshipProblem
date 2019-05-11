@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChampionshipViewModel.cs" />
     <Compile Include="Classes\LeagueStandingEntry.cs" />
     <Compile Include="Classes\MatchResult.cs" />
     <Compile Include="Classes\RemainingMatch.cs" />
@@ -87,11 +88,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseScheme.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="ChampionshipProblemForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ChampionshipProblemForm.Designer.cs">
+      <DependentUpon>ChampionshipProblemForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Scheme\League.cs">
       <DependentUpon>DatabaseScheme.tt</DependentUpon>
@@ -117,8 +118,8 @@
     <Compile Include="Services\LeagueStandingService.cs" />
     <Compile Include="Services\MatchService.cs" />
     <Compile Include="Services\TeamService.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="ChampionshipProblemForm.resx">
+      <DependentUpon>ChampionshipProblemForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

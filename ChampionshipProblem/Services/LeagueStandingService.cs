@@ -16,9 +16,9 @@ namespace ChampionshipProblem.Services
     {
         #region fields
         /// <summary>
-        /// Die Datenbankverbindung.
+        /// Die Daten.
         /// </summary>
-        public EuropeanSoccerEntities SoccerDb { get; set; }
+        public ChampionshipViewModel ChampionshipViewModel { get; set; }
 
         /// <summary>
         /// Die Liganummer.
@@ -48,14 +48,14 @@ namespace ChampionshipProblem.Services
         /// <param name="soccerDb">Die Datenbankverbindung.</param>
         /// <param name="leagueName">Der Name der Liga.</param>
         /// <param name="season">Die Saison.</param>
-        public LeagueStandingService(EuropeanSoccerEntities soccerDb, string leagueName, string season)
+        public LeagueStandingService(ChampionshipViewModel championshipViewModel, string leagueName, string season)
         {
             // Services erstellen
-            LeagueService leagueService = new LeagueService(soccerDb);
-            TeamService teamService = new TeamService(soccerDb);
+            LeagueService leagueService = new LeagueService(championshipViewModel);
+            TeamService teamService = new TeamService(championshipViewModel);
 
             // Parameter merken und ermitteln
-            this.SoccerDb = soccerDb;
+            this.ChampionshipViewModel = championshipViewModel;
             this.League = leagueService.GetLeagueByName(leagueName);
             this.LeagueId = this.League.id;
             this.Season = season;
@@ -74,7 +74,7 @@ namespace ChampionshipProblem.Services
         public int CalculateBestPossibleFinalPositionForTeam(int stage, IEnumerable<LeagueStandingEntry> leagueStandingEntries, long teamApiId)
         {
             // Service erzeugen und Anzahl der Spiele ermitteln
-            MatchService matchService = new MatchService(this.SoccerDb);
+            MatchService matchService = new MatchService(this.ChampionshipViewModel);
             long numberOfMatches = matchService.GetNumberOfMatches(this.LeagueId, this.Season);
 
             // Wenn erst die Hälfte der Spiele gespielt ist, kann noch jeder Platz erreicht werden
@@ -226,7 +226,7 @@ namespace ChampionshipProblem.Services
         /// <returns>Die schlechtmöglichste Position.</returns>
         public int CalculateWorstPossibleFinalPositionForTeam(int stage, IEnumerable<LeagueStandingEntry> leagueStandingEntries, long teamApiId)
         {
-            MatchService matchService = new MatchService(this.SoccerDb);
+            MatchService matchService = new MatchService(this.ChampionshipViewModel);
             long numberOfMatches = matchService.GetNumberOfMatches(this.LeagueId, this.Season);
 
             // Wenn erst die Hälfte der Spiele gespielt ist, kann noch jeder Platz erreicht werden
@@ -379,7 +379,7 @@ namespace ChampionshipProblem.Services
         public bool CalculateIfTeamCanWinChampionship(int stage, IEnumerable<LeagueStandingEntry> leagueStandingEntries, long teamApiId)
         {
             // Service erzeugen und Anzahl der Spiele ermitteln
-            MatchService matchService = new MatchService(this.SoccerDb);
+            MatchService matchService = new MatchService(this.ChampionshipViewModel);
             long numberOfMatches = matchService.GetNumberOfMatches(this.LeagueId, this.Season);
 
             // Wenn erst die Hälfte der Spiele gespielt ist, kann noch jeder Platz erreicht werden
@@ -413,7 +413,6 @@ namespace ChampionshipProblem.Services
             return LeagueStandingService.CalculateIfTeamCanWinChampionship(leagueStandings, remainingMatches, teamApiId, (int)numberOfMatches - stage);
         }
         #endregion
-
 
         #region CalculateIfTeamCanWinChampionship
         /// <summary>
@@ -529,8 +528,8 @@ namespace ChampionshipProblem.Services
         {
             // Entitäten und Services erzeugen
             List<LeagueStandingEntry> leagueStandings = new List<LeagueStandingEntry>();
-            MatchService matchService = new MatchService(SoccerDb);
-            LeagueService leagueService = new LeagueService(SoccerDb);
+            MatchService matchService = new MatchService(this.ChampionshipViewModel);
+            LeagueService leagueService = new LeagueService(this.ChampionshipViewModel);
 
             // Die Liga ermitteln
             League currentLeague = leagueService.GetLeague(this.LeagueId);
