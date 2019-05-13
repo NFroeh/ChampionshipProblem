@@ -1,13 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChampionshipProblem.Extensions
 {
+    /// <summary>
+    /// Klasse für die Extensions des Int-Datentyps.
+    /// </summary>
     public static class IntExtensions
     {
+        #region ConvertToBase
+        /// <summary>
+        /// Methode zum Konvertieren der Int-Zahl in eine bestimmte Basis.
+        /// </summary>
+        /// <param name="number">Die Zahl.</param>
+        /// <param name="radix">Die Basis.</param>
+        /// <returns>Die Zahl in der bestimmten Basis.</returns>
         public static string ConvertToBase(this int number, int radix)
         {
             const int BitsInLong = 64;
@@ -38,5 +44,6 @@ namespace ChampionshipProblem.Extensions
 
             return result;
         }
+        #endregion
     }
 }

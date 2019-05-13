@@ -47,7 +47,7 @@ namespace ChampionshipProblem
         /// <summary>
         /// Die aktuelle Tabelle
         /// </summary>
-        private IEnumerable<LeagueStandingEntry> LeagueStandingEntries;
+        private IEnumerable<CompleteLeagueStandingEntry> LeagueStandingEntries;
 
         /// <summary>
         /// Die Anzahl der aktuellen Spieltage.
@@ -67,7 +67,7 @@ namespace ChampionshipProblem
 
             // Parameter merken oder erzeugen
             this.ChampionshipViewModel = championshipViewModel;
-            this.LeagueStandingEntries = new List<LeagueStandingEntry>();
+            this.LeagueStandingEntries = new List<CompleteLeagueStandingEntry>();
             this.CurrentSelectedLeague = null;
             this.CurrentSelectedSeason = null;
             this.CurrentSelectedStage = 1;
@@ -163,40 +163,103 @@ namespace ChampionshipProblem
             if (e.ColumnIndex == this.StandingsView.Columns["Compute best position"].Index)
             {
                 DataGridViewRow selectedRow = this.StandingsView.Rows[e.RowIndex];
-                LeagueStandingEntry entry = (LeagueStandingEntry)selectedRow.DataBoundItem;
+                CompleteLeagueStandingEntry entry = (CompleteLeagueStandingEntry)selectedRow.DataBoundItem;
 
-                Stopwatch stopwatch = Stopwatch.StartNew();
-                entry.BestPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
-                stopwatch.Stop();
-                Debug.WriteLine(stopwatch.ElapsedMilliseconds);
-                entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
-                this.StandingsView.Refresh();
+                // Zuerst prüfen, wie viele Matches berücksichtigt werden
+                int remainingMatchesCount = this.ChampionshipViewModel.LeagueStandingService.CalculateNumberOfRemainingMatchesForBestPossiblePosition(this.CurrentSelectedStage, entry.TeamApiId.Value);
+                long numberOfIterations = (long) Math.Pow(3, remainingMatchesCount);
+                DialogResult result = DialogResult.Yes;
+
+                if (numberOfIterations > Double.MaxValue || numberOfIterations <= 0)
+                {
+                    result = MessageBox.Show($"Because of the missing '{remainingMatchesCount}' matches, too many iterations are needed. Therefore only one iteration will be made. Do you want to continue?",
+                        "Continue computation?",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                }
+                else if (remainingMatchesCount > 9)
+                {
+                    result = MessageBox.Show($"The computation will need '3^{remainingMatchesCount}'('{numberOfIterations}') iterations. Do you want to continue?", 
+                        "Continue computation?",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                }
+
+                if (result == DialogResult.Yes)
+                {
+                    Stopwatch stopwatch = Stopwatch.StartNew();
+                    entry.BestPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamApiId.Value);
+                    stopwatch.Stop();
+                    Debug.WriteLine(stopwatch.ElapsedMilliseconds);
+                    entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
+                    this.StandingsView.Refresh();
+                }
             }
 
             if (e.ColumnIndex == this.StandingsView.Columns["Compute worst position"].Index)
             {
                 DataGridViewRow selectedRow = this.StandingsView.Rows[e.RowIndex];
-                LeagueStandingEntry entry = (LeagueStandingEntry)selectedRow.DataBoundItem;
+                CompleteLeagueStandingEntry entry = (CompleteLeagueStandingEntry)selectedRow.DataBoundItem;
 
-                Stopwatch stopwatch = Stopwatch.StartNew();
-                entry.WorstPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
-                stopwatch.Stop();
-                Debug.WriteLine(stopwatch.ElapsedMilliseconds);
-                entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
-                this.StandingsView.Refresh();
+                // Zuerst prüfen, wie viele Matches berücksichtigt werden
+                int remainingMatchesCount = this.ChampionshipViewModel.LeagueStandingService.CalculateNumberOfRemainingMatchesForBestPossiblePosition(this.CurrentSelectedStage, entry.TeamApiId.Value);
+                long numberOfIterations = (long)Math.Pow(3, remainingMatchesCount);
+                DialogResult result = DialogResult.Yes;
+
+                if (numberOfIterations > Double.MaxValue || numberOfIterations <= 0)
+                {
+                    result = MessageBox.Show($"Because of the missing '{remainingMatchesCount}' matches, , too many iterations are needed. Therefore only one iteration will be made. Do you want to continue?",
+                        "Continue computation?",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                }
+                else if (remainingMatchesCount > 9)
+                {
+                    result = MessageBox.Show($"The computation will need '3^{remainingMatchesCount}'('{numberOfIterations}') iterations. Do you want to continue?",
+                        "Continue computation?",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                }
+
+                if (result == DialogResult.Yes)
+                {
+                    Stopwatch stopwatch = Stopwatch.StartNew();
+                    entry.WorstPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamApiId.Value);
+                    stopwatch.Stop();
+                    Debug.WriteLine(stopwatch.ElapsedMilliseconds);
+                    entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
+                    this.StandingsView.Refresh();
+                }
             }
 
             if (e.ColumnIndex == this.StandingsView.Columns["Compute possible championship"].Index)
             {
                 DataGridViewRow selectedRow = this.StandingsView.Rows[e.RowIndex];
-                LeagueStandingEntry entry = (LeagueStandingEntry)selectedRow.DataBoundItem;
+                CompleteLeagueStandingEntry entry = (CompleteLeagueStandingEntry)selectedRow.DataBoundItem;
 
-                // Ausrechnen
-                Stopwatch stopwatch = Stopwatch.StartNew();
-                entry.CanWinChampionship = this.ChampionshipViewModel.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, this.LeagueStandingEntries, entry.TeamApiId.Value);
-                stopwatch.Stop();
-                entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
-                this.StandingsView.Refresh();
+                // Zuerst prüfen, wie viele Matches berücksichtigt werden
+                int remainingMatchesCount = this.ChampionshipViewModel.LeagueStandingService.CalculateNumberOfRemainingMatchesForBestPossiblePosition(this.CurrentSelectedStage, entry.TeamApiId.Value);
+                long numberOfIterations = (long)Math.Pow(3, remainingMatchesCount);
+                DialogResult result = DialogResult.Yes;
+
+                if (numberOfIterations > Double.MaxValue || numberOfIterations <= 0)
+                {
+                    result = MessageBox.Show($"Because of the missing '{remainingMatchesCount}' matches, too many iterations are needed. Therefore only one iteration will be made. Do you want to continue?",
+                        "Continue computation?",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                }
+                else if (remainingMatchesCount > 9)
+                {
+                    result = MessageBox.Show($"The computation will need '3^{remainingMatchesCount}'('{numberOfIterations}') iterations. Do you want to continue?",
+                        "Continue computation?",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                }
+
+                if (result == DialogResult.Yes)
+                {
+                    // Ausrechnen
+                    Stopwatch stopwatch = Stopwatch.StartNew();
+                    entry.CanWinChampionship = this.ChampionshipViewModel.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, entry.TeamApiId.Value);
+                    stopwatch.Stop();
+                    entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
+                    this.StandingsView.Refresh();
+                }
             }
         }
         #endregion
@@ -230,7 +293,7 @@ namespace ChampionshipProblem
             this.ChampionshipViewModel.SetLeagueAndSeason(this.CurrentSelectedLeague.name, this.CurrentSelectedSeason);
 
             // Tabelle ermitteln
-            this.LeagueStandingEntries = this.ChampionshipViewModel.LeagueStandingService.CalculateStanding(this.CurrentSelectedStage);
+            this.LeagueStandingEntries = this.ChampionshipViewModel.LeagueStandingService.CalculateCompleteStanding(this.CurrentSelectedStage);
 
             // Die Tabelle binden
             this.StandingsView.DataSource = this.LeagueStandingEntries.ToArray();

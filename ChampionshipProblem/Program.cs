@@ -1,18 +1,15 @@
-using ChampionshipProblem.Classes;
-using ChampionshipProblem.Scheme;
-using ChampionshipProblem.Services;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Windows.Forms;
-using System.Linq;
 
 namespace ChampionshipProblem
 {
+    /// <summary>
+    /// Klasse repräsentiert das Program.
+    /// </summary>
     static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        /// Der Einstiegspunkt des Programms.
         /// </summary>
         [STAThread]
         static void Main()
@@ -20,6 +17,7 @@ namespace ChampionshipProblem
             // Datengrundlage erstellen
             ChampionshipViewModel championshipViewModel = new ChampionshipViewModel();
 
+            // Form starten
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new ChampionshipProblemForm(championshipViewModel));

@@ -69,6 +69,7 @@
     <Compile Include="Classes\LeagueStandingEntry.cs" />
     <Compile Include="Classes\MatchResult.cs" />
     <Compile Include="Classes\RemainingMatch.cs" />
+    <Compile Include="Classes\UI\CompleteLeagueStandingEntry.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="Extensions\LongExtensions.cs" />
     <Compile Include="Scheme\Country.cs">

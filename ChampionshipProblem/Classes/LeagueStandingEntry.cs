@@ -1,62 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ChampionshipProblem.Classes
+﻿namespace ChampionshipProblem.Classes
 {
+    /// <summary>
+    /// Klasse repräsentiert einen Tabelleneintrag.
+    /// </summary>
     public class LeagueStandingEntry
     {
-        public LeagueStandingEntry(int teamId, long? teamApiId, string shortName, string longName)
+        #region ctors
+        /// <summary>
+        /// Konstruktor zum Erstellend es Tabelleneintrags.
+        /// </summary>
+        /// <param name="teamApiId">Die Id des Teams.</param>
+        /// <param name="shortName">Der Kurzname des Teams.</param>
+        /// <param name="longName">Der Langname des Teams.</param>
+        public LeagueStandingEntry(long? teamApiId, string shortName, string longName)
         {
-            this.TeamId = teamId;
             this.TeamApiId = teamApiId;
             this.TeamShortName = shortName;
             this.TeamLongName = longName;
             this.Points = 0;
             this.Goals = 0;
             this.GoalsConceded = 0;
-            this.GoalDifference = 0;
-            this.BestPossiblePosition = null;
-            this.WorstPossiblePosition = null;
-            this.CanWinChampionship = null;
-            this.Position = 0;
-            this.LastElapsedTime = null;
         }
+        #endregion
 
-        public int TeamId { get; set; }
-
+        /// <summary>
+        /// Die TeamApiId.
+        /// </summary>
         public long? TeamApiId { get; set; }
 
+        /// <summary>
+        /// Der Kurzname.
+        /// </summary>
         public string TeamShortName { get; set; }
 
+        /// <summary>
+        /// Der Langname.
+        /// </summary>
         public string TeamLongName { get; set; }
 
-        public int Games { get; set; }
-
-        public int Wins { get; set; }
-
-        public int Ties { get; set; }
-
-        public int Losses { get; set; }
-
+        /// <summary>
+        /// Die Anzahl der Punkte.
+        /// </summary>
         public int Points { get; set; }
 
+        /// <summary>
+        /// Die Anzahl der Tore.
+        /// </summary>
         public int Goals { get; set; }
 
+        /// <summary>
+        /// Die Anzahl der gefangenen Tore.
+        /// </summary>
         public int GoalsConceded { get; set; }
-
-        public int GoalDifference { get; set; }
-
-        public int Position { get; set; }
-
-        public int? BestPossiblePosition { get; set; }
-
-        public int? WorstPossiblePosition { get; set; }
-
-        public bool? CanWinChampionship { get; set; }
-
-        public double? LastElapsedTime { get; set; }
     }
 }

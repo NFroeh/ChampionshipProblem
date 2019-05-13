@@ -1,37 +1,41 @@
 ﻿using ChampionshipProblem.Classes;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChampionshipProblem.Test
 {
-    class TestUtils
+    /// <summary>
+    /// Klasse beinhaltet Hilfsmethoden für die Tests.
+    /// </summary>
+    public class TestUtils
     {
+        #region GenerateSeason1991Standing
+        /// <summary>
+        /// Methode zum Generieren der Tabelle der Saison von 1991.
+        /// </summary>
+        /// <returns>Die Tabelle der Saison 1991.</returns>
         public static IEnumerable<LeagueStandingEntry> GenerateSeason1991Standing()
         {
-            LeagueStandingEntry sge = new LeagueStandingEntry(1, 1, "SGE", "Frankfurt")
+            LeagueStandingEntry sge = new LeagueStandingEntry(1, "SGE", "Frankfurt")
             {
                 Points = 41
             };
-            LeagueStandingEntry vfb = new LeagueStandingEntry(2, 2, "VFB", "Stuttgart")
+            LeagueStandingEntry vfb = new LeagueStandingEntry(2, "VFB", "Stuttgart")
             {
                 Points = 40
             };
-            LeagueStandingEntry bvb = new LeagueStandingEntry(3, 3, "BVB", "Dortmund")
+            LeagueStandingEntry bvb = new LeagueStandingEntry(3, "BVB", "Dortmund")
             {
                 Points = 40
             };
-            LeagueStandingEntry b04 = new LeagueStandingEntry(4, 4, "B04", "Leverkusen")
+            LeagueStandingEntry b04 = new LeagueStandingEntry(4, "B04", "Leverkusen")
             {
                 Points = 40
             };
-            LeagueStandingEntry fcn = new LeagueStandingEntry(5, 5, "FCN", "Nürnberg")
+            LeagueStandingEntry fcn = new LeagueStandingEntry(5, "FCN", "Nürnberg")
             {
                 Points = 36
             };
-            LeagueStandingEntry fck = new LeagueStandingEntry(6, 6, "FCK", "Kaiserslautern")
+            LeagueStandingEntry fck = new LeagueStandingEntry(6, "FCK", "Kaiserslautern")
             {
                 Points = 34
             };
@@ -46,30 +50,36 @@ namespace ChampionshipProblem.Test
                 fck
             };
         }
+        #endregion
 
+        #region GenerateSeason1991RemaingMatches
+        /// <summary>
+        /// Methode zum Generieren der fehlenden Spiele der Saison 1991.
+        /// </summary>
+        /// <returns>Die fehlenden Spiele.</returns>
         public static List<RemainingMatch> GenerateSeason1991RemaingMatches()
         {
-            LeagueStandingEntry sge = new LeagueStandingEntry(1, 1, "SGE", "Frankfurt")
+            LeagueStandingEntry sge = new LeagueStandingEntry(1, "SGE", "Frankfurt")
             {
                 Points = 41
             };
-            LeagueStandingEntry vfb = new LeagueStandingEntry(2, 2, "VFB", "Stuttgart")
+            LeagueStandingEntry vfb = new LeagueStandingEntry(2, "VFB", "Stuttgart")
             {
                 Points = 40
             };
-            LeagueStandingEntry bvb = new LeagueStandingEntry(3, 3, "BVB", "Dortmund")
+            LeagueStandingEntry bvb = new LeagueStandingEntry(3, "BVB", "Dortmund")
             {
                 Points = 40
             };
-            LeagueStandingEntry b04 = new LeagueStandingEntry(4, 4, "B04", "Leverkusen")
+            LeagueStandingEntry b04 = new LeagueStandingEntry(4, "B04", "Leverkusen")
             {
                 Points = 40
             };
-            LeagueStandingEntry fcn = new LeagueStandingEntry(5, 5, "FCN", "Nürnberg")
+            LeagueStandingEntry fcn = new LeagueStandingEntry(5, "FCN", "Nürnberg")
             {
                 Points = 36
             };
-            LeagueStandingEntry fck = new LeagueStandingEntry(6, 6, "FCK", "Kaiserslautern")
+            LeagueStandingEntry fck = new LeagueStandingEntry(6, "FCK", "Kaiserslautern")
             {
                 Points = 34
             };
@@ -134,5 +144,6 @@ namespace ChampionshipProblem.Test
                 vfbb04
             };
         }
+        #endregion
     }
 }

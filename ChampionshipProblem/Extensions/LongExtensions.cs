@@ -1,13 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChampionshipProblem.Extensions
 {
+    /// <summary>
+    /// Methode für die Extensions des Long-Datentyps.
+    /// </summary>
     public static class LongExtensions
     {
+        #region ConvertToBase
+        /// <summary>
+        /// Methode zum Konvertieren der Long-Zahl in eine bestimmte Basis.
+        /// </summary>
+        /// <param name="number">Die Zahl.</param>
+        /// <param name="radix">Die Basis.</param>
+        /// <returns>Die Zahl in der bestimmten Basis.</returns>
         public static string ConvertToBase(this long number, int radix)
         {
             const int BitsInLong = 64;
@@ -38,5 +44,6 @@ namespace ChampionshipProblem.Extensions
 
             return result;
         }
+        #endregion
     }
 }
