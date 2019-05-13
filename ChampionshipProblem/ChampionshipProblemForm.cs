@@ -141,9 +141,15 @@ namespace ChampionshipProblem
             // Die aktuelle Stage ermitteln
             this.CurrentSelectedStage = (int) StageComboBox.SelectedValue;
 
-            // Die neue RemainingStage-Range setzen
-            RemainingMatchComboBox.DataSource = Enumerable.Range(this.CurrentSelectedStage + 1, this.NumberOfStages).ToArray();
-
+            if (this.CurrentSelectedStage != this.NumberOfStages)
+            {
+                // Die neue RemainingStage-Range setzen
+                RemainingMatchComboBox.DataSource = Enumerable.Range(this.CurrentSelectedStage + 1, this.NumberOfStages - 1).ToArray();
+            }
+            else
+            {
+                RemainingMatchComboBox.DataSource = new int[]{ this.NumberOfStages };
+            }
             // Den Index neu setzen für die RemainingMatchStage
             this.CurrentSelectedRemainingMatchStage = (this.CurrentSelectedStage + 1);
 
@@ -188,7 +194,6 @@ namespace ChampionshipProblem
                     Stopwatch stopwatch = Stopwatch.StartNew();
                     entry.BestPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamApiId.Value);
                     stopwatch.Stop();
-                    Debug.WriteLine(stopwatch.ElapsedMilliseconds);
                     entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
                     this.StandingsView.Refresh();
                 }
@@ -200,7 +205,7 @@ namespace ChampionshipProblem
                 CompleteLeagueStandingEntry entry = (CompleteLeagueStandingEntry)selectedRow.DataBoundItem;
 
                 // Zuerst prüfen, wie viele Matches berücksichtigt werden
-                int remainingMatchesCount = this.ChampionshipViewModel.LeagueStandingService.CalculateNumberOfRemainingMatchesForBestPossiblePosition(this.CurrentSelectedStage, entry.TeamApiId.Value);
+                int remainingMatchesCount = this.ChampionshipViewModel.LeagueStandingService.CalculateNumberOfRemainingMatchesForWorstPossiblePosition(this.CurrentSelectedStage, entry.TeamApiId.Value);
                 long numberOfIterations = (long)Math.Pow(3, remainingMatchesCount);
                 DialogResult result = DialogResult.Yes;
 
@@ -234,7 +239,7 @@ namespace ChampionshipProblem
                 CompleteLeagueStandingEntry entry = (CompleteLeagueStandingEntry)selectedRow.DataBoundItem;
 
                 // Zuerst prüfen, wie viele Matches berücksichtigt werden
-                int remainingMatchesCount = this.ChampionshipViewModel.LeagueStandingService.CalculateNumberOfRemainingMatchesForBestPossiblePosition(this.CurrentSelectedStage, entry.TeamApiId.Value);
+                int remainingMatchesCount = this.ChampionshipViewModel.LeagueStandingService.CalculateNumberOfRemainingMatchesForChampion(this.CurrentSelectedStage, entry.TeamApiId.Value);
                 long numberOfIterations = (long)Math.Pow(3, remainingMatchesCount);
                 DialogResult result = DialogResult.Yes;
 

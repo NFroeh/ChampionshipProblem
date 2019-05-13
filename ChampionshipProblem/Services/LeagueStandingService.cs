@@ -164,7 +164,7 @@ namespace ChampionshipProblem.Services
             }
 
             // Die Entries neu sortieren
-            Parallel.For(0, (long) Math.Pow(3, numberOfIterations), (index, loopState) =>
+            Parallel.For(0, numberOfIterations, (index, loopState) =>
             {
                 // Hole die ternäre Repräsentation der Zahl
                 string ternary = index.ConvertToBase(3);
@@ -314,7 +314,7 @@ namespace ChampionshipProblem.Services
             }
 
             // Die Entries neu sortieren
-            Parallel.For(0, (long)Math.Pow(3, numberOfIterations), (index, loopState) =>
+            Parallel.For(0, numberOfIterations, (index, loopState) =>
             {
                 // Hole die ternäre Repräsentation der Zahl
                 string ternary = index.ConvertToBase(3);
@@ -468,7 +468,7 @@ namespace ChampionshipProblem.Services
             }
 
             // Die Entries neu sortieren
-            Parallel.For(0, (long)Math.Pow(3, numberOfIterations), (index, loopState) =>
+            Parallel.For(0, numberOfIterations, (index, loopState) =>
             {
                 // Hole die ternäre Repräsentation der Zahl
                 string ternary = index.ConvertToBase(3);
