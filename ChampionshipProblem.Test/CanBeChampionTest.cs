@@ -85,11 +85,7 @@ namespace ChampionshipProblem.Test
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[5].TeamApiId.Value));
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[6].TeamApiId.Value));
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[7].TeamApiId.Value));
-
-            // Von der Punktezahl zwar noch möglich, kann Leverkusen aber kein Meister werden, da Wolfsburg alles verlieren müsste.
-            // Da Wolfsburg noch gegen Stuttgart spielt, muss danach Stuttgart alles verlieren. Da aber Stuttgart noch gegen München spielt, 
-            // hat min. 1 dieser Mannschaften mehr Punkte als Leverkusen
-            Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[8].TeamApiId.Value));
+            Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[8].TeamApiId.Value));
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[9].TeamApiId.Value));
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[10].TeamApiId.Value));
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[11].TeamApiId.Value));

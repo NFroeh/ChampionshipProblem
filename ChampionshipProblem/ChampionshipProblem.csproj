@@ -116,10 +116,13 @@
     <Compile Include="Scheme\Team_Attributes.cs">
       <DependentUpon>DatabaseScheme.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\BestPossiblePositionService.cs" />
+    <Compile Include="Services\ChampionService.cs" />
     <Compile Include="Services\LeagueService.cs" />
     <Compile Include="Services\LeagueStandingService.cs" />
     <Compile Include="Services\MatchService.cs" />
     <Compile Include="Services\TeamService.cs" />
+    <Compile Include="Services\WorstPossiblePositionService.cs" />
     <EmbeddedResource Include="ChampionshipProblemForm.resx">
       <DependentUpon>ChampionshipProblemForm.cs</DependentUpon>
     </EmbeddedResource>

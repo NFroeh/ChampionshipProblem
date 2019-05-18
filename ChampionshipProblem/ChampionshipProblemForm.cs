@@ -144,12 +144,13 @@ namespace ChampionshipProblem
             if (this.CurrentSelectedStage != this.NumberOfStages)
             {
                 // Die neue RemainingStage-Range setzen
-                RemainingMatchComboBox.DataSource = Enumerable.Range(this.CurrentSelectedStage + 1, this.NumberOfStages - 1).ToArray();
+                RemainingMatchComboBox.DataSource = Enumerable.Range(this.CurrentSelectedStage + 1, this.NumberOfStages - this.CurrentSelectedStage).ToArray();
             }
             else
             {
                 RemainingMatchComboBox.DataSource = new int[]{ this.NumberOfStages };
             }
+
             // Den Index neu setzen für die RemainingMatchStage
             this.CurrentSelectedRemainingMatchStage = (this.CurrentSelectedStage + 1);
 
@@ -227,7 +228,6 @@ namespace ChampionshipProblem
                     Stopwatch stopwatch = Stopwatch.StartNew();
                     entry.WorstPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamApiId.Value);
                     stopwatch.Stop();
-                    Debug.WriteLine(stopwatch.ElapsedMilliseconds);
                     entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
                     this.StandingsView.Refresh();
                 }
@@ -245,13 +245,13 @@ namespace ChampionshipProblem
 
                 if (numberOfIterations > Double.MaxValue || numberOfIterations <= 0)
                 {
-                    result = MessageBox.Show($"Because of the missing '{remainingMatchesCount}' matches, too many iterations are needed. Therefore only one iteration will be made. Do you want to continue?",
+                    result = MessageBox.Show($"Because of the missing '{remainingMatchesCount}' matches, too many iterations could be needed. Therefore only one iteration will be made. Do you want to continue?",
                         "Continue computation?",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 }
                 else if (remainingMatchesCount > 9)
                 {
-                    result = MessageBox.Show($"The computation will need '3^{remainingMatchesCount}'('{numberOfIterations}') iterations. Do you want to continue?",
+                    result = MessageBox.Show($"The computation could need '3^{remainingMatchesCount}'('{numberOfIterations}') iterations. Do you want to continue?",
                         "Continue computation?",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 }
