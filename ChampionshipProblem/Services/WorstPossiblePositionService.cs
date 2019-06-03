@@ -1,4 +1,5 @@
 ﻿using ChampionshipProblem.Classes;
+using ChampionshipProblem.Classes.ResultClasses;
 using ChampionshipProblem.Extensions;
 using ChampionshipProblem.Scheme;
 using System;
@@ -68,7 +69,7 @@ namespace ChampionshipProblem.Services
         /// <param name="leagueStandingEntries">Die aktuelle Tabelle.</param>
         /// <param name="teamApiId">Die Id des Teams.</param>
         /// <returns>Die schlechtmöglichste Position.</returns>
-        public int CalculateWorstPossibleFinalPositionForTeam(int stage, long teamApiId)
+        public PositionComputationalResult CalculateWorstPossibleFinalPositionForTeam(int stage, long teamApiId)
         {
             long numberOfMatches = this.ChampionshipViewModel.MatchService.GetNumberOfMatches(this.LeagueId, this.Season);
 
@@ -78,13 +79,19 @@ namespace ChampionshipProblem.Services
             // Wenn erst die Hälfte der Spiele gespielt ist, kann noch jeder Platz erreicht werden
             if (stage <= numberOfMatches / 2)
             {
-                return leagueStandingEntries.Count();
+                return new PositionComputationalResult()
+                {
+                    Position = leagueStandingEntries.Count()
+                };
             }
 
             // Wenn es der letzte Spieltag ist, steht die Position fest
             if (stage == numberOfMatches)
             {
-                return leagueStandingEntries.ToList().IndexOf(leagueStandingEntries.Single((entry) => entry.TeamApiId == teamApiId)) + 1;
+                return new PositionComputationalResult()
+                {
+                    Position = leagueStandingEntries.ToList().IndexOf(leagueStandingEntries.Single((entry) => entry.TeamApiId == teamApiId)) + 1
+                };
             }
 
             // Die fehlenden Spiele ermitteln
@@ -104,7 +111,7 @@ namespace ChampionshipProblem.Services
         /// <param name="teamApiId">Die Id des Teams.</param>
         /// <param name="numberOfMissingStages">Die Anzahl der fehlenden Spiele.</param>
         /// <returns>Die schlechtmöglichste Position</returns>
-        public static int CalculateWorstPossibleFinalPositionForTeam(IEnumerable<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, long teamApiId, int numberOfMissingStages)
+        public static PositionComputationalResult CalculateWorstPossibleFinalPositionForTeam(IEnumerable<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, long teamApiId, int numberOfMissingStages)
         {
             // Als Erstes die Liste kopieren, dass die Ansicht nicht verändert wird
             var positionLock = new object();
@@ -205,7 +212,10 @@ namespace ChampionshipProblem.Services
                 }
             });
 
-            return worstPosition;
+            return new PositionComputationalResult()
+            {
+                Position = worstPosition
+            };
         }
         #endregion
 

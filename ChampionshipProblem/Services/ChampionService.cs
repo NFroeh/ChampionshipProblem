@@ -1,4 +1,5 @@
 ﻿using ChampionshipProblem.Classes;
+using ChampionshipProblem.Classes.ResultClasses;
 using ChampionshipProblem.Extensions;
 using ChampionshipProblem.Scheme;
 using System;
@@ -68,7 +69,7 @@ namespace ChampionshipProblem.Services
         /// <param name="leagueStandingEntries">Die aktuelle Tabelle.</param>
         /// <param name="teamApiId">Die Id des Teams.</param>
         /// <returns>Ob die Mannschaft noch Meister werden kann.</returns>
-        public bool CalculateIfTeamCanWinChampionship(int stage, long teamApiId)
+        public ChampionComputationalResult CalculateIfTeamCanWinChampionship(int stage, long teamApiId)
         {
             // Anzahl der Spiele ermitteln
             long numberOfMatches = this.ChampionshipViewModel.MatchService.GetNumberOfMatches(this.LeagueId, this.Season);
@@ -79,13 +80,17 @@ namespace ChampionshipProblem.Services
             // Wenn erst die Hälfte der Spiele gespielt ist, kann noch jeder Platz erreicht werden
             if (stage <= numberOfMatches / 2)
             {
-                return true;
+                return new ChampionComputationalResult() {
+                    CanWinChampionship = true
+                };
             }
 
             // Wenn es der letzte Spieltag ist, steht die Position fest
             if (stage == numberOfMatches)
             {
-                return leagueStandingEntries.First().TeamApiId == teamApiId;
+                return new ChampionComputationalResult() {
+                    CanWinChampionship = leagueStandingEntries.First().TeamApiId == teamApiId
+                };
             }
 
             // Die fehlenden Spiele ermitteln
@@ -105,7 +110,7 @@ namespace ChampionshipProblem.Services
         /// <param name="teamApiId">Die Id des Teams.</param>
         /// <param name="numberOfMissingStages">Die Anzahl der fehlenden Spiele.</param>
         /// <returns>Ob die Mannschaft noch Meister werden kann.</returns>
-        public static bool CalculateIfTeamCanWinChampionship(IEnumerable<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, long teamApiId, int numberOfMissingStages)
+        public static ChampionComputationalResult CalculateIfTeamCanWinChampionship(IEnumerable<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, long teamApiId, int numberOfMissingStages)
         {
             // Als Erstes die Liste kopieren, dass die Ansicht nicht verändert wird
             LeagueStandingEntry specificEntry = leagueStandingEntries.Single((entry) => entry.TeamApiId == teamApiId);
@@ -115,7 +120,10 @@ namespace ChampionshipProblem.Services
             // Zuerst überprüfen, ob der aktuell erste überhaupt mit Punkten noch eingeholt werden kann
             if (specificEntry.Points + numberOfMissingStages * 3 < first.Points)
             {
-                return false;
+                return new ChampionComputationalResult()
+                {
+                    CanWinChampionship = false
+                };
             }
 
             // Nun die Teams ermitteln, welche unerreichbar sind zum betrachteten Team
@@ -186,7 +194,10 @@ namespace ChampionshipProblem.Services
             // Falls jetzt jemand vor dem Team ist, dann kann dieses nichtmehr Meister werden
             if (leagueStandingEntries.Where((leagueStandingEntry) => leagueStandingEntry.Points > specificEntry.Points).Count() > 0)
             {
-                return false;
+                return new ChampionComputationalResult()
+                {
+                    CanWinChampionship = false
+                };
             }
 
             // Falls die Iterationen kleiner als 1 sind, dann wird nur eine Berechnung durchgeführt, da es sonst zu viele wären
@@ -230,7 +241,9 @@ namespace ChampionshipProblem.Services
                 }
             });
 
-            return canWin;
+            return new ChampionComputationalResult(){
+                CanWinChampionship = canWin
+            };
         }
         #endregion
 
@@ -320,6 +333,5 @@ namespace ChampionshipProblem.Services
             return remainingMatches.Count;
         }
         #endregion
-
     }
 }

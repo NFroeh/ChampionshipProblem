@@ -1,4 +1,5 @@
 ﻿using ChampionshipProblem.Classes;
+using ChampionshipProblem.Classes.ResultClasses;
 using ChampionshipProblem.Extensions;
 using ChampionshipProblem.Scheme;
 using System;
@@ -85,7 +86,7 @@ namespace ChampionshipProblem.Services
         /// <param name="leagueStandingEntries">Die aktuelle Tabelle.</param>
         /// <param name="teamApiId">Die Id des Teams.</param>
         /// <returns>Die bestmögliche Position.</returns>
-        public int CalculateBestPossibleFinalPositionForTeam(int stage, long teamApiId)
+        public PositionComputationalResult CalculateBestPossibleFinalPositionForTeam(int stage, long teamApiId)
         {
             return this.BestPossiblePositionService.CalculateBestPossibleFinalPositionForTeam(stage, teamApiId);
         }
@@ -100,7 +101,7 @@ namespace ChampionshipProblem.Services
         /// <param name="teamApiId">Die Id des Teams.</param>
         /// <param name="numberOfMissingStages">Die Anzahl der fehlenden Spiele.</param>
         /// <returns>Die bestmögliche Position</returns>
-        public static int CalculateBestPossibleFinalPositionForTeam(IEnumerable<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, long teamApiId, int numberOfMissingStages)
+        public static PositionComputationalResult CalculateBestPossibleFinalPositionForTeam(IEnumerable<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, long teamApiId, int numberOfMissingStages)
         {
             return BestPossiblePositionService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, teamApiId, numberOfMissingStages);
         }
@@ -114,7 +115,7 @@ namespace ChampionshipProblem.Services
         /// <param name="leagueStandingEntries">Die aktuelle Tabelle.</param>
         /// <param name="teamApiId">Die Id des Teams.</param>
         /// <returns>Die schlechtmöglichste Position.</returns>
-        public int CalculateWorstPossibleFinalPositionForTeam(int stage, long teamApiId)
+        public PositionComputationalResult CalculateWorstPossibleFinalPositionForTeam(int stage, long teamApiId)
         {
             return this.WorstPossiblePositionService.CalculateWorstPossibleFinalPositionForTeam(stage, teamApiId);
         }
@@ -129,7 +130,7 @@ namespace ChampionshipProblem.Services
         /// <param name="teamApiId">Die Id des Teams.</param>
         /// <param name="numberOfMissingStages">Die Anzahl der fehlenden Spiele.</param>
         /// <returns>Die schlechtmöglichste Position</returns>
-        public static int CalculateWorstPossibleFinalPositionForTeam(IEnumerable<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, long teamApiId, int numberOfMissingStages)
+        public static PositionComputationalResult CalculateWorstPossibleFinalPositionForTeam(IEnumerable<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, long teamApiId, int numberOfMissingStages)
         {
             return WorstPossiblePositionService.CalculateWorstPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, teamApiId, numberOfMissingStages);
         }
@@ -143,7 +144,7 @@ namespace ChampionshipProblem.Services
         /// <param name="leagueStandingEntries">Die aktuelle Tabelle.</param>
         /// <param name="teamApiId">Die Id des Teams.</param>
         /// <returns>Ob die Mannschaft noch Meister werden kann.</returns>
-        public bool CalculateIfTeamCanWinChampionship(int stage, long teamApiId)
+        public ChampionComputationalResult CalculateIfTeamCanWinChampionship(int stage, long teamApiId)
         {
             return this.ChampionService.CalculateIfTeamCanWinChampionship(stage, teamApiId);
         }
@@ -158,7 +159,7 @@ namespace ChampionshipProblem.Services
         /// <param name="teamApiId">Die Id des Teams.</param>
         /// <param name="numberOfMissingStages">Die Anzahl der fehlenden Spiele.</param>
         /// <returns>Ob die Mannschaft noch Meister werden kann.</returns>
-        public static bool CalculateIfTeamCanWinChampionship(IEnumerable<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, long teamApiId, int numberOfMissingStages)
+        public static ChampionComputationalResult CalculateIfTeamCanWinChampionship(IEnumerable<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, long teamApiId, int numberOfMissingStages)
         {
             return ChampionService.CalculateIfTeamCanWinChampionship(leagueStandingEntries, remainingMatches, teamApiId, numberOfMissingStages);
         }

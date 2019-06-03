@@ -38,8 +38,10 @@ namespace ChampionshipProblem
             this.RemainingMatchesView = new System.Windows.Forms.DataGridView();
             this.remainingMatchesLabel = new System.Windows.Forms.Label();
             this.RemainingMatchComboBox = new System.Windows.Forms.ComboBox();
+            this.ComputationStandingView = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.StandingsView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RemainingMatchesView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ComputationStandingView)).BeginInit();
             this.SuspendLayout();
             // 
             // LeagueComboBox
@@ -137,11 +139,20 @@ namespace ChampionshipProblem
             this.RemainingMatchComboBox.TabIndex = 10;
             this.RemainingMatchComboBox.SelectedIndexChanged += new System.EventHandler(this.RemainingMatchComboBox_SelectedIndexChanged);
             // 
+            // ComputationStandingView
+            // 
+            this.ComputationStandingView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ComputationStandingView.Location = new System.Drawing.Point(13, 592);
+            this.ComputationStandingView.Name = "ComputationStandingView";
+            this.ComputationStandingView.Size = new System.Drawing.Size(1116, 458);
+            this.ComputationStandingView.TabIndex = 11;
+            // 
             // ChampionshipProblemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1548, 602);
+            this.ClientSize = new System.Drawing.Size(1548, 1061);
+            this.Controls.Add(this.ComputationStandingView);
             this.Controls.Add(this.RemainingMatchComboBox);
             this.Controls.Add(this.remainingMatchesLabel);
             this.Controls.Add(this.RemainingMatchesView);
@@ -157,6 +168,7 @@ namespace ChampionshipProblem
             this.Text = "ChampionshipProblemForm";
             ((System.ComponentModel.ISupportInitialize)(this.StandingsView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RemainingMatchesView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ComputationStandingView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -174,6 +186,7 @@ namespace ChampionshipProblem
         private System.Windows.Forms.DataGridView RemainingMatchesView;
         private System.Windows.Forms.Label remainingMatchesLabel;
         private System.Windows.Forms.ComboBox RemainingMatchComboBox;
+        private System.Windows.Forms.DataGridView ComputationStandingView;
     }
 }
 

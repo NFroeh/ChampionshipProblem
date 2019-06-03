@@ -77,10 +77,12 @@ namespace ChampionshipProblem
             // Keine automatische Generierung der Spalten in der DataGridView
             StandingsView.AutoGenerateColumns = false;
             RemainingMatchesView.AutoGenerateColumns = false;
+            ComputationStandingView.AutoGenerateColumns = false;
 
             // Die Selektorspalte ausblenden
             StandingsView.RowHeadersVisible = false;
             RemainingMatchesView.RowHeadersVisible = false;
+            ComputationStandingView.RowHeadersVisible = false;
 
             // Die Ligen als Datengrundlage setzen
             List<League> leagues = championshipViewModel.LeagueService.GetLeagues().ToList();
@@ -92,6 +94,9 @@ namespace ChampionshipProblem
 
             // Spalten des remainingMatchesView generieren
             this.GenerateRemainingMatchesViewColumns();
+
+            // Spalten der computationstandingView generieren
+            this.GenerateComputationStandingView();
         }
         #endregion
 
@@ -193,7 +198,7 @@ namespace ChampionshipProblem
                 if (result == DialogResult.Yes)
                 {
                     Stopwatch stopwatch = Stopwatch.StartNew();
-                    entry.BestPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamApiId.Value);
+                    entry.BestPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamApiId.Value).Position;
                     stopwatch.Stop();
                     entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
                     this.StandingsView.Refresh();
@@ -226,7 +231,7 @@ namespace ChampionshipProblem
                 if (result == DialogResult.Yes)
                 {
                     Stopwatch stopwatch = Stopwatch.StartNew();
-                    entry.WorstPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamApiId.Value);
+                    entry.WorstPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamApiId.Value).Position;
                     stopwatch.Stop();
                     entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
                     this.StandingsView.Refresh();
@@ -260,7 +265,7 @@ namespace ChampionshipProblem
                 {
                     // Ausrechnen
                     Stopwatch stopwatch = Stopwatch.StartNew();
-                    entry.CanWinChampionship = this.ChampionshipViewModel.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, entry.TeamApiId.Value);
+                    entry.CanWinChampionship = this.ChampionshipViewModel.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, entry.TeamApiId.Value).CanWinChampionship;
                     stopwatch.Stop();
                     entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
                     this.StandingsView.Refresh();
@@ -542,6 +547,62 @@ namespace ChampionshipProblem
             lastElapsedTimeColumn.DefaultCellStyle.Format = "0.000##";
             lastElapsedTimeColumn.ValueType = typeof(double);
             this.StandingsView.Columns.Add(lastElapsedTimeColumn);
+        }
+        #endregion
+
+        #region GenerateComputationStandingView
+        /// <summary>
+        /// Methode zum Generieren der Spalten für das DataGrid mit dem Ergebnis der ausrechnung.
+        /// </summary>
+        private void GenerateComputationStandingView()
+        {
+            // Die Spalten der DataGridView hinzufügen
+            DataGridViewColumn positionColumn = new DataGridViewTextBoxColumn
+            {
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = "Position",
+                Name = "P",
+                ReadOnly = true,
+                Width = 20
+            };
+            positionColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            positionColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.ComputationStandingView.Columns.Add(positionColumn);
+
+            DataGridViewColumn teamColumn = new DataGridViewTextBoxColumn
+            {
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = "TeamLongName",
+                Name = "Team",
+                ReadOnly = true,
+                Width = 200
+            };
+            teamColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            teamColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.ComputationStandingView.Columns.Add(teamColumn);
+
+            DataGridViewColumn goalDifferenceColumn = new DataGridViewTextBoxColumn
+            {
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = "GoalDifference",
+                Name = "Goal Difference",
+                Width = 70,
+                ReadOnly = true
+            };
+            goalDifferenceColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            goalDifferenceColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.ComputationStandingView.Columns.Add(goalDifferenceColumn);
+
+            DataGridViewColumn pointsColumn = new DataGridViewTextBoxColumn
+            {
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = "Points",
+                Name = "Points",
+                Width = 50
+            };
+            pointsColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            pointsColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.ComputationStandingView.Columns.Add(pointsColumn);
         }
         #endregion
 
