@@ -24,12 +24,12 @@ namespace ChampionshipProblem.Test
 
             LeagueStandingService.PrintLeagueStanding(leagueStandingEntries);
 
-            Debug.WriteLine(LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 1, 5));
-            Debug.WriteLine(LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 2, 5));
-            Debug.WriteLine(LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 3, 5));
-            Debug.WriteLine(LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 4, 5));
-            Debug.WriteLine(LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 5, 5));
-            Debug.WriteLine(LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 6, 5));
+            Debug.WriteLine(LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 1, 5, false));
+            Debug.WriteLine(LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 2, 5, false));
+            Debug.WriteLine(LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 3, 5, false));
+            Debug.WriteLine(LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 4, 5, false));
+            Debug.WriteLine(LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 5, 5, false));
+            Debug.WriteLine(LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 6, 5, false));
         }
         #endregion
 
@@ -52,7 +52,7 @@ namespace ChampionshipProblem.Test
             LeagueStandingService leagueStandingService = new LeagueStandingService(championshipViewModel, leagueName, season);
 
             List<LeagueStandingEntry> standing = leagueStandingService.CalculateStanding(stage);
-            leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[4].TeamApiId.Value);
+            leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[4].TeamApiId.Value, false);
         }
         #endregion
 
@@ -75,28 +75,28 @@ namespace ChampionshipProblem.Test
             LeagueStandingService leagueStandingService = new LeagueStandingService(championshipViewModel, leagueName, season);
 
             List<LeagueStandingEntry> standing = leagueStandingService.CalculateStanding(stage);
-            Assert.AreEqual(1, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[0].TeamApiId.Value));
-            Assert.AreEqual(3, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[1].TeamApiId.Value));
-            Assert.AreEqual(3, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[2].TeamApiId.Value));
-            Assert.AreEqual(5, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[3].TeamApiId.Value));
-            Assert.AreEqual(5, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[4].TeamApiId.Value));
-            Assert.AreEqual(8, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[5].TeamApiId.Value));
+            Assert.AreEqual(1, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[0].TeamApiId.Value, false).Position);
+            Assert.AreEqual(3, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[1].TeamApiId.Value, false).Position);
+            Assert.AreEqual(3, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[2].TeamApiId.Value, false).Position);
+            Assert.AreEqual(5, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[3].TeamApiId.Value, false).Position);
+            Assert.AreEqual(5, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[4].TeamApiId.Value, false).Position);
+            Assert.AreEqual(8, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[5].TeamApiId.Value, false).Position);
 
             // HSV ist 12, da Kaiserslautern gegen Bremen spielt und so HSV nur von einem der beiden überholt werden kann
-            Assert.AreEqual(12, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[6].TeamApiId.Value));
-            Assert.AreEqual(12, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[7].TeamApiId.Value));
+            Assert.AreEqual(12, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[6].TeamApiId.Value, false).Position);
+            Assert.AreEqual(12, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[7].TeamApiId.Value, false).Position);
 
             // Da Köln gegen Schalke spielt, kann nur einer dieser Vereine die folgenden Vereine noch überholen
-            Assert.AreEqual(13, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[8].TeamApiId.Value));
-            Assert.AreEqual(13, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[9].TeamApiId.Value));
-            Assert.AreEqual(13, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[10].TeamApiId.Value));
-            Assert.AreEqual(14, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[11].TeamApiId.Value));
-            Assert.AreEqual(14, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[12].TeamApiId.Value));
-            Assert.AreEqual(14, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[13].TeamApiId.Value));
-            Assert.AreEqual(17, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[14].TeamApiId.Value));
-            Assert.AreEqual(17, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[15].TeamApiId.Value));
-            Assert.AreEqual(17, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[16].TeamApiId.Value));
-            Assert.AreEqual(18, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[17].TeamApiId.Value));
+            Assert.AreEqual(13, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[8].TeamApiId.Value, false).Position);
+            Assert.AreEqual(13, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[9].TeamApiId.Value, false).Position);
+            Assert.AreEqual(13, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[10].TeamApiId.Value, false).Position);
+            Assert.AreEqual(14, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[11].TeamApiId.Value, false).Position);
+            Assert.AreEqual(14, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[12].TeamApiId.Value, false).Position);
+            Assert.AreEqual(14, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[13].TeamApiId.Value, false).Position);
+            Assert.AreEqual(17, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[14].TeamApiId.Value, false).Position);
+            Assert.AreEqual(17, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[15].TeamApiId.Value, false).Position);
+            Assert.AreEqual(17, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[16].TeamApiId.Value, false).Position);
+            Assert.AreEqual(18, leagueStandingService.CalculateWorstPossibleFinalPositionForTeam(stage, standing[17].TeamApiId.Value, false).Position);
         }
         #endregion
     }

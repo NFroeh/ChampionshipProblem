@@ -68,8 +68,9 @@ namespace ChampionshipProblem.Services
         /// <param name="stage">Der Spieltag.</param>
         /// <param name="leagueStandingEntries">Die aktuelle Tabelle.</param>
         /// <param name="teamApiId">Die Id des Teams.</param>
+        /// <param name="computeStanding">Ob die Tabelle ausgerechnet werden soll.</param>
         /// <returns>Die schlechtmöglichste Position.</returns>
-        public PositionComputationalResult CalculateWorstPossibleFinalPositionForTeam(int stage, long teamApiId)
+        public PositionComputationalResult CalculateWorstPossibleFinalPositionForTeam(int stage, long teamApiId, bool computeStanding)
         {
             long numberOfMatches = this.ChampionshipViewModel.MatchService.GetNumberOfMatches(this.LeagueId, this.Season);
 
@@ -98,7 +99,7 @@ namespace ChampionshipProblem.Services
             List<RemainingMatch> remainingMatches = this.ChampionshipViewModel.MatchService.GetRemainingMatches(this.LeagueId, this.Season, stage).ToList();
 
             // Berechnung mit den ermittelten Werten durchführen (Liste hier kopieren, dass diese nicht in der Ansicht geändert wird)
-            return LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, teamApiId, (int)numberOfMatches - stage);
+            return LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, teamApiId, (int)numberOfMatches - stage, computeStanding);
         }
         #endregion
 
@@ -110,14 +111,16 @@ namespace ChampionshipProblem.Services
         /// <param name="remainingMatches">Die fehlenden Spiele.</param>
         /// <param name="teamApiId">Die Id des Teams.</param>
         /// <param name="numberOfMissingStages">Die Anzahl der fehlenden Spiele.</param>
+        /// <param name="computeStanding">Ob die Tabelle ausgerechnet werden soll.</param>
         /// <returns>Die schlechtmöglichste Position</returns>
-        public static PositionComputationalResult CalculateWorstPossibleFinalPositionForTeam(IEnumerable<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, long teamApiId, int numberOfMissingStages)
+        public static PositionComputationalResult CalculateWorstPossibleFinalPositionForTeam(IEnumerable<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, long teamApiId, int numberOfMissingStages, bool computeStanding)
         {
             // Als Erstes die Liste kopieren, dass die Ansicht nicht verändert wird
             var positionLock = new object();
             LeagueStandingEntry specificEntry = leagueStandingEntries.Single((entry) => entry.TeamApiId == teamApiId);
             int worstPosition = leagueStandingEntries.ToList().IndexOf(specificEntry) + 1;
             int numberOfTeams = leagueStandingEntries.Count();
+            List<LeagueStandingEntry> computationResult = new List<LeagueStandingEntry>();
 
             // Nun die Teams ermitteln, welche unerreichbar sind für das Team
             List<LeagueStandingEntry> unconsideredEntries = new List<LeagueStandingEntry>();
@@ -204,6 +207,11 @@ namespace ChampionshipProblem.Services
                     {
                         worstPosition = position;
 
+                        if (computeStanding)
+                        {
+                            computationResult = leagueStanding;
+                        }
+
                         if (worstPosition == numberOfTeams)
                         {
                             loopState.Stop();
@@ -214,7 +222,8 @@ namespace ChampionshipProblem.Services
 
             return new PositionComputationalResult()
             {
-                Position = worstPosition
+                Position = worstPosition,
+                ComputationalStanding = computationResult
             };
         }
         #endregion

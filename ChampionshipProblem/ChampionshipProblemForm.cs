@@ -1,4 +1,5 @@
 using ChampionshipProblem.Classes;
+using ChampionshipProblem.Classes.ResultClasses;
 using ChampionshipProblem.Scheme;
 using ChampionshipProblem.Services;
 using System;
@@ -198,8 +199,20 @@ namespace ChampionshipProblem
                 if (result == DialogResult.Yes)
                 {
                     Stopwatch stopwatch = Stopwatch.StartNew();
-                    entry.BestPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamApiId.Value).Position;
-                    stopwatch.Stop();
+
+                    if (ComputeResultCheckbox.Checked)
+                    {
+                        PositionComputationalResult positionComputationalResult = this.ChampionshipViewModel.LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamApiId.Value, true);
+                        entry.BestPossiblePosition = positionComputationalResult.Position;
+                        ComputationStandingView.DataSource = positionComputationalResult.ComputationalStanding.ToArray();
+                        stopwatch.Stop();
+                    }
+                    else
+                    {
+                        entry.BestPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamApiId.Value, false).Position;
+                        stopwatch.Stop();
+                    }
+
                     entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
                     this.StandingsView.Refresh();
                 }
@@ -231,8 +244,20 @@ namespace ChampionshipProblem
                 if (result == DialogResult.Yes)
                 {
                     Stopwatch stopwatch = Stopwatch.StartNew();
-                    entry.WorstPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamApiId.Value).Position;
-                    stopwatch.Stop();
+
+                    if (ComputeResultCheckbox.Checked)
+                    {
+                        PositionComputationalResult positionComputationalResult = this.ChampionshipViewModel.LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamApiId.Value, true);
+                        entry.WorstPossiblePosition = positionComputationalResult.Position;
+                        ComputationStandingView.DataSource = positionComputationalResult.ComputationalStanding.ToArray();
+                        stopwatch.Stop();
+                    }
+                    else
+                    {
+                        entry.WorstPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamApiId.Value, false).Position;
+                        stopwatch.Stop();
+                    }
+
                     entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
                     this.StandingsView.Refresh();
                 }
@@ -265,8 +290,28 @@ namespace ChampionshipProblem
                 {
                     // Ausrechnen
                     Stopwatch stopwatch = Stopwatch.StartNew();
-                    entry.CanWinChampionship = this.ChampionshipViewModel.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, entry.TeamApiId.Value).CanWinChampionship;
-                    stopwatch.Stop();
+
+                    if (ComputeResultCheckbox.Checked)
+                    {
+                        ChampionComputationalResult championComputationalResult = this.ChampionshipViewModel.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, entry.TeamApiId.Value, true);
+                        stopwatch.Stop();
+                        entry.CanWinChampionship = championComputationalResult.CanWinChampionship;
+                        if (championComputationalResult.CanWinChampionship)
+                        {
+                            ComputationStandingView.DataSource = championComputationalResult.ComputationalStanding.ToArray();
+                        }
+                        else
+                        {
+                            ComputationStandingView.DataSource = new string[0];
+                        }
+
+                    }
+                    else
+                    {
+                        entry.CanWinChampionship = this.ChampionshipViewModel.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, entry.TeamApiId.Value, false).CanWinChampionship;
+                        stopwatch.Stop();
+                    }
+
                     entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
                     this.StandingsView.Refresh();
                 }

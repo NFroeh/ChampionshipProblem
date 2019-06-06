@@ -68,8 +68,9 @@ namespace ChampionshipProblem.Services
         /// <param name="stage">Der Spieltag.</param>
         /// <param name="leagueStandingEntries">Die aktuelle Tabelle.</param>
         /// <param name="teamApiId">Die Id des Teams.</param>
+        /// <param name="computeStanding">Ob die Tabelle ausgerechnet werden soll.</param>
         /// <returns>Ob die Mannschaft noch Meister werden kann.</returns>
-        public ChampionComputationalResult CalculateIfTeamCanWinChampionship(int stage, long teamApiId)
+        public ChampionComputationalResult CalculateIfTeamCanWinChampionship(int stage, long teamApiId, bool computeStanding)
         {
             // Anzahl der Spiele ermitteln
             long numberOfMatches = this.ChampionshipViewModel.MatchService.GetNumberOfMatches(this.LeagueId, this.Season);
@@ -89,7 +90,8 @@ namespace ChampionshipProblem.Services
             if (stage == numberOfMatches)
             {
                 return new ChampionComputationalResult() {
-                    CanWinChampionship = leagueStandingEntries.First().TeamApiId == teamApiId
+                    CanWinChampionship = leagueStandingEntries.First().TeamApiId == teamApiId,
+                    ComputationalStanding = leagueStandingEntries
                 };
             }
 
@@ -97,7 +99,7 @@ namespace ChampionshipProblem.Services
             List<RemainingMatch> remainingMatches = this.ChampionshipViewModel.MatchService.GetRemainingMatches(this.LeagueId, this.Season, stage).ToList();
 
             // Berechnung mit den ermittelten Werten durchführen (Liste hier kopieren, dass diese nicht in der Ansicht geändert wird)
-            return LeagueStandingService.CalculateIfTeamCanWinChampionship(leagueStandingEntries, remainingMatches, teamApiId, (int)numberOfMatches - stage);
+            return LeagueStandingService.CalculateIfTeamCanWinChampionship(leagueStandingEntries, remainingMatches, teamApiId, (int)numberOfMatches - stage, computeStanding);
         }
         #endregion
 
@@ -109,20 +111,23 @@ namespace ChampionshipProblem.Services
         /// <param name="remainingMatches">Die fehlenden Spiele.</param>
         /// <param name="teamApiId">Die Id des Teams.</param>
         /// <param name="numberOfMissingStages">Die Anzahl der fehlenden Spiele.</param>
+        /// <param name="computeStanding">Ob die Tabelle ausgerechnet werden soll.</param>
         /// <returns>Ob die Mannschaft noch Meister werden kann.</returns>
-        public static ChampionComputationalResult CalculateIfTeamCanWinChampionship(IEnumerable<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, long teamApiId, int numberOfMissingStages)
+        public static ChampionComputationalResult CalculateIfTeamCanWinChampionship(IEnumerable<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, long teamApiId, int numberOfMissingStages, bool computeStanding)
         {
             // Als Erstes die Liste kopieren, dass die Ansicht nicht verändert wird
             LeagueStandingEntry specificEntry = leagueStandingEntries.Single((entry) => entry.TeamApiId == teamApiId);
             LeagueStandingEntry first = leagueStandingEntries.First();
             bool canWin = false;
+            List<LeagueStandingEntry> computationResult = new List<LeagueStandingEntry>();
 
             // Zuerst überprüfen, ob der aktuell erste überhaupt mit Punkten noch eingeholt werden kann
             if (specificEntry.Points + numberOfMissingStages * 3 < first.Points)
             {
                 return new ChampionComputationalResult()
                 {
-                    CanWinChampionship = false
+                    CanWinChampionship = false,
+                    ComputationalStanding = computationResult
                 };
             }
 
@@ -196,7 +201,8 @@ namespace ChampionshipProblem.Services
             {
                 return new ChampionComputationalResult()
                 {
-                    CanWinChampionship = false
+                    CanWinChampionship = false,
+                    ComputationalStanding = computationResult
                 };
             }
 
@@ -237,12 +243,19 @@ namespace ChampionshipProblem.Services
                 if (position == 0)
                 {
                     canWin = true;
+                    
+                    if (computeStanding)
+                    {
+                        computationResult = leagueStanding;
+                    }
+
                     loopState.Stop();
                 }
             });
 
             return new ChampionComputationalResult(){
-                CanWinChampionship = canWin
+                CanWinChampionship = canWin,
+                ComputationalStanding = computationResult
             };
         }
         #endregion

@@ -24,12 +24,12 @@ namespace ChampionshipProblem.Test
 
             LeagueStandingService.PrintLeagueStanding(leagueStandingEntries);
 
-            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 1, 5));
-            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 2, 5));
-            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 3, 5));
-            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 4, 5));
-            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 5, 5));
-            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 6, 5));
+            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 1, 5, false));
+            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 2, 5, false));
+            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 3, 5, false));
+            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 4, 5, false));
+            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 5, 5, false));
+            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 6, 5, false));
         }
         #endregion
 
@@ -51,7 +51,7 @@ namespace ChampionshipProblem.Test
 
             LeagueStandingService leagueStandingService = new LeagueStandingService(championshipViewModel, leagueName, season);
             List<LeagueStandingEntry> standing = leagueStandingService.CalculateStanding(stage);
-            leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[4].TeamApiId.Value);
+            leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[4].TeamApiId.Value, false);
         }
         #endregion
 
@@ -74,26 +74,26 @@ namespace ChampionshipProblem.Test
             LeagueStandingService leagueStandingService = new LeagueStandingService(championshipViewModel, leagueName, season);
 
             List<LeagueStandingEntry> standing = leagueStandingService.CalculateStanding(stage);
-            Assert.AreEqual(1, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[0].TeamApiId.Value));
-            Assert.AreEqual(2, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[1].TeamApiId.Value));
-            Assert.AreEqual(2, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[2].TeamApiId.Value));
-            Assert.AreEqual(4, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[3].TeamApiId.Value));
-            Assert.AreEqual(4, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[4].TeamApiId.Value));
-            Assert.AreEqual(6, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[5].TeamApiId.Value));
-            Assert.AreEqual(6, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[6].TeamApiId.Value));
-            Assert.AreEqual(6, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[7].TeamApiId.Value));
-            Assert.AreEqual(7, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[8].TeamApiId.Value));
-            Assert.AreEqual(7, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[9].TeamApiId.Value));
-            Assert.AreEqual(7, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[10].TeamApiId.Value));
-            Assert.AreEqual(7, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[11].TeamApiId.Value));
-            Assert.AreEqual(7, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[12].TeamApiId.Value));
+            Assert.AreEqual(1, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[0].TeamApiId.Value, false).Position);
+            Assert.AreEqual(2, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[1].TeamApiId.Value, false).Position);
+            Assert.AreEqual(2, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[2].TeamApiId.Value, false).Position);
+            Assert.AreEqual(4, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[3].TeamApiId.Value, false).Position);
+            Assert.AreEqual(4, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[4].TeamApiId.Value, false).Position);
+            Assert.AreEqual(6, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[5].TeamApiId.Value, false).Position);
+            Assert.AreEqual(6, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[6].TeamApiId.Value, false).Position);
+            Assert.AreEqual(6, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[7].TeamApiId.Value, false).Position);
+            Assert.AreEqual(7, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[8].TeamApiId.Value, false).Position);
+            Assert.AreEqual(7, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[9].TeamApiId.Value, false).Position);
+            Assert.AreEqual(7, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[10].TeamApiId.Value, false).Position);
+            Assert.AreEqual(7, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[11].TeamApiId.Value, false).Position);
+            Assert.AreEqual(7, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[12].TeamApiId.Value, false).Position);
 
             // Hier 10ter, da Bremen oder Kaiserslautern Punkte bekommen müssen
-            Assert.AreEqual(10, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[13].TeamApiId.Value));
-            Assert.AreEqual(15, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[14].TeamApiId.Value));
-            Assert.AreEqual(15, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[15].TeamApiId.Value));
-            Assert.AreEqual(15, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[16].TeamApiId.Value));
-            Assert.AreEqual(18, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[17].TeamApiId.Value));
+            Assert.AreEqual(10, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[13].TeamApiId.Value, false).Position);
+            Assert.AreEqual(15, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[14].TeamApiId.Value, false).Position);
+            Assert.AreEqual(15, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[15].TeamApiId.Value, false).Position);
+            Assert.AreEqual(15, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[16].TeamApiId.Value, false).Position);
+            Assert.AreEqual(18, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[17].TeamApiId.Value, false).Position);
         }
         #endregion
 
@@ -116,7 +116,7 @@ namespace ChampionshipProblem.Test
             LeagueStandingService leagueStandingService = new LeagueStandingService(championshipViewModel, leagueName, season);
 
             List<LeagueStandingEntry> standing = leagueStandingService.CalculateStanding(stage);
-            Assert.AreEqual(1, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[5].TeamApiId.Value));
+            Assert.AreEqual(1, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[5].TeamApiId.Value, false).Position);
             //Assert.AreEqual(2, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing, standing[6].TeamApiId.Value));
             //Assert.AreEqual(3, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing, standing[7].TeamApiId.Value));
         }
