@@ -13,7 +13,7 @@ namespace ChampionshipProblem.Test
         /// Methode zum Generieren der Tabelle der Saison von 1991.
         /// </summary>
         /// <returns>Die Tabelle der Saison 1991.</returns>
-        public static IEnumerable<LeagueStandingEntry> GenerateSeason1991Standing()
+        public static List<LeagueStandingEntry> GenerateSeason1991Standing()
         {
             LeagueStandingEntry sge = new LeagueStandingEntry(1, "SGE", "Frankfurt")
             {

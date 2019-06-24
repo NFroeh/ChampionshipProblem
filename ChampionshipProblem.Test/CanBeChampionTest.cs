@@ -21,7 +21,7 @@ namespace ChampionshipProblem.Test
         [TestMethod]
         public void Season1991Test()
         {
-            IEnumerable<LeagueStandingEntry> leagueStandingEntries = TestUtils.GenerateSeason1991Standing();
+            List<LeagueStandingEntry> leagueStandingEntries = TestUtils.GenerateSeason1991Standing();
             List<RemainingMatch> remainingMatches = TestUtils.GenerateSeason1991RemaingMatches();
 
             LeagueStandingService.PrintLeagueStanding(leagueStandingEntries);
