@@ -5,7 +5,7 @@
     using System;
 
     [TestClass]
-    public class CalculateReachablePositionTest
+    public class PositionServiceTest
     {
         #region BasicTest
         /// <summary>
@@ -37,8 +37,8 @@
             };
 
             // Rechne mit allem unentschieden
-            Assert.AreEqual(1, ChampionService.CalculateIfTeamCanReachPosition((int[])pointDifferences.Clone(), (Tuple<int, int>[]) remainingMatches.Clone(), 0));
-            Assert.AreEqual(0, ChampionService.CalculateIfTeamCanReachPosition((int[])pointDifferences.Clone(), (Tuple<int, int>[]) remainingMatches.Clone(), 81));
+            Assert.AreEqual(1, PositionService.CalculateIfTeamCanReachPosition((int[])pointDifferences.Clone(), (Tuple<int, int>[]) remainingMatches.Clone(), 0));
+            Assert.AreEqual(0, PositionService.CalculateIfTeamCanReachPosition((int[])pointDifferences.Clone(), (Tuple<int, int>[]) remainingMatches.Clone(), 81));
 
             int[] pointDifferences2 = new int[] { 0, -2, 0, 0, -3, -5, -5, -6, -15, -25, -25, -22, -29, -22, -20, -24, -20 };
             Tuple<int, int>[] remainingMatches2 = new Tuple<int, int>[] {
@@ -61,10 +61,10 @@
                 new Tuple<int, int>(10, 12) // 0
             };
 
-            Assert.AreEqual(2, ChampionService.CalculateIfTeamCanReachPosition((int[])pointDifferences2.Clone(), (Tuple<int, int>[])remainingMatches2.Clone(), 0));
+            Assert.AreEqual(2, PositionService.CalculateIfTeamCanReachPosition((int[])pointDifferences2.Clone(), (Tuple<int, int>[])remainingMatches2.Clone(), 0));
 
             // 010211220210011
-            Assert.AreEqual(0, ChampionService.CalculateIfTeamCanReachPosition((int[])pointDifferences2.Clone(), (Tuple<int, int>[])remainingMatches2.Clone(), 15839572));
+            Assert.AreEqual(0, PositionService.CalculateIfTeamCanReachPosition((int[])pointDifferences2.Clone(), (Tuple<int, int>[])remainingMatches2.Clone(), 15839572));
         }
         #endregion
     }

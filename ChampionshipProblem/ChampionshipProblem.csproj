@@ -124,6 +124,7 @@
     <Compile Include="Services\LeagueService.cs" />
     <Compile Include="Services\LeagueStandingService.cs" />
     <Compile Include="Services\MatchService.cs" />
+    <Compile Include="Services\PositionService.cs" />
     <Compile Include="Services\TeamService.cs" />
     <Compile Include="Services\WorstPossiblePositionService.cs" />
     <EmbeddedResource Include="ChampionshipProblemForm.resx">
