@@ -14,7 +14,7 @@
         [TestMethod]
         public void BasicTest()
         {
-            int[] pointDifferences = new int[] { -3, -5, -6, -6, -6, -11, -11, -18, -21, -28, -28, -28, -17, -22, -23, -24, -23};
+            int[] pointDifferences = new int[] { -3, -5, -6, -6, -6, -11, -11, -18, -21, -28, -28, -28, -17, -22, -23, -24, -23 };
             Tuple<int, int>[] remainingMatches = new Tuple<int, int>[] {
                 new Tuple<int, int>(4, 1),
                 new Tuple<int, int>(5, 7),
@@ -37,8 +37,8 @@
             };
 
             // Rechne mit allem unentschieden
-            Assert.AreEqual(1, PositionService.CalculateIfTeamCanReachPosition((int[])pointDifferences.Clone(), (Tuple<int, int>[]) remainingMatches.Clone(), 0));
-            Assert.AreEqual(0, PositionService.CalculateIfTeamCanReachPosition((int[])pointDifferences.Clone(), (Tuple<int, int>[]) remainingMatches.Clone(), 81));
+            Assert.AreEqual(1, PositionService.CalculatePointDifferencesByIndex((int[])pointDifferences.Clone(), (Tuple<int, int>[])remainingMatches.Clone(), 0));
+            Assert.AreEqual(0, PositionService.CalculatePointDifferencesByIndex((int[])pointDifferences.Clone(), (Tuple<int, int>[])remainingMatches.Clone(), 81));
 
             int[] pointDifferences2 = new int[] { 0, -2, 0, 0, -3, -5, -5, -6, -15, -25, -25, -22, -29, -22, -20, -24, -20 };
             Tuple<int, int>[] remainingMatches2 = new Tuple<int, int>[] {
@@ -61,11 +61,30 @@
                 new Tuple<int, int>(10, 12) // 0
             };
 
-            Assert.AreEqual(2, PositionService.CalculateIfTeamCanReachPosition((int[])pointDifferences2.Clone(), (Tuple<int, int>[])remainingMatches2.Clone(), 0));
+            Assert.AreEqual(2, PositionService.CalculatePointDifferencesByIndex((int[])pointDifferences2.Clone(), (Tuple<int, int>[])remainingMatches2.Clone(), 0));
 
             // 010211220210011
-            Assert.AreEqual(0, PositionService.CalculateIfTeamCanReachPosition((int[])pointDifferences2.Clone(), (Tuple<int, int>[])remainingMatches2.Clone(), 15839572));
+            Assert.AreEqual(0, PositionService.CalculatePointDifferencesByIndex((int[])pointDifferences2.Clone(), (Tuple<int, int>[])remainingMatches2.Clone(), 15839572));
         }
         #endregion
+
+        #region BasicTieTest
+        /// <summary>
+        /// Testet die Methode zum Kalkulieren, ob eine Mannschaft noch Meister werden kann (Für worst).
+        /// </summary>
+        [TestMethod]
+        public void BasicTieTest()
+        {
+            int[] pointDifferences = new int[] { 0, -1, -3, 0, -4, -9, -6, -7, -12};
+            Tuple<int, int>[] remainingMatches = new Tuple<int, int>[] {
+                new Tuple<int, int>(1, 2),
+            };
+
+            // Rechne mit allem unentschieden
+            Assert.AreEqual(3, PositionService.CalculatePointDifferencesWithTieByIndex((int[])pointDifferences.Clone(), (Tuple<int, int>[])remainingMatches.Clone(), 0));
+            Assert.AreEqual(3, PositionService.CalculatePointDifferencesWithTieByIndex((int[])pointDifferences.Clone(), (Tuple<int, int>[])remainingMatches.Clone(), 1));
+            Assert.AreEqual(3, PositionService.CalculatePointDifferencesWithTieByIndex((int[])pointDifferences.Clone(), (Tuple<int, int>[])remainingMatches.Clone(), 2));
+            #endregion
+        }
     }
 }

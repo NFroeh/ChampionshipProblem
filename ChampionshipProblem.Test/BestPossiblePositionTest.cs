@@ -24,12 +24,12 @@ namespace ChampionshipProblem.Test
 
             LeagueStandingService.PrintLeagueStanding(leagueStandingEntries);
 
-            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 1, 5, false));
-            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 2, 5, false));
-            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 3, 5, false));
-            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 4, 5, false));
-            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 5, 5, false));
-            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 6, 5, false));
+            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 1, 3, false));
+            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 2, 3, false));
+            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 3, 3, false));
+            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 4, 3, false));
+            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 5, 3, false));
+            Debug.WriteLine(LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, 6, 3, false));
         }
         #endregion
 

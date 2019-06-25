@@ -121,50 +121,53 @@ namespace ChampionshipProblem.Services
             List<LeagueStandingEntry> computationResult = new List<LeagueStandingEntry>();
 
             // Nun die Teams ermitteln, welche unerreichbar sind für das Team
-            List<LeagueStandingEntry> unconsideredEntries = new List<LeagueStandingEntry>();
-            foreach (LeagueStandingEntry entry in leagueStandingEntries)
+            List<LeagueStandingEntry> unconsideredEntries = leagueStandingEntries
+                .Where((entry) => (entry.Points + (numberOfMissingStages * 3) <= specificEntry.Points) || (entry.Points > specificEntry.Points + (numberOfMissingStages * 3)))
+                .ToList();
+            int numberOfUnconsideredEntries = unconsideredEntries.Count();
+            do
             {
-                // Falls das Team nurnoch Punktgleich (oder weniger) oder Punktgleich oder mehr Punkte erreichen kann, dann das Team immer gewinnen lassen
-                if ((entry.Points + (numberOfMissingStages * 3) <= specificEntry.Points) ||
-                    (entry.Points > specificEntry.Points + (numberOfMissingStages * 3)))
+                numberOfUnconsideredEntries = unconsideredEntries.Count();
+
+                // Vorbereitung der fehlenden Matches
+                foreach (RemainingMatch remainingMatch in remainingMatches.ToList())
                 {
-                    unconsideredEntries.Add(entry);
+                    LeagueStandingEntry homeEntry = unconsideredEntries.Find((entry) => entry.TeamApiId == remainingMatch.HomeTeamApiId);
+                    LeagueStandingEntry guestEntry = unconsideredEntries.Find((entry) => entry.TeamApiId == remainingMatch.AwayTeamApiId);
+
+                    // Zuerst alle Spiele, welche dem betrachteten Team sind auf "Sieg" setzen
+                    if (remainingMatch.AwayTeamApiId == teamApiId)
+                    {
+                        remainingMatch.MatchResult = MatchResult.WinGuest;
+                        specificEntry.Points += 3;
+                        remainingMatches.Remove(remainingMatch);
+                    }
+                    else if (remainingMatch.HomeTeamApiId == teamApiId)
+                    {
+                        remainingMatch.MatchResult = MatchResult.WinHome;
+                        specificEntry.Points += 3;
+                        remainingMatches.Remove(remainingMatch);
+                    }
+                    else if (homeEntry != null)
+                    {
+                        remainingMatch.MatchResult = MatchResult.WinHome;
+                        homeEntry.Points += 3;
+                        remainingMatches.Remove(remainingMatch);
+                    }
+                    else if (guestEntry != null)
+                    {
+                        remainingMatch.MatchResult = MatchResult.WinGuest;
+                        guestEntry.Points += 3;
+                        remainingMatches.Remove(remainingMatch);
+                    }
                 }
+
+                unconsideredEntries = leagueStandingEntries
+                        .Where((entry) => (entry.Points + (numberOfMissingStages * 3) <= specificEntry.Points) || (entry.Points > specificEntry.Points + (numberOfMissingStages * 3)))
+                        .ToList();
             }
-
-            // Vorbereitung der fehlenden Matches
-            foreach (RemainingMatch remainingMatch in remainingMatches.ToList())
-            {
-                LeagueStandingEntry homeEntry = unconsideredEntries.Find((entry) => entry.TeamApiId == remainingMatch.HomeTeamApiId);
-                LeagueStandingEntry guestEntry = unconsideredEntries.Find((entry) => entry.TeamApiId == remainingMatch.AwayTeamApiId);
-
-                // Zuerst alle Spiele, welche dem betrachteten Team sind auf "Sieg" setzen
-                if (remainingMatch.AwayTeamApiId == teamApiId)
-                {
-                    remainingMatch.MatchResult = MatchResult.WinGuest;
-                    specificEntry.Points += 3;
-                    remainingMatches.Remove(remainingMatch);
-                }
-                else if (remainingMatch.HomeTeamApiId == teamApiId)
-                {
-                    remainingMatch.MatchResult = MatchResult.WinHome;
-                    specificEntry.Points += 3;
-                    remainingMatches.Remove(remainingMatch);
-                }
-                else if (homeEntry != null)
-                {
-                    remainingMatch.MatchResult = MatchResult.WinHome;
-                    homeEntry.Points += 3;
-                    remainingMatches.Remove(remainingMatch);
-                }
-                else if (guestEntry != null)
-                {
-                    remainingMatch.MatchResult = MatchResult.WinGuest;
-                    guestEntry.Points += 3;
-                    remainingMatches.Remove(remainingMatch);
-                }
-            }
-
+            while (unconsideredEntries.Count() != numberOfUnconsideredEntries);
+            
             // Falls die Iterationen kleiner als 1 sind, dann wird nur eine Berechnung durchgeführt, da es sonst zu viele wären
             long numberOfIterations = (long)Math.Pow(3, remainingMatches.Count);
             if (numberOfIterations < 1)
@@ -172,15 +175,18 @@ namespace ChampionshipProblem.Services
                 numberOfIterations = 1;
             }
 
-            // Dann den spezifizierten Eintrag rauswerfen
+            // Den spezifizierten Eintrag rauswerfen
             List<LeagueStandingEntry> standingWithoutSpecificTeamAndBetterTeams = leagueStandingEntries.ToList();
             standingWithoutSpecificTeamAndBetterTeams.Remove(specificEntry);
+
+            // Alle Teams mit mehr Punkten rauswerfen und die Anzahl abspeichern
             int numberOfBetterTeams = standingWithoutSpecificTeamAndBetterTeams.RemoveAll((betterTeams) => betterTeams.Points > specificEntry.Points);
 
+            // Die Punkteunterschiede ermitteln
             int[] pointDifferences = standingWithoutSpecificTeamAndBetterTeams.Select((entry) => entry.Points - specificEntry.Points).ToArray();
+           
+            // Die fehlenden Spiele als Tupel-Array zusammenabuen
             Tuple<int, int>[] tupleMatches = new Tuple<int, int>[remainingMatches.Count];
-
-            // Den Aufbau für die Berechnung erbauen
             for (int index = 0; index < remainingMatches.Count; index++)
             {
                 int home = standingWithoutSpecificTeamAndBetterTeams.IndexOf(standingWithoutSpecificTeamAndBetterTeams.SingleOrDefault((entry) => entry.TeamApiId == remainingMatches[index].HomeTeamApiId));
@@ -191,10 +197,12 @@ namespace ChampionshipProblem.Services
             // Die Entries neu sortieren
             Parallel.For(0, numberOfIterations, (index, loopState) =>
             {
-                int position = PositionService.CalculateIfTeamCanReachPosition(pointDifferences, tupleMatches, index) + numberOfBetterTeams + 1;
+                // Die Position ermitteln
+                int position = PositionService.CalculatePointDifferencesByIndex((int[])pointDifferences.Clone(), (Tuple<int, int>[])tupleMatches.Clone(), index) + numberOfBetterTeams + 1;
 
                 lock (positionLock)
                 {
+                    // Wenn die Position besser ist, diese verarbeiten und ggf. Aktionen durchführen
                     if (position < bestPosition)
                     {
                         bestPosition = position;

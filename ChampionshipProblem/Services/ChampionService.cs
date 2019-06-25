@@ -229,10 +229,12 @@ namespace ChampionshipProblem.Services
             // Dann den spezifizierten Eintrag rauswerfen
             List<LeagueStandingEntry> standingWithoutSpecificTeam = leagueStandingEntries.ToList();
             standingWithoutSpecificTeam.Remove(specificEntry);
-            int[] pointDifferences = standingWithoutSpecificTeam.Select((entry) => entry.Points - specificEntry.Points).ToArray();
-            Tuple<int, int>[] tupleMatches = new Tuple<int, int>[remainingMatches.Count];
 
-            // Den Aufbau für die Berechnung erbauen
+            // Die Punkteunterschiede ermitteln
+            int[] pointDifferences = standingWithoutSpecificTeam.Select((entry) => entry.Points - specificEntry.Points).ToArray();
+
+            // Die fehlenden Spiele ermitteln
+            Tuple<int, int>[] tupleMatches = new Tuple<int, int>[remainingMatches.Count];
             for (int index = 0; index < remainingMatches.Count; index++)
             {
                 int home = standingWithoutSpecificTeam.IndexOf(standingWithoutSpecificTeam.SingleOrDefault((entry) => entry.TeamApiId == remainingMatches[index].HomeTeamApiId));
@@ -243,8 +245,10 @@ namespace ChampionshipProblem.Services
             // Die Entries neu sortieren
             Parallel.For(0, numberOfIterations, (index, loopState) =>
             {
-                int position = PositionService.CalculateIfTeamCanReachPosition((int[])pointDifferences.Clone(), (Tuple<int, int>[])tupleMatches.Clone(), index);
+                // Position berechnen
+                int position = PositionService.CalculatePointDifferencesByIndex((int[])pointDifferences.Clone(), (Tuple<int, int>[])tupleMatches.Clone(), index);
 
+                // Wenn das Team erster wurde, aufhören und ggf. Aktionen durchführen
                 if (position == 0)
                 {
                     canWin = true;
