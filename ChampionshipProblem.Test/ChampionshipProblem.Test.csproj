@@ -66,6 +66,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BestPossiblePositionTest.cs" />
+    <Compile Include="ChampionGermanyTest.cs" />
+    <Content Include="CriticalResults.txt" />
     <Compile Include="PositionServiceTest.cs" />
     <Compile Include="CanBeChampionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

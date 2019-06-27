@@ -1,0 +1,9 @@
+﻿Deutschland:
+    Saison 2008/2009: 
+        Spieltag 27: Erwartet: Wahr, Aktuell: falsch (Team 10)
+        Spieltag 26: Erwartet: Wahr, Aktuell: falsch (Team 11)
+        Spieltag 25: Erwartet: Wahr, Aktuell: falsch (Team 12, ++)
+        Spieltag 24: Erwartet: Wahr, Aktuell: falsch (Team 12, ++)
+        Spieltag 23: Erwartet: Wahr, Aktuell: falsch (Team 14, ++)
+        Spieltag 22: Erwartet: Wahr, Aktuell: falsch (Team 17, +)
+
