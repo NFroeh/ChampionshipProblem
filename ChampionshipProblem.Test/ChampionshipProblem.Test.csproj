@@ -68,6 +68,7 @@
     <Compile Include="BestPossiblePositionTest.cs" />
     <Compile Include="ChampionBelgiumTest.cs" />
     <Compile Include="ChampionEnglandTest.cs" />
+    <Compile Include="ChampionFranceTest.cs" />
     <Compile Include="ChampionGermanyTest.cs" />
     <Content Include="CriticalResults.txt" />
     <Compile Include="PositionServiceTest.cs" />
