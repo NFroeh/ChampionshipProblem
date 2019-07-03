@@ -20,7 +20,6 @@ namespace ChampionshipProblem.Test
         /// </summary>
         private const string leagueName = "France Ligue 1";
         #endregion
-
                 
         #region F0809Test
         /// <summary>

@@ -66,13 +66,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BestPossiblePositionTest.cs" />
-    <Compile Include="ChampionBelgiumTest.cs" />
-    <Compile Include="ChampionEnglandTest.cs" />
-    <Compile Include="ChampionFranceTest.cs" />
-    <Compile Include="ChampionGermanyTest.cs" />
+    <Compile Include="ChampionshipTests\ChampionBelgiumTest.cs" />
+    <Compile Include="ChampionshipTests\ChampionEnglandTest.cs" />
+    <Compile Include="ChampionshipTests\ChampionFranceTest.cs" />
+    <Compile Include="ChampionshipTests\ChampionGermanyTest.cs" />
     <Content Include="CriticalResults.txt" />
+    <Compile Include="ChampionshipTests\ChampionItalianTest.cs" />
     <Compile Include="PositionServiceTest.cs" />
-    <Compile Include="CanBeChampionTest.cs" />
+    <Compile Include="ChampionshipTests\CanBeChampionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestUtils.cs" />
     <Compile Include="WorstPossiblePositionTest.cs" />
