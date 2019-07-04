@@ -73,6 +73,7 @@
     <Content Include="CriticalResults.txt" />
     <Compile Include="ChampionshipTests\ChampionItalianTest.cs" />
     <Compile Include="ChampionshipTests\ChampionNetherlandsTest.cs" />
+    <Compile Include="ChampionshipTests\ChampionPolenTest.cs" />
     <Compile Include="PositionServiceTest.cs" />
     <Compile Include="ChampionshipTests\CanBeChampionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
