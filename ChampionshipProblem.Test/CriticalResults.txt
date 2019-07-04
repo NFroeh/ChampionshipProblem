@@ -122,15 +122,23 @@ Polen (16):
 		Spieltag 25: Erwartet: Wahr, Aktuell: falsch (Team 9, ++)
 	Saison 2015/2016:	
 		Spieltag 25: Erwartet: Wahr, Aktuell: falsch (Team 5, ++)
-Portugal (16):
+Portugal (16, 18):
 	Saison 2008/2009: 
+		Spieltag 23: Erwartet: Wahr, Aktuell: falsch (Team 6, ++)
 	Saison 2009/2010:
+		Spieltag 23: Erwartet: Wahr, Aktuell: falsch (Team 4, ++)
 	Saison 2010/2011:
+		Spieltag 23: Erwartet: Wahr, Aktuell: falsch (Team 3, ++)
 	Saison 2011/2012:
+		Spieltag 22: Erwartet: Wahr, Aktuell: falsch (Team 6, ++)
 	Saison 2012/2013:
+		Spieltag 22: Erwartet: Wahr, Aktuell: falsch (Team 3, ++)
 	Saison 2013/2014:
-	Saison 2014/2015:
-	Saison 2015/2016:
+		Spieltag 22: Erwartet: Wahr, Aktuell: falsch (Team 5, ++)
+	Saison 2014/2015 (18):
+		Spieltag 25: Erwartet: Wahr, Aktuell: falsch (Team 5, ++)
+	Saison 2015/2016 (18):
+		Spieltag 26: Erwartet: Wahr, Aktuell: falsch (Team 4, ++)
 Schottland (12):
 	Saison 2008/2009: 
 	Saison 2009/2010:
