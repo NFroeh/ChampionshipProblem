@@ -75,6 +75,8 @@
     <Compile Include="ChampionshipTests\ChampionNetherlandsTest.cs" />
     <Compile Include="ChampionshipTests\ChampionPolenTest.cs" />
     <Compile Include="ChampionshipTests\ChampionPortugalTest.cs" />
+    <Compile Include="ChampionshipTests\ChampionSpainTest.cs" />
+    <Compile Include="ChampionshipTests\ChampionSwissTest.cs" />
     <Compile Include="PositionServiceTest.cs" />
     <Compile Include="ChampionshipTests\CanBeChampionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

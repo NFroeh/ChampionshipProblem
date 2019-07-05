@@ -139,7 +139,7 @@ Portugal (16, 18):
 		Spieltag 25: Erwartet: Wahr, Aktuell: falsch (Team 5, ++)
 	Saison 2015/2016 (18):
 		Spieltag 26: Erwartet: Wahr, Aktuell: falsch (Team 4, ++)
-Schottland (12):
+Schottland (12): Daten schlecht wegen am Ende 6er Runde
 	Saison 2008/2009: 
 	Saison 2009/2010:
 	Saison 2010/2011:
@@ -150,18 +150,27 @@ Schottland (12):
 	Saison 2015/2016:
 Spanien (20):
 	Saison 2008/2009: 
+		Spieltag 30: Erwartet: Wahr, Aktuell: falsch (Team 3) 
 	Saison 2009/2010:
+		Spieltag 29: Erwartet: Wahr, Aktuell: falsch (Team 2, +) 
 	Saison 2010/2011:
+		Spieltag 29: Erwartet: Wahr, Aktuell: falsch (Team 3, +) 
 	Saison 2011/2012:
+		Spieltag 29: Erwartet: Wahr, Aktuell: falsch (Team 3) 
 	Saison 2012/2013:
+		Spieltag 28: Erwartet: Wahr, Aktuell: falsch (Team 4, ++) 
 	Saison 2013/2014:
+		Spieltag 30: Erwartet: Wahr, Aktuell: falsch (Team 5, ++) 
 	Saison 2014/2015:
+		Spieltag 30: Erwartet: Wahr, Aktuell: falsch (Team 6) 
 	Saison 2015/2016:
+		Spieltag 30: Erwartet: Wahr, Aktuell: falsch (Team 4) 
 Schweiz (10):
 	Saison 2008/2009: 
 	Saison 2009/2010:
 	Saison 2010/2011:
 	Saison 2011/2012:
+		Daten in Datenbank sind fehlerhaft.
 	Saison 2012/2013:
 	Saison 2013/2014:
 	Saison 2014/2015:
