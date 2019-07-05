@@ -1,10 +1,10 @@
-﻿using ChampionshipProblem.Scheme;
-using ChampionshipProblem.Services;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace ChampionshipProblem
+﻿namespace ChampionshipProblem
 {
+    using ChampionshipProblem.Scheme;
+    using ChampionshipProblem.Services;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class ChampionshipViewModel
     {
         #region fields

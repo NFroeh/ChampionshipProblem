@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace ChampionshipProblem.Classes.ResultClasses
+﻿namespace ChampionshipProblem.Classes.ResultClasses
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Interface für das Ergebnis eines Algorithmus.
     /// </summary>

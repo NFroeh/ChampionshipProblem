@@ -1,8 +1,8 @@
-using System;
-using System.Windows.Forms;
-
 namespace ChampionshipProblem
 {
+    using System;
+    using System.Windows.Forms;
+
     /// <summary>
     /// Klasse repräsentiert das Program.
     /// </summary>

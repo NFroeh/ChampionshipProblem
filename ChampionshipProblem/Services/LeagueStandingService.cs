@@ -1,15 +1,12 @@
-﻿using ChampionshipProblem.Classes;
-using ChampionshipProblem.Classes.ResultClasses;
-using ChampionshipProblem.Extensions;
-using ChampionshipProblem.Scheme;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ChampionshipProblem.Services
+﻿namespace ChampionshipProblem.Services
 {
+    using ChampionshipProblem.Classes;
+    using ChampionshipProblem.Classes.ResultClasses;
+    using ChampionshipProblem.Scheme;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+
     /// <summary>
     /// Klasse repräsentiert Methoden zum Verwalten von <see cref="LeagueStandingEntry"/>.
     /// </summary>

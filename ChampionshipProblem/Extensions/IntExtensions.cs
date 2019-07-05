@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ChampionshipProblem.Extensions
+﻿namespace System
 {
     /// <summary>
     /// Klasse für die Extensions des Int-Datentyps.

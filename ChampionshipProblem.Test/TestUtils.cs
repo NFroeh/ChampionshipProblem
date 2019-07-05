@@ -1,8 +1,8 @@
-﻿using ChampionshipProblem.Classes;
-using System.Collections.Generic;
-
-namespace ChampionshipProblem.Test
+﻿namespace ChampionshipProblem.Test
 {
+    using ChampionshipProblem.Classes;
+    using System.Collections.Generic;
+
     /// <summary>
     /// Klasse beinhaltet Hilfsmethoden für die Tests.
     /// </summary>

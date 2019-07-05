@@ -65,12 +65,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BestPossiblePositionTest.cs" />
+    <Compile Include="BestPossiblePositionTests\BestPossiblePositionTest.cs" />
     <Compile Include="ChampionshipTests\ChampionBelgiumTest.cs" />
     <Compile Include="ChampionshipTests\ChampionEnglandTest.cs" />
     <Compile Include="ChampionshipTests\ChampionFranceTest.cs" />
     <Compile Include="ChampionshipTests\ChampionGermanyTest.cs" />
-    <Content Include="CriticalResults.txt" />
+    <Content Include="ChampionshipTests\CriticalResults.txt" />
     <Compile Include="ChampionshipTests\ChampionItalianTest.cs" />
     <Compile Include="ChampionshipTests\ChampionNetherlandsTest.cs" />
     <Compile Include="ChampionshipTests\ChampionPolenTest.cs" />
@@ -81,7 +81,7 @@
     <Compile Include="ChampionshipTests\CanBeChampionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestUtils.cs" />
-    <Compile Include="WorstPossiblePositionTest.cs" />
+    <Compile Include="WorstPossiblePositionTests\WorstPossiblePositionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

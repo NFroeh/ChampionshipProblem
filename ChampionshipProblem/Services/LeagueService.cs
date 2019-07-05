@@ -1,9 +1,9 @@
-﻿using ChampionshipProblem.Scheme;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace ChampionshipProblem.Services
+﻿namespace ChampionshipProblem.Services
 {
+    using ChampionshipProblem.Scheme;
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
     /// Klasse repräsentiert den Service für die Ligen.
     /// </summary>

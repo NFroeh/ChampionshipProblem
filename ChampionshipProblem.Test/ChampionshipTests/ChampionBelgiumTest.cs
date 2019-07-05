@@ -1,10 +1,10 @@
-﻿using ChampionshipProblem.Classes;
-using ChampionshipProblem.Services;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-
-namespace ChampionshipProblem.Test
+﻿namespace ChampionshipProblem.Test
 {
+    using ChampionshipProblem.Classes;
+    using ChampionshipProblem.Services;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using System.Collections.Generic;
+
     /// <summary>
     /// Methode zum testen des Algorithmus, ob eine Mannschaft noch Meister werden kann.
     /// </summary>

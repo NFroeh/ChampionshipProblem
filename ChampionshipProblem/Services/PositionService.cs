@@ -1,6 +1,5 @@
 ﻿namespace ChampionshipProblem.Services
 {
-    using ChampionshipProblem.Extensions;
     using System;
 
     /// <summary>

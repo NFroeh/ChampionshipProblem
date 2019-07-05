@@ -1,19 +1,15 @@
-using ChampionshipProblem.Classes;
-using ChampionshipProblem.Classes.ResultClasses;
-using ChampionshipProblem.Scheme;
-using ChampionshipProblem.Services;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
-using System.Windows.Forms;
-
-// This is the code for your desktop app.
-// Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
 
 namespace ChampionshipProblem
 {
+    using ChampionshipProblem.Classes;
+    using ChampionshipProblem.Classes.ResultClasses;
+    using ChampionshipProblem.Scheme;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Windows.Forms;
+
     /// <summary>
     /// Klasse repräsentiert das Form.
     /// </summary>

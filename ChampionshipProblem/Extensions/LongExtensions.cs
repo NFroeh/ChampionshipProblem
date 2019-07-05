@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ChampionshipProblem.Extensions
+﻿namespace System
 {
     /// <summary>
     /// Methode für die Extensions des Long-Datentyps.

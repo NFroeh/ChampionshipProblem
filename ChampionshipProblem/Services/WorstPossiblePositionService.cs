@@ -1,15 +1,13 @@
-﻿using ChampionshipProblem.Classes;
-using ChampionshipProblem.Classes.ResultClasses;
-using ChampionshipProblem.Extensions;
-using ChampionshipProblem.Scheme;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ChampionshipProblem.Services
+﻿namespace ChampionshipProblem.Services
 {
+    using ChampionshipProblem.Classes;
+    using ChampionshipProblem.Classes.ResultClasses;
+    using ChampionshipProblem.Scheme;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Klasse repräsentiert den Service für die schlechtmöglichste Position.
     /// </summary>

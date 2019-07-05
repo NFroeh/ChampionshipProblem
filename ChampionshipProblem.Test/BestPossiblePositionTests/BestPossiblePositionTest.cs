@@ -1,11 +1,11 @@
-﻿using ChampionshipProblem.Classes;
-using ChampionshipProblem.Services;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System.Diagnostics;
-
-namespace ChampionshipProblem.Test
+﻿namespace ChampionshipProblem.Test
 {
+    using ChampionshipProblem.Classes;
+    using ChampionshipProblem.Services;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+
     /// <summary>
     /// Klasse zum Testen der BestPossiblePositions-Algorithmus.
     /// </summary>
