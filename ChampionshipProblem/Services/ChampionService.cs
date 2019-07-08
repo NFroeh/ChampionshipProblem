@@ -217,11 +217,11 @@
                 };
             }
 
-            // Falls die Iterationen kleiner als 1 sind, dann wird nur eine Berechnung durchgeführt, da es sonst zu viele wären
+            // Falls die Iterationen kleiner als 1 sind, dann wird nur Backtracking durchgeführt, da es sonst zu viele Iterationen wären
             long numberOfIterations = (long)Math.Pow(3, remainingMatches.Count);
             if (numberOfIterations < 1)
             {
-                numberOfIterations = 1;
+                return ChampionService.PerformBacktracking(leagueStandingEntries, remainingMatches, teamApiId);
             }
 
             // Dann den spezifizierten Eintrag rauswerfen
@@ -368,6 +368,88 @@
             }
 
             return remainingMatches.Count;
+        }
+        #endregion
+
+        #region PerformBacktracking
+        /// <summary>
+        /// Methode zum Durchführen des Backtrackings.
+        /// </summary>
+        /// <param name="leagueStandingEntries">Die aktuelle Tabelle.</param>
+        /// <param name="remainingMatches">Die fehlenden Spiele.</param>
+        /// <returns></returns>
+        public static ChampionComputationalResult PerformBacktracking(IEnumerable<LeagueStandingEntry> leagueStandingEntries, IEnumerable<RemainingMatch> remainingMatches, long teamApiId)
+        {
+            // Allen Ergebnissen unentschieden setzen
+            foreach (RemainingMatch match in remainingMatches)
+            {
+                match.MatchResult = MatchResult.Tie;
+            }
+
+            // Berechne die Tabelle für die RemainingMatches und dem aktuellen Tabellenstand
+            List<LeagueStandingEntry> currentStanding = LeagueStandingService.CalculateLeagueStandingForRemainingMatches(leagueStandingEntries, remainingMatches);
+
+            // Betrachtendes Team ermitteln
+            LeagueStandingEntry specificTeam = leagueStandingEntries
+                .Single((entry) => entry.TeamApiId == teamApiId);
+
+            // Die geringste Punktezahl des Ersten speichern
+            int lowestScore = currentStanding.First().Points;
+
+            // Ermittle die Teams, die über dem betrachteten Team stehen
+            IEnumerable<LeagueStandingEntry> betterTeams = currentStanding
+                .Where((entry) => entry.Points > specificTeam.Points);
+
+            List<LeagueStandingEntry> teamsAlreadyChecked = new List<LeagueStandingEntry>();
+            do
+            {
+                // Die besseren Teams durchlaufen und deren Spiele ändern
+                foreach (LeagueStandingEntry betterTeam in betterTeams)
+                {
+                    foreach (RemainingMatch remainingMatch in remainingMatches)
+                    {
+                        // Alle Spiele für das Team überprüfen, was mit keinem Team zu tun hat, welches über dem Team liegt
+                        if (remainingMatch.HomeTeamApiId == betterTeam.TeamApiId && !betterTeams.Any((team) => team.TeamApiId == remainingMatch.AwayTeamApiId))
+                        {
+                            remainingMatch.MatchResult = MatchResult.WinGuest;
+                        }
+                        else if (remainingMatch.AwayTeamApiId == betterTeam.TeamApiId && !betterTeams.Any((team) => team.TeamApiId == remainingMatch.HomeTeamApiId))
+                        {
+                            remainingMatch.MatchResult = MatchResult.WinHome;
+                        }
+                    }
+
+                    teamsAlreadyChecked.Add(betterTeam);
+                }
+
+                // Berechnen des aktuellen Standes
+                currentStanding = LeagueStandingService.CalculateLeagueStandingForRemainingMatches(leagueStandingEntries, remainingMatches);
+
+                // Neue niedrigste Punktzahl berechnen
+                int newScore = currentStanding.First().Points;
+                if (newScore < lowestScore)
+                {
+                    lowestScore = newScore;
+                }
+
+
+                // LeagueStanding neu berechnen
+                if (betterTeams.Count() == 0)
+                {
+                    return new ChampionComputationalResult()
+                    {
+                        CanWinChampionship = true,
+                        ComputationalStanding = currentStanding
+                    };
+                }
+            }
+            while (!teamsAlreadyChecked.Any((team) => betterTeams.Any(bTeam => bTeam.TeamApiId == team.TeamApiId)));
+
+            // Es wurde nun ein Team ermittelt, was nicht durch durchswitchen vom ersten Platz verdrängt werden kann, hier könnten nun die Schranke benutzt werden
+            return new ChampionComputationalResult()
+            {
+                CanWinChampionship = false
+            };
         }
         #endregion
 
