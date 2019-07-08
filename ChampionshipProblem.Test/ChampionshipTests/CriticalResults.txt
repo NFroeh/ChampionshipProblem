@@ -167,7 +167,10 @@ Spanien (20):
 		Spieltag 30: Erwartet: Wahr, Aktuell: falsch (Team 4) 
 Schweiz (10):
 	Saison 2008/2009: 
-		Spieltag 28: Erwartet: Wahr, Aktuell: falsch (Team 4, +) 
+		Spieltag 28: Erwartet: Wahr, Aktuell: falsch (Team 4, +) - Anzahl der Iterationen (1853020188851841) 
+			1. Backtracking durchläuft bis Spieltag 26 Platz 7
+			2. Backtracking durchläuft bis Spieltag 23 Platz 9
+			3. Backtracking durchläuft bis Spieltag 23 Platz 10
 	Saison 2009/2010:
 		Spieltag 27: Erwartet: Wahr, Aktuell: falsch (Team 6, ++) 
 	Saison 2010/2011:
