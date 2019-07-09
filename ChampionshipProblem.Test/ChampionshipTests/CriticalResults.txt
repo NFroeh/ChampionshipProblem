@@ -153,6 +153,7 @@ Spanien (20):
 		Spieltag 30: Erwartet: Wahr, Aktuell: falsch (Team 3) 
 	Saison 2009/2010:
 		Spieltag 29: Erwartet: Wahr, Aktuell: falsch (Team 2, +) 
+			3. Backtracking durchläuft bis Spieltag 29 Platz 4
 	Saison 2010/2011:
 		Spieltag 29: Erwartet: Wahr, Aktuell: falsch (Team 3, +) 
 	Saison 2011/2012:
@@ -160,27 +161,29 @@ Spanien (20):
 	Saison 2012/2013:
 		Spieltag 28: Erwartet: Wahr, Aktuell: falsch (Team 4, ++) 
 	Saison 2013/2014:
-		Spieltag 30: Erwartet: Wahr, Aktuell: falsch (Team 5, ++) 
+		Spieltag 30: Erwartet: Wahr, Aktuell: falsch (Team 5, ++)
+			3. Backtracking durchläuft bis Spieltag 30 Platz 6
 	Saison 2014/2015:
 		Spieltag 30: Erwartet: Wahr, Aktuell: falsch (Team 6) 
+			3. Backtracking durchläuft bis Spieltag 27 Platz 11
 	Saison 2015/2016:
 		Spieltag 30: Erwartet: Wahr, Aktuell: falsch (Team 4) 
 Schweiz (10):
 	Saison 2008/2009: 
 		Spieltag 28: Erwartet: Wahr, Aktuell: falsch (Team 4, +) - Anzahl der Iterationen (1853020188851841) 
-			1. Backtracking durchläuft bis Spieltag 26 Platz 7
-			2. Backtracking durchläuft bis Spieltag 23 Platz 9
-			3. Backtracking durchläuft bis Spieltag 23 Platz 10
 	Saison 2009/2010:
 		Spieltag 27: Erwartet: Wahr, Aktuell: falsch (Team 6, ++) 
+			3. Backtracking durchläuft bis Spieltag 23 Platz 10
 	Saison 2010/2011:
 		Spieltag 29: Erwartet: Wahr, Aktuell: falsch (Team 6) 
+			3. Backtracking durchläuft bis Spieltag 29 Platz 6
 	Saison 2011/2012:
 		Daten in Datenbank sind fehlerhaft.
 	Saison 2012/2013:
 		Spieltag 29: Erwartet: Wahr, Aktuell: falsch (Team 6, ++) 
 	Saison 2013/2014:
 		Spieltag 26: Erwartet: Wahr, Aktuell: falsch (Team 9) 
+			3. Backtracking durchläuft bis Spieltag 24 Platz 10
 	Saison 2014/2015:
 		Spieltag 28: Erwartet: Wahr, Aktuell: falsch (Team 4, +, nicht berechenbar) 
 	Saison 2015/2016:
