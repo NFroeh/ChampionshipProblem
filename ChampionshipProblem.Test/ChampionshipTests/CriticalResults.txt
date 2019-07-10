@@ -1,20 +1,27 @@
 ﻿Belgien (15, 16, 18):
 	Saison 2008/2009: 
 		Spieltag 27: Erwartet: Wahr, Aktuell: falsch (Team 4, ++)
+			3. Backtracking durchläuft bis Spieltag 25 Platz 12
 	Saison 2009/2010:
 		Spieltag 22: Erwartet: Wahr, Aktuell: falsch (Team 4, ++)
+			3. Backtracking durchläuft bis Spieltag 23 Platz 9
 	Saison 2010/2011:
 		Spieltag 23: Erwartet: Wahr, Aktuell: falsch (Team 7, ++)
+			3. Backtracking durchläuft bis Spieltag 20 Platz 14
 	Saison 2011/2012:
 		Spieltag 23: Erwartet: Wahr, Aktuell: falsch (Team 8, ++)
+			3. Backtracking durchläuft bis Spieltag 20 Platz 15
 	Saison 2012/2013:
 		Spieltag 23: Erwartet: Wahr, Aktuell: falsch (Team 7, ++)
+			3. Backtracking durchläuft bis Spieltag 20 Platz 15
 	Saison 2013/2014:
 		Daten in Datenbank sind fehlerhaft.
 	Saison 2014/2015:
 		Spieltag 24: Erwartet: Wahr, Aktuell: falsch (Unerrechenbares Ergebnis)
+			3. Backtracking durchläuft bis Spieltag 23 Platz 12
 	Saison 2015/2016:
 		Spieltag 25: Erwartet: Wahr, Aktuell: falsch (Unerrechenbares Ergebnis)
+			3. Backtracking durchläuft bis Spieltag 21 Platz 16
 Deutschland (18):
     Saison 2008/2009: 
         Spieltag 27: Erwartet: Wahr, Aktuell: falsch (Team 10)
@@ -23,8 +30,10 @@ Deutschland (18):
         Spieltag 24: Erwartet: Wahr, Aktuell: falsch (Team 12, ++)
         Spieltag 23: Erwartet: Wahr, Aktuell: falsch (Team 14, ++)
         Spieltag 22: Erwartet: Wahr, Aktuell: falsch (Team 17, +)
+			3. Backtracking durchläuft bis Spieltag 25 Platz 16
 	Saison 2009/2010:
 		Spieltag 28: Unerrechenbare Ergebnisse.
+			3. Backtracking durchläuft bis Spieltag 28 Platz 9
 	Saison 2010/2011:
 		Spieltag 26: Erwartet: Wahr, Aktuell: falsch (Team 4, ++) 
 	Saison 2011/2012:
@@ -42,42 +51,57 @@ England (20):
 		Spieltag 31: Erwartet: Wahr, Aktuell: falsch (Team 5, ++) 
 	Saison 2009/2010:
 		Spieltag 31: Erwartet: Wahr, Aktuell: falsch (Team 6, ++) 
+			3. Backtracking durchläuft bis Spieltag 32 Platz 6
 	Saison 2010/2011:
 		Spieltag 31: Erwartet: Wahr, Aktuell: falsch (Team 5, ++) 
+			3. Backtracking durchläuft bis Spieltag 29 Platz 13
 	Saison 2011/2012:
 		Spieltag 30: Erwartet: Wahr, Aktuell: falsch (Team 5, ++) 
+			3. Backtracking durchläuft bis Spieltag 29 Platz 13
 	Saison 2012/2013:
 		Spieltag 30: Erwartet: Wahr, Aktuell: falsch (Team 4, ++) 
 	Saison 2013/2014:
 		Spieltag 31: Erwartet: Wahr, Aktuell: falsch (Team 7, nicht berechenbar) 
+			3. Backtracking durchläuft bis Spieltag 30 Platz 9
 	Saison 2014/2015:
 		Spieltag 29: Erwartet: Wahr, Aktuell: falsch (Team 8, nicht berechenbar) 
+			3. Backtracking durchläuft bis Spieltag 28 Platz 11
 	Saison 2015/2016:
 		Spieltag 31: Erwartet: Wahr, Aktuell: falsch (Team 6, ++) 
+			3. Backtracking durchläuft bis Spieltag 30 Platz 11
 Frankreich (20):
 	Saison 2008/2009: 
 		Spieltag 31: Erwartet: Wahr, Aktuell: falsch (Team 8) 
+			3. Backtracking durchläuft bis Spieltag 30 Platz 13
 	Saison 2009/2010:
 		Spieltag 32: Erwartet: Wahr, Aktuell: falsch (Team 10, nicht berechenbar) 
+			3. Backtracking durchläuft bis Spieltag 30 Platz 16
 	Saison 2010/2011:
 		Spieltag 32: Erwartet: Wahr, Aktuell: falsch (Team 6, ++) 
+			3. Backtracking durchläuft bis Spieltag 25 Platz 20
 	Saison 2011/2012:
 		Spieltag 32: Erwartet: Wahr, Aktuell: falsch (Team 7, ++) 
 	Saison 2012/2013:
 		Spieltag 31: Erwartet: Wahr, Aktuell: falsch (Team 7, ++) 
+			3. Backtracking durchläuft bis Spieltag 27 Platz 19
 	Saison 2013/2014:
 		Spieltag 30: Erwartet: Wahr, Aktuell: falsch (Team 3, ++) 
+			3. Backtracking durchläuft bis Spieltag 29 Platz 8
 	Saison 2014/2015:
 		Spieltag 32: Erwartet: Wahr, Aktuell: falsch (Team 7, ++) 
+			3. Backtracking durchläuft bis Spieltag 30 Platz 5
 	Saison 2015/2016:
 		Spieltag 29: Erwartet: Wahr, Aktuell: falsch (Team 2) 
+			3. Backtracking durchläuft bis Spieltag 26 Platz 13
 Italien (20):
 	Saison 2008/2009: 
 		Spieltag 30: Erwartet: Wahr, Aktuell: falsch (Team 4, ++) 
 	Saison 2009/2010:
 		Spieltag 32: Erwartet: Wahr, Aktuell: falsch (Team 6, ++) 
+			3. Backtracking durchläuft bis Spieltag 31 Platz 8
 	Saison 2010/2011:
 		Spieltag 32: Erwartet: Wahr, Aktuell: falsch (Team 7, ++) 
+			3. Backtracking durchläuft bis Spieltag 25 Platz 20
 	Saison 2011/2012:
 		Daten in Datenbank sind fehlerhaft.
 	Saison 2012/2013:
@@ -86,6 +110,7 @@ Italien (20):
 		Spieltag 28: Erwartet: Wahr, Aktuell: falsch (Team 4, ++) 
 	Saison 2014/2015:
 		Spieltag 33: Erwartet: Wahr, Aktuell: falsch (Team 2, +) 
+			3. Backtracking durchläuft bis Spieltag 33 Platz 2
 	Saison 2015/2016:
 		Spieltag 30: Erwartet: Wahr, Aktuell: falsch (Team 6, ++) 
 Niederlande (18):
