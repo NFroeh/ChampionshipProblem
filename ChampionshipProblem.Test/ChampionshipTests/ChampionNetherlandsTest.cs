@@ -1770,8 +1770,8 @@
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[3].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[4].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[5].TeamApiId.Value, false).CanWinChampionship);
-            Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[6].TeamApiId.Value, false).CanWinChampionship);
-            Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[7].TeamApiId.Value, false).CanWinChampionship);
+            Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[6].TeamApiId.Value, false).CanWinChampionship);
+            Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[7].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[8].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[9].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[10].TeamApiId.Value, false).CanWinChampionship);
@@ -1796,7 +1796,7 @@
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[7].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[8].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[9].TeamApiId.Value, false).CanWinChampionship);
-            Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[10].TeamApiId.Value, false).CanWinChampionship);
+            Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[10].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[11].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[12].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[13].TeamApiId.Value, false).CanWinChampionship);
@@ -1820,8 +1820,8 @@
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[9].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[10].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[11].TeamApiId.Value, false).CanWinChampionship);
-            Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[12].TeamApiId.Value, false).CanWinChampionship);
-            Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[13].TeamApiId.Value, false).CanWinChampionship);
+            Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[12].TeamApiId.Value, false).CanWinChampionship);
+            Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[13].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[14].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[15].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[16].TeamApiId.Value, false).CanWinChampionship);
@@ -2260,7 +2260,7 @@
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[14].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[15].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[16].TeamApiId.Value, false).CanWinChampionship);
-            Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[17].TeamApiId.Value, false).CanWinChampionship);
+            Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[17].TeamApiId.Value, false).CanWinChampionship);
 
             stage = 22;
             leagueStandingService = new LeagueStandingService(championshipViewModel, leagueName, season);
@@ -2974,7 +2974,7 @@
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[1].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[2].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[3].TeamApiId.Value, false).CanWinChampionship);
-            Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[4].TeamApiId.Value, false).CanWinChampionship);
+            Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[4].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[5].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[6].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[7].TeamApiId.Value, false).CanWinChampionship);
@@ -3000,7 +3000,7 @@
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[5].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[6].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[7].TeamApiId.Value, false).CanWinChampionship);
-            Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[8].TeamApiId.Value, false).CanWinChampionship);
+            Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[8].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[9].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[10].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[11].TeamApiId.Value, false).CanWinChampionship);
@@ -3049,7 +3049,7 @@
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[10].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[11].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[12].TeamApiId.Value, false).CanWinChampionship);
-            Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[13].TeamApiId.Value, false).CanWinChampionship);
+            Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[13].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[14].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[15].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[16].TeamApiId.Value, false).CanWinChampionship);
@@ -3097,7 +3097,7 @@
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[14].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[15].TeamApiId.Value, false).CanWinChampionship);
             Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[16].TeamApiId.Value, false).CanWinChampionship);
-            Assert.AreEqual(true, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[17].TeamApiId.Value, false).CanWinChampionship);
+            Assert.AreEqual(false, leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[17].TeamApiId.Value, false).CanWinChampionship);
 
             stage = 20;
             leagueStandingService = new LeagueStandingService(championshipViewModel, leagueName, season);
