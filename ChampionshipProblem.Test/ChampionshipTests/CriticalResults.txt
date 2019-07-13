@@ -2,8 +2,7 @@
 	Saison 2008/2009: 
 		Spieltag 27: Erwartet: Wahr, Aktuell: falsch (Team 4, ++)
 	Saison 2009/2010:
-		Spieltag 22: Erwartet: Wahr, Aktuell: falsch (Team 4, ++)
-			3. Backtracking durchläuft bis Spieltag 23 Platz 9 -> müsste gehen
+		Daten in Datenbank sind fehlerhaft.
 	Saison 2010/2011:
 		Spieltag 23: Erwartet: Wahr, Aktuell: falsch (Team 7, ++)
 	Saison 2011/2012:
@@ -68,7 +67,7 @@ England (20):
 Frankreich (20):
 	Saison 2008/2009: 
 		Spieltag 31: Erwartet: Wahr, Aktuell: falsch (Team 8) 
-			3. Backtracking durchläuft bis Spieltag 30 Platz 13 -> müsste gehen
+			3. Backtracking durchläuft bis Spieltag 25 Platz 20 -> müsste gehen
 	Saison 2009/2010:
 		Spieltag 32: Erwartet: Wahr, Aktuell: falsch (Team 10, nicht berechenbar) 
 			3. Backtracking durchläuft bis Spieltag 30 Platz 16 -> müsste gehen
@@ -209,15 +208,37 @@ Schweiz (10):
 	Saison 2015/2016:
 		Spieltag 26: Erwartet: Wahr, Aktuell: falsch (Team 3, +) 
 		
-	3. Backtracking - Criticals:
+	3. Backtracking - Criticals: 13 Stück
 		Belgien:
-			09/10: Spieltag 23 (Team 9)
 			11/12: Spieltag 20 (Team 15)
 		Deutschland:
 			09/10: Spieltag 23 (Team 16)
 		England:
 		Frankreich:
-			08/09: Spieltag 29 (Team 15)
+			08/09: Spieltag 25 (Team 20)
+			09/10: Spieltag 30 (Team 16)
+			10/11: Spieltag 25 (Team 20)
+		Italien:
+			10/11: Spieltag 25 (Team 20)
+			14/15: Spieltag 33 (Team 2)
+		Niederlande:
+			10/11: Spieltag 20 (Team 18)
+			11/12: Spieltag 28 (Team 7)
+		Polen:
+			12/13: Spieltag 20 (Team 15)
+			14/15: Spieltag 20 (Team 16)
+		Portugal:
+		Spanien:
+		Schweiz:
+			09/10: Spieltag 23 (Team 10)
+			13/14: Spieltag 24 (Team 10)
+
+	4. Backtracking: 3. Backtracking + IterationHasChangedSchleife => 11 Fehler
+		Belgien:
+		Deutschland:
+			09/10: Spieltag 23 (Team 16)
+		England:
+		Frankreich:
 			09/10: Spieltag 30 (Team 16)
 			10/11: Spieltag 25 (Team 20)
 		Italien:

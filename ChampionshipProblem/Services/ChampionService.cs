@@ -388,6 +388,7 @@
 
             // Berechne die Tabelle für die RemainingMatches und dem aktuellen Tabellenstand
             List<LeagueStandingEntry> currentStanding = LeagueStandingService.CalculateLeagueStandingForRemainingMatches(leagueStandingEntries, remainingMatches);
+            List<LeagueStandingEntry> computationResult = new List<LeagueStandingEntry>();
 
             // Betrachtendes Team ermitteln
             LeagueStandingEntry specificTeam = leagueStandingEntries
@@ -444,14 +445,33 @@
             // Da die Begegnungen, welche nicht durch Teams aus den betterTeams bestehen, keinen Unterschied machen, müssen nun hier die Spiele betrachtet werden, welche 
             // zwischen den Mannschaften sind
             bool hasChanged = false;
+            bool iterationHasChanged = false;
             IEnumerable<RemainingMatch> remainingMatchesOfBetterTeams = remainingMatches
-                    .Where((match) => betterTeams.Any((team) => team.TeamApiId == match.HomeTeamApiId || team.TeamApiId == match.AwayTeamApiId));
-            foreach (RemainingMatch remainingMatch in remainingMatchesOfBetterTeams)
+                    .Where((match) => betterTeams.Any((team) => team.TeamApiId == match.HomeTeamApiId || team.TeamApiId == match.AwayTeamApiId) &&
+                        currentStanding.Any((team) => team.TeamApiId == match.HomeTeamApiId && teamsAlreadyChecked.Any((teamId) => teamId == team.TeamApiId)) &&
+                        currentStanding.Any((team) => team.TeamApiId == match.AwayTeamApiId && teamsAlreadyChecked.Any((teamId) => teamId == team.TeamApiId)));
+            List<RemainingMatch> alreadyChangedMatches = new List<RemainingMatch>();
+            do
             {
-                LeagueStandingEntry homeTeam, awayTeam;
-                if ((homeTeam = currentStanding.SingleOrDefault((team) => team.TeamApiId == remainingMatch.HomeTeamApiId && teamsAlreadyChecked.Any((teamId) => teamId == team.TeamApiId))) != null && 
-                    (awayTeam = currentStanding.SingleOrDefault((team) => team.TeamApiId == remainingMatch.AwayTeamApiId && teamsAlreadyChecked.Any((teamId) => teamId == team.TeamApiId))) != null)
+                iterationHasChanged = false;
+                currentStanding = LeagueStandingService.CalculateLeagueStandingForRemainingMatches(leagueStandingEntries, remainingMatches);
+                betterTeams = currentStanding
+                    .Where((entry) => entry.Points > specificTeam.Points)
+                    .ToList();
+                remainingMatchesOfBetterTeams = remainingMatches
+                    .Where((match) => betterTeams.Any((team) => team.TeamApiId == match.HomeTeamApiId || team.TeamApiId == match.AwayTeamApiId) &&
+                        currentStanding.Any((team) => team.TeamApiId == match.HomeTeamApiId && teamsAlreadyChecked.Any((teamId) => teamId == team.TeamApiId)) &&
+                        currentStanding.Any((team) => team.TeamApiId == match.AwayTeamApiId && teamsAlreadyChecked.Any((teamId) => teamId == team.TeamApiId)));
+
+                foreach (RemainingMatch remainingMatch in remainingMatchesOfBetterTeams)
                 {
+                    if (alreadyChangedMatches.Any((match) => match.MatchApiId == remainingMatch.MatchApiId))
+                    {
+                        break;
+                    }
+
+                    LeagueStandingEntry homeTeam = currentStanding.SingleOrDefault((team) => team.TeamApiId == remainingMatch.HomeTeamApiId);
+                    LeagueStandingEntry awayTeam = currentStanding.SingleOrDefault((team) => team.TeamApiId == remainingMatch.AwayTeamApiId);
                     bool homeIsBetterEntry = betterTeams.Any((team) => team.TeamApiId == homeTeam.TeamApiId);
                     bool awayIsBetterEntry = betterTeams.Any((team) => team.TeamApiId == awayTeam.TeamApiId);
                     switch (remainingMatch.MatchResult)
@@ -466,16 +486,20 @@
                                 if (awayTeam.Points + 3 <= specificTeam.Points)
                                 {
                                     hasChanged = true;
+                                    iterationHasChanged = true;
                                     remainingMatch.MatchResult = MatchResult.WinGuest;
                                     awayTeam.Points += 3;
                                     homeTeam.Points -= 3;
+                                    alreadyChangedMatches.Add(remainingMatch);
                                 }
                                 else if (awayTeam.Points + 1 <= specificTeam.Points)
                                 {
                                     hasChanged = true;
+                                    iterationHasChanged = true;
                                     remainingMatch.MatchResult = MatchResult.Tie;
                                     awayTeam.Points++;
                                     homeTeam.Points--;
+                                    alreadyChangedMatches.Add(remainingMatch);
                                 }
                             }
                             else if (awayIsBetterEntry)
@@ -498,24 +522,30 @@
                                 if (homeTeam.Points + 3 <= specificTeam.Points)
                                 {
                                     hasChanged = true;
+                                    iterationHasChanged = true;
                                     remainingMatch.MatchResult = MatchResult.WinGuest;
                                     homeTeam.Points += 3;
                                     awayTeam.Points -= 3;
+                                    alreadyChangedMatches.Add(remainingMatch);
                                 }
                                 else if (homeTeam.Points + 1 <= specificTeam.Points)
                                 {
                                     hasChanged = true;
+                                    iterationHasChanged = true;
                                     remainingMatch.MatchResult = MatchResult.Tie;
                                     homeTeam.Points++;
                                     awayTeam.Points--;
+                                    alreadyChangedMatches.Add(remainingMatch);
                                 }
                             }
 
                             break;
                         case MatchResult.Tie:
+
                             if (homeTeam.Points + 2 <= specificTeam.Points)
                             {
                                 hasChanged = true;
+                                iterationHasChanged = true;
                                 remainingMatch.MatchResult = MatchResult.WinHome;
                                 homeTeam.Points += 2;
                                 awayTeam.Points--;
@@ -523,14 +553,17 @@
                             else if (awayTeam.Points + 2 <= specificTeam.Points)
                             {
                                 hasChanged = true;
+                                iterationHasChanged = true;
                                 remainingMatch.MatchResult = MatchResult.WinGuest;
                                 awayTeam.Points += 2;
                                 homeTeam.Points--;
                             }
+
                             break;
                     }
                 }
             }
+            while (iterationHasChanged);
 
             if (hasChanged)
             {
@@ -539,6 +572,7 @@
                 betterTeams = currentStanding
                     .Where((entry) => entry.Points > specificTeam.Points)
                     .ToList();
+
 
                 // LeagueStanding neu berechnen
                 if (betterTeams.Count() == 0)
@@ -550,6 +584,103 @@
                     };
                 }
             }
+
+            #region TryAll
+            /*
+            // Wenn nicht die restlichen Spiele der besseren Teams testen
+            List<RemainingMatch> remainingMatchesOfRemainingTeam = remainingMatches
+                .Where((match) => betterTeams.Any((bt) => bt.TeamApiId == match.HomeTeamApiId || bt.TeamApiId == match.AwayTeamApiId))
+                .ToList();
+            List<RemainingMatch> missingMatches = remainingMatchesOfRemainingTeam.ToList();
+
+            // Die Spiele auf unentschieden setzen und entfernen
+            foreach (RemainingMatch match in remainingMatchesOfRemainingTeam)
+            {
+                if (betterTeams.Any((bt) => bt.TeamApiId == match.AwayTeamApiId))
+                {
+                    if (match.MatchResult != MatchResult.WinHome)
+                    {
+                        if (match.MatchResult == MatchResult.WinGuest)
+                        {
+                            currentStanding.Single((team) => team.TeamApiId == match.AwayTeamApiId).Points += 1;
+                            currentStanding.Single((team) => team.TeamApiId == match.AwayTeamApiId).Points -= 2;
+                        }
+
+                        match.MatchResult = MatchResult.Tie;
+                    }
+                    else
+                    {
+                        missingMatches.Remove(match);
+                    }
+                }
+                else if(betterTeams.Any((bt) => bt.TeamApiId == match.HomeTeamApiId))
+                {
+                    if (match.MatchResult != MatchResult.WinGuest)
+                    {
+                        if (match.MatchResult == MatchResult.WinHome)
+                        {
+                            currentStanding.Single((team) => team.TeamApiId == match.HomeTeamApiId).Points += 1;
+                            currentStanding.Single((team) => team.TeamApiId == match.HomeTeamApiId).Points -= 2;
+                        }
+
+                        match.MatchResult = MatchResult.Tie;
+                    }
+                    else
+                    {
+                        missingMatches.Remove(match);
+                    }
+                }
+            }
+
+            long numberOfIterations = (long) Math.Pow(3, remainingMatchesOfRemainingTeam.Count());
+
+            // Dann den spezifizierten Eintrag rauswerfen
+            List<LeagueStandingEntry> standingWithoutSpecificTeam = currentStanding.ToList();
+            standingWithoutSpecificTeam.Remove(specificTeam);
+
+            // Die Punkteunterschiede ermitteln
+            int[] pointDifferences = standingWithoutSpecificTeam.Select((entry) => entry.Points - specificTeam.Points).ToArray();
+
+            // Die fehlenden Spiele ermitteln
+            Tuple<int, int>[] tupleMatches = new Tuple<int, int>[missingMatches.Count];
+            for (int index = 0; index < missingMatches.Count; index++)
+            {
+                int home = standingWithoutSpecificTeam.IndexOf(standingWithoutSpecificTeam.SingleOrDefault((entry) => entry.TeamApiId == missingMatches[index].HomeTeamApiId));
+                int away = standingWithoutSpecificTeam.IndexOf(standingWithoutSpecificTeam.SingleOrDefault((entry) => entry.TeamApiId == missingMatches[index].AwayTeamApiId));
+                tupleMatches[index] = new Tuple<int, int>(home, away);
+            }
+
+            bool canWin = false;
+            Parallel.For(0, numberOfIterations, (index, loopstate) =>
+            {
+                int position = PositionService.CalculatePointDifferencesByIndex((int[])pointDifferences.Clone(), (Tuple<int, int>[])tupleMatches.Clone(), index);
+
+                if (position == 0)
+                {
+                    canWin = true;
+
+                    // Hole die ternäre Repräsentation der Zahl
+                    string ternary = index.ConvertToBase(3);
+
+                    // Durchlaufe die Begegnungen, um die Ergebnisse zu setzen
+                    for (int matchIndex = 0; matchIndex < remainingMatches.Count(); matchIndex++)
+                    {
+                        // Entweder Unentschieden setzen oder den Match Wert ermitteln, falls vorhanden
+                        // Hier muss der Char vorher in einen String umgewandelt werden, da sonst die Konvertierung nach ASCI gemacht wird
+                        byte matchResult = (matchIndex < ternary.Length) ? Convert.ToByte(ternary[matchIndex].ToString()) : (byte)0;
+
+                        remainingMatchesOfRemainingTeam[matchIndex].MatchResult = (MatchResult)matchResult;
+                    }
+
+                    // Berechne die Tabelle für die RemainingMatches und dem aktuellen Tabellenstand
+                    List<LeagueStandingEntry> leagueStanding = LeagueStandingService.CalculateLeagueStandingForRemainingMatches(leagueStandingEntries, remainingMatches);
+
+                    computationResult = leagueStanding;
+
+                    loopstate.Stop();
+                }
+            });*/
+            #endregion
 
             // Es wurde nun ein Team ermittelt, was nicht durch durchswitchen vom ersten Platz verdrängt werden kann, hier könnten nun die Schranke benutzt werden
             return new ChampionComputationalResult()
