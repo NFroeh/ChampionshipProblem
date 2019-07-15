@@ -52,6 +52,26 @@
         {
             using (EuropeanSoccerEntities soccerDb = new EuropeanSoccerEntities())
             {
+                if (!soccerDb.Matches.Any((match) => match.match_api_id == 1944687))
+                {
+                    // Italienische Liga Saison 2014/2015 fixen
+                    soccerDb.Matches.Add(new Match()
+                    {
+                        //id = 17642,
+                        country_id = 10257,
+                        league_id = 10257,
+                        season = "2014/2015",
+                        stage = 38,
+                        date = "2015/05/31",
+                        match_api_id = 1944687,
+                        home_team_api_id = 9875,
+                        away_team_api_id = 8543,
+                        home_team_goal = 2,
+                        away_team_goal = 4
+                    });
+                }
+                soccerDb.SaveChanges();
+
                 this.Leagues = soccerDb.Leagues.ToList();
                 this.Matches = soccerDb.Matches.ToList();
                 this.Teams = soccerDb.Teams.ToList();

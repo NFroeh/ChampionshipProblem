@@ -220,7 +220,6 @@ Schweiz (10):
 			10/11: Spieltag 25 (Team 20)
 		Italien:
 			10/11: Spieltag 25 (Team 20)
-			14/15: Spieltag 33 (Team 2)
 		Niederlande:
 			10/11: Spieltag 20 (Team 18)
 			11/12: Spieltag 28 (Team 7)
@@ -243,7 +242,6 @@ Schweiz (10):
 			10/11: Spieltag 25 (Team 20)
 		Italien:
 			10/11: Spieltag 25 (Team 20)
-			14/15: Spieltag 33 (Team 2)
 		Niederlande:
 			10/11: Spieltag 20 (Team 18)
 			11/12: Spieltag 28 (Team 7)
