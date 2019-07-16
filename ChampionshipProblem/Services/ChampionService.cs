@@ -143,6 +143,8 @@
             // Vorbereitung der fehlenden Matches
             foreach (RemainingMatch remainingMatch in remainingMatches.ToList())
             {
+                leagueStandingEntries.Single((team) => team.TeamApiId == remainingMatch.HomeTeamApiId).Games++;
+                leagueStandingEntries.Single((team) => team.TeamApiId == remainingMatch.AwayTeamApiId).Games++;
                 LeagueStandingEntry homeEntry = unconsideredEntries.Find((entry) => entry.TeamApiId == remainingMatch.HomeTeamApiId);
                 LeagueStandingEntry guestEntry = unconsideredEntries.Find((entry) => entry.TeamApiId == remainingMatch.AwayTeamApiId);
 
@@ -185,17 +187,24 @@
                 {
                     foreach (RemainingMatch remainingMatch in remainingMatches.ToList())
                     {
+                        LeagueStandingEntry home = leagueStandingEntries.SingleOrDefault((leagueStandingEntry) => remainingMatch.HomeTeamApiId == leagueStandingEntry.TeamApiId);
+                        LeagueStandingEntry away = leagueStandingEntries.SingleOrDefault((leagueStandingEntry) => remainingMatch.AwayTeamApiId == leagueStandingEntry.TeamApiId);
+
                         if (remainingMatch.AwayTeamApiId == equalPointEntry.TeamApiId)
                         {
                             remainingMatch.MatchResult = MatchResult.WinHome;
-                            leagueStandingEntries.SingleOrDefault((leagueStandingEntry) => remainingMatch.HomeTeamApiId == leagueStandingEntry.TeamApiId).Points += 3;
+                            home.Points += 3;
+                            home.Games++;
+                            away.Games++;
                             remainingMatches.Remove(remainingMatch);
 
                         }
                         else if (remainingMatch.HomeTeamApiId == equalPointEntry.TeamApiId)
                         {
                             remainingMatch.MatchResult = MatchResult.WinGuest;
-                            leagueStandingEntries.SingleOrDefault((leagueStandingEntry) => remainingMatch.AwayTeamApiId == leagueStandingEntry.TeamApiId).Points += 3;
+                            away.Points += 3;
+                            home.Games++;
+                            away.Games++;
                             remainingMatches.Remove(remainingMatch);
                         }
                     }
@@ -565,6 +574,13 @@
             }
             while (iterationHasChanged);
 
+            // 3.Strat:  Falls nur noch ein Team da ist, nun überprüfen, ob die Gegner noch Punkte verlieren können
+            if (betterTeams.Count == 1)
+            {
+                LeagueStandingEntry betterTeam = betterTeams.First();
+                ChampionService.ComputeIfTeamIsSwitchable(betterTeam, leagueStandingEntries, remainingMatches, specificTeam);
+            }
+
             if (hasChanged)
             {
                 // Die Tabelle neu berechnen und ein letztes mal prüfen
@@ -572,7 +588,6 @@
                 betterTeams = currentStanding
                     .Where((entry) => entry.Points > specificTeam.Points)
                     .ToList();
-
 
                 // LeagueStanding neu berechnen
                 if (betterTeams.Count() == 0)
@@ -846,6 +861,138 @@
                 ComputationalStanding = computationResult
             };
         }*/
+        #endregion
+
+        #region ComputeIfTeamIsSwitchable
+        /// <summary>
+        /// Berechnet, ob ein Team hinter das spezifizierte Team kommen kann.
+        /// </summary>
+        /// <param name="betterTeam">Das bessere Team.</param>
+        /// <param name="currentStanding">Die aktuelle Tabelle.</param>
+        /// <param name="remainingMatches">Die fehlenden Matches.</param>
+        /// <param name="specificTeam">Das spezifizierte Team.</param>
+        /// <param name="alreadyCheckedMatches">Die schon gecheckten Spiele.</param>
+        public static bool ComputeIfTeamIsSwitchable(LeagueStandingEntry betterTeam, IEnumerable<LeagueStandingEntry> leagueStandingEntries, IEnumerable<RemainingMatch> remainingMatches, LeagueStandingEntry specificTeam, List<RemainingMatch> alreadyCheckedMatches = null)
+        {
+            alreadyCheckedMatches = alreadyCheckedMatches ?? new List<RemainingMatch>();
+            List<RemainingMatch> currentCheckedMatches = new List<RemainingMatch>();
+            List<LeagueStandingEntry> currentStanding = LeagueStandingService.CalculateLeagueStandingForRemainingMatches(leagueStandingEntries, remainingMatches);
+            IEnumerable<RemainingMatch> remainingMatchesOfBetterTeam = remainingMatches
+                .Where((match) =>
+                    match.HomeTeamApiId == betterTeam.TeamApiId && (match.MatchResult == MatchResult.Tie || match.MatchResult == MatchResult.WinHome) ||
+                    match.AwayTeamApiId == betterTeam.TeamApiId && (match.MatchResult == MatchResult.Tie || match.MatchResult == MatchResult.WinGuest));
+            foreach (RemainingMatch match in remainingMatchesOfBetterTeam)
+            {
+                if (alreadyCheckedMatches.Contains(match)) continue;
+
+                LeagueStandingEntry home = currentStanding
+                    .SingleOrDefault((team) => team.TeamApiId == match.HomeTeamApiId && team.TeamApiId != betterTeam.TeamApiId);
+                LeagueStandingEntry away = currentStanding
+                    .SingleOrDefault((team) => team.TeamApiId == match.AwayTeamApiId && team.TeamApiId != betterTeam.TeamApiId);
+
+                if (away != null)
+                {
+                    if (match.MatchResult == MatchResult.WinHome)
+                    {
+                        match.MatchResult = MatchResult.WinGuest;
+                        alreadyCheckedMatches.Add(match);
+                        currentCheckedMatches.Add(match);
+
+                        if (away.Points + 3 > specificTeam.Points)
+                        {
+                            bool didSwitch = ChampionService.ComputeIfTeamIsSwitchable(away, leagueStandingEntries, remainingMatches, specificTeam, alreadyCheckedMatches);
+                            if (!didSwitch)
+                            {
+                                match.MatchResult = MatchResult.Tie;
+                                didSwitch = ChampionService.ComputeIfTeamIsSwitchable(away, leagueStandingEntries, remainingMatches, specificTeam, alreadyCheckedMatches);
+
+                                if (!didSwitch)
+                                {
+                                    match.MatchResult = MatchResult.WinHome;
+                                    alreadyCheckedMatches.Remove(match);
+                                    currentCheckedMatches.Remove(match);
+                                }
+                            }
+                        }
+                    }
+                    else if (match.MatchResult == MatchResult.Tie)
+                    {
+                        match.MatchResult = MatchResult.WinGuest;
+                        alreadyCheckedMatches.Add(match);
+                        currentCheckedMatches.Add(match);
+
+                        if (away.Points + 2 > specificTeam.Points)
+                        {
+                            bool didSwitch = ChampionService.ComputeIfTeamIsSwitchable(away, leagueStandingEntries, remainingMatches, specificTeam, alreadyCheckedMatches);
+                            if (!didSwitch)
+                            {
+                                match.MatchResult = MatchResult.Tie;
+                                alreadyCheckedMatches.Remove(match);
+                                currentCheckedMatches.Remove(match);
+                            }
+                        }
+                    }
+                }
+                else if (home != null)
+                {
+                    if (match.MatchResult == MatchResult.WinGuest)
+                    {
+                        match.MatchResult = MatchResult.WinHome;
+                        alreadyCheckedMatches.Add(match);
+                        currentCheckedMatches.Add(match);
+
+                        if (home.Points + 3 > specificTeam.Points)
+                        {
+                            bool didSwitch = ChampionService.ComputeIfTeamIsSwitchable(home, leagueStandingEntries, remainingMatches, specificTeam, alreadyCheckedMatches);
+                            if (!didSwitch)
+                            {
+                                match.MatchResult = MatchResult.Tie;
+                                didSwitch = ChampionService.ComputeIfTeamIsSwitchable(home, leagueStandingEntries, remainingMatches, specificTeam, alreadyCheckedMatches);
+
+                                if (!didSwitch)
+                                {
+                                    match.MatchResult = MatchResult.WinGuest;
+                                    alreadyCheckedMatches.Remove(match);
+                                    currentCheckedMatches.Remove(match);
+                                }
+                            }
+                        }
+                    }
+                    else if (match.MatchResult == MatchResult.Tie)
+                    {
+                        match.MatchResult = MatchResult.WinHome;
+                        alreadyCheckedMatches.Add(match);
+                        currentCheckedMatches.Add(match);
+
+                        if (home.Points + 2 > specificTeam.Points)
+                        {
+                            bool didSwitch = ChampionService.ComputeIfTeamIsSwitchable(home, leagueStandingEntries, remainingMatches, specificTeam, alreadyCheckedMatches);
+                            if (!didSwitch)
+                            {
+                                match.MatchResult = MatchResult.Tie;
+                                alreadyCheckedMatches.Remove(match);
+                                currentCheckedMatches.Remove(match);
+                            }
+                        }
+                    }
+                }
+
+                currentStanding = LeagueStandingService.CalculateLeagueStandingForRemainingMatches(leagueStandingEntries, remainingMatches);
+                if (!currentStanding.Any((entry) => entry.Points > specificTeam.Points))
+                {
+                    return true; 
+                }
+            }
+
+            // Spiele zurücksetzen, da dieser Weg nicht geht
+            currentCheckedMatches.ForEach((match) =>
+            {
+                match.MatchResult = MatchResult.Tie;
+                alreadyCheckedMatches.Remove(match);
+            });
+            currentStanding = LeagueStandingService.CalculateLeagueStandingForRemainingMatches(leagueStandingEntries, remainingMatches);
+            return false;
+        }
         #endregion
     }
 }

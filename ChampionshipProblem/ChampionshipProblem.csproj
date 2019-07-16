@@ -162,7 +162,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DatabaseFiles\FixItalian1415.sql" />
     <Content Include="Scheme\DatabaseScheme.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DatabaseScheme.edmx</DependentUpon>

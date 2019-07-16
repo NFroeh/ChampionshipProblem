@@ -341,7 +341,8 @@
             {
                 LeagueStandingEntry newEntry = new LeagueStandingEntry(entry.TeamApiId, entry.TeamShortName, entry.TeamLongName)
                 {
-                    Points = entry.Points
+                    Points = entry.Points,
+                    Games = entry.Games
                 };
 
                 leagueStandings.Add(newEntry);
@@ -349,17 +350,21 @@
 
             foreach(RemainingMatch remainingMatch in remainingMatches)
             {
+                LeagueStandingEntry homeTeam = leagueStandings.Single((entry) => entry.TeamApiId == remainingMatch.HomeTeamApiId);
+                LeagueStandingEntry awayTeam = leagueStandings.Single((entry) => entry.TeamApiId == remainingMatch.AwayTeamApiId);
+                homeTeam.Games++;
+                awayTeam.Games++;
                 switch (remainingMatch.MatchResult)
                 {
                     case MatchResult.Tie:
-                        leagueStandings.Single((entry) => entry.TeamApiId == remainingMatch.HomeTeamApiId).Points += 1;
-                        leagueStandings.Single((entry) => entry.TeamApiId == remainingMatch.AwayTeamApiId).Points += 1;
+                        homeTeam.Points += 1;
+                        awayTeam.Points += 1;
                         break;
                     case MatchResult.WinHome:
-                        leagueStandings.Single((entry) => entry.TeamApiId == remainingMatch.HomeTeamApiId).Points += 3;
+                        homeTeam.Points += 3;
                         break;
                     case MatchResult.WinGuest:
-                        leagueStandings.Single((entry) => entry.TeamApiId == remainingMatch.AwayTeamApiId).Points += 3;
+                        awayTeam.Points += 3;
                         break;
                 }
             }

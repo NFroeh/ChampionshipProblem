@@ -20,6 +20,7 @@
             this.Points = 0;
             this.Goals = 0;
             this.GoalsConceded = 0;
+            this.Games = 0;
         }
         #endregion
 
@@ -37,6 +38,11 @@
         /// Der Langname.
         /// </summary>
         public string TeamLongName { get; set; }
+
+        /// <summary>
+        /// Die Anzahl der Spiele.
+        /// </summary>
+        public int Games { get; set; }
 
         /// <summary>
         /// Die Anzahl der Punkte.

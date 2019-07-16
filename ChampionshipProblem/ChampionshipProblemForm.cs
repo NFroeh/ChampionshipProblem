@@ -622,6 +622,18 @@ namespace ChampionshipProblem
             teamColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.ComputationStandingView.Columns.Add(teamColumn);
 
+            DataGridViewColumn gamesColumn = new DataGridViewTextBoxColumn
+            {
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = "Games",
+                Name = "Games",
+                ReadOnly = true,
+                Width = 200
+            };
+            gamesColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            gamesColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.ComputationStandingView.Columns.Add(gamesColumn);
+
             DataGridViewColumn goalDifferenceColumn = new DataGridViewTextBoxColumn
             {
                 CellTemplate = new DataGridViewTextBoxCell(),
