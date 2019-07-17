@@ -208,11 +208,10 @@ Schweiz (10):
 	Saison 2015/2016:
 		Spieltag 26: Erwartet: Wahr, Aktuell: falsch (Team 3, +) 
 		
-	3. Backtracking - Criticals: 12 Stück
+	3. Backtracking - Criticals: 11 Stück
 		Belgien:
 			11/12: Spieltag 20 (Team 15)
 		Deutschland:
-			09/10: Spieltag 23 (Team 16)
 		England:
 		Frankreich:
 			08/09: Spieltag 25 (Team 20)
@@ -232,10 +231,9 @@ Schweiz (10):
 			09/10: Spieltag 23 (Team 10)
 			13/14: Spieltag 24 (Team 10)
 
-	4. Backtracking: 3. Backtracking + IterationHasChangedSchleife => 10 Fehler
+	4. Backtracking: 3. Backtracking + IterationHasChangedSchleife => 9 Fehler
 		Belgien:
 		Deutschland:
-			09/10: Spieltag 23 (Team 16)
 		England:
 		Frankreich:
 			09/10: Spieltag 28 (Team 16)
@@ -254,22 +252,21 @@ Schweiz (10):
 			09/10: Spieltag 23 (Team 10)
 			13/14: Spieltag 24 (Team 10)
 
-	5. Backtracking: 4. Backtracking + ComputeIfTeamIsSwitchable => 8 Fehler
+	5. Backtracking: 4. Backtracking + ComputeIfTeamIsSwitchable => 7 Fehler
 		Belgien:
 		Deutschland:
-			09/10: Spieltag 23 (Team 16)
 		England:
 		Frankreich:
-			09/10: Spieltag 23 (Team 20)
-			10/11: Spieltag 25 (Team 20)
+			09/10: Spieltag 23 (Team 20) check 5
+			10/11: Spieltag 25 (Team 20) check 3
 		Italien:
-			10/11: Spieltag 25 (Team 20)
+			10/11: Spieltag 25 (Team 20) check 3
 		Niederlande:
-			11/12: Spieltag 28 (Team 7)
+			11/12: Spieltag 28 (Team 7) check 3
 		Polen:
-			14/15: Spieltag 20 (Team 16)
+			14/15: Spieltag 20 (Team 16) check 3
 		Portugal:
 		Spanien:
 		Schweiz:
-			09/10: Spieltag 23 (Team 10)
-			13/14: Spieltag 24 (Team 10)
+			09/10: Spieltag 23 (Team 10) check 2
+			13/14: Spieltag 24 (Team 10) check 5
