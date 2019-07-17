@@ -254,13 +254,12 @@ Schweiz (10):
 			09/10: Spieltag 23 (Team 10)
 			13/14: Spieltag 24 (Team 10)
 
-	5. Backtracking: 4. Backtracking + ComputeIfTeamIsSwitchable => 9 Fehler
+	5. Backtracking: 4. Backtracking + ComputeIfTeamIsSwitchable => 8 Fehler
 		Belgien:
 		Deutschland:
 			09/10: Spieltag 23 (Team 16)
 		England:
 		Frankreich:
-			08/09: Spieltag 29 (Team 15) <- wieder dazu
 			09/10: Spieltag 23 (Team 20)
 			10/11: Spieltag 25 (Team 20)
 		Italien:

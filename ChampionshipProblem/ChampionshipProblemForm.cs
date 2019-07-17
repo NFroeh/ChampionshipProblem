@@ -791,6 +791,8 @@ namespace ChampionshipProblem
         private void ComputedStandingComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.CurrentSelectedComputedStanding = (int)ComputedStandingComboBox.SelectedValue;
+            this.ComputedRemainingMatchComboBox.SelectedIndex = this.ComputedStandingComboBox.SelectedIndex;
+            ComputedRemainingMatchComboxBox_SelectedIndexChanged(null, null);
 
             if (CurrentChampionComputationalResult != null && CurrentChampionComputationalResult.ComputationalStanding != null)
             {
