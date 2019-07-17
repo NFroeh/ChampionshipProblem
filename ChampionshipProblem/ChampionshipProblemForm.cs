@@ -42,6 +42,11 @@ namespace ChampionshipProblem
         private int CurrentSelectedRemainingMatchStage;
 
         /// <summary>
+        /// Der aktuell ausgewählte verbleibende Spieltag, welcher berechnet wurde.
+        /// </summary>
+        private int CurrentSelectedComputedRemainingMatchStage;
+
+        /// <summary>
         /// Die aktuelle Tabelle
         /// </summary>
         private IEnumerable<CompleteLeagueStandingEntry> LeagueStandingEntries;
@@ -50,6 +55,11 @@ namespace ChampionshipProblem
         /// Die Anzahl der aktuellen Spieltage.
         /// </summary>
         private int NumberOfStages;
+
+        /// <summary>
+        /// Das aktuell ausgerechnete Ergebnis.
+        /// </summary>
+        private ChampionComputationalResult CurrentChampionComputationalResult;
         #endregion
 
         #region ctors
@@ -75,11 +85,13 @@ namespace ChampionshipProblem
             StandingsView.AutoGenerateColumns = false;
             RemainingMatchesView.AutoGenerateColumns = false;
             ComputationStandingView.AutoGenerateColumns = false;
+            ComputedRemainingMatchesView.AutoGenerateColumns = false;
 
             // Die Selektorspalte ausblenden
             StandingsView.RowHeadersVisible = false;
             RemainingMatchesView.RowHeadersVisible = false;
             ComputationStandingView.RowHeadersVisible = false;
+            ComputedRemainingMatchesView.RowHeadersVisible = false;
 
             // Die Ligen als Datengrundlage setzen
             List<League> leagues = championshipViewModel.LeagueService.GetLeagues().ToList();
@@ -91,6 +103,9 @@ namespace ChampionshipProblem
 
             // Spalten des remainingMatchesView generieren
             this.GenerateRemainingMatchesViewColumns();
+
+            // Spalten des computedRemainingMatchesView generieren
+            this.GenerateComputedRemainingMatchesViewColumns();
 
             // Spalten der computationstandingView generieren
             this.GenerateComputationStandingView();
@@ -146,11 +161,14 @@ namespace ChampionshipProblem
             if (this.CurrentSelectedStage != this.NumberOfStages)
             {
                 // Die neue RemainingStage-Range setzen
-                RemainingMatchComboBox.DataSource = Enumerable.Range(this.CurrentSelectedStage + 1, this.NumberOfStages - this.CurrentSelectedStage).ToArray();
+                IEnumerable<int> range = Enumerable.Range(this.CurrentSelectedStage + 1, this.NumberOfStages - this.CurrentSelectedStage);
+                RemainingMatchComboBox.DataSource = range.ToArray();
+                ComputedRemainingMatchComboxBox.DataSource = range.ToArray();
             }
             else
             {
                 RemainingMatchComboBox.DataSource = new int[]{ this.NumberOfStages };
+                ComputedRemainingMatchComboxBox.DataSource = new int[] { this.NumberOfStages };
             }
 
             // Den Index neu setzen für die RemainingMatchStage
@@ -295,6 +313,13 @@ namespace ChampionshipProblem
                         if (championComputationalResult.CanWinChampionship)
                         {
                             ComputationStandingView.DataSource = championComputationalResult.ComputationalStanding.ToArray();
+                            CurrentChampionComputationalResult = championComputationalResult;
+                            ComputedRemainingMatchesView.DataSource = championComputationalResult.MissingRemainingMatches.ToArray();
+
+                            if (championComputationalResult.MissingRemainingMatches != null && championComputationalResult.MissingRemainingMatches.Count > 0)
+                            {
+                                ComputedRemainingMatchComboxBox.SelectedIndex = 0;
+                            }
                         }
                         else
                         {
@@ -381,6 +406,51 @@ namespace ChampionshipProblem
             awayColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             awayColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             RemainingMatchesView.Columns.Add(awayColumn);
+        }
+        #endregion
+
+        #region GenerateComputedRemainingMatchesViewColumns
+        /// <summary>
+        /// Methode zum Generieren der Spalten für die berechneten fehlenden Spiele.
+        /// </summary>
+        private void GenerateComputedRemainingMatchesViewColumns()
+        {
+            // Die Spalten der DataGridView hinzufügen
+            DataGridViewColumn homeColumn = new DataGridViewTextBoxColumn
+            {
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = "HomeTeamName",
+                Name = "Home",
+                ReadOnly = true,
+                Width = 150
+            };
+            homeColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            homeColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.ComputedRemainingMatchesView.Columns.Add(homeColumn);
+
+            DataGridViewColumn awayColumn = new DataGridViewTextBoxColumn
+            {
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = "AwayTeamName",
+                Name = "Away",
+                ReadOnly = true,
+                Width = 150
+            };
+            awayColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            awayColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            ComputedRemainingMatchesView.Columns.Add(awayColumn);
+
+            DataGridViewColumn resultColumn = new DataGridViewTextBoxColumn
+            {
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = "MatchResult",
+                Name = "Result",
+                ReadOnly = true,
+                Width = 80
+            };
+            resultColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            resultColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            ComputedRemainingMatchesView.Columns.Add(resultColumn);
         }
         #endregion
 
@@ -628,7 +698,7 @@ namespace ChampionshipProblem
                 DataPropertyName = "Games",
                 Name = "Games",
                 ReadOnly = true,
-                Width = 200
+                Width = 50
             };
             gamesColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             gamesColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -675,6 +745,30 @@ namespace ChampionshipProblem
                     e.Value = (value) ? "Yes" : "No";
                     e.FormattingApplied = true;
                 }
+            }
+        }
+        #endregion
+
+        #region ComputedRemainingMatchComboxBox_SelectedIndexChanged
+        /// <summary>
+        /// Methode wird ausgeführt, wenn die ComputedRemainingMatchComboxBox geändert wird.
+        /// </summary>
+        /// <param name="sender">Der Sender.</param>
+        /// <param name="e">Die Argumente.</param>
+        private void ComputedRemainingMatchComboxBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Neuer Parameter holen
+            this.CurrentSelectedComputedRemainingMatchStage = (int)ComputedRemainingMatchComboxBox.SelectedValue;
+
+            if (CurrentChampionComputationalResult != null && CurrentChampionComputationalResult.MissingRemainingMatches != null)
+            {
+                // Fehlende Spiele ermitteln
+                IEnumerable<RemainingMatch> remainingMatchesForSingleStage = CurrentChampionComputationalResult
+                    .MissingRemainingMatches
+                    .Where((match) => match.Stage == this.CurrentSelectedComputedRemainingMatchStage);
+
+                // Remaining-Matches setzen
+                this.ComputedRemainingMatchesView.DataSource = remainingMatchesForSingleStage.ToArray();
             }
         }
         #endregion

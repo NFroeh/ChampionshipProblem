@@ -7,6 +7,17 @@
     /// </summary>
     public class ChampionComputationalResult : IComputationalResult
     {
+        #region ctors
+        /// <summary>
+        /// Konstruktor zum Erstellen des ChampionComputationalResult.
+        /// </summary>
+        public ChampionComputationalResult()
+        {
+            this.ComputationalStanding = new List<LeagueStandingEntry>();
+            this.MissingRemainingMatches = new List<RemainingMatch>();
+        }
+        #endregion
+
         #region CanWinChampionship
         /// <summary>
         /// Ob der Verein die Meisterschaft gewinnen kann.
@@ -19,6 +30,13 @@
         /// Die Tabelle, welche aus der Berechnung resultiert.
         /// </summary>
         public List<LeagueStandingEntry> ComputationalStanding { get; set; }
+        #endregion
+
+        #region MissingRemainingMatches
+        /// <summary>
+        /// Die Liste der fehlenden Spiele mit den Ergebnissen.
+        /// </summary>
+        public List<RemainingMatch> MissingRemainingMatches { get; set; }
         #endregion
 
         #region NeededGoalDifference

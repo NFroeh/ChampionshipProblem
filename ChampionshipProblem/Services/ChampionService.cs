@@ -117,6 +117,7 @@
             LeagueStandingEntry specificEntry = leagueStandingEntries.Single((entry) => entry.TeamApiId == teamApiId);
             LeagueStandingEntry first = leagueStandingEntries.First();
             List<LeagueStandingEntry> computationResult = new List<LeagueStandingEntry>();
+            List<RemainingMatch> completeRemainingMatches = remainingMatches.ToList();
             bool canWin = false;
 
             // Zuerst überprüfen, ob der aktuell erste überhaupt mit Punkten noch eingeholt werden kann
@@ -141,34 +142,40 @@
             }
 
             // Vorbereitung der fehlenden Matches
-            foreach (RemainingMatch remainingMatch in remainingMatches.ToList())
+            foreach (RemainingMatch remainingMatch in completeRemainingMatches)
             {
-                leagueStandingEntries.Single((team) => team.TeamApiId == remainingMatch.HomeTeamApiId).Games++;
-                leagueStandingEntries.Single((team) => team.TeamApiId == remainingMatch.AwayTeamApiId).Games++;
                 LeagueStandingEntry homeEntry = unconsideredEntries.Find((entry) => entry.TeamApiId == remainingMatch.HomeTeamApiId);
                 LeagueStandingEntry guestEntry = unconsideredEntries.Find((entry) => entry.TeamApiId == remainingMatch.AwayTeamApiId);
 
                 // Zuerst alle Spiele, welche dem betrachteten Team sind auf "Sieg" setzen
                 if (remainingMatch.AwayTeamApiId == teamApiId)
                 {
+                    leagueStandingEntries.Single((team) => team.TeamApiId == remainingMatch.HomeTeamApiId).Games++;
+                    leagueStandingEntries.Single((team) => team.TeamApiId == remainingMatch.AwayTeamApiId).Games++;
                     remainingMatch.MatchResult = MatchResult.WinGuest;
                     specificEntry.Points += 3;
                     remainingMatches.Remove(remainingMatch);
                 }
                 else if (remainingMatch.HomeTeamApiId == teamApiId)
                 {
+                    leagueStandingEntries.Single((team) => team.TeamApiId == remainingMatch.HomeTeamApiId).Games++;
+                    leagueStandingEntries.Single((team) => team.TeamApiId == remainingMatch.AwayTeamApiId).Games++;
                     remainingMatch.MatchResult = MatchResult.WinHome;
                     specificEntry.Points += 3;
                     remainingMatches.Remove(remainingMatch);
                 }
                 else if (homeEntry != null)
                 {
+                    leagueStandingEntries.Single((team) => team.TeamApiId == remainingMatch.HomeTeamApiId).Games++;
+                    leagueStandingEntries.Single((team) => team.TeamApiId == remainingMatch.AwayTeamApiId).Games++;
                     remainingMatch.MatchResult = MatchResult.WinHome;
                     homeEntry.Points += 3;
                     remainingMatches.Remove(remainingMatch);
                 }
                 else if (guestEntry != null)
                 {
+                    leagueStandingEntries.Single((team) => team.TeamApiId == remainingMatch.HomeTeamApiId).Games++;
+                    leagueStandingEntries.Single((team) => team.TeamApiId == remainingMatch.AwayTeamApiId).Games++;
                     remainingMatch.MatchResult = MatchResult.WinGuest;
                     guestEntry.Points += 3;
                     remainingMatches.Remove(remainingMatch);
@@ -222,7 +229,8 @@
                 return new ChampionComputationalResult()
                 {
                     CanWinChampionship = false,
-                    ComputationalStanding = computationResult
+                    ComputationalStanding = computationResult,
+                    MissingRemainingMatches = completeRemainingMatches
                 };
             }
 
@@ -230,7 +238,9 @@
             long numberOfIterations = (long)Math.Pow(3, remainingMatches.Count);
             if (numberOfIterations < 1 || numberOfIterations > 10000000000)
             {
-                return ChampionService.PerformBacktracking(leagueStandingEntries, remainingMatches, teamApiId);
+                ChampionComputationalResult result = ChampionService.PerformBacktracking(leagueStandingEntries, remainingMatches, teamApiId);
+                result.MissingRemainingMatches = completeRemainingMatches;
+                return result;
             }
 
             // Dann den spezifizierten Eintrag rauswerfen
@@ -288,7 +298,8 @@
             return new ChampionComputationalResult()
             {
                 CanWinChampionship = canWin,
-                ComputationalStanding = computationResult
+                ComputationalStanding = computationResult,
+                MissingRemainingMatches = completeRemainingMatches
             };
         }
         #endregion
@@ -595,7 +606,8 @@
                     return new ChampionComputationalResult()
                     {
                         CanWinChampionship = true,
-                        ComputationalStanding = currentStanding
+                        ComputationalStanding = currentStanding,
+                        MissingRemainingMatches = remainingMatches.ToList()
                     };
                 }
             }

@@ -212,6 +212,8 @@
                     away.Points += 1;
                 }
 
+                home.Games++;
+                away.Games++;
                 home.Goals += (int)match.home_team_goal.Value;
                 home.GoalsConceded += (int)match.away_team_goal.Value;
                 away.Goals += (int)match.away_team_goal.Value;
