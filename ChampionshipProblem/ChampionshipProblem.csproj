@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChampionshipViewModel.cs" />
+    <Compile Include="Classes\ILeagueStandingEntry.cs" />
     <Compile Include="Classes\LeagueStandingEntry.cs" />
     <Compile Include="Classes\MatchResult.cs" />
     <Compile Include="Classes\RemainingMatch.cs" />

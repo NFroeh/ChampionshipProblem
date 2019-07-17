@@ -4,6 +4,7 @@ namespace ChampionshipProblem
     using ChampionshipProblem.Classes;
     using ChampionshipProblem.Classes.ResultClasses;
     using ChampionshipProblem.Scheme;
+    using ChampionshipProblem.Services;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -47,7 +48,12 @@ namespace ChampionshipProblem
         private int CurrentSelectedComputedRemainingMatchStage;
 
         /// <summary>
-        /// Die aktuelle Tabelle
+        /// Aktuell ausgewählter Spieltag zur berechneten Tabelle.
+        /// </summary>
+        private int CurrentSelectedComputedStanding;
+
+        /// <summary>
+        /// Die aktuelle Tabelle.
         /// </summary>
         private IEnumerable<CompleteLeagueStandingEntry> LeagueStandingEntries;
 
@@ -163,12 +169,14 @@ namespace ChampionshipProblem
                 // Die neue RemainingStage-Range setzen
                 IEnumerable<int> range = Enumerable.Range(this.CurrentSelectedStage + 1, this.NumberOfStages - this.CurrentSelectedStage);
                 RemainingMatchComboBox.DataSource = range.ToArray();
-                ComputedRemainingMatchComboxBox.DataSource = range.ToArray();
+                ComputedRemainingMatchComboBox.DataSource = range.ToArray();
+                ComputedStandingComboBox.DataSource = range.ToArray();
             }
             else
             {
                 RemainingMatchComboBox.DataSource = new int[]{ this.NumberOfStages };
-                ComputedRemainingMatchComboxBox.DataSource = new int[] { this.NumberOfStages };
+                ComputedRemainingMatchComboBox.DataSource = new int[] { this.NumberOfStages };
+                ComputedStandingComboBox.DataSource = new int[] { this.NumberOfStages };
             }
 
             // Den Index neu setzen für die RemainingMatchStage
@@ -315,11 +323,6 @@ namespace ChampionshipProblem
                             ComputationStandingView.DataSource = championComputationalResult.ComputationalStanding.ToArray();
                             CurrentChampionComputationalResult = championComputationalResult;
                             ComputedRemainingMatchesView.DataSource = championComputationalResult.MissingRemainingMatches.ToArray();
-
-                            if (championComputationalResult.MissingRemainingMatches != null && championComputationalResult.MissingRemainingMatches.Count > 0)
-                            {
-                                ComputedRemainingMatchComboxBox.SelectedIndex = 0;
-                            }
                         }
                         else
                         {
@@ -758,7 +761,7 @@ namespace ChampionshipProblem
         private void ComputedRemainingMatchComboxBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Neuer Parameter holen
-            this.CurrentSelectedComputedRemainingMatchStage = (int)ComputedRemainingMatchComboxBox.SelectedValue;
+            this.CurrentSelectedComputedRemainingMatchStage = (int)ComputedRemainingMatchComboBox.SelectedValue;
 
             if (CurrentChampionComputationalResult != null && CurrentChampionComputationalResult.MissingRemainingMatches != null)
             {
@@ -769,6 +772,27 @@ namespace ChampionshipProblem
 
                 // Remaining-Matches setzen
                 this.ComputedRemainingMatchesView.DataSource = remainingMatchesForSingleStage.ToArray();
+            }
+        }
+        #endregion
+
+        #region ComputedStandingComboBox_SelectedIndexChanged
+        /// <summary>
+        /// Methode wird ausgeführt, wenn die ComputedStandingComboBox geändert wird.
+        /// </summary>
+        /// <param name="sender">Der Sender.</param>
+        /// <param name="e">Die Argumente.</param>
+        private void ComputedStandingComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.CurrentSelectedComputedStanding = (int)ComputedStandingComboBox.SelectedValue;
+
+            if (CurrentChampionComputationalResult != null && CurrentChampionComputationalResult.ComputationalStanding != null)
+            {
+                // Fehlende Spiele ermitteln
+                IEnumerable<RemainingMatch> remainingMatchesForSingleStage = CurrentChampionComputationalResult
+                    .MissingRemainingMatches
+                    .Where((match) => match.Stage <= this.CurrentSelectedComputedStanding);
+                this.ComputationStandingView.DataSource = LeagueStandingService.CalculateLeagueStandingForRemainingMatches(LeagueStandingEntries, remainingMatchesForSingleStage).ToArray();
             }
         }
         #endregion

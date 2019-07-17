@@ -3,7 +3,7 @@
     /// <summary>
     /// Klasse repräsentiert einen Tabelleneintrag.
     /// </summary>
-    public class LeagueStandingEntry
+    public class LeagueStandingEntry : ILeagueStandingEntry
     {
         #region ctors
         /// <summary>

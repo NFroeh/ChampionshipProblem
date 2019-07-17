@@ -41,9 +41,11 @@ namespace ChampionshipProblem
             this.ComputationStandingView = new System.Windows.Forms.DataGridView();
             this.ComputeResultCheckbox = new System.Windows.Forms.CheckBox();
             this.ComputeGoalCheckbox = new System.Windows.Forms.CheckBox();
-            this.ComputedRemainingMatchComboxBox = new System.Windows.Forms.ComboBox();
+            this.ComputedRemainingMatchComboBox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.ComputedRemainingMatchesView = new System.Windows.Forms.DataGridView();
+            this.label4 = new System.Windows.Forms.Label();
+            this.ComputedStandingComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.StandingsView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RemainingMatchesView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ComputationStandingView)).BeginInit();
@@ -175,14 +177,14 @@ namespace ChampionshipProblem
             this.ComputeGoalCheckbox.Text = "Compute Goal Difference";
             this.ComputeGoalCheckbox.UseVisualStyleBackColor = true;
             // 
-            // ComputedRemainingMatchComboxBox
+            // ComputedRemainingMatchComboBox
             // 
-            this.ComputedRemainingMatchComboxBox.FormattingEnabled = true;
-            this.ComputedRemainingMatchComboxBox.Location = new System.Drawing.Point(756, 544);
-            this.ComputedRemainingMatchComboxBox.Name = "ComputedRemainingMatchComboxBox";
-            this.ComputedRemainingMatchComboxBox.Size = new System.Drawing.Size(42, 21);
-            this.ComputedRemainingMatchComboxBox.TabIndex = 14;
-            this.ComputedRemainingMatchComboxBox.SelectedIndexChanged += new System.EventHandler(this.ComputedRemainingMatchComboxBox_SelectedIndexChanged);
+            this.ComputedRemainingMatchComboBox.FormattingEnabled = true;
+            this.ComputedRemainingMatchComboBox.Location = new System.Drawing.Point(756, 544);
+            this.ComputedRemainingMatchComboBox.Name = "ComputedRemainingMatchComboBox";
+            this.ComputedRemainingMatchComboBox.Size = new System.Drawing.Size(42, 21);
+            this.ComputedRemainingMatchComboBox.TabIndex = 14;
+            this.ComputedRemainingMatchComboBox.SelectedIndexChanged += new System.EventHandler(this.ComputedRemainingMatchComboxBox_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -202,14 +204,35 @@ namespace ChampionshipProblem
             this.ComputedRemainingMatchesView.Size = new System.Drawing.Size(435, 458);
             this.ComputedRemainingMatchesView.TabIndex = 16;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label4.Location = new System.Drawing.Point(12, 545);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(160, 15);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "Stage of computed standing";
+            // 
+            // ComputedStandingComboBox
+            // 
+            this.ComputedStandingComboBox.FormattingEnabled = true;
+            this.ComputedStandingComboBox.Location = new System.Drawing.Point(178, 544);
+            this.ComputedStandingComboBox.Name = "ComputedStandingComboBox";
+            this.ComputedStandingComboBox.Size = new System.Drawing.Size(42, 21);
+            this.ComputedStandingComboBox.TabIndex = 18;
+            this.ComputedStandingComboBox.SelectedIndexChanged += new System.EventHandler(this.ComputedStandingComboBox_SelectedIndexChanged);
+            // 
             // ChampionshipProblemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1548, 1061);
+            this.Controls.Add(this.ComputedStandingComboBox);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.ComputedRemainingMatchesView);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.ComputedRemainingMatchComboxBox);
+            this.Controls.Add(this.ComputedRemainingMatchComboBox);
             this.Controls.Add(this.ComputeGoalCheckbox);
             this.Controls.Add(this.ComputeResultCheckbox);
             this.Controls.Add(this.ComputationStandingView);
@@ -250,9 +273,11 @@ namespace ChampionshipProblem
         private System.Windows.Forms.DataGridView ComputationStandingView;
         private System.Windows.Forms.CheckBox ComputeResultCheckbox;
         private System.Windows.Forms.CheckBox ComputeGoalCheckbox;
-        private System.Windows.Forms.ComboBox ComputedRemainingMatchComboxBox;
+        private System.Windows.Forms.ComboBox ComputedRemainingMatchComboBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView ComputedRemainingMatchesView;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox ComputedStandingComboBox;
     }
 }
 

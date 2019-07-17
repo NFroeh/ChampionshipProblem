@@ -3,7 +3,7 @@
     /// <summary>
     /// Klasse repräsentiert die komplette Darstellung eines Tabeleleneintrags.
     /// </summary>
-    public class CompleteLeagueStandingEntry
+    public class CompleteLeagueStandingEntry : ILeagueStandingEntry
     {
         #region ctors
         /// <summary>

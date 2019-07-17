@@ -334,12 +334,12 @@
         /// <param name="leagueStandingEntries">Die aktuelle Tabelle.</param>
         /// <param name="remainingMatches">Die fehlenden Spiele.</param>
         /// <returns>Die Tabelle als Liste.</returns>
-        internal static List<LeagueStandingEntry> CalculateLeagueStandingForRemainingMatches(IEnumerable<LeagueStandingEntry> leagueStandingEntries, IEnumerable<RemainingMatch> remainingMatches)
+        public static List<LeagueStandingEntry> CalculateLeagueStandingForRemainingMatches(IEnumerable<ILeagueStandingEntry> leagueStandingEntries, IEnumerable<RemainingMatch> remainingMatches)
         {
             List<LeagueStandingEntry> leagueStandings = new List<LeagueStandingEntry>();
 
             // Liste befüllen
-            foreach (LeagueStandingEntry entry in leagueStandingEntries)
+            foreach (ILeagueStandingEntry entry in leagueStandingEntries)
             {
                 LeagueStandingEntry newEntry = new LeagueStandingEntry(entry.TeamApiId, entry.TeamShortName, entry.TeamLongName)
                 {
