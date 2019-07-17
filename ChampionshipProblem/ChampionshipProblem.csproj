@@ -66,14 +66,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChampionshipViewModel.cs" />
+    <Compile Include="Classes\Country.cs" />
     <Compile Include="Classes\ILeagueStandingEntry.cs" />
+    <Compile Include="Classes\League.cs" />
     <Compile Include="Classes\LeagueStandingEntry.cs" />
+    <Compile Include="Classes\Match.cs" />
     <Compile Include="Classes\MatchResult.cs" />
     <Compile Include="Classes\RemainingMatch.cs" />
     <Compile Include="Classes\ResultClasses\ChampionComputationalResult.cs" />
     <Compile Include="Classes\ResultClasses\IComputationalResult.cs" />
     <Compile Include="Classes\ResultClasses\PositionComputationalResult.cs" />
+    <Compile Include="Classes\Team.cs" />
     <Compile Include="Classes\UI\CompleteLeagueStandingEntry.cs" />
+    <Compile Include="Converter\SoccerDBConverter.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="Extensions\LongExtensions.cs" />
     <Compile Include="Scheme\Country.cs">
@@ -145,6 +150,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DatabaseScheme.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="DatabaseFiles\SoccerComplete.sqlite" />
     <None Include="Scheme\DatabaseScheme.edmx.diagram">
       <DependentUpon>DatabaseScheme.edmx</DependentUpon>
     </None>
@@ -177,6 +183,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.110.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.110.0\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
