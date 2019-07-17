@@ -320,15 +320,21 @@ namespace ChampionshipProblem
                         entry.CanWinChampionship = championComputationalResult.CanWinChampionship;
                         if (championComputationalResult.CanWinChampionship)
                         {
-                            ComputationStandingView.DataSource = championComputationalResult.ComputationalStanding.ToArray();
+                            // Das Result abspeichern
                             CurrentChampionComputationalResult = championComputationalResult;
+
+                            // Die Datengrundlagen setzen
+                            ComputationStandingView.DataSource = championComputationalResult.ComputationalStanding.ToArray();
                             ComputedRemainingMatchesView.DataSource = championComputationalResult.MissingRemainingMatches.ToArray();
+
+                            // Die Änderung signalisieren
+                            this.ComputedStandingComboBox_SelectedIndexChanged(null, null);
+                            this.ComputedRemainingMatchComboxBox_SelectedIndexChanged(null, null);
                         }
                         else
                         {
                             ComputationStandingView.DataSource = new string[0];
                         }
-
                     }
                     else
                     {
@@ -769,7 +775,7 @@ namespace ChampionshipProblem
                 IEnumerable<RemainingMatch> remainingMatchesForSingleStage = CurrentChampionComputationalResult
                     .MissingRemainingMatches
                     .Where((match) => match.Stage == this.CurrentSelectedComputedRemainingMatchStage);
-
+                
                 // Remaining-Matches setzen
                 this.ComputedRemainingMatchesView.DataSource = remainingMatchesForSingleStage.ToArray();
             }
