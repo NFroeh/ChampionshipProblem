@@ -34,7 +34,7 @@
         /// <summary>
         /// Das Datum.
         /// </summary>
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
 
         /// <summary>
         /// Die Id für das Heimteam.
@@ -66,197 +66,197 @@
         /// <summary>
         /// Wettquote B365-Heim.
         /// </summary>
-        public double B365H { get; set; }
+        public decimal? B365H { get; set; }
 
         /// <summary>
         /// Wettquote B365-Unentschieden.
         /// </summary>
-        public double B365D { get; set; }
+        public decimal? B365D { get; set; }
 
         /// <summary>
         /// Wettquote B365-Auswärts.
         /// </summary>
-        public double B365A { get; set; }
+        public decimal? B365A { get; set; }
 
         /// <summary>
         /// Wettquote Blue Square-Heim.
         /// </summary>
-        public double BSH { get; set; }
+        public decimal? BSH { get; set; }
 
         /// <summary>
         /// Wettquote Blue Square-Unentschieden.
         /// </summary>
-        public double BSD { get; set; }
+        public decimal? BSD { get; set; }
 
         /// <summary>
         /// Wettquote Blue Square-Auswärts.
         /// </summary>
-        public double BSA { get; set; }
+        public decimal? BSA { get; set; }
 
         /// <summary>
         /// Wettquote Bet&Win-Heim.
         /// </summary>
-        public double BWH { get; set; }
+        public decimal? BWH { get; set; }
 
         /// <summary>
         /// Wettquote Bet&Win-Unentschieden.
         /// </summary>
-        public double BWD { get; set; }
+        public decimal? BWD { get; set; }
 
         /// <summary>
         /// Wettquote Bet&Win-Auswärts.
         /// </summary>
-        public double BWA { get; set; }
+        public decimal? BWA { get; set; }
 
         /// <summary>
         /// Wettquote Gamebookers-Heim.
         /// </summary>
-        public double GBH { get; set; }
+        public decimal? GBH { get; set; }
 
         /// <summary>
         /// Wettquote Gamebookers-Unentschieden.
         /// </summary>
-        public double GBD { get; set; }
+        public decimal? GBD { get; set; }
 
         /// <summary>
         /// Wettquote Gamebookers-Auswärts.
         /// </summary>
-        public double GBA { get; set; }
+        public decimal? GBA { get; set; }
 
         /// <summary>
         /// Wettquote Interwetten-Heim.
         /// </summary>
-        public double IWH { get; set; }
+        public decimal? IWH { get; set; }
 
         /// <summary>
         /// Wettquote Interwetten-Unentschieden.
         /// </summary>
-        public double IWD { get; set; }
+        public decimal? IWD { get; set; }
 
         /// <summary>
         /// Wettquote Interwetten-Auswärts.
         /// </summary>
-        public double IWA { get; set; }
+        public decimal? IWA { get; set; }
 
         /// <summary>
         /// Wettquote Ladbrokes-Heim.
         /// </summary>
-        public double LBH { get; set; }
+        public decimal? LBH { get; set; }
 
         /// <summary>
         /// Wettquote Ladbrokes-UNentschieden.
         /// </summary>
-        public double LBD { get; set; }
+        public decimal? LBD { get; set; }
 
         /// <summary>
         /// Wettquote Ladbrokes-Auswärts.
         /// </summary>
-        public double LBA { get; set; }
+        public decimal? LBA { get; set; }
 
         /// <summary>
         /// Wettquote Pinnacle-Heim.
         /// </summary>
-        public double PSH { get; set; }
+        public decimal? PSH { get; set; }
 
         /// <summary>
         /// Wettquote Pinnacle-Unentschieden.
         /// </summary>
-        public double PSD { get; set; }
+        public decimal? PSD { get; set; }
 
         /// <summary>
         /// Wettquote Pinnacle-Auswärts.
         /// </summary>
-        public double PSA { get; set; }
+        public decimal? PSA { get; set; }
 
         /// <summary>
         /// Wettquote Sporting Odds-Heim.
         /// </summary>
-        public double SOH { get; set; }
+        public decimal? SOH { get; set; }
 
         /// <summary>
         /// Wettquote Sporting Odds-Unentschieden.
         /// </summary>
-        public double SOD { get; set; }
+        public decimal? SOD { get; set; }
 
         /// <summary>
         /// Wettquote Sporting Odds-Auswärts.
         /// </summary>
-        public double SOA { get; set; }
+        public decimal? SOA { get; set; }
 
         /// <summary>
         /// Wettquote Sportingbet-Home.
         /// </summary>
-        public double SBH { get; set; }
+        public decimal? SBH { get; set; }
 
         /// <summary>
         /// Wettquote Sportingbet-Unentschieden.
         /// </summary>
-        public double SBD { get; set; }
+        public decimal? SBD { get; set; }
 
         /// <summary>
         /// Wettquote Sportingbet-Auswärts.
         /// </summary>
-        public double SBA { get; set; }
+        public decimal? SBA { get; set; }
 
         /// <summary>
         /// Wettquote Stan James-Heim.
         /// </summary>
-        public double SJH { get; set; }
+        public decimal? SJH { get; set; }
 
         /// <summary>
         /// Wettquote Stan James-Unentschieden.
         /// </summary>
-        public double SJD { get; set; }
+        public decimal? SJD { get; set; }
 
         /// <summary>
         /// Wettquote Stan James-Auswärts.
         /// </summary>
-        public double SJA { get; set; }
+        public decimal? SJA { get; set; }
 
         /// <summary>
         /// Wettquote Stanleybet-Heim.
         /// </summary>
-        public double SYH { get; set; }
+        public decimal? SYH { get; set; }
 
         /// <summary>
         /// Wettquote Stanleybet-Unentschieden.
         /// </summary>
-        public double SYD { get; set; }
+        public decimal? SYD { get; set; }
 
         /// <summary>
         /// Wettquote Stanleybet-Auswärts.
         /// </summary>
-        public double SYA { get; set; }
+        public decimal? SYA { get; set; }
 
         /// <summary>
         /// Wettquote VC Bet-Heim.
         /// </summary>
-        public double VCH { get; set; }
+        public decimal? VCH { get; set; }
 
         // <summary>
         /// Wettquote VC Bet-Unentschieden.
         /// </summary>
-        public double VCD { get; set; }
+        public decimal? VCD { get; set; }
 
         // <summary>
         /// Wettquote VC Bet-Auswärts.
         /// </summary>
-        public double VCA { get; set; }
+        public decimal? VCA { get; set; }
 
         /// <summary>
         /// Wettquote Wiliam Hill-Heim.
         /// </summary>
-        public double WHH { get; set; }
+        public decimal? WHH { get; set; }
 
         /// <summary>
         /// Wettquote Wiliam Hill-Unentschieden.
         /// </summary>
-        public double WHD { get; set; }
+        public decimal? WHD { get; set; }
 
         /// <summary>
         /// Wettquote Wiliam Hill-Auswärts.
         /// </summary>
-        public double WHA { get; set; }
+        public decimal? WHA { get; set; }
 
         /// <summary>
         /// Die Liga.

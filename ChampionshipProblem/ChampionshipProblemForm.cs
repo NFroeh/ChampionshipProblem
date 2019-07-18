@@ -25,7 +25,7 @@ namespace ChampionshipProblem
         /// <summary>
         /// Die aktuell ausgewählte Liga.
         /// </summary>
-        private League CurrentSelectedLeague;
+        private Scheme.League CurrentSelectedLeague;
 
         /// <summary>
         /// Die aktuell ausgewählte Saison.
@@ -100,7 +100,7 @@ namespace ChampionshipProblem
             ComputedRemainingMatchesView.RowHeadersVisible = false;
 
             // Die Ligen als Datengrundlage setzen
-            List<League> leagues = championshipViewModel.LeagueService.GetLeagues().ToList();
+            List<Scheme.League> leagues = championshipViewModel.LeagueService.GetLeagues().ToList();
             LeagueComboBox.DataSource = leagues;
             LeagueComboBox.DisplayMember = "name";
 
@@ -127,7 +127,7 @@ namespace ChampionshipProblem
         private void LeagueComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Die Liga ermitteln
-            this.CurrentSelectedLeague = (League)LeagueComboBox.SelectedValue;
+            this.CurrentSelectedLeague = (Scheme.League)LeagueComboBox.SelectedValue;
 
             // Die Saisons ermitteln und setzen
             string[] seasons = this.ChampionshipViewModel.MatchService.GetSeasonsByLeagueId(this.CurrentSelectedLeague.id).ToArray();

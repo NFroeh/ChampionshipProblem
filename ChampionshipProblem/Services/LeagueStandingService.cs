@@ -31,12 +31,12 @@
         /// <summary>
         /// Die Liga als Entität.
         /// </summary>
-        public League League { get; set; }
+        public Scheme.League League { get; set; }
 
         /// <summary>
         /// Die Mannschaften
         /// </summary>
-        public IEnumerable<Team> Teams { get; set; }
+        public IEnumerable<Scheme.Team> Teams { get; set; }
 
         /// <summary>
         /// Der Service für die beste Position.
@@ -180,20 +180,20 @@
             List<LeagueStandingEntry> leagueStandings = new List<LeagueStandingEntry>();
 
             // Die Liga ermitteln
-            League currentLeague = this.ChampionshipViewModel.LeagueService.GetLeague(this.LeagueId);
+            Scheme.League currentLeague = this.ChampionshipViewModel.LeagueService.GetLeague(this.LeagueId);
 
             // Für jedes Team einen Eintrag anlegen
-            foreach (Team team in this.Teams)
+            foreach (Scheme.Team team in this.Teams)
             {
                 LeagueStandingEntry entry = new LeagueStandingEntry(team.team_api_id, team.team_short_name, team.team_long_name);
                 leagueStandings.Add(entry);
             }
 
             // Die Spiele ermitteln
-            IEnumerable<Match> matchesTilStage = this.ChampionshipViewModel.MatchService.GetMatchesUntilStage(this.LeagueId, this.Season, stage);
+            IEnumerable<Scheme.Match> matchesTilStage = this.ChampionshipViewModel.MatchService.GetMatchesUntilStage(this.LeagueId, this.Season, stage);
 
             // Die Spiele durchlaufen und werten
-            foreach (Match match in matchesTilStage)
+            foreach (Scheme.Match match in matchesTilStage)
             {
                 LeagueStandingEntry home = leagueStandings.Single((entry) => entry.TeamApiId == match.home_team_api_id);
                 LeagueStandingEntry away = leagueStandings.Single((entry) => entry.TeamApiId == match.away_team_api_id);
@@ -242,20 +242,20 @@
             List<CompleteLeagueStandingEntry> leagueStandings = new List<CompleteLeagueStandingEntry>();
 
             // Die Liga ermitteln
-            League currentLeague = this.ChampionshipViewModel.LeagueService.GetLeague(this.LeagueId);
+            Scheme.League currentLeague = this.ChampionshipViewModel.LeagueService.GetLeague(this.LeagueId);
 
             // Für jedes Team einen Eintrag anlegen
-            foreach (Team team in this.Teams)
+            foreach (Scheme.Team team in this.Teams)
             {
                 CompleteLeagueStandingEntry entry = new CompleteLeagueStandingEntry((int)team.id, team.team_api_id, team.team_short_name, team.team_long_name);
                 leagueStandings.Add(entry);
             }
 
             // Die Spiele ermitteln
-            IEnumerable<Match> matchesTilStage = this.ChampionshipViewModel.MatchService.GetMatchesUntilStage(this.LeagueId, this.Season, stage);
+            IEnumerable<Scheme.Match> matchesTilStage = this.ChampionshipViewModel.MatchService.GetMatchesUntilStage(this.LeagueId, this.Season, stage);
 
             // Die Spiele durchlaufen und werten
-            foreach (Match match in matchesTilStage)
+            foreach (Scheme.Match match in matchesTilStage)
             {
                 CompleteLeagueStandingEntry home = leagueStandings.Single((entry) => entry.TeamApiId == match.home_team_api_id);
                 CompleteLeagueStandingEntry away = leagueStandings.Single((entry) => entry.TeamApiId == match.away_team_api_id);

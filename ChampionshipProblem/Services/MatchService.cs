@@ -36,7 +36,7 @@
         /// <param name="season">Dia Saison</param>
         /// <param name="stage">Der Spieltag.</param>
         /// <returns></returns>
-        public IEnumerable<Match> GetMatchesUntilStage(long leagueId, string season, int stage)        
+        public IEnumerable<Scheme.Match> GetMatchesUntilStage(long leagueId, string season, int stage)        
         {
             return ChampionshipViewModel.Matches.Where((match) => match.league_id == leagueId && match.season == season && match.stage <= stage);
         }
@@ -49,7 +49,7 @@
         /// <param name="leagueId">Die Liganummer.</param>
         /// <param name="season">Die Saison.</param>
         /// <returns>Die Spiele.</returns>
-        public IEnumerable<Match> GetMatchesByLeagueAndSeason(long leagueId, string season)
+        public IEnumerable<Scheme.Match> GetMatchesByLeagueAndSeason(long leagueId, string season)
         {
             return ChampionshipViewModel.Matches.Where((match) => match.league_id == leagueId && match.season == season);
         }
@@ -80,13 +80,13 @@
             // Services erzeugen
             TeamService teamService = new TeamService(this.ChampionshipViewModel);
 
-            IEnumerable<Match> matchesToConvert = ChampionshipViewModel.Matches.Where((match) => match.league_id == leagueId && match.season == season && match.stage > stage);
+            IEnumerable<Scheme.Match> matchesToConvert = ChampionshipViewModel.Matches.Where((match) => match.league_id == leagueId && match.season == season && match.stage > stage);
 
             List<RemainingMatch> remainingMatches = new List<RemainingMatch>();
-            IEnumerable<Team> teams = teamService.GetTeamsByLeagueAndSeason(leagueId, season);
+            IEnumerable<Scheme.Team> teams = teamService.GetTeamsByLeagueAndSeason(leagueId, season);
             Dictionary<long, string> teamNameToId = teamService.GetIdNameCollectionByLeagueAndSeason(leagueId, season);
 
-            foreach (Match match in matchesToConvert)
+            foreach (Scheme.Match match in matchesToConvert)
             {
                 RemainingMatch remainingMatch = new RemainingMatch()
                 {
@@ -122,7 +122,7 @@
         public List<RemainingMatch> GetRemainingMatchesForSingleStage(long leagueId, string season, int stage)
         {
             // Spiele ermitteln
-            IEnumerable<Match> matchesToConvert = ChampionshipViewModel.Matches.Where((match) => match.league_id == leagueId && match.season == season && match.stage == stage);
+            IEnumerable<Scheme.Match> matchesToConvert = ChampionshipViewModel.Matches.Where((match) => match.league_id == leagueId && match.season == season && match.stage == stage);
 
             // Anlegen der Liste
             List<RemainingMatch> remainingMatches = new List<RemainingMatch>();
@@ -131,7 +131,7 @@
             Dictionary<long, string> teamNameToId = this.ChampionshipViewModel.TeamService.GetIdNameCollectionByLeagueAndSeason(leagueId, season);
 
             // In die neue Klasse konvertieren
-            foreach (Match match in matchesToConvert)
+            foreach (Scheme.Match match in matchesToConvert)
             {
                 RemainingMatch remainingMatch = new RemainingMatch()
                 {

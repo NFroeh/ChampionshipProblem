@@ -22,7 +22,7 @@
         /// <summary>
         /// Die Liga.
         /// </summary>
-        public League League;
+        public Scheme.League League;
 
         /// <summary>
         /// Die Liganummer.
@@ -49,7 +49,7 @@
         /// <param name="leagueId">Die Liganummer.</param>
         /// <param name="season">Die Saison.</param>
         /// <param name="leagueStandingService">Der überliegende Service.</param>
-        public WorstPossiblePositionService(ChampionshipViewModel championshipViewModel, League league, long leagueId, string season, LeagueStandingService leagueStandingService)
+        public WorstPossiblePositionService(ChampionshipViewModel championshipViewModel, Scheme.League league, long leagueId, string season, LeagueStandingService leagueStandingService)
         {
             this.ChampionshipViewModel = championshipViewModel;
             this.League = league;
