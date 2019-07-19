@@ -21,6 +21,7 @@
             }
 
             SoccerDBConverter.ConvertToNewDb();
+            SoccerDBConverter.ConvertMissingLeagues();
         }
     }
 }
