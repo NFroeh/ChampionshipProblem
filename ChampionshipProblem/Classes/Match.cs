@@ -21,6 +21,11 @@
         public int Id { get; set; }
 
         /// <summary>
+        /// Das Land.
+        /// </summary>
+        public Country Country { get; set; }
+
+        /// <summary>
         /// Die Liganummer.
         /// </summary>
         [ForeignKey("League")]
@@ -34,7 +39,12 @@
         /// <summary>
         /// Das Datum.
         /// </summary>
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
+
+        /// <summary>
+        /// Der Spieltag.
+        /// </summary>
+        public int Stage { get; set; }
 
         /// <summary>
         /// Die Id für das Heimteam.
@@ -169,36 +179,6 @@
         public decimal? PSA { get; set; }
 
         /// <summary>
-        /// Wettquote Sporting Odds-Heim.
-        /// </summary>
-        public decimal? SOH { get; set; }
-
-        /// <summary>
-        /// Wettquote Sporting Odds-Unentschieden.
-        /// </summary>
-        public decimal? SOD { get; set; }
-
-        /// <summary>
-        /// Wettquote Sporting Odds-Auswärts.
-        /// </summary>
-        public decimal? SOA { get; set; }
-
-        /// <summary>
-        /// Wettquote Sportingbet-Home.
-        /// </summary>
-        public decimal? SBH { get; set; }
-
-        /// <summary>
-        /// Wettquote Sportingbet-Unentschieden.
-        /// </summary>
-        public decimal? SBD { get; set; }
-
-        /// <summary>
-        /// Wettquote Sportingbet-Auswärts.
-        /// </summary>
-        public decimal? SBA { get; set; }
-
-        /// <summary>
         /// Wettquote Stan James-Heim.
         /// </summary>
         public decimal? SJH { get; set; }
@@ -212,21 +192,6 @@
         /// Wettquote Stan James-Auswärts.
         /// </summary>
         public decimal? SJA { get; set; }
-
-        /// <summary>
-        /// Wettquote Stanleybet-Heim.
-        /// </summary>
-        public decimal? SYH { get; set; }
-
-        /// <summary>
-        /// Wettquote Stanleybet-Unentschieden.
-        /// </summary>
-        public decimal? SYD { get; set; }
-
-        /// <summary>
-        /// Wettquote Stanleybet-Auswärts.
-        /// </summary>
-        public decimal? SYA { get; set; }
 
         /// <summary>
         /// Wettquote VC Bet-Heim.

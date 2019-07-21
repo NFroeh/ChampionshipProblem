@@ -19,7 +19,7 @@
         /// <summary>
         /// Pfad zur WorldDB.
         /// </summary>
-        private const string Path = "C:\\Users\\NicolaiFröhlig\\source\\repos\\ChampionshipProblem\\ChampionshipProblem\\DatabaseFiles\\SoccerComplete.sqlite";
+        private const string Path = "";
 
         /// <summary>
         /// Die Größe eines Batches eines Inserts..
@@ -31,6 +31,7 @@
         /// <summary>
         /// Methode zum Konvertieren der WorldDb in die Klassen der Datenbank und Speicherung in eine neue DB.
         /// </summary>
+        [Obsolete]
         public static void ConvertToNewDb()
         {
             // Logger erstellen
@@ -142,12 +143,13 @@
                     Classes.Match match = new Classes.Match()
                     {
                         Season = matchReader["Season"].ToString(),
-                        Date = matchReader["Date"].ToString(),
+                        Date = Convert.ToDateTime(matchReader["Date"].ToString()),
                         HomeGoals = Convert.ToInt32(matchReader["FTHG"]),
                         AwayGoals = Convert.ToInt32(matchReader["FTAG"]),
-                        League = existingLeagues.Single((league) => (league.Name == matchReader["League"].ToString()) && (league.Country.ToString() == matchReader["Country"].ToString())),
-                        HomeTeam = existingTeams.Single((team) => team.Name == matchReader["HomeTeam"].ToString()),
-                        AwayTeam = existingTeams.Single((team) => team.Name == matchReader["AwayTeam"].ToString()),
+                        LeagueId = existingLeagues.Single((league) => (league.Name == matchReader["League"].ToString()) && (league.Country.ToString() == matchReader["Country"].ToString())).Id,
+                        HomeId = existingTeams.Single((team) => team.Name == matchReader["HomeTeam"].ToString()).Id,
+                        AwayId = existingTeams.Single((team) => team.Name == matchReader["AwayTeam"].ToString()).Id,
+                        Country = (Classes.Country) Enum.Parse(typeof(Classes.Country), matchReader["Country"].ToString())
                     };
 
                     // Die Wettquoten übertragen
@@ -172,18 +174,9 @@
                     match.PSH = matchReader["PSH"].ConvertToDecimal();
                     match.PSD = matchReader["PSD"].ConvertToDecimal();
                     match.PSA = matchReader["PSA"].ConvertToDecimal();
-                    match.SOH = matchReader["SOH"].ConvertToDecimal();
-                    match.SOD = matchReader["SOD"].ConvertToDecimal();
-                    match.SOA = matchReader["SOA"].ConvertToDecimal();
-                    match.SBH = matchReader["SBH"].ConvertToDecimal();
-                    match.SBD = matchReader["SBD"].ConvertToDecimal();
-                    match.SBA = matchReader["SBA"].ConvertToDecimal();
                     match.SJH = matchReader["SJH"].ConvertToDecimal();
                     match.SJD = matchReader["SJD"].ConvertToDecimal();
                     match.SJA = matchReader["SJA"].ConvertToDecimal();
-                    match.SYH = matchReader["SYH"].ConvertToDecimal();
-                    match.SYD = matchReader["SYD"].ConvertToDecimal();
-                    match.SYA = matchReader["SYA"].ConvertToDecimal();
                     match.VCH = matchReader["VCH"].ConvertToDecimal();
                     match.VCD = matchReader["VCD"].ConvertToDecimal();
                     match.VCA = matchReader["VCA"].ConvertToDecimal();
@@ -259,7 +252,7 @@
                 };
                 Classes.League swissLeague = new Classes.League()
                 {
-                    Country = Classes.Country.Swiss,
+                    Country = Classes.Country.Switzerland,
                     Division = "S1",
                     Name = "Switzerland Super League"
                 };
@@ -285,8 +278,10 @@
                     var a = newTeams.Single((team) => team.Name == teamIdDictionary[polandMatch.away_team_api_id]);
                     Classes.Match match = new Classes.Match()
                     {
+                        Country = Classes.Country.Poland,
+                        Stage = (int) polandMatch.stage.Value,
                         Season = polandMatch.season,
-                        Date = polandMatch.date,
+                        Date = Convert.ToDateTime(polandMatch.date),
                         League = polandLeague,
                         HomeTeam = newTeams.Single((team) => team.Name == teamIdDictionary[polandMatch.home_team_api_id]),
                         AwayTeam = newTeams.Single((team) => team.Name == teamIdDictionary[polandMatch.away_team_api_id]),
@@ -313,18 +308,9 @@
                         PSH = Convert.ToDecimal(polandMatch.PSH),
                         PSD = Convert.ToDecimal(polandMatch.PSD),
                         PSA = Convert.ToDecimal(polandMatch.PSA),
-                        SOH = 0,
-                        SOD = 0,
-                        SOA = 0,
-                        SBH = 0,
-                        SBD = 0,
-                        SBA = 0,
                         SJH = Convert.ToDecimal(polandMatch.SJH),
                         SJD = Convert.ToDecimal(polandMatch.SJD),
                         SJA = Convert.ToDecimal(polandMatch.SJA),
-                        SYH = 0,
-                        SYD = 0,
-                        SYA = 0,
                         VCH = Convert.ToDecimal(polandMatch.VCH),
                         VCD = Convert.ToDecimal(polandMatch.VCD),
                         VCA = Convert.ToDecimal(polandMatch.VCA),
@@ -340,9 +326,11 @@
                 {
                     newMatches.Add(new Classes.Match()
                     {
+                        Country = Classes.Country.Switzerland,
+                        Stage = (int)swissMatch.stage.Value,
                         Season = swissMatch.season,
-                        Date = swissMatch.date,
-                        League = polandLeague,
+                        Date = Convert.ToDateTime(swissMatch.date),
+                        League = swissLeague,
                         HomeTeam = newTeams.Single((team) => team.Name == teamIdDictionary[swissMatch.home_team_api_id]),
                         AwayTeam = newTeams.Single((team) => team.Name == teamIdDictionary[swissMatch.away_team_api_id]),
                         HomeGoals = (int)swissMatch.home_team_goal.Value,
@@ -368,18 +356,9 @@
                         PSH = Convert.ToDecimal(swissMatch.PSH),
                         PSD = Convert.ToDecimal(swissMatch.PSD),
                         PSA = Convert.ToDecimal(swissMatch.PSA),
-                        SOH = 0,
-                        SOD = 0,
-                        SOA = 0,
-                        SBH = 0,
-                        SBD = 0,
-                        SBA = 0,
                         SJH = Convert.ToDecimal(swissMatch.SJH),
                         SJD = Convert.ToDecimal(swissMatch.SJD),
                         SJA = Convert.ToDecimal(swissMatch.SJA),
-                        SYH = 0,
-                        SYD = 0,
-                        SYA = 0,
                         VCH = Convert.ToDecimal(swissMatch.VCH),
                         VCD = Convert.ToDecimal(swissMatch.VCD),
                         VCA = Convert.ToDecimal(swissMatch.VCA),
@@ -401,6 +380,210 @@
 
             // Loggen
             logger.Info("Finished generating databases.");
+        }
+        #endregion
+
+        #region SetStageForAllMatches
+        /// <summary>
+        /// Methode zum Setzen aller Spieltage aller Spiele.
+        /// </summary>
+        [Obsolete]
+        public static void SetStageForAllMatches()
+        {
+            MainSoccerDb mainSoccerDb = new MainSoccerDb();
+            mainSoccerDb.Configuration.AutoDetectChangesEnabled = false;
+
+            // Lade unterschiedliche Ligen
+            var distinctSeasons = mainSoccerDb
+                .Matches
+                .Select((m) => new
+                {
+                    m.Country,
+                    m.LeagueId,
+                    m.Season
+                })
+                .Distinct()
+                .ToList();
+            
+            foreach (var distinctSeason in distinctSeasons)
+            {
+                // Neuen Kontext erstellen
+                mainSoccerDb.Dispose();
+                mainSoccerDb = new MainSoccerDb();
+
+                // Die Spiele der Saison ermitteln
+                List<Classes.Match> matches = mainSoccerDb
+                    .Matches
+                    .Where((match) =>
+                        match.Country == distinctSeason.Country &&
+                        match.LeagueId == distinctSeason.LeagueId &&
+                        match.Season == distinctSeason.Season
+                    )
+                    .OrderBy((m) => m.Date)
+                    .ToList();
+
+                // Die Anzahl der Teams ermitteln
+                int numberOfTeams = matches
+                    .Select((m) => new { m.HomeId })
+                    .Distinct()
+                    .Count();
+                int stage = 1;
+                int count = 0;
+                foreach (Classes.Match match in matches)
+                {
+                    if (count != 0 && count % numberOfTeams / 2 == 0)
+                    {
+                        stage++;
+                    }
+
+                    match.Stage = stage;
+                    count++;
+                }
+
+                mainSoccerDb.SaveChanges();
+            }
+        }
+        #endregion
+
+        #region ConvertEuropeanSoccerDb
+        /// <summary>
+        /// Methode zum Konvertieren der EuropeanSoccerDb in die DB, welche verwendet wird.
+        /// </summary>
+        public static void ConvertEuropeanSoccerDb()
+        {
+            List<Classes.League> newLeagues = new List<Classes.League>();
+            List<Classes.Team> newTeams = new List<Classes.Team>();
+            Dictionary<long, string> leagueDictionary = new Dictionary<long, string>();
+            Dictionary<long, string> teamDictionary = new Dictionary<long, string>();
+            using (EuropeanSoccerEntities europeanDb = new EuropeanSoccerEntities())
+            {
+                // Als Erstes die Datenbank fixes durchführen
+                if (!europeanDb.Matches.Any((match) => match.match_api_id == 1944687))
+                {
+                    // Italienische Liga Saison 2014/2015 fixen
+                    europeanDb.Matches.Add(new Scheme.Match()
+                    {
+                        //id = 17642,
+                        country_id = 10257,
+                        league_id = 10257,
+                        season = "2014/2015",
+                        stage = 38,
+                        date = "2015/05/31",
+                        match_api_id = 1944687,
+                        home_team_api_id = 9875,
+                        away_team_api_id = 8543,
+                        home_team_goal = 2,
+                        away_team_goal = 4
+                    });
+                }
+
+                // Polnische Teams fixen
+                europeanDb.Teams.Single((team) => team.team_api_id == 8020).team_long_name = "Górnik Zabrze";
+                europeanDb.Teams.Single((team) => team.team_api_id == 8020).team_long_name = "Górnik Zabrze";
+                europeanDb.Teams.Single((team) => team.team_api_id == 8244).team_long_name = "ŁKS Łódź";
+                europeanDb.Teams.Single((team) => team.team_api_id == 9996).team_long_name = "Excelsior Mouscron";
+                europeanDb.SaveChanges();
+
+                List<Scheme.League> leagues = europeanDb
+                    .Leagues
+                    .ToList();
+                leagueDictionary = leagues.ToDictionary((l) => l.id, (l) => l.name);
+
+                foreach (Scheme.League league in leagues)
+                {
+                    Classes.League newLeague = new Classes.League()
+                    {
+                        Name = league.name,
+                        Country = (Classes.Country)Enum.Parse(typeof(Classes.Country), league.Country.name),
+                        Division = "1"  
+                    };
+                    newLeagues.Add(newLeague);
+                }
+
+                List<Scheme.Team> teams = europeanDb
+                    .Teams
+                    .ToList();
+                teamDictionary = teams.ToDictionary((t) => t.team_api_id.Value, (t) => t.team_long_name);
+                foreach (Scheme.Team team in teams)
+                {
+                    if (!newTeams.Any((t) => t.Name == team.team_long_name))
+                    {
+                        Classes.Team newTeam = new Classes.Team()
+                        {
+                            Name = team.team_long_name
+                        };
+                        newTeams.Add(newTeam);
+                    }
+                }
+                europeanDb.Dispose();
+            }
+
+            using (MainSoccerDb mainSoccerDb = new MainSoccerDb())
+            {
+                mainSoccerDb.Leagues.AddRange(newLeagues);
+                mainSoccerDb.Teams.AddRange(newTeams);
+                mainSoccerDb.SaveChanges();
+                mainSoccerDb.Dispose();
+            }
+
+            List<Classes.Match> newMatches = new List<Classes.Match>();
+            using (EuropeanSoccerEntities europeanSoccerEntities = new EuropeanSoccerEntities())
+            {
+                List<Scheme.Match> oldMatches = europeanSoccerEntities.Matches.ToList();
+                foreach (Scheme.Match oldMatch in oldMatches)
+                {
+                    Classes.Match newMatch = new Classes.Match()
+                    {
+                        Country = (Classes.Country)Enum.Parse(typeof(Classes.Country), oldMatch.Country.name),
+                        Stage = (int)oldMatch.stage.Value,
+                        Season = oldMatch.season,
+                        Date = Convert.ToDateTime(oldMatch.date),
+                        LeagueId = newLeagues.Single((league) => league.Name == leagueDictionary[oldMatch.league_id.Value]).Id,
+                        HomeId = newTeams.Single((team) => team.Name == teamDictionary[oldMatch.home_team_api_id.Value]).Id,
+                        AwayId = newTeams.Single((team) => team.Name == teamDictionary[oldMatch.away_team_api_id.Value]).Id,
+                        HomeGoals = (int)oldMatch.home_team_goal.Value,
+                        AwayGoals = (int)oldMatch.away_team_goal.Value,
+                        B365H = Convert.ToDecimal(oldMatch.B365H),
+                        B365D = Convert.ToDecimal(oldMatch.B365D),
+                        B365A = Convert.ToDecimal(oldMatch.B365A),
+                        BSH = Convert.ToDecimal(oldMatch.BSH),
+                        BSD = Convert.ToDecimal(oldMatch.BSD),
+                        BSA = Convert.ToDecimal(oldMatch.BSA),
+                        BWH = Convert.ToDecimal(oldMatch.BWH),
+                        BWD = Convert.ToDecimal(oldMatch.BWD),
+                        BWA = Convert.ToDecimal(oldMatch.BWA),
+                        GBH = Convert.ToDecimal(oldMatch.GBH),
+                        GBD = Convert.ToDecimal(oldMatch.GBD),
+                        GBA = Convert.ToDecimal(oldMatch.GBA),
+                        IWH = Convert.ToDecimal(oldMatch.IWH),
+                        IWD = Convert.ToDecimal(oldMatch.IWD),
+                        IWA = Convert.ToDecimal(oldMatch.IWA),
+                        LBH = Convert.ToDecimal(oldMatch.LBH),
+                        LBD = Convert.ToDecimal(oldMatch.LBD),
+                        LBA = Convert.ToDecimal(oldMatch.LBA),
+                        PSH = Convert.ToDecimal(oldMatch.PSH),
+                        PSD = Convert.ToDecimal(oldMatch.PSD),
+                        PSA = Convert.ToDecimal(oldMatch.PSA),
+                        SJH = Convert.ToDecimal(oldMatch.SJH),
+                        SJD = Convert.ToDecimal(oldMatch.SJD),
+                        SJA = Convert.ToDecimal(oldMatch.SJA),
+                        VCH = Convert.ToDecimal(oldMatch.VCH),
+                        VCD = Convert.ToDecimal(oldMatch.VCD),
+                        VCA = Convert.ToDecimal(oldMatch.VCA),
+                        WHH = Convert.ToDecimal(oldMatch.WHH),
+                        WHD = Convert.ToDecimal(oldMatch.WHD),
+                        WHA = Convert.ToDecimal(oldMatch.WHA),
+                    };
+                    newMatches.Add(newMatch);
+                }
+            }
+
+            using (MainSoccerDb mainSoccerDb = new MainSoccerDb())
+            {
+                mainSoccerDb.Matches.AddRange(newMatches);
+                mainSoccerDb.SaveChanges();
+                mainSoccerDb.Dispose();
+            }
         }
         #endregion
     }

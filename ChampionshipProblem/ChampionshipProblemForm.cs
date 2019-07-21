@@ -3,7 +3,6 @@ namespace ChampionshipProblem
 {
     using ChampionshipProblem.Classes;
     using ChampionshipProblem.Classes.ResultClasses;
-    using ChampionshipProblem.Scheme;
     using ChampionshipProblem.Services;
     using System;
     using System.Collections.Generic;
@@ -23,9 +22,14 @@ namespace ChampionshipProblem
         public ChampionshipViewModel ChampionshipViewModel;
 
         /// <summary>
+        /// Das aktuelle Land.
+        /// </summary>
+        private Country CurrentSelectedCountry;
+
+        /// <summary>
         /// Die aktuell ausgewählte Liga.
         /// </summary>
-        private Scheme.League CurrentSelectedLeague;
+        private League CurrentSelectedLeague;
 
         /// <summary>
         /// Die aktuell ausgewählte Saison.
@@ -99,8 +103,15 @@ namespace ChampionshipProblem
             ComputationStandingView.RowHeadersVisible = false;
             ComputedRemainingMatchesView.RowHeadersVisible = false;
 
+            // Die Länder als Datengrundlage setzen
+            CountryComboBox.DataSource = Enum.GetNames(typeof(Country));
+
             // Die Ligen als Datengrundlage setzen
-            List<Scheme.League> leagues = championshipViewModel.LeagueService.GetLeagues().ToList();
+            List<League> leagues = championshipViewModel
+                .LeagueService
+                .GetLeagues()
+                .Where((league) => league.Country == Classes.Country.Belgium)
+                .ToList();
             LeagueComboBox.DataSource = leagues;
             LeagueComboBox.DisplayMember = "name";
 
@@ -127,10 +138,10 @@ namespace ChampionshipProblem
         private void LeagueComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Die Liga ermitteln
-            this.CurrentSelectedLeague = (Scheme.League)LeagueComboBox.SelectedValue;
+            this.CurrentSelectedLeague = (League)LeagueComboBox.SelectedValue;
 
             // Die Saisons ermitteln und setzen
-            string[] seasons = this.ChampionshipViewModel.MatchService.GetSeasonsByLeagueId(this.CurrentSelectedLeague.id).ToArray();
+            string[] seasons = this.ChampionshipViewModel.MatchService.GetSeasonsByLeagueId(this.CurrentSelectedLeague.Id).ToArray();
             this.SeasonComboBox.DataSource = seasons;
         }
         #endregion
@@ -146,7 +157,7 @@ namespace ChampionshipProblem
             this.CurrentSelectedSeason = (string)SeasonComboBox.SelectedValue;
 
             // Die Anzahl der Spieltage ermitteln und setzen (Bei Saisonänderung kann auch die Anzahl der Mannschaften verändert worden sein)
-            this.NumberOfStages = (int)this.ChampionshipViewModel.MatchService.GetNumberOfMatches(this.CurrentSelectedLeague.id, this.CurrentSelectedSeason);
+            this.NumberOfStages = (int)this.ChampionshipViewModel.MatchService.GetNumberOfMatches(this.CurrentSelectedLeague.Id, this.CurrentSelectedSeason);
             StageComboBox.DataSource = Enumerable.Range(1, this.NumberOfStages).ToArray();
 
             this.RefreshStandings();
@@ -201,7 +212,7 @@ namespace ChampionshipProblem
                 CompleteLeagueStandingEntry entry = (CompleteLeagueStandingEntry)selectedRow.DataBoundItem;
 
                 // Zuerst prüfen, wie viele Matches berücksichtigt werden
-                int remainingMatchesCount = this.ChampionshipViewModel.LeagueStandingService.CalculateNumberOfRemainingMatchesForBestPossiblePosition(this.CurrentSelectedStage, entry.TeamApiId.Value);
+                int remainingMatchesCount = this.ChampionshipViewModel.LeagueStandingService.CalculateNumberOfRemainingMatchesForBestPossiblePosition(this.CurrentSelectedStage, entry.TeamId);
                 long numberOfIterations = (long) Math.Pow(3, remainingMatchesCount);
                 DialogResult result = DialogResult.Yes;
 
@@ -224,14 +235,14 @@ namespace ChampionshipProblem
 
                     if (ComputeResultCheckbox.Checked)
                     {
-                        PositionComputationalResult positionComputationalResult = this.ChampionshipViewModel.LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamApiId.Value, true);
+                        PositionComputationalResult positionComputationalResult = this.ChampionshipViewModel.LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamId, true);
                         entry.BestPossiblePosition = positionComputationalResult.Position;
                         ComputationStandingView.DataSource = positionComputationalResult.ComputationalStanding.ToArray();
                         stopwatch.Stop();
                     }
                     else
                     {
-                        entry.BestPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamApiId.Value, false).Position;
+                        entry.BestPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamId, false).Position;
                         stopwatch.Stop();
                     }
 
@@ -246,7 +257,7 @@ namespace ChampionshipProblem
                 CompleteLeagueStandingEntry entry = (CompleteLeagueStandingEntry)selectedRow.DataBoundItem;
 
                 // Zuerst prüfen, wie viele Matches berücksichtigt werden
-                int remainingMatchesCount = this.ChampionshipViewModel.LeagueStandingService.CalculateNumberOfRemainingMatchesForWorstPossiblePosition(this.CurrentSelectedStage, entry.TeamApiId.Value);
+                int remainingMatchesCount = this.ChampionshipViewModel.LeagueStandingService.CalculateNumberOfRemainingMatchesForWorstPossiblePosition(this.CurrentSelectedStage, entry.TeamId);
                 long numberOfIterations = (long)Math.Pow(3, remainingMatchesCount);
                 DialogResult result = DialogResult.Yes;
 
@@ -269,14 +280,14 @@ namespace ChampionshipProblem
 
                     if (ComputeResultCheckbox.Checked)
                     {
-                        PositionComputationalResult positionComputationalResult = this.ChampionshipViewModel.LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamApiId.Value, true);
+                        PositionComputationalResult positionComputationalResult = this.ChampionshipViewModel.LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamId, true);
                         entry.WorstPossiblePosition = positionComputationalResult.Position;
                         ComputationStandingView.DataSource = positionComputationalResult.ComputationalStanding.ToArray();
                         stopwatch.Stop();
                     }
                     else
                     {
-                        entry.WorstPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamApiId.Value, false).Position;
+                        entry.WorstPossiblePosition = this.ChampionshipViewModel.LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamId, false).Position;
                         stopwatch.Stop();
                     }
 
@@ -291,7 +302,7 @@ namespace ChampionshipProblem
                 CompleteLeagueStandingEntry entry = (CompleteLeagueStandingEntry)selectedRow.DataBoundItem;
 
                 // Zuerst prüfen, wie viele Matches berücksichtigt werden
-                int remainingMatchesCount = this.ChampionshipViewModel.LeagueStandingService.CalculateNumberOfRemainingMatchesForChampion(this.CurrentSelectedStage, entry.TeamApiId.Value);
+                int remainingMatchesCount = this.ChampionshipViewModel.LeagueStandingService.CalculateNumberOfRemainingMatchesForChampion(this.CurrentSelectedStage, entry.TeamId);
                 long numberOfIterations = (long)Math.Pow(3, remainingMatchesCount);
                 DialogResult result = DialogResult.Yes;
 
@@ -315,7 +326,7 @@ namespace ChampionshipProblem
 
                     if (ComputeResultCheckbox.Checked)
                     {
-                        ChampionComputationalResult championComputationalResult = this.ChampionshipViewModel.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, entry.TeamApiId.Value, true);
+                        ChampionComputationalResult championComputationalResult = this.ChampionshipViewModel.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, entry.TeamId, true);
                         stopwatch.Stop();
                         entry.CanWinChampionship = championComputationalResult.CanWinChampionship;
                         if (championComputationalResult.CanWinChampionship)
@@ -338,7 +349,7 @@ namespace ChampionshipProblem
                     }
                     else
                     {
-                        entry.CanWinChampionship = this.ChampionshipViewModel.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, entry.TeamApiId.Value, false).CanWinChampionship;
+                        entry.CanWinChampionship = this.ChampionshipViewModel.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, entry.TeamId, false).CanWinChampionship;
                         stopwatch.Stop();
                     }
 
@@ -361,7 +372,7 @@ namespace ChampionshipProblem
             this.CurrentSelectedRemainingMatchStage = (int)RemainingMatchComboBox.SelectedValue;
 
             // Fehlende Spiele ermitteln
-            IEnumerable<RemainingMatch> remainingMatchesForSingleStage = this.ChampionshipViewModel.MatchService.GetRemainingMatchesForSingleStage(this.CurrentSelectedLeague.id, this.CurrentSelectedSeason, this.CurrentSelectedRemainingMatchStage);
+            IEnumerable<RemainingMatch> remainingMatchesForSingleStage = this.ChampionshipViewModel.MatchService.GetRemainingMatchesForSingleStage(this.CurrentSelectedLeague.Id, this.CurrentSelectedSeason, this.CurrentSelectedRemainingMatchStage);
 
             // Remaining-Matches setzen
             this.RemainingMatchesView.DataSource = remainingMatchesForSingleStage.ToArray();
@@ -375,7 +386,7 @@ namespace ChampionshipProblem
         private void RefreshStandings()
         {
             // Service im ViewModel erzeugen lassen
-            this.ChampionshipViewModel.SetLeagueAndSeason(this.CurrentSelectedLeague.name, this.CurrentSelectedSeason);
+            this.ChampionshipViewModel.SetLeagueCountryAndSeason(this.CurrentSelectedCountry, this.CurrentSelectedLeague.Name, this.CurrentSelectedSeason);
 
             // Tabelle ermitteln
             this.LeagueStandingEntries = this.ChampionshipViewModel.LeagueStandingService.CalculateCompleteStanding(this.CurrentSelectedStage);
@@ -485,7 +496,7 @@ namespace ChampionshipProblem
             DataGridViewColumn teamColumn = new DataGridViewTextBoxColumn
             {
                 CellTemplate = new DataGridViewTextBoxCell(),
-                DataPropertyName = "TeamLongName",
+                DataPropertyName = "Name",
                 Name = "Team",
                 ReadOnly = true,
                 Width = 200
@@ -692,7 +703,7 @@ namespace ChampionshipProblem
             DataGridViewColumn teamColumn = new DataGridViewTextBoxColumn
             {
                 CellTemplate = new DataGridViewTextBoxCell(),
-                DataPropertyName = "TeamLongName",
+                DataPropertyName = "Name",
                 Name = "Team",
                 ReadOnly = true,
                 Width = 200
@@ -804,5 +815,21 @@ namespace ChampionshipProblem
             }
         }
         #endregion
+
+        /// <summary>
+        /// Methode wird ausgeführt, wenn sich das Land geändert hat.
+        /// </summary>
+        /// <param name="sender">Der Sender.</param>
+        /// <param name="e">Das Event.</param>
+        private void CountryComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.CurrentSelectedCountry = (Country) Enum.Parse(typeof(Country), CountryComboBox.SelectedValue.ToString());
+            this.LeagueComboBox.DataSource = this.ChampionshipViewModel
+                .LeagueService
+                .GetLeagues()
+                .Where((league) => league.Country == this.CurrentSelectedCountry)
+                .ToList();
+            this.RefreshStandings();
+        }
     }
 }

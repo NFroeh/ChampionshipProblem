@@ -1,6 +1,6 @@
 ﻿namespace ChampionshipProblem.Services
 {
-    using ChampionshipProblem.Scheme;
+    using ChampionshipProblem.Classes;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -40,8 +40,8 @@
             List<Team> teams = new List<Team>();
             foreach(Match match in matches)
             {
-                Team homeTeam = this.GetTeamById(match.home_team_api_id);
-                Team awayTeam = this.GetTeamById(match.away_team_api_id);
+                Team homeTeam = this.GetTeamById(match.HomeId);
+                Team awayTeam = this.GetTeamById(match.AwayId);
 
                 if (!teams.Contains(homeTeam)) teams.Add(homeTeam);
                 if (!teams.Contains(awayTeam)) teams.Add(awayTeam);
@@ -68,11 +68,11 @@
         /// <summary>
         /// Methode zum Ermitteln einer Mannschaft anhand der Id.
         /// </summary>
-        /// <param name="teamApiId">Die TeamApiId.</param>
+        /// <param name="teamId">Die TeamApiId.</param>
         /// <returns>Die Mannschaft.</returns>
-        public Team GetTeamById(long? teamApiId)
+        public Team GetTeamById(int teamId)
         {
-            return ChampionshipViewModel.Teams.Single((team) => team.team_api_id == teamApiId);
+            return ChampionshipViewModel.Teams.Single((team) => team.Id == teamId);
         }
         #endregion
 
@@ -83,14 +83,14 @@
         /// <param name="leagueId">Die Liganummer.</param>
         /// <param name="season">Die Saison.</param>
         /// <returns>Die Zuordnung der TeamApiId zum Namen.</returns>
-        public Dictionary<long, string> GetIdNameCollectionByLeagueAndSeason(long leagueId, string season)
+        public Dictionary<int, string> GetIdNameCollectionByLeagueAndSeason(int leagueId, string season)
         {
             IEnumerable<Team> teams = this.GetTeamsByLeagueAndSeason(leagueId, season);
-            Dictionary<long, string> idNameCollection = new Dictionary<long, string>();
+            Dictionary<int, string> idNameCollection = new Dictionary<int, string>();
 
             foreach(Team team in teams)
             {
-                idNameCollection.Add(team.team_api_id.Value, team.team_long_name);
+                idNameCollection.Add(team.Id, team.Name);
             }
 
             return idNameCollection;

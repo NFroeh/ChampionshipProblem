@@ -1,6 +1,6 @@
 ﻿namespace ChampionshipProblem.Services
 {
-    using ChampionshipProblem.Scheme;
+    using ChampionshipProblem.Classes;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -33,9 +33,9 @@
         /// </summary>
         /// <param name="leagueId">Die Liganummer.</param>
         /// <returns>Die Liga.</returns>
-        public League GetLeague(long leagueId)
+        public League GetLeague(int leagueId)
         {
-            return ChampionshipViewModel.Leagues.Single((league) => league.id == leagueId);
+            return ChampionshipViewModel.Leagues.Single((league) => league.Id == leagueId);
         }
         #endregion
 
@@ -44,10 +44,11 @@
         /// Methode zum Ermitteln der Liga anhand des Namens.
         /// </summary>
         /// <param name="name">Der Name.</param>
+        /// <param name="country">Das Land.</param>
         /// <returns>Die Liga.</returns>
-        public League GetLeagueByName(string name)
+        public League GetLeagueByNameAndCountry(string name, Country country)
         {
-            return ChampionshipViewModel.Leagues.Single((league) => league.name == name);
+            return ChampionshipViewModel.Leagues.Single((league) => league.Name == name && league.Country == country);
         }
         #endregion
 

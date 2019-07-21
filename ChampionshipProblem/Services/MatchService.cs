@@ -1,12 +1,11 @@
 ﻿namespace ChampionshipProblem.Services
 {
     using ChampionshipProblem.Classes;
-    using ChampionshipProblem.Scheme;
     using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
-    /// Klasse repräsentiert den Service für die SPiele.
+    /// Klasse repräsentiert den Service für die Spiele.
     /// </summary>
     public class MatchService
     {
@@ -36,9 +35,9 @@
         /// <param name="season">Dia Saison</param>
         /// <param name="stage">Der Spieltag.</param>
         /// <returns></returns>
-        public IEnumerable<Scheme.Match> GetMatchesUntilStage(long leagueId, string season, int stage)        
+        public IEnumerable<Match> GetMatchesUntilStage(long leagueId, string season, int stage)        
         {
-            return ChampionshipViewModel.Matches.Where((match) => match.league_id == leagueId && match.season == season && match.stage <= stage);
+            return ChampionshipViewModel.Matches.Where((match) => match.LeagueId == leagueId && match.Season == season && match.Stage <= stage);
         }
         #endregion
 
@@ -49,9 +48,9 @@
         /// <param name="leagueId">Die Liganummer.</param>
         /// <param name="season">Die Saison.</param>
         /// <returns>Die Spiele.</returns>
-        public IEnumerable<Scheme.Match> GetMatchesByLeagueAndSeason(long leagueId, string season)
+        public IEnumerable<Match> GetMatchesByLeagueAndSeason(long leagueId, string season)
         {
-            return ChampionshipViewModel.Matches.Where((match) => match.league_id == leagueId && match.season == season);
+            return ChampionshipViewModel.Matches.Where((match) => match.LeagueId == leagueId && match.Season == season);
         }
         #endregion
 
@@ -59,13 +58,14 @@
         /// <summary>
         /// Methode zum Ermitteln der fehlenden Spiele ab eines bestimmten Spieltags.
         /// </summary>
+        /// <param name="country">Das Land.</param>
         /// <param name="leagueName">Der Liga-Name</param>
         /// <param name="season">Die Saison.</param>
         /// <param name="stage">Der Spieltag.</param>
         /// <returns>Die fehlenden Spiele.</returns>
-        public List<RemainingMatch> GetRemainingMatches(string leagueName, string season, int stage)
+        public List<RemainingMatch> GetRemainingMatches(Country country, string leagueName, string season, int stage)
         {
-            return this.GetRemainingMatches(this.ChampionshipViewModel.LeagueService.GetLeagueByName(leagueName).id, season, stage);
+            return this.GetRemainingMatches(this.ChampionshipViewModel.LeagueService.GetLeagueByNameAndCountry(leagueName, country).Id, season, stage);
         }
 
         /// <summary>
@@ -75,34 +75,33 @@
         /// <param name="season">Die Saison.</param>
         /// <param name="stage">Der Spieltag.</param>
         /// <returns>Die fehlenden Spiele.</returns>
-        public List<RemainingMatch> GetRemainingMatches(long leagueId, string season, int stage)
+        public List<RemainingMatch> GetRemainingMatches(int leagueId, string season, int stage)
         {
             // Services erzeugen
             TeamService teamService = new TeamService(this.ChampionshipViewModel);
 
-            IEnumerable<Scheme.Match> matchesToConvert = ChampionshipViewModel.Matches.Where((match) => match.league_id == leagueId && match.season == season && match.stage > stage);
+            IEnumerable<Match> matchesToConvert = ChampionshipViewModel.Matches.Where((match) => match.LeagueId == leagueId && match.Season == season && match.Stage > stage);
 
             List<RemainingMatch> remainingMatches = new List<RemainingMatch>();
-            IEnumerable<Scheme.Team> teams = teamService.GetTeamsByLeagueAndSeason(leagueId, season);
-            Dictionary<long, string> teamNameToId = teamService.GetIdNameCollectionByLeagueAndSeason(leagueId, season);
+            IEnumerable<Team> teams = teamService.GetTeamsByLeagueAndSeason(leagueId, season);
+            Dictionary<int, string> teamNameToId = teamService.GetIdNameCollectionByLeagueAndSeason(leagueId, season);
 
-            foreach (Scheme.Match match in matchesToConvert)
+            foreach (Match match in matchesToConvert)
             {
                 RemainingMatch remainingMatch = new RemainingMatch()
                 {
-                    Id = match.id,
-                    MatchApiId = match.match_api_id.Value,
-                    CountryId = match.country_id.Value,
-                    LeagueId = match.league_id.Value,
-                    Season = match.season,
-                    Stage = match.stage.Value,
-                    Date = match.date,
-                    AwayTeamApiId = match.away_team_api_id.Value,
-                    AwayTeamGoal = match.away_team_goal.Value,
-                    HomeTeamName = teamNameToId[match.home_team_api_id.Value],
-                    AwayTeamName = teamNameToId[match.away_team_api_id.Value],
-                    HomeTeamApiId = match.home_team_api_id.Value,
-                    HomeTeamGoal = match.home_team_goal.Value,
+                    Id = match.Id,
+                    Country = match.Country,
+                    LeagueId = match.LeagueId,
+                    Season = match.Season,
+                    Stage = match.Stage,
+                    Date = match.Date,
+                    AwayTeamId = match.AwayId,
+                    AwayTeamGoal = match.AwayGoals,
+                    HomeTeamName = teamNameToId[match.HomeId],
+                    AwayTeamName = teamNameToId[match.AwayId],
+                    HomeTeamId = match.HomeId,
+                    HomeTeamGoal = match.HomeGoals,
                 };
                 remainingMatches.Add(remainingMatch);
             }
@@ -119,35 +118,34 @@
         /// <param name="season">Die Saison.</param>
         /// <param name="stage">Der Spieltag.</param>
         /// <returns></returns>
-        public List<RemainingMatch> GetRemainingMatchesForSingleStage(long leagueId, string season, int stage)
+        public List<RemainingMatch> GetRemainingMatchesForSingleStage(int leagueId, string season, int stage)
         {
             // Spiele ermitteln
-            IEnumerable<Scheme.Match> matchesToConvert = ChampionshipViewModel.Matches.Where((match) => match.league_id == leagueId && match.season == season && match.stage == stage);
+            IEnumerable<Match> matchesToConvert = ChampionshipViewModel.Matches.Where((match) => match.LeagueId == leagueId && match.Season == season && match.Stage == stage);
 
             // Anlegen der Liste
             List<RemainingMatch> remainingMatches = new List<RemainingMatch>();
 
             // Mannschaften ermitteln
-            Dictionary<long, string> teamNameToId = this.ChampionshipViewModel.TeamService.GetIdNameCollectionByLeagueAndSeason(leagueId, season);
+            Dictionary<int, string> teamNameToId = this.ChampionshipViewModel.TeamService.GetIdNameCollectionByLeagueAndSeason(leagueId, season);
 
             // In die neue Klasse konvertieren
-            foreach (Scheme.Match match in matchesToConvert)
+            foreach (Match match in matchesToConvert)
             {
                 RemainingMatch remainingMatch = new RemainingMatch()
                 {
-                    Id = match.id,
-                    MatchApiId = match.match_api_id.Value,
-                    CountryId = match.country_id.Value,
-                    LeagueId = match.league_id.Value,
-                    Season = match.season,
-                    Stage = match.stage.Value,
-                    Date = match.date,
-                    AwayTeamApiId = match.away_team_api_id.Value,
-                    AwayTeamGoal = match.away_team_goal.Value,
-                    HomeTeamName = teamNameToId[match.home_team_api_id.Value],
-                    AwayTeamName = teamNameToId[match.away_team_api_id.Value],
-                    HomeTeamApiId = match.home_team_api_id.Value,
-                    HomeTeamGoal = match.home_team_goal.Value,
+                    Id = match.Id,
+                    Country = match.Country,
+                    LeagueId = match.LeagueId,
+                    Season = match.Season,
+                    Stage = match.Stage,
+                    Date = match.Date,
+                    AwayTeamId = match.AwayId,
+                    AwayTeamGoal = match.AwayGoals,
+                    HomeTeamName = teamNameToId[match.HomeId],
+                    AwayTeamName = teamNameToId[match.AwayId],
+                    HomeTeamId = match.HomeId,
+                    HomeTeamGoal = match.HomeGoals,
                 };
                 remainingMatches.Add(remainingMatch);
             }
@@ -163,9 +161,9 @@
         /// <param name="leagueId">Die Liganummer.</param>
         /// <param name="season">Die Saison.</param>
         /// <returns>Die Anzahl der Spieltage.</returns>
-        public long GetNumberOfMatches(long leagueId, string season)
+        public int GetNumberOfMatches(int leagueId, string season)
         {
-            return ChampionshipViewModel.Matches.Where((match) => match.league_id == leagueId && match.season == season).Max((match) => match.stage).Value;
+            return ChampionshipViewModel.Matches.Where((match) => match.LeagueId == leagueId && match.Season == season).Max((match) => match.Stage);
         }
         #endregion
 
@@ -175,9 +173,9 @@
         /// </summary>
         /// <param name="leagueId">Die Liganummer.</param>
         /// <returns>Die verschiedenen Saisons.</returns>
-        public IEnumerable<string> GetSeasonsByLeagueId(long leagueId)
+        public IEnumerable<string> GetSeasonsByLeagueId(int leagueId)
         {
-            return ChampionshipViewModel.Matches.Where((match) => match.league_id == leagueId).Select((match) => match.season).Distinct();
+            return ChampionshipViewModel.Matches.Where((match) => match.LeagueId == leagueId).Select((match) => match.Season).Distinct();
         }
         #endregion
     }

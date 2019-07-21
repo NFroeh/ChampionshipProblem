@@ -2,7 +2,6 @@
 {
     using ChampionshipProblem.Classes;
     using ChampionshipProblem.Classes.ResultClasses;
-    using ChampionshipProblem.Scheme;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
@@ -21,7 +20,7 @@
         /// <summary>
         /// Die Liganummer.
         /// </summary>
-        public long LeagueId { get; set; }
+        public int LeagueId { get; set; }
 
         /// <summary>
         /// Die Saison der Liga.
@@ -31,12 +30,12 @@
         /// <summary>
         /// Die Liga als Entität.
         /// </summary>
-        public Scheme.League League { get; set; }
+        public League League { get; set; }
 
         /// <summary>
         /// Die Mannschaften
         /// </summary>
-        public IEnumerable<Scheme.Team> Teams { get; set; }
+        public IEnumerable<Team> Teams { get; set; }
 
         /// <summary>
         /// Der Service für die beste Position.
@@ -58,17 +57,19 @@
         /// <summary>
         /// Konstruktor zum Erstellen der Klasse.
         /// </summary>
+        /// <param name="championshipViewModel">Die Datengrundlage.</param>
         /// <param name="soccerDb">Die Datenbankverbindung.</param>
+        /// <param name="country">Das Land.</param>
         /// <param name="leagueName">Der Name der Liga.</param>
         /// <param name="season">Die Saison.</param>
-        public LeagueStandingService(ChampionshipViewModel championshipViewModel, string leagueName, string season)
+        public LeagueStandingService(ChampionshipViewModel championshipViewModel, Country country, string leagueName, string season)
         {
             // Parameter merken und ermitteln
             this.ChampionshipViewModel = championshipViewModel;
-            this.League = this.ChampionshipViewModel.LeagueService.GetLeagueByName(leagueName);
-            this.LeagueId = this.League.id;
+            this.League = this.ChampionshipViewModel.LeagueService.GetLeagueByNameAndCountry(leagueName, country);
+            this.LeagueId = this.League.Id;
             this.Season = season;
-            this.Teams = this.ChampionshipViewModel.TeamService.GetTeamsByLeagueAndSeason(this.League.id, season);
+            this.Teams = this.ChampionshipViewModel.TeamService.GetTeamsByLeagueAndSeason(this.League.Id, season);
             this.BestPossiblePositionService = new BestPossiblePositionService(this.ChampionshipViewModel, this.League, this.LeagueId, this.Season, this);
             this.WorstPossiblePositionService = new WorstPossiblePositionService(this.ChampionshipViewModel, this.League, this.LeagueId, this.Season, this);
             this.ChampionService = new ChampionService(this.ChampionshipViewModel, this.League, this.LeagueId, this.Season, this);
@@ -81,12 +82,12 @@
         /// </summary>
         /// <param name="stage">Der Spieltag.</param>
         /// <param name="leagueStandingEntries">Die aktuelle Tabelle.</param>
-        /// <param name="teamApiId">Die Id des Teams.</param>
+        /// <param name="teamId">Die Id des Teams.</param>
         /// <param name="computeStanding">Ob die Tabelle ausgerechnet werden soll.</param>
         /// <returns>Die bestmögliche Position.</returns>
-        public PositionComputationalResult CalculateBestPossibleFinalPositionForTeam(int stage, long teamApiId, bool computeStanding)
+        public PositionComputationalResult CalculateBestPossibleFinalPositionForTeam(int stage, int teamId, bool computeStanding)
         {
-            return this.BestPossiblePositionService.CalculateBestPossibleFinalPositionForTeam(stage, teamApiId, computeStanding);
+            return this.BestPossiblePositionService.CalculateBestPossibleFinalPositionForTeam(stage, teamId, computeStanding);
         }
         #endregion
 
@@ -96,13 +97,13 @@
         /// </summary>
         /// <param name="leagueStandingEntries">Die aktuelle Tabelle.</param>
         /// <param name="remainingMatches">Die fehlenden Spiele.</param>
-        /// <param name="teamApiId">Die Id des Teams.</param>
+        /// <param name="teamId">Die Id des Teams.</param>
         /// <param name="numberOfMissingStages">Die Anzahl der fehlenden Spiele.</param>
         /// <param name="computeStanding">Ob die Tabelle ausgerechnet werden soll.</param>
         /// <returns>Die bestmögliche Position</returns>
-        public static PositionComputationalResult CalculateBestPossibleFinalPositionForTeam(IEnumerable<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, long teamApiId, int numberOfMissingStages, bool computeStanding)
+        public static PositionComputationalResult CalculateBestPossibleFinalPositionForTeam(IEnumerable<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, int teamId, int numberOfMissingStages, bool computeStanding)
         {
-            return BestPossiblePositionService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, teamApiId, numberOfMissingStages, computeStanding);
+            return BestPossiblePositionService.CalculateBestPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, teamId, numberOfMissingStages, computeStanding);
         }
         #endregion
 
@@ -112,12 +113,12 @@
         /// </summary>
         /// <param name="stage">Der Spieltag.</param>
         /// <param name="leagueStandingEntries">Die aktuelle Tabelle.</param>
-        /// <param name="teamApiId">Die Id des Teams.</param>
+        /// <param name="teamId">Die Id des Teams.</param>
         /// <param name="computeStanding">Ob die Tabelle ausgerechnet werden soll.</param>
         /// <returns>Die schlechtmöglichste Position.</returns>
-        public PositionComputationalResult CalculateWorstPossibleFinalPositionForTeam(int stage, long teamApiId, bool computeStanding)
+        public PositionComputationalResult CalculateWorstPossibleFinalPositionForTeam(int stage, int teamId, bool computeStanding)
         {
-            return this.WorstPossiblePositionService.CalculateWorstPossibleFinalPositionForTeam(stage, teamApiId, computeStanding);
+            return this.WorstPossiblePositionService.CalculateWorstPossibleFinalPositionForTeam(stage, teamId, computeStanding);
         }
         #endregion
 
@@ -127,13 +128,13 @@
         /// </summary>
         /// <param name="leagueStandingEntries">Die aktuelle Tabelle.</param>
         /// <param name="remainingMatches">Die fehlenden Spiele.</param>
-        /// <param name="teamApiId">Die Id des Teams.</param>
+        /// <param name="teamId">Die Id des Teams.</param>
         /// <param name="numberOfMissingStages">Die Anzahl der fehlenden Spiele.</param>
         /// <param name="computeStanding">Ob die Tabelle ausgerechnet werden soll.</param>
         /// <returns>Die schlechtmöglichste Position</returns>
-        public static PositionComputationalResult CalculateWorstPossibleFinalPositionForTeam(IEnumerable<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, long teamApiId, int numberOfMissingStages, bool computeStanding)
+        public static PositionComputationalResult CalculateWorstPossibleFinalPositionForTeam(IEnumerable<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, int teamId, int numberOfMissingStages, bool computeStanding)
         {
-            return WorstPossiblePositionService.CalculateWorstPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, teamApiId, numberOfMissingStages, computeStanding);
+            return WorstPossiblePositionService.CalculateWorstPossibleFinalPositionForTeam(leagueStandingEntries, remainingMatches, teamId, numberOfMissingStages, computeStanding);
         }
         #endregion
 
@@ -143,12 +144,12 @@
         /// </summary>
         /// <param name="stage">Der Spieltag.</param>
         /// <param name="leagueStandingEntries">Die aktuelle Tabelle.</param>
-        /// <param name="teamApiId">Die Id des Teams.</param>
+        /// <param name="teamId">Die Id des Teams.</param>
         /// <param name="computeStanding">Ob die Tabelle ausgerechnet werden soll.</param>
         /// <returns>Ob die Mannschaft noch Meister werden kann.</returns>
-        public ChampionComputationalResult CalculateIfTeamCanWinChampionship(int stage, long teamApiId, bool computeStanding)
+        public ChampionComputationalResult CalculateIfTeamCanWinChampionship(int stage, int teamId, bool computeStanding)
         {
-            return this.ChampionService.CalculateIfTeamCanWinChampionship(stage, teamApiId, computeStanding);
+            return this.ChampionService.CalculateIfTeamCanWinChampionship(stage, teamId, computeStanding);
         }
         #endregion
 
@@ -158,13 +159,13 @@
         /// </summary>
         /// <param name="leagueStandingEntries">Die aktuelle Tabelle.</param>
         /// <param name="remainingMatches">Die fehlenden Spiele.</param>
-        /// <param name="teamApiId">Die Id des Teams.</param>
+        /// <param name="teamId">Die Id des Teams.</param>
         /// <param name="numberOfMissingStages">Die Anzahl der fehlenden Spiele.</param>
         /// <param name="computeStanding">Ob die Tabelle ausgerechnet werden soll.</param>
         /// <returns>Ob die Mannschaft noch Meister werden kann.</returns>
-        public static ChampionComputationalResult CalculateIfTeamCanWinChampionship(List<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, long teamApiId, int numberOfMissingStages, bool computeStanding)
+        public static ChampionComputationalResult CalculateIfTeamCanWinChampionship(List<LeagueStandingEntry> leagueStandingEntries, List<RemainingMatch> remainingMatches, int teamId, int numberOfMissingStages, bool computeStanding)
         {
-            return ChampionService.CalculateIfTeamCanWinChampionship(leagueStandingEntries, remainingMatches, teamApiId, numberOfMissingStages, computeStanding);
+            return ChampionService.CalculateIfTeamCanWinChampionship(leagueStandingEntries, remainingMatches, teamId, numberOfMissingStages, computeStanding);
         }
         #endregion
 
@@ -180,29 +181,29 @@
             List<LeagueStandingEntry> leagueStandings = new List<LeagueStandingEntry>();
 
             // Die Liga ermitteln
-            Scheme.League currentLeague = this.ChampionshipViewModel.LeagueService.GetLeague(this.LeagueId);
+            League currentLeague = this.ChampionshipViewModel.LeagueService.GetLeague(this.LeagueId);
 
             // Für jedes Team einen Eintrag anlegen
-            foreach (Scheme.Team team in this.Teams)
+            foreach (Team team in this.Teams)
             {
-                LeagueStandingEntry entry = new LeagueStandingEntry(team.team_api_id, team.team_short_name, team.team_long_name);
+                LeagueStandingEntry entry = new LeagueStandingEntry(team.Id, team.Name);
                 leagueStandings.Add(entry);
             }
 
             // Die Spiele ermitteln
-            IEnumerable<Scheme.Match> matchesTilStage = this.ChampionshipViewModel.MatchService.GetMatchesUntilStage(this.LeagueId, this.Season, stage);
+            IEnumerable<Match> matchesTilStage = this.ChampionshipViewModel.MatchService.GetMatchesUntilStage(this.LeagueId, this.Season, stage);
 
             // Die Spiele durchlaufen und werten
-            foreach (Scheme.Match match in matchesTilStage)
+            foreach (Match match in matchesTilStage)
             {
-                LeagueStandingEntry home = leagueStandings.Single((entry) => entry.TeamApiId == match.home_team_api_id);
-                LeagueStandingEntry away = leagueStandings.Single((entry) => entry.TeamApiId == match.away_team_api_id);
+                LeagueStandingEntry home = leagueStandings.Single((entry) => entry.TeamId == match.HomeId);
+                LeagueStandingEntry away = leagueStandings.Single((entry) => entry.TeamId == match.AwayId);
 
-                if (match.home_team_goal > match.away_team_goal)
+                if (match.HomeGoals > match.AwayGoals)
                 {
                     home.Points += 3;
                 }
-                else if (match.home_team_goal < match.away_team_goal)
+                else if (match.HomeGoals < match.AwayGoals)
                 {
                     away.Points += 3;
                 }
@@ -214,10 +215,10 @@
 
                 home.Games++;
                 away.Games++;
-                home.Goals += (int)match.home_team_goal.Value;
-                home.GoalsConceded += (int)match.away_team_goal.Value;
-                away.Goals += (int)match.away_team_goal.Value;
-                away.GoalsConceded += (int)match.home_team_goal.Value;
+                home.Goals += (int)match.HomeGoals;
+                home.GoalsConceded += (int)match.AwayGoals;
+                away.Goals += (int)match.AwayGoals;
+                away.GoalsConceded += (int)match.HomeGoals;
             }
 
             leagueStandings = leagueStandings
@@ -242,31 +243,31 @@
             List<CompleteLeagueStandingEntry> leagueStandings = new List<CompleteLeagueStandingEntry>();
 
             // Die Liga ermitteln
-            Scheme.League currentLeague = this.ChampionshipViewModel.LeagueService.GetLeague(this.LeagueId);
+            League currentLeague = this.ChampionshipViewModel.LeagueService.GetLeague(this.LeagueId);
 
             // Für jedes Team einen Eintrag anlegen
-            foreach (Scheme.Team team in this.Teams)
+            foreach (Team team in this.Teams)
             {
-                CompleteLeagueStandingEntry entry = new CompleteLeagueStandingEntry((int)team.id, team.team_api_id, team.team_short_name, team.team_long_name);
+                CompleteLeagueStandingEntry entry = new CompleteLeagueStandingEntry((int)team.Id, team.Name);
                 leagueStandings.Add(entry);
             }
 
             // Die Spiele ermitteln
-            IEnumerable<Scheme.Match> matchesTilStage = this.ChampionshipViewModel.MatchService.GetMatchesUntilStage(this.LeagueId, this.Season, stage);
+            IEnumerable<Match> matchesTilStage = this.ChampionshipViewModel.MatchService.GetMatchesUntilStage(this.LeagueId, this.Season, stage);
 
             // Die Spiele durchlaufen und werten
-            foreach (Scheme.Match match in matchesTilStage)
+            foreach (Match match in matchesTilStage)
             {
-                CompleteLeagueStandingEntry home = leagueStandings.Single((entry) => entry.TeamApiId == match.home_team_api_id);
-                CompleteLeagueStandingEntry away = leagueStandings.Single((entry) => entry.TeamApiId == match.away_team_api_id);
+                CompleteLeagueStandingEntry home = leagueStandings.Single((entry) => entry.TeamId == match.HomeId);
+                CompleteLeagueStandingEntry away = leagueStandings.Single((entry) => entry.TeamId == match.AwayId);
 
-                if (match.home_team_goal > match.away_team_goal)
+                if (match.HomeGoals > match.AwayGoals)
                 {
                     home.Points += 3;
                     home.Wins++;
                     away.Losses++;
                 }
-                else if (match.home_team_goal < match.away_team_goal)
+                else if (match.HomeGoals < match.AwayGoals)
                 {
                     home.Losses++;
                     away.Points += 3;
@@ -281,11 +282,11 @@
                 }
 
                 home.Games++;
-                home.Goals += (int)match.home_team_goal.Value;
-                home.GoalsConceded += (int)match.away_team_goal.Value;
+                home.Goals += match.HomeGoals;
+                home.GoalsConceded += match.AwayGoals;
                 away.Games++;
-                away.Goals += (int)match.away_team_goal.Value;
-                away.GoalsConceded += (int)match.home_team_goal.Value;
+                away.Goals += match.AwayGoals;
+                away.GoalsConceded += match.HomeGoals;
             }
 
             foreach (CompleteLeagueStandingEntry entry in leagueStandings)
@@ -319,7 +320,7 @@
             int i = 1;
             foreach (LeagueStandingEntry entry in leagueStandingEntries)
             {
-                Debug.WriteLine(string.Format("{0, -3}", i + ".") + string.Format("{0, -25}", entry.TeamLongName) + " - " +
+                Debug.WriteLine(string.Format("{0, -3}", i + ".") + string.Format("{0, -25}", entry.Name) + " - " +
                     string.Format("{0, -2}", entry.Goals) + ":" + string.Format("{0, -2}", entry.GoalsConceded) + " (" + string.Format("{0, -3}", entry.Goals - entry.GoalsConceded) + ")"
                     + " - " + string.Format("{0, -3}", entry.Points));
                 i++;
@@ -341,7 +342,7 @@
             // Liste befüllen
             foreach (ILeagueStandingEntry entry in leagueStandingEntries)
             {
-                LeagueStandingEntry newEntry = new LeagueStandingEntry(entry.TeamApiId, entry.TeamShortName, entry.TeamLongName)
+                LeagueStandingEntry newEntry = new LeagueStandingEntry(entry.TeamId, entry.Name)
                 {
                     Points = entry.Points,
                     Games = entry.Games
@@ -352,8 +353,8 @@
 
             foreach(RemainingMatch remainingMatch in remainingMatches)
             {
-                LeagueStandingEntry homeTeam = leagueStandings.Single((entry) => entry.TeamApiId == remainingMatch.HomeTeamApiId);
-                LeagueStandingEntry awayTeam = leagueStandings.Single((entry) => entry.TeamApiId == remainingMatch.AwayTeamApiId);
+                LeagueStandingEntry homeTeam = leagueStandings.Single((entry) => entry.TeamId == remainingMatch.HomeTeamId);
+                LeagueStandingEntry awayTeam = leagueStandings.Single((entry) => entry.TeamId == remainingMatch.AwayTeamId);
                 homeTeam.Games++;
                 awayTeam.Games++;
                 switch (remainingMatch.MatchResult)
@@ -373,7 +374,7 @@
 
             leagueStandings = leagueStandings
                 .OrderByDescending((entry) => entry.Points)
-                .ThenBy((entry) => entry.TeamShortName)
+                .ThenBy((entry) => entry.Name)
                 .ToList();
 
             return leagueStandings;
@@ -386,9 +387,9 @@
         /// </summary>
         /// <param name="stage"></param>
         /// <param name="teamApiId"></param>
-        public int CalculateNumberOfRemainingMatchesForBestPossiblePosition(int stage, long teamApiId)
+        public int CalculateNumberOfRemainingMatchesForBestPossiblePosition(int stage, int teamId)
         {
-            return this.BestPossiblePositionService.CalculateNumberOfRemainingMatchesForBestPossiblePosition(stage, teamApiId);
+            return this.BestPossiblePositionService.CalculateNumberOfRemainingMatchesForBestPossiblePosition(stage, teamId);
         }
         #endregion
 
@@ -396,11 +397,11 @@
         /// <summary>
         /// Methode zum Ausrechnen der Anzahl der Spiele, die für die Berechnung noch benötigt werden.
         /// </summary>
-        /// <param name="stage"></param>
-        /// <param name="teamApiId"></param>
-        public int CalculateNumberOfRemainingMatchesForWorstPossiblePosition(int stage, long teamApiId)
+        /// <param name="stage">Der Spieltag.</param>
+        /// <param name="teamId">Die Id des Teams.</param>
+        public int CalculateNumberOfRemainingMatchesForWorstPossiblePosition(int stage, int teamId)
         {
-            return WorstPossiblePositionService.CalculateNumberOfRemainingMatchesForWorstPossiblePosition(stage, teamApiId);
+            return WorstPossiblePositionService.CalculateNumberOfRemainingMatchesForWorstPossiblePosition(stage, teamId);
         }
         #endregion
 
@@ -408,11 +409,11 @@
         /// <summary>
         /// Methode zum Ausrechnen der Anzahl der Spiele, die für die Berechnung noch benötigt werden.
         /// </summary>
-        /// <param name="stage"></param>
-        /// <param name="teamApiId"></param>
-        public int CalculateNumberOfRemainingMatchesForChampion(int stage, long teamApiId)
+        /// <param name="stage">Der Spieltag.</param>
+        /// <param name="teamId">Die Id des Teams..</param>
+        public int CalculateNumberOfRemainingMatchesForChampion(int stage, int teamId)
         {
-            return ChampionService.CalculateNumberOfRemainingMatchesForChampion(stage, teamApiId);
+            return ChampionService.CalculateNumberOfRemainingMatchesForChampion(stage, teamId);
         }
         #endregion
     }

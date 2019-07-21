@@ -6,19 +6,14 @@
     public interface ILeagueStandingEntry
     {
         /// <summary>
-        /// Die TeamApiId.
+        /// Die TeamId.
         /// </summary>
-        long? TeamApiId { get; set; }
-
-        /// <summary>
-        /// Der Kurzname.
-        /// </summary>
-        string TeamShortName { get; set; }
+        int TeamId { get; set; }
 
         /// <summary>
         /// Der Langname.
         /// </summary>
-        string TeamLongName { get; set; }
+        string Name { get; set; }
 
         /// <summary>
         /// Die Anzahl der Spiele.

@@ -10,15 +10,11 @@
         /// Konstruktor zum Initialisieren der Klasse.
         /// </summary>
         /// <param name="teamId">Die Team-Id.</param>
-        /// <param name="teamApiId">Die Team-Api-Id.</param>
-        /// <param name="shortName">Der Kurzname des Teams.</param>
-        /// <param name="longName">Der lange Name des Teams.</param>
-        public CompleteLeagueStandingEntry(int teamId, long? teamApiId, string shortName, string longName)
+        /// <param name="name">Der lange Name des Teams.</param>
+        public CompleteLeagueStandingEntry(int teamId, string name)
         {
             this.TeamId = teamId;
-            this.TeamApiId = teamApiId;
-            this.TeamShortName = shortName;
-            this.TeamLongName = longName;
+            this.Name = name;
             this.Points = 0;
             this.Goals = 0;
             this.GoalsConceded = 0;
@@ -37,19 +33,9 @@
         public int TeamId { get; set; }
 
         /// <summary>
-        /// Die API-Id des Teams.
-        /// </summary>
-        public long? TeamApiId { get; set; }
-
-        /// <summary>
-        /// Der Kurzname des Teams.
-        /// </summary>
-        public string TeamShortName { get; set; }
-
-        /// <summary>
         /// Der Langname des Teams.
         /// </summary>
-        public string TeamLongName { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Die Anzahl der Spiele.

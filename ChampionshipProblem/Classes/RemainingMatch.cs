@@ -1,4 +1,6 @@
-﻿namespace ChampionshipProblem.Classes
+﻿using System;
+
+namespace ChampionshipProblem.Classes
 {
     /// <summary>
     /// Klasse repräsentiert ein fehlendes Match.
@@ -18,17 +20,17 @@
         /// <summary>
         /// Die Id des Spiels.
         /// </summary>
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Die Landesnummer des SPiels.
         /// </summary>
-        public long CountryId { get; set; }
+        public Country Country { get; set; }
 
         /// <summary>
         /// Die Liganummer des Spiels.
         /// </summary>
-        public long LeagueId { get; set; }
+        public int LeagueId { get; set; }
 
         /// <summary>
         /// Die Saison.
@@ -38,27 +40,22 @@
         /// <summary>
         /// Der Spieltag.
         /// </summary>
-        public long Stage { get; set; }
+        public int Stage { get; set; }
 
         /// <summary>
         /// Das Datum.
         /// </summary>
-        public string Date { get; set; }
-
-        /// <summary>
-        /// Die API-Id des Matches.
-        /// </summary>
-        public long MatchApiId { get; set; }
+        public DateTime Date { get; set; }
 
         /// <summary>
         /// Die Id der Heimmannschaft.
         /// </summary>
-        public long HomeTeamApiId { get; set; }
+        public int HomeTeamId { get; set; }
 
         /// <summary>
         /// Die Id der Auswärtsmannschaft.
         /// </summary>
-        public long AwayTeamApiId { get; set; }
+        public int AwayTeamId { get; set; }
 
         /// <summary>
         /// Der Name des Heimteams.
@@ -73,12 +70,12 @@
         /// <summary>
         /// Die Anzahl der Tore der Heimmannschaft.
         /// </summary>
-        public long HomeTeamGoal { get; set; }
+        public int HomeTeamGoal { get; set; }
 
         /// <summary>
         /// Die Anzahl der Tore der Auswärtsmannschaft.
         /// </summary>
-        public long AwayTeamGoal { get; set; }
+        public int AwayTeamGoal { get; set; }
 
         /// <summary>
         /// Das Ergebnis.

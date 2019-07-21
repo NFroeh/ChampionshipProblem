@@ -49,10 +49,10 @@
             string season = "2008/2009";
             int stage = 32;
 
-            LeagueStandingService leagueStandingService = new LeagueStandingService(championshipViewModel, leagueName, season);
+            LeagueStandingService leagueStandingService = new LeagueStandingService(championshipViewModel, Country.Belgium, leagueName, season);
 
             List<LeagueStandingEntry> standing = leagueStandingService.CalculateStanding(stage);
-            leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[4].TeamApiId.Value, false);
+            leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[4].TeamId, false);
         }
         #endregion
     }

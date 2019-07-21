@@ -15,27 +15,27 @@
         /// <returns>Die Tabelle der Saison 1991.</returns>
         public static List<LeagueStandingEntry> GenerateSeason1991Standing()
         {
-            LeagueStandingEntry sge = new LeagueStandingEntry(1, "SGE", "Frankfurt")
+            LeagueStandingEntry sge = new LeagueStandingEntry(1, "Frankfurt")
             {
                 Points = 41
             };
-            LeagueStandingEntry vfb = new LeagueStandingEntry(2, "VFB", "Stuttgart")
+            LeagueStandingEntry vfb = new LeagueStandingEntry(2, "Stuttgart")
             {
                 Points = 40
             };
-            LeagueStandingEntry bvb = new LeagueStandingEntry(3, "BVB", "Dortmund")
+            LeagueStandingEntry bvb = new LeagueStandingEntry(3, "Dortmund")
             {
                 Points = 40
             };
-            LeagueStandingEntry b04 = new LeagueStandingEntry(4, "B04", "Leverkusen")
+            LeagueStandingEntry b04 = new LeagueStandingEntry(4, "Leverkusen")
             {
                 Points = 40
             };
-            LeagueStandingEntry fcn = new LeagueStandingEntry(5, "FCN", "Nürnberg")
+            LeagueStandingEntry fcn = new LeagueStandingEntry(5, "Nürnberg")
             {
                 Points = 36
             };
-            LeagueStandingEntry fck = new LeagueStandingEntry(6, "FCK", "Kaiserslautern")
+            LeagueStandingEntry fck = new LeagueStandingEntry(6, "Kaiserslautern")
             {
                 Points = 34
             };
@@ -59,27 +59,27 @@
         /// <returns>Die fehlenden Spiele.</returns>
         public static List<RemainingMatch> GenerateSeason1991RemaingMatches()
         {
-            LeagueStandingEntry sge = new LeagueStandingEntry(1, "SGE", "Frankfurt")
+            LeagueStandingEntry sge = new LeagueStandingEntry(1, "Frankfurt")
             {
                 Points = 41
             };
-            LeagueStandingEntry vfb = new LeagueStandingEntry(2, "VFB", "Stuttgart")
+            LeagueStandingEntry vfb = new LeagueStandingEntry(2, "Stuttgart")
             {
                 Points = 40
             };
-            LeagueStandingEntry bvb = new LeagueStandingEntry(3, "BVB", "Dortmund")
+            LeagueStandingEntry bvb = new LeagueStandingEntry(3, "Dortmund")
             {
                 Points = 40
             };
-            LeagueStandingEntry b04 = new LeagueStandingEntry(4, "B04", "Leverkusen")
+            LeagueStandingEntry b04 = new LeagueStandingEntry(4, "Leverkusen")
             {
                 Points = 40
             };
-            LeagueStandingEntry fcn = new LeagueStandingEntry(5, "FCN", "Nürnberg")
+            LeagueStandingEntry fcn = new LeagueStandingEntry(5, "Nürnberg")
             {
                 Points = 36
             };
-            LeagueStandingEntry fck = new LeagueStandingEntry(6, "FCK", "Kaiserslautern")
+            LeagueStandingEntry fck = new LeagueStandingEntry(6, "Kaiserslautern")
             {
                 Points = 34
             };
@@ -87,48 +87,48 @@
             // Fehlende Matches in Liste erzeugen
             RemainingMatch sgeb04 = new RemainingMatch()
             {
-                HomeTeamApiId = sge.TeamApiId.Value,
-                AwayTeamApiId = b04.TeamApiId.Value,
+                HomeTeamId = sge.TeamId,
+                AwayTeamId = b04.TeamId,
             };
             RemainingMatch vfbbvb = new RemainingMatch()
             {
-                HomeTeamApiId = vfb.TeamApiId.Value,
-                AwayTeamApiId = bvb.TeamApiId.Value,
+                HomeTeamId = vfb.TeamId,
+                AwayTeamId = bvb.TeamId,
             };
             RemainingMatch fcnfck = new RemainingMatch()
             {
-                HomeTeamApiId = fcn.TeamApiId.Value,
-                AwayTeamApiId = fck.TeamApiId.Value,
+                HomeTeamId = fcn.TeamId,
+                AwayTeamId = fck.TeamId,
             };
             RemainingMatch b04fcn = new RemainingMatch()
             {
-                HomeTeamApiId = b04.TeamApiId.Value,
-                AwayTeamApiId = fcn.TeamApiId.Value,
+                HomeTeamId = b04.TeamId,
+                AwayTeamId = fcn.TeamId,
             };
             RemainingMatch bvbsge = new RemainingMatch()
             {
-                HomeTeamApiId = bvb.TeamApiId.Value,
-                AwayTeamApiId = sge.TeamApiId.Value,
+                HomeTeamId = bvb.TeamId,
+                AwayTeamId = sge.TeamId,
             };
             RemainingMatch fckvfb = new RemainingMatch()
             {
-                HomeTeamApiId = fck.TeamApiId.Value,
-                AwayTeamApiId = vfb.TeamApiId.Value,
+                HomeTeamId = fck.TeamId,
+                AwayTeamId = vfb.TeamId,
             };
             RemainingMatch fcnbvb = new RemainingMatch()
             {
-                HomeTeamApiId = fcn.TeamApiId.Value,
-                AwayTeamApiId = bvb.TeamApiId.Value,
+                HomeTeamId = fcn.TeamId,
+                AwayTeamId = bvb.TeamId,
             };
             RemainingMatch sgefck = new RemainingMatch()
             {
-                HomeTeamApiId = sge.TeamApiId.Value,
-                AwayTeamApiId = fck.TeamApiId.Value,
+                HomeTeamId = sge.TeamId,
+                AwayTeamId = fck.TeamId,
             };
             RemainingMatch vfbb04 = new RemainingMatch()
             {
-                HomeTeamApiId = vfb.TeamApiId.Value,
-                AwayTeamApiId = b04.TeamApiId.Value,
+                HomeTeamId = vfb.TeamId,
+                AwayTeamId = b04.TeamId,
             };
 
             return new List<RemainingMatch>()

@@ -13,13 +13,13 @@
 
         Germany = 3,
 
-        Greece = 4, 
+        //Greece = 4, 
 
         Italy = 5,
 
         Netherlands = 6,
 
-        Poland = 7, // fehlt
+        Poland = 7,
 
         Portugal = 8,
     
@@ -27,8 +27,8 @@
 
         Spain = 10,
 
-        Swiss = 11, // fehlt
+        Switzerland = 11,
 
-        Turkey = 12
+        //Turkey = 12
     }
 }

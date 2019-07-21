@@ -20,8 +20,7 @@
                 File.Delete(MainSoccerDb.PathToDatabase);
             }
 
-            SoccerDBConverter.ConvertToNewDb();
-            SoccerDBConverter.ConvertMissingLeagues();
+            SoccerDBConverter.ConvertEuropeanSoccerDb();
         }
     }
 }

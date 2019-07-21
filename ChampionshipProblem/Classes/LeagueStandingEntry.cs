@@ -7,16 +7,14 @@
     {
         #region ctors
         /// <summary>
-        /// Konstruktor zum Erstellend es Tabelleneintrags.
+        /// Konstruktor zum Erstellen des Tabelleneintrags.
         /// </summary>
-        /// <param name="teamApiId">Die Id des Teams.</param>
-        /// <param name="shortName">Der Kurzname des Teams.</param>
-        /// <param name="longName">Der Langname des Teams.</param>
-        public LeagueStandingEntry(long? teamApiId, string shortName, string longName)
+        /// <param name="teamId">Die Id des Teams.</param>
+        /// <param name="name">Der Langname des Teams.</param>
+        public LeagueStandingEntry(int teamId, string name)
         {
-            this.TeamApiId = teamApiId;
-            this.TeamShortName = shortName;
-            this.TeamLongName = longName;
+            this.TeamId = teamId;
+            this.Name = name;
             this.Points = 0;
             this.Goals = 0;
             this.GoalsConceded = 0;
@@ -25,19 +23,14 @@
         #endregion
 
         /// <summary>
-        /// Die TeamApiId.
+        /// Die TeamId.
         /// </summary>
-        public long? TeamApiId { get; set; }
-
-        /// <summary>
-        /// Der Kurzname.
-        /// </summary>
-        public string TeamShortName { get; set; }
+        public int TeamId { get; set; }
 
         /// <summary>
         /// Der Langname.
         /// </summary>
-        public string TeamLongName { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Die Anzahl der Spiele.

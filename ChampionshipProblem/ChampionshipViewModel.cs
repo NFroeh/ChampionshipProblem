@@ -1,6 +1,7 @@
 ﻿namespace ChampionshipProblem
 {
-    using ChampionshipProblem.Scheme;
+    using ChampionshipProblem.Classes;
+    using ChampionshipProblem.DatabaseFiles;
     using ChampionshipProblem.Services;
     using System.Collections.Generic;
     using System.Linq;
@@ -50,28 +51,8 @@
         /// </summary>
         public ChampionshipViewModel()
         {
-            using (EuropeanSoccerEntities soccerDb = new EuropeanSoccerEntities())
+            using (MainSoccerDb soccerDb = new MainSoccerDb())
             {
-                if (!soccerDb.Matches.Any((match) => match.match_api_id == 1944687))
-                {
-                    // Italienische Liga Saison 2014/2015 fixen
-                    soccerDb.Matches.Add(new Match()
-                    {
-                        //id = 17642,
-                        country_id = 10257,
-                        league_id = 10257,
-                        season = "2014/2015",
-                        stage = 38,
-                        date = "2015/05/31",
-                        match_api_id = 1944687,
-                        home_team_api_id = 9875,
-                        away_team_api_id = 8543,
-                        home_team_goal = 2,
-                        away_team_goal = 4
-                    });
-                }
-                soccerDb.SaveChanges();
-
                 this.Leagues = soccerDb.Leagues.ToList();
                 this.Matches = soccerDb.Matches.ToList();
                 this.Teams = soccerDb.Teams.ToList();
@@ -87,11 +68,12 @@
         /// <summary>
         /// Methode zum Setzen des LeagueStandingServices.
         /// </summary>
+        /// <param name="country">Das Land.</param>
         /// <param name="leagueName">Der Liganame.</param>
         /// <param name="season">Die Saison.</param>
-        public void SetLeagueAndSeason(string leagueName, string season)
+        public void SetLeagueCountryAndSeason(Country country, string leagueName, string season)
         {
-            this.LeagueStandingService = new LeagueStandingService(this, leagueName, season);
+            this.LeagueStandingService = new LeagueStandingService(this, country, leagueName, season);
         }
         #endregion
     }

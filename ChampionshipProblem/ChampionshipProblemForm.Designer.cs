@@ -46,6 +46,8 @@ namespace ChampionshipProblem
             this.ComputedRemainingMatchesView = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
             this.ComputedStandingComboBox = new System.Windows.Forms.ComboBox();
+            this.Country = new System.Windows.Forms.Label();
+            this.CountryComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.StandingsView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RemainingMatchesView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ComputationStandingView)).BeginInit();
@@ -56,7 +58,7 @@ namespace ChampionshipProblem
             // 
             this.LeagueComboBox.DropDownWidth = 250;
             this.LeagueComboBox.FormattingEnabled = true;
-            this.LeagueComboBox.Location = new System.Drawing.Point(63, 12);
+            this.LeagueComboBox.Location = new System.Drawing.Point(248, 13);
             this.LeagueComboBox.Name = "LeagueComboBox";
             this.LeagueComboBox.Size = new System.Drawing.Size(156, 21);
             this.LeagueComboBox.TabIndex = 0;
@@ -66,7 +68,7 @@ namespace ChampionshipProblem
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(8, 13);
+            this.label1.Location = new System.Drawing.Point(193, 14);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 15);
             this.label1.TabIndex = 1;
@@ -76,7 +78,7 @@ namespace ChampionshipProblem
             // 
             this.Spieltag.AutoSize = true;
             this.Spieltag.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Spieltag.Location = new System.Drawing.Point(407, 13);
+            this.Spieltag.Location = new System.Drawing.Point(592, 14);
             this.Spieltag.Name = "Spieltag";
             this.Spieltag.Size = new System.Drawing.Size(60, 15);
             this.Spieltag.TabIndex = 2;
@@ -85,7 +87,7 @@ namespace ChampionshipProblem
             // StageComboBox
             // 
             this.StageComboBox.FormattingEnabled = true;
-            this.StageComboBox.Location = new System.Drawing.Point(473, 12);
+            this.StageComboBox.Location = new System.Drawing.Point(658, 13);
             this.StageComboBox.Name = "StageComboBox";
             this.StageComboBox.Size = new System.Drawing.Size(42, 21);
             this.StageComboBox.TabIndex = 3;
@@ -94,7 +96,7 @@ namespace ChampionshipProblem
             // StandingsView
             // 
             this.StandingsView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.StandingsView.Location = new System.Drawing.Point(12, 39);
+            this.StandingsView.Location = new System.Drawing.Point(15, 39);
             this.StandingsView.Name = "StandingsView";
             this.StandingsView.Size = new System.Drawing.Size(1118, 487);
             this.StandingsView.TabIndex = 4;
@@ -105,7 +107,7 @@ namespace ChampionshipProblem
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(225, 13);
+            this.label2.Location = new System.Drawing.Point(410, 14);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 15);
             this.label2.TabIndex = 5;
@@ -114,7 +116,7 @@ namespace ChampionshipProblem
             // SeasonComboBox
             // 
             this.SeasonComboBox.FormattingEnabled = true;
-            this.SeasonComboBox.Location = new System.Drawing.Point(280, 12);
+            this.SeasonComboBox.Location = new System.Drawing.Point(465, 13);
             this.SeasonComboBox.Name = "SeasonComboBox";
             this.SeasonComboBox.Size = new System.Drawing.Size(121, 21);
             this.SeasonComboBox.TabIndex = 6;
@@ -223,11 +225,32 @@ namespace ChampionshipProblem
             this.ComputedStandingComboBox.TabIndex = 18;
             this.ComputedStandingComboBox.SelectedIndexChanged += new System.EventHandler(this.ComputedStandingComboBox_SelectedIndexChanged);
             // 
+            // Country
+            // 
+            this.Country.AutoSize = true;
+            this.Country.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.Country.Location = new System.Drawing.Point(12, 14);
+            this.Country.Name = "Country";
+            this.Country.Size = new System.Drawing.Size(48, 15);
+            this.Country.TabIndex = 19;
+            this.Country.Text = "Country";
+            // 
+            // CountryComboBox
+            // 
+            this.CountryComboBox.FormattingEnabled = true;
+            this.CountryComboBox.Location = new System.Drawing.Point(66, 12);
+            this.CountryComboBox.Name = "CountryComboBox";
+            this.CountryComboBox.Size = new System.Drawing.Size(121, 21);
+            this.CountryComboBox.TabIndex = 20;
+            this.CountryComboBox.SelectedIndexChanged += new System.EventHandler(this.CountryComboBox_SelectedIndexChanged);
+            // 
             // ChampionshipProblemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1548, 1061);
+            this.Controls.Add(this.CountryComboBox);
+            this.Controls.Add(this.Country);
             this.Controls.Add(this.ComputedStandingComboBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.ComputedRemainingMatchesView);
@@ -278,6 +301,8 @@ namespace ChampionshipProblem
         private System.Windows.Forms.DataGridView ComputedRemainingMatchesView;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox ComputedStandingComboBox;
+        private System.Windows.Forms.Label Country;
+        private System.Windows.Forms.ComboBox CountryComboBox;
     }
 }
 
