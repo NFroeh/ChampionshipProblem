@@ -1,6 +1,5 @@
 namespace ChampionshipProblem
 {
-    using ChampionshipProblem.Converter;
     using System;
     using System.Windows.Forms;
 

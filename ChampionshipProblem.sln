@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChampionshipProblem", "Cham
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChampionshipProblem.Test", "ChampionshipProblem.Test\ChampionshipProblem.Test.csproj", "{24A59A79-4792-42E9-998D-2F1CB8B5436C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChampionshipProblem.Converter", "ChampionshipProblem.Converter\ChampionshipProblem.Converter.csproj", "{1CBE279E-B87B-462C-A8EC-CF6787F653B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{24A59A79-4792-42E9-998D-2F1CB8B5436C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24A59A79-4792-42E9-998D-2F1CB8B5436C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24A59A79-4792-42E9-998D-2F1CB8B5436C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CBE279E-B87B-462C-A8EC-CF6787F653B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CBE279E-B87B-462C-A8EC-CF6787F653B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CBE279E-B87B-462C-A8EC-CF6787F653B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CBE279E-B87B-462C-A8EC-CF6787F653B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

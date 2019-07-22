@@ -13,6 +13,7 @@
         /// Methode zum Konvertieren der Datenbanken in die neue Datenbank.
         /// </summary>
         [TestMethod]
+        [Ignore]
         public void TestConvertDb()
         {
             if (File.Exists(MainSoccerDb.PathToDatabase))
