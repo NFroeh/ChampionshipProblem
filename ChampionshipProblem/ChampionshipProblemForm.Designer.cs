@@ -48,6 +48,7 @@ namespace ChampionshipProblem
             this.ComputedStandingComboBox = new System.Windows.Forms.ComboBox();
             this.Country = new System.Windows.Forms.Label();
             this.CountryComboBox = new System.Windows.Forms.ComboBox();
+            this.ResultGrid = new System.Windows.Forms.PropertyGrid();
             ((System.ComponentModel.ISupportInitialize)(this.StandingsView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RemainingMatchesView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ComputationStandingView)).BeginInit();
@@ -152,7 +153,7 @@ namespace ChampionshipProblem
             // ComputationStandingView
             // 
             this.ComputationStandingView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ComputationStandingView.Location = new System.Drawing.Point(11, 580);
+            this.ComputationStandingView.Location = new System.Drawing.Point(14, 561);
             this.ComputationStandingView.Name = "ComputationStandingView";
             this.ComputationStandingView.Size = new System.Drawing.Size(503, 458);
             this.ComputationStandingView.TabIndex = 11;
@@ -182,7 +183,7 @@ namespace ChampionshipProblem
             // ComputedRemainingMatchComboBox
             // 
             this.ComputedRemainingMatchComboBox.FormattingEnabled = true;
-            this.ComputedRemainingMatchComboBox.Location = new System.Drawing.Point(756, 544);
+            this.ComputedRemainingMatchComboBox.Location = new System.Drawing.Point(756, 537);
             this.ComputedRemainingMatchComboBox.Name = "ComputedRemainingMatchComboBox";
             this.ComputedRemainingMatchComboBox.Size = new System.Drawing.Size(42, 21);
             this.ComputedRemainingMatchComboBox.TabIndex = 14;
@@ -192,7 +193,7 @@ namespace ChampionshipProblem
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.label3.Location = new System.Drawing.Point(544, 545);
+            this.label3.Location = new System.Drawing.Point(544, 538);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(206, 15);
             this.label3.TabIndex = 15;
@@ -201,7 +202,7 @@ namespace ChampionshipProblem
             // ComputedRemainingMatchesView
             // 
             this.ComputedRemainingMatchesView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ComputedRemainingMatchesView.Location = new System.Drawing.Point(547, 580);
+            this.ComputedRemainingMatchesView.Location = new System.Drawing.Point(547, 561);
             this.ComputedRemainingMatchesView.Name = "ComputedRemainingMatchesView";
             this.ComputedRemainingMatchesView.Size = new System.Drawing.Size(435, 458);
             this.ComputedRemainingMatchesView.TabIndex = 16;
@@ -210,7 +211,7 @@ namespace ChampionshipProblem
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.label4.Location = new System.Drawing.Point(12, 545);
+            this.label4.Location = new System.Drawing.Point(12, 538);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(160, 15);
             this.label4.TabIndex = 17;
@@ -219,7 +220,7 @@ namespace ChampionshipProblem
             // ComputedStandingComboBox
             // 
             this.ComputedStandingComboBox.FormattingEnabled = true;
-            this.ComputedStandingComboBox.Location = new System.Drawing.Point(178, 544);
+            this.ComputedStandingComboBox.Location = new System.Drawing.Point(178, 537);
             this.ComputedStandingComboBox.Name = "ComputedStandingComboBox";
             this.ComputedStandingComboBox.Size = new System.Drawing.Size(42, 21);
             this.ComputedStandingComboBox.TabIndex = 18;
@@ -244,11 +245,19 @@ namespace ChampionshipProblem
             this.CountryComboBox.TabIndex = 20;
             this.CountryComboBox.SelectedIndexChanged += new System.EventHandler(this.CountryComboBox_SelectedIndexChanged);
             // 
+            // ResultGrid
+            // 
+            this.ResultGrid.Location = new System.Drawing.Point(1013, 561);
+            this.ResultGrid.Name = "ResultGrid";
+            this.ResultGrid.Size = new System.Drawing.Size(360, 458);
+            this.ResultGrid.TabIndex = 21;
+            // 
             // ChampionshipProblemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1548, 1061);
+            this.ClientSize = new System.Drawing.Size(1548, 1022);
+            this.Controls.Add(this.ResultGrid);
             this.Controls.Add(this.CountryComboBox);
             this.Controls.Add(this.Country);
             this.Controls.Add(this.ComputedStandingComboBox);
@@ -303,6 +312,7 @@ namespace ChampionshipProblem
         private System.Windows.Forms.ComboBox ComputedStandingComboBox;
         private System.Windows.Forms.Label Country;
         private System.Windows.Forms.ComboBox CountryComboBox;
+        private System.Windows.Forms.PropertyGrid ResultGrid;
     }
 }
 

@@ -86,9 +86,8 @@
             // Wenn es der letzte Spieltag ist, steht die Position fest
             if (stage == numberOfMatches)
             {
-                return new ChampionComputationalResult() {
-                    CanWinChampionship = leagueStandingEntries.First().TeamId == teamId,
-                    ComputationalStanding = leagueStandingEntries
+                return new ChampionComputationalResult(leagueStandingEntries) {
+                    CanWinChampionship = leagueStandingEntries.First().TeamId == teamId
                 };
             }
 
@@ -122,10 +121,9 @@
             // Zuerst überprüfen, ob der aktuell erste überhaupt mit Punkten noch eingeholt werden kann
             if (specificEntry.Points + numberOfMissingStages * 3 < first.Points)
             {
-                return new ChampionComputationalResult()
+                return new ChampionComputationalResult(computationResult)
                 {
-                    CanWinChampionship = false,
-                    ComputationalStanding = computationResult
+                    CanWinChampionship = false
                 };
             }
 
@@ -225,11 +223,9 @@
             // Falls jetzt jemand vor dem Team ist, dann kann dieses nichtmehr Meister werden
             if (leagueStandingEntries.Where((leagueStandingEntry) => leagueStandingEntry.Points > specificEntry.Points).Count() > 0)
             {
-                return new ChampionComputationalResult()
+                return new ChampionComputationalResult(computationResult, completeRemainingMatches)
                 {
                     CanWinChampionship = false,
-                    ComputationalStanding = computationResult,
-                    MissingRemainingMatches = completeRemainingMatches
                 };
             }
 
@@ -239,6 +235,7 @@
             {
                 ChampionComputationalResult result = ChampionService.PerformBacktracking(leagueStandingEntries, remainingMatches, teamId);
                 result.MissingRemainingMatches = completeRemainingMatches;
+                result.ComputeWinPercentages();
                 return result;
             }
 
@@ -294,11 +291,9 @@
                 }
             });
 
-            return new ChampionComputationalResult()
+            return new ChampionComputationalResult(computationResult, completeRemainingMatches)
             {
-                CanWinChampionship = canWin,
-                ComputationalStanding = computationResult,
-                MissingRemainingMatches = completeRemainingMatches
+                CanWinChampionship = canWin
             };
         }
         #endregion
@@ -453,10 +448,9 @@
                 // LeagueStanding neu berechnen
                 if (betterTeams.Count() == 0)
                 {
-                    return new ChampionComputationalResult()
+                    return new ChampionComputationalResult(currentStanding)
                     {
-                        CanWinChampionship = true,
-                        ComputationalStanding = currentStanding
+                        CanWinChampionship = true
                     };
                 }
             }
@@ -603,11 +597,9 @@
                 // LeagueStanding neu berechnen
                 if (betterTeams.Count() == 0)
                 {
-                    return new ChampionComputationalResult()
+                    return new ChampionComputationalResult(currentStanding, remainingMatches.ToList())
                     {
-                        CanWinChampionship = true,
-                        ComputationalStanding = currentStanding,
-                        MissingRemainingMatches = remainingMatches.ToList()
+                        CanWinChampionship = true
                     };
                 }
             }

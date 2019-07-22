@@ -103,6 +103,12 @@ namespace ChampionshipProblem
             ComputationStandingView.RowHeadersVisible = false;
             ComputedRemainingMatchesView.RowHeadersVisible = false;
 
+            // Deaktivieren von Sachen im ResultGrid
+            ResultGrid.ToolbarVisible = false;
+
+            // Checkboxen checked setzen
+            ComputeResultCheckbox.Checked = true;
+
             // Die Länder als Datengrundlage setzen
             CountryComboBox.DataSource = Enum.GetNames(typeof(Country));
 
@@ -337,6 +343,7 @@ namespace ChampionshipProblem
                             // Die Datengrundlagen setzen
                             ComputationStandingView.DataSource = championComputationalResult.ComputationalStanding.ToArray();
                             ComputedRemainingMatchesView.DataSource = championComputationalResult.MissingRemainingMatches.ToArray();
+                            ResultGrid.SelectedObject = championComputationalResult;
 
                             // Die Änderung signalisieren
                             this.ComputedStandingComboBox_SelectedIndexChanged(null, null);
@@ -816,6 +823,7 @@ namespace ChampionshipProblem
         }
         #endregion
 
+        #region CountryComboBox_SelectedIndexChanged
         /// <summary>
         /// Methode wird ausgeführt, wenn sich das Land geändert hat.
         /// </summary>
@@ -831,5 +839,6 @@ namespace ChampionshipProblem
                 .ToList();
             this.RefreshStandings();
         }
+        #endregion
     }
 }

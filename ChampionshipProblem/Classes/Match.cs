@@ -209,17 +209,17 @@
         public decimal? VCA { get; set; }
 
         /// <summary>
-        /// Wettquote Wiliam Hill-Heim.
+        /// Wettquote William Hill-Heim.
         /// </summary>
         public decimal? WHH { get; set; }
 
         /// <summary>
-        /// Wettquote Wiliam Hill-Unentschieden.
+        /// Wettquote William Hill-Unentschieden.
         /// </summary>
         public decimal? WHD { get; set; }
 
         /// <summary>
-        /// Wettquote Wiliam Hill-Auswärts.
+        /// Wettquote William Hill-Auswärts.
         /// </summary>
         public decimal? WHA { get; set; }
 

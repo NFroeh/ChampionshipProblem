@@ -10,11 +10,11 @@
         /// <summary>
         /// Die Tabelle, welche aus der Berechnung resultiert.
         /// </summary>
-        List<LeagueStandingEntry> ComputationalStanding { get; set; }
+        List<LeagueStandingEntry> ComputationalStanding { get; }
 
         /// <summary>
         /// Die benötigte Tordifferenz.
         /// </summary>
-        int? NeededGoalDifference { get; set; }
+        int? NeededGoalDifference { get; }
     }
 }
