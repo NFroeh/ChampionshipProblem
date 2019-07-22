@@ -83,6 +83,7 @@
     <Compile Include="Classes\UI\CompleteLeagueStandingEntry.cs" />
     <Compile Include="DatabaseFiles\MainSoccerDb.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\LongExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Logger\SimpleLogger.cs" />

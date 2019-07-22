@@ -262,7 +262,7 @@
                 // Die Teams verarbeiten
                 foreach (string teamString in teamIdDictionary.Values)
                 {
-                    if (!newTeams.Any((t) => t.Name == teamString))
+                    if (newTeams.None((t) => t.Name == teamString))
                     {
                         newTeams.Add(new Classes.Team()
                         {
@@ -506,7 +506,7 @@
                 teamDictionary = teams.ToDictionary((t) => t.team_api_id.Value, (t) => t.team_long_name);
                 foreach (Scheme.Team team in teams)
                 {
-                    if (!newTeams.Any((t) => t.Name == team.team_long_name))
+                    if (newTeams.None((t) => t.Name == team.team_long_name))
                     {
                         Classes.Team newTeam = new Classes.Team()
                         {

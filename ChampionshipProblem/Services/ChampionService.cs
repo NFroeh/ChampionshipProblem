@@ -427,12 +427,12 @@
                     {
                         // Alle Spiele für das Team überprüfen, was mit keinem Team zu tun hat, welches über dem Team liegt
                         if (remainingMatch.HomeTeamId == betterTeam.TeamId && 
-                            !teamsAlreadyChecked.Any((tId) => tId == remainingMatch.AwayTeamId))
+                            teamsAlreadyChecked.None((tId) => tId == remainingMatch.AwayTeamId))
                         {
                             remainingMatch.MatchResult = MatchResult.WinGuest;
                         }
                         else if (remainingMatch.AwayTeamId == betterTeam.TeamId && 
-                            !teamsAlreadyChecked.Any((tId) => tId == remainingMatch.HomeTeamId))
+                            teamsAlreadyChecked.None((tId) => tId == remainingMatch.HomeTeamId))
                         {
                             remainingMatch.MatchResult = MatchResult.WinHome;
                         }
@@ -454,7 +454,7 @@
                     };
                 }
             }
-            while (betterTeams.Any((bTeam) => !teamsAlreadyChecked.Any(tId => bTeam.TeamId == tId)));
+            while (betterTeams.Any((bTeam) => teamsAlreadyChecked.None(tId => bTeam.TeamId == tId)));
 
             // Da die Begegnungen, welche nicht durch Teams aus den betterTeams bestehen, keinen Unterschied machen, müssen nun hier die Spiele betrachtet werden, welche 
             // zwischen den Mannschaften sind
@@ -824,7 +824,7 @@
                 }
 
                 currentStanding = LeagueStandingService.CalculateLeagueStandingForRemainingMatches(leagueStandingEntries, remainingMatches);
-                if (!currentStanding.Any((entry) => entry.Points > specificTeam.Points))
+                if (currentStanding.None((entry) => entry.Points > specificTeam.Points))
                 {
                     return true; 
                 }
