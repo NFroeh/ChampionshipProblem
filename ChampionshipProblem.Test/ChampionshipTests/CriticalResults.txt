@@ -270,3 +270,20 @@ Schweiz (10):
 		Schweiz:
 			09/10: Spieltag 23 (Team 10) check 2
 			13/14: Spieltag 24 (Team 10) check 5
+
+	6. Backtracking: Spiele zwischen betterTeams refactored => 5 Fehler
+		Belgien:
+		Deutschland:
+		England:
+		Frankreich:
+			10/11: Spieltag 25 (Team 20) check 3, danach noch Spieltag 24 (Team 20, schwer)
+		Italien:
+		Niederlande:
+			11/12: Spieltag 27 (Team 9) check 3
+		Polen:
+			14/15: Spieltag 20 (Team 16) check 3
+		Portugal:
+		Spanien:
+		Schweiz:
+			09/10: Spieltag 23 (Team 10) check 2 => schwer
+			13/14: Spieltag 24 (Team 10) check 5 => schwer
