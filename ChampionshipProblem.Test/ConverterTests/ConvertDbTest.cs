@@ -3,7 +3,6 @@
     using ChampionshipProblem.Converter;
     using ChampionshipProblem.DatabaseFiles;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using System.Diagnostics;
     using System.IO;
 
     [TestClass]
@@ -22,6 +21,9 @@
             }
 
             SoccerDBConverter.ConvertEuropeanSoccerDb();
+
+            // Als Nächstes die zusätzlichen Ligen konvertieren
+            ExcelFileConverter.ConvertExcelFile("E01617.csv", "Premier League", Classes.Country.England, 20, "2016/2017");
         }
     }
 }
