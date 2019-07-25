@@ -45,7 +45,7 @@
 
             LeagueService leagueService = new LeagueService(championshipViewModel);
             MatchService matchService = new MatchService(championshipViewModel);
-            string leagueName = "Belgium Jupiler League";
+            string leagueName = "Jupiler League";
             string season = "2008/2009";
             int stage = 32;
 

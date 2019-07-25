@@ -30,6 +30,11 @@
         public const string FranceD0LeagueName = "Ligue 1";
 
         /// <summary>
+        /// Der französische Zweitliganame.
+        /// </summary>
+        public const string FranceD1LeagueName = "Division 2";
+
+        /// <summary>
         /// Der deutsche Liganame.
         /// </summary>
         public const string GermanyD0LeagueName = "1. Bundesliga";
@@ -40,9 +45,19 @@
         public const string GermanyD1LeagueName = "2. Bundesliga";
 
         /// <summary>
+        /// Der griechische Liganame.
+        /// </summary>
+        public const string GreeceD0LeagueName = "Ethniki Katigoria";
+
+        /// <summary>
         /// Der italienische Liganame.
         /// </summary>
         public const string ItalyD0LeagueName = "Serie A";
+
+        /// <summary>
+        /// Der italienische Zweitliganame.
+        /// </summary>
+        public const string ItalyD1LeagueName = "Serie B";
 
         /// <summary>
         /// Der niederländische Liganame.
@@ -70,9 +85,19 @@
         public const string SpainD0LeagueName = "LIGA BBVA";
 
         /// <summary>
+        /// Der spanische Zweitliganame.
+        /// </summary>
+        public const string SpainD1LeagueName = "LIGA Segunda";
+
+        /// <summary>
         /// Der schweizer Liganame.
         /// </summary>
         public const string SwitzerlandD0LeagueName = "Super League";
+
+        /// <summary>
+        /// Der türkische LIganame.
+        /// </summary>
+        public const string TurkeyD0LeagueName = "Ligi 1";
         #endregion
 
         /// <summary>
