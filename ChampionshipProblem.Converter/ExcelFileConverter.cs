@@ -51,8 +51,8 @@ namespace ChampionshipProblem.Converter
                 {
                     if (count < numberOfTeams)
                     {
-                        string homeTeam = values[2];
-                        string awayTeam = values[3];
+                        string homeTeam = values[2].Trim();
+                        string awayTeam = values[3].Trim();
 
                         if (!teams.Any((t) => t == homeTeam))
                         {
@@ -69,9 +69,11 @@ namespace ChampionshipProblem.Converter
                     line = teamReader.ReadLine();
                     values = line.Split(',');
                 }
+                teamReader.Dispose();
             }
 
-            // Liga und Teams speichern
+            // Liga und Teams speichern und währendessen Teams-Collection zusammenbauen
+            List<Classes.Team> teamsById = new List<Classes.Team>();
             using (MainSoccerDb mainSoccerDb = new MainSoccerDb())
             {
                 // Falls die Liga schon existiert updaten, sonst nichts tun
@@ -88,16 +90,24 @@ namespace ChampionshipProblem.Converter
 
                 foreach (string team in teams)
                 {
-                    if (!mainSoccerDb.Teams.Any((t) => t.Name == team))
+                    Classes.Team existingTeam = mainSoccerDb.Teams.SingleOrDefault((t) => t.Name == team);
+                    if (existingTeam == null)
                     {
-                        mainSoccerDb.Teams.Add(new Classes.Team()
+                        Classes.Team newTeam = new Classes.Team()
                         {
                             Name = team
-                        });
+                        };
+                        mainSoccerDb.Teams.Add(newTeam);
+                        teamsById.Add(newTeam);
+                    }
+                    else
+                    {
+                        teamsById.Add(existingTeam);
                     }
                 }
 
                 mainSoccerDb.SaveChanges();
+                mainSoccerDb.Dispose();
             }
 
             // Matches lesen
@@ -121,6 +131,12 @@ namespace ChampionshipProblem.Converter
                     string line = reader.ReadLine();
                     string[] values = line.Split(',');
 
+                    // Bei fehlerhaften Werten abbrechen
+                    if (values[1] == "")
+                    {
+                        break;
+                    }
+
                     // Match erstellen
                     Classes.Match match = new Classes.Match();
 
@@ -129,13 +145,10 @@ namespace ChampionshipProblem.Converter
                     match.Stage = stage;
                     // 0 div
                     match.Date = Convert.ToDateTime(values[1]);
-                    using (MainSoccerDb mainSoccerDb = new MainSoccerDb())
-                    {
-                        var homeTeamName = values[2];
-                        var awayTeamName = values[3];
-                        match.HomeId = mainSoccerDb.Teams.Single((team) => team.Name == homeTeamName).Id;
-                        match.AwayId = mainSoccerDb.Teams.Single((team) => team.Name == awayTeamName).Id;
-                    }
+                    var homeTeamName = values[2].Replace(".", string.Empty).Trim();
+                    var awayTeamName = values[3].Replace(".", string.Empty).Trim();
+                    match.HomeId = teamsById.Single((team) => team.Name == homeTeamName).Id;
+                    match.AwayId = teamsById.Single((team) => team.Name == awayTeamName).Id;
 
                     match.HomeGoals = Convert.ToInt32(values[4]);
                     match.AwayGoals = Convert.ToInt32(values[5]);
@@ -156,27 +169,27 @@ namespace ChampionshipProblem.Converter
                     // 20 AY 
                     // 21 HR
                     // 22 AR
-                    match.B365H = Convert.ToDecimal(values[23]);
-                    match.B365D = Convert.ToDecimal(values[24]);
-                    match.B365A = Convert.ToDecimal(values[25]);
-                    match.BWH = Convert.ToDecimal(values[26]);
-                    match.BWD = Convert.ToDecimal(values[27]);
-                    match.BWA = Convert.ToDecimal(values[28]);
-                    match.IWH = Convert.ToDecimal(values[29]);
-                    match.IWD = Convert.ToDecimal(values[30]);
-                    match.IWA = Convert.ToDecimal(values[31]);
-                    match.LBH = Convert.ToDecimal(values[32]);
-                    match.LBD = Convert.ToDecimal(values[33]);
-                    match.LBA = Convert.ToDecimal(values[34]);
-                    match.PSH = Convert.ToDecimal(values[35]);
-                    match.PSD = Convert.ToDecimal(values[36]);
-                    match.PSA = Convert.ToDecimal(values[37]);
-                    match.WHH = Convert.ToDecimal(values[38]);
-                    match.WHD = Convert.ToDecimal(values[39]);
-                    match.WHA = Convert.ToDecimal(values[40]);
-                    match.VCH = Convert.ToDecimal(values[41]);
-                    match.VCD = Convert.ToDecimal(values[42]);
-                    match.VCA = Convert.ToDecimal(values[43]);
+                    match.B365H = (values[23] != "") ? Convert.ToDecimal(values[24]) : 0;
+                    match.B365D = (values[24] != "") ? Convert.ToDecimal(values[24]) : 0;
+                    match.B365A = (values[25] != "") ? Convert.ToDecimal(values[25]) : 0;
+                    match.BWH = (values[26] != "") ? Convert.ToDecimal(values[26]) : 0;
+                    match.BWD = (values[27] != "")? Convert.ToDecimal(values[27]) : 0;
+                    match.BWA = (values[28] != "")? Convert.ToDecimal(values[28]) : 0;
+                    match.IWH = (values[29] != "")? Convert.ToDecimal(values[29]) : 0;
+                    match.IWD = (values[30] != "")? Convert.ToDecimal(values[30]) : 0;
+                    match.IWA = (values[31] != "") ? Convert.ToDecimal(values[31]) : 0;
+                    match.LBH = (values[32] != "")? Convert.ToDecimal(values[32]) : 0;
+                    match.LBD = (values[33] != "")? Convert.ToDecimal(values[33]) : 0;
+                    match.LBA = (values[34] != "")? Convert.ToDecimal(values[34]) : 0;
+                    match.PSH = (values[35] != "")? Convert.ToDecimal(values[35]) : 0;
+                    match.PSD = (values[36] != "")? Convert.ToDecimal(values[36]) : 0;
+                    match.PSA = (values[37] != "")? Convert.ToDecimal(values[37]) : 0;
+                    match.WHH = (values[38] != "")? Convert.ToDecimal(values[38]) : 0;
+                    match.WHD = (values[39] != "")? Convert.ToDecimal(values[39]) : 0;
+                    match.WHA = (values[40] != "")? Convert.ToDecimal(values[40]) : 0;
+                    match.VCH = (values[41] != "")? Convert.ToDecimal(values[41]) : 0;
+                    match.VCD = (values[42] != "")? Convert.ToDecimal(values[42]) : 0;
+                    match.VCA = (values[43] != "") ? Convert.ToDecimal(values[43]) : 0;
                     // 44 Bb1X2
                     // 45 BbMxH
                     // 46 BbAvH
@@ -202,12 +215,15 @@ namespace ChampionshipProblem.Converter
                     newMatches.Add(match);
                     count++;
                 }
+
+                reader.Dispose();
             }
 
             using (MainSoccerDb mainSoccerDb = new MainSoccerDb())
             {
                 mainSoccerDb.Matches.AddRange(newMatches);
                 mainSoccerDb.SaveChanges();
+                mainSoccerDb.Dispose();
             }
         }
         #endregion

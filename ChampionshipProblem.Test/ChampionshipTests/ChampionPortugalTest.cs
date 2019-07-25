@@ -15,7 +15,7 @@
         /// <summary>
         /// Der Liganame.
         /// </summary>
-        private const string leagueName = League.PortugalLeagueName;
+        private const string leagueName = League.PortugalD0LeagueName;
         #endregion
 
         #region PG0809Test

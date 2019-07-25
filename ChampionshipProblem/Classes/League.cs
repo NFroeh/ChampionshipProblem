@@ -12,57 +12,67 @@
         /// <summary>
         /// Der belgische Liganame.
         /// </summary>
-        public const string BelgiumLeagueName = "Belgium Jupiler League";
+        public const string BelgiumD0LeagueName = "Jupiler League";
 
         /// <summary>
         /// Der englische Liganame.
         /// </summary>
-        public const string EnglandLeagueName = "England Premier League";
+        public const string EnglandD0LeagueName = "Premier League";
+
+        /// <summary>
+        /// Der englische Zweitliganame.
+        /// </summary>
+        public const string EnglandD1LeagueName = "Championship";
 
         /// <summary>
         /// Der französische Liganame.
         /// </summary>
-        public const string FranceLeagueName = "France Ligue 1";
+        public const string FranceD0LeagueName = "Ligue 1";
 
         /// <summary>
         /// Der deutsche Liganame.
         /// </summary>
-        public const string GermanyLeagueName = "Germany 1. Bundesliga";
+        public const string GermanyD0LeagueName = "1. Bundesliga";
+
+        /// <summary>
+        /// Der deutsche Zweitliganame.
+        /// </summary>
+        public const string GermanyD1LeagueName = "2. Bundesliga";
 
         /// <summary>
         /// Der italienische Liganame.
         /// </summary>
-        public const string ItalyLeagueName = "Italy Serie A";
+        public const string ItalyD0LeagueName = "Serie A";
 
         /// <summary>
         /// Der niederländische Liganame.
         /// </summary>
-        public const string NetherlandsLeagueName = "Netherlands Eredivisie";
+        public const string NetherlandsD0LeagueName = "Eredivisie";
 
         /// <summary>
         /// Der polnische Liganame.
         /// </summary>
-        public const string PolandLeagueName = "Poland Ekstraklasa";
+        public const string PolandD0LeagueName = "Ekstraklasa";
 
         /// <summary>
         /// Der portugisische Liganame.
         /// </summary>
-        public const string PortugalLeagueName = "Portugal Liga ZON Sagres";
+        public const string PortugalD0LeagueName = "Liga ZON Sagres";
 
         /// <summary>
         /// Der schottische Liganame.
         /// </summary>
-        public const string ScotlandLeagueName = "Scotland Premier League";
+        public const string ScotlandD0LeagueName = "Premier League";
 
         /// <summary>
         /// Der spanische Liganame.
         /// </summary>
-        public const string SpainLeagueName = "Spain LIGA BBVA";
+        public const string SpainD0LeagueName = "LIGA BBVA";
 
         /// <summary>
         /// Der schweizer Liganame.
         /// </summary>
-        public const string SwitzerlandLeagueName = "Switzerland Super League";
+        public const string SwitzerlandD0LeagueName = "Super League";
         #endregion
 
         /// <summary>

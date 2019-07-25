@@ -48,7 +48,7 @@
             string season = "2008/2009";
             int stage = 32;
 
-            LeagueStandingService leagueStandingService = new LeagueStandingService(championshipViewModel, Country.Belgium, League.BelgiumLeagueName, season);
+            LeagueStandingService leagueStandingService = new LeagueStandingService(championshipViewModel, Country.Belgium, League.BelgiumD0LeagueName, season);
             List<LeagueStandingEntry> standing = leagueStandingService.CalculateStanding(stage);
             leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[4].TeamId, false);
         }
@@ -69,7 +69,7 @@
             string season = "2010/2011";
             int stage = 33;
 
-            LeagueStandingService leagueStandingService = new LeagueStandingService(championshipViewModel, Country.Germany, League.GermanyLeagueName, season);
+            LeagueStandingService leagueStandingService = new LeagueStandingService(championshipViewModel, Country.Germany, League.GermanyD0LeagueName, season);
 
             List<LeagueStandingEntry> standing = leagueStandingService.CalculateStanding(stage);
             Assert.AreEqual(1, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[0].TeamId, false).Position);
@@ -110,7 +110,7 @@
             string season = "2008/2009";
             int stage = 33;
 
-            LeagueStandingService leagueStandingService = new LeagueStandingService(championshipViewModel, Country.France, League.FranceLeagueName, season);
+            LeagueStandingService leagueStandingService = new LeagueStandingService(championshipViewModel, Country.France, League.FranceD0LeagueName, season);
 
             List<LeagueStandingEntry> standing = leagueStandingService.CalculateStanding(stage);
             Assert.AreEqual(1, leagueStandingService.CalculateBestPossibleFinalPositionForTeam(stage, standing[5].TeamId, false).Position);

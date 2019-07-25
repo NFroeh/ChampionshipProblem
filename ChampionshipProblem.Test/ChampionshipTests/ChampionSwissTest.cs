@@ -15,7 +15,7 @@
         /// <summary>
         /// Der Liganame.
         /// </summary>
-        private const string leagueName = League.SwitzerlandLeagueName;
+        private const string leagueName = League.SwitzerlandD0LeagueName;
         #endregion
 
         #region SW0809Test

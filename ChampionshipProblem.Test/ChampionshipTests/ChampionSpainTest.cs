@@ -15,7 +15,7 @@
         /// <summary>
         /// Der Liganame.
         /// </summary>
-        private const string leagueName = League.SpainLeagueName;
+        private const string leagueName = League.SpainD0LeagueName;
         #endregion
 
         #region S0809Test

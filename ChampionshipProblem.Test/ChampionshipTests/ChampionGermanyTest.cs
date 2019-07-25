@@ -15,7 +15,7 @@
         /// <summary>
         /// Der Liganame.
         /// </summary>
-        private const string leagueName = League.GermanyLeagueName;
+        private const string leagueName = League.GermanyD0LeagueName;
         #endregion
 
         #region G0809Test

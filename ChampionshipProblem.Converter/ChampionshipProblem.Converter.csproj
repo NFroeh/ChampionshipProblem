@@ -44,7 +44,34 @@
       <LastGenOutput>DatabaseScheme.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="DatabaseFiles\EuropeanSoccer.sqlite" />
-    <None Include="ExcelFiles\E01617.csv" />
+    <None Include="ExcelFiles\Germany\D01617.csv" />
+    <None Include="ExcelFiles\Germany\D01718.csv" />
+    <None Include="ExcelFiles\Germany\D01819.csv" />
+    <None Include="ExcelFiles\Germany\D10809.csv" />
+    <None Include="ExcelFiles\Germany\D10910.csv" />
+    <None Include="ExcelFiles\Germany\D11011.csv" />
+    <None Include="ExcelFiles\Germany\D11112.csv" />
+    <None Include="ExcelFiles\Germany\D11213.csv" />
+    <None Include="ExcelFiles\Germany\D11314.csv" />
+    <None Include="ExcelFiles\Germany\D11415.csv" />
+    <None Include="ExcelFiles\Germany\D11516.csv" />
+    <None Include="ExcelFiles\Germany\D11617.csv" />
+    <None Include="ExcelFiles\Germany\D11718.csv" />
+    <None Include="ExcelFiles\Germany\D11819.csv" />
+    <None Include="ExcelFiles\England\E01617.csv" />
+    <None Include="ExcelFiles\England\E01718.csv" />
+    <None Include="ExcelFiles\England\E01819.csv" />
+    <None Include="ExcelFiles\England\E10809.csv" />
+    <None Include="ExcelFiles\England\E10910.csv" />
+    <None Include="ExcelFiles\England\E11011.csv" />
+    <None Include="ExcelFiles\England\E11112.csv" />
+    <None Include="ExcelFiles\England\E11213.csv" />
+    <None Include="ExcelFiles\England\E11314.csv" />
+    <None Include="ExcelFiles\England\E11415.csv" />
+    <None Include="ExcelFiles\England\E11516.csv" />
+    <None Include="ExcelFiles\England\E11617.csv" />
+    <None Include="ExcelFiles\England\E11718.csv" />
+    <None Include="ExcelFiles\England\E11819.csv" />
     <None Include="packages.config" />
     <None Include="Scheme\DatabaseScheme.edmx.diagram">
       <DependentUpon>DatabaseScheme.edmx</DependentUpon>
