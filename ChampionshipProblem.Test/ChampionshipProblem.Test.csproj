@@ -69,13 +69,14 @@
     <Compile Include="ChampionshipTests\ChampionBelgiumTest.cs" />
     <Compile Include="ChampionshipTests\ChampionEnglandTest.cs" />
     <Compile Include="ChampionshipTests\ChampionFranceTest.cs" />
-    <Compile Include="ChampionshipTests\ChampionGemanyD2Test.cs" />
+    <Compile Include="ChampionshipTests\ChampionGermanyD1Test.cs" />
     <Compile Include="ChampionshipTests\ChampionGermanyTest.cs" />
     <Content Include="ChampionshipTests\CriticalResults.txt" />
     <Compile Include="ChampionshipTests\ChampionItalianTest.cs" />
     <Compile Include="ChampionshipTests\ChampionNetherlandsTest.cs" />
     <Compile Include="ChampionshipTests\ChampionPolenTest.cs" />
     <Compile Include="ChampionshipTests\ChampionPortugalTest.cs" />
+    <Compile Include="ChampionshipTests\ChampionSpainD1Test.cs" />
     <Compile Include="ChampionshipTests\ChampionSpainTest.cs" />
     <Compile Include="ChampionshipTests\ChampionSwissTest.cs" />
     <Compile Include="ConverterTests\ConvertDbTest.cs" />

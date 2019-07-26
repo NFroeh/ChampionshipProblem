@@ -540,7 +540,6 @@
             betterTeams = currentStanding
                 .Where((entry) => entry.Points > specificTeam.Points)
                 .ToList();
-            
 
             if (betterTeams.Count == 1)
             {
