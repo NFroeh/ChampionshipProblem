@@ -80,6 +80,7 @@
     <Compile Include="ChampionshipTests\ChampionSpainD1Test.cs" />
     <Compile Include="ChampionshipTests\ChampionSpainTest.cs" />
     <Compile Include="ChampionshipTests\ChampionSwissTest.cs" />
+    <Compile Include="ChampionshipTests\ChampionTurkeyTest.cs" />
     <Compile Include="ConverterTests\ConvertDbTest.cs" />
     <Compile Include="PositionServiceTest.cs" />
     <Compile Include="ChampionshipTests\CanBeChampionTest.cs" />
