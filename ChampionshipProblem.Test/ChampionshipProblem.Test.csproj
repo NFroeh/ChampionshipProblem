@@ -73,6 +73,7 @@
     <Compile Include="ChampionshipTests\ChampionGermanyD1Test.cs" />
     <Compile Include="ChampionshipTests\ChampionGermanyTest.cs" />
     <Content Include="ChampionshipTests\CriticalResults.txt" />
+    <Compile Include="ChampionshipTests\ChampionGreeceTest.cs" />
     <Compile Include="ChampionshipTests\ChampionItalianTest.cs" />
     <Compile Include="ChampionshipTests\ChampionNetherlandsTest.cs" />
     <Compile Include="ChampionshipTests\ChampionPolenTest.cs" />
