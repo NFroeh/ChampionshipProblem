@@ -44,6 +44,23 @@
       <LastGenOutput>DatabaseScheme.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="DatabaseFiles\EuropeanSoccer.sqlite" />
+    <None Include="ExcelFiles\Belgium\B01617.csv" />
+    <None Include="ExcelFiles\Belgium\B01718.csv" />
+    <None Include="ExcelFiles\Belgium\B01819.csv" />
+    <None Include="ExcelFiles\France\F01617.csv" />
+    <None Include="ExcelFiles\France\F01718.csv" />
+    <None Include="ExcelFiles\France\F01819.csv" />
+    <None Include="ExcelFiles\France\F10809.csv" />
+    <None Include="ExcelFiles\France\F10910.csv" />
+    <None Include="ExcelFiles\France\F11011.csv" />
+    <None Include="ExcelFiles\France\F11112.csv" />
+    <None Include="ExcelFiles\France\F11213.csv" />
+    <None Include="ExcelFiles\France\F11314.csv" />
+    <None Include="ExcelFiles\France\F11415.csv" />
+    <None Include="ExcelFiles\France\F11516.csv" />
+    <None Include="ExcelFiles\France\F11617.csv" />
+    <None Include="ExcelFiles\France\F11718.csv" />
+    <None Include="ExcelFiles\France\F11819.csv" />
     <None Include="ExcelFiles\Germany\D01617.csv" />
     <None Include="ExcelFiles\Germany\D01718.csv" />
     <None Include="ExcelFiles\Germany\D01819.csv" />
@@ -72,6 +89,65 @@
     <None Include="ExcelFiles\England\E11617.csv" />
     <None Include="ExcelFiles\England\E11718.csv" />
     <None Include="ExcelFiles\England\E11819.csv" />
+    <None Include="ExcelFiles\Greece\G00809.csv" />
+    <None Include="ExcelFiles\Greece\G00910.csv" />
+    <None Include="ExcelFiles\Greece\G01011.csv" />
+    <None Include="ExcelFiles\Greece\G01112.csv" />
+    <None Include="ExcelFiles\Greece\G01213.csv" />
+    <None Include="ExcelFiles\Greece\G01314.csv" />
+    <None Include="ExcelFiles\Greece\G01415.csv" />
+    <None Include="ExcelFiles\Greece\G01516.csv" />
+    <None Include="ExcelFiles\Greece\G01617.csv" />
+    <None Include="ExcelFiles\Greece\G01718.csv" />
+    <None Include="ExcelFiles\Greece\G01819.csv" />
+    <None Include="ExcelFiles\Italy\I01617.csv" />
+    <None Include="ExcelFiles\Italy\I01718.csv" />
+    <None Include="ExcelFiles\Italy\I01819.csv" />
+    <None Include="ExcelFiles\Italy\I10809.csv" />
+    <None Include="ExcelFiles\Italy\I10910.csv" />
+    <None Include="ExcelFiles\Italy\I11011.csv" />
+    <None Include="ExcelFiles\Italy\I11112.csv" />
+    <None Include="ExcelFiles\Italy\I11213.csv" />
+    <None Include="ExcelFiles\Italy\I11314.csv" />
+    <None Include="ExcelFiles\Italy\I11415.csv" />
+    <None Include="ExcelFiles\Italy\I11516.csv" />
+    <None Include="ExcelFiles\Italy\I11617.csv" />
+    <None Include="ExcelFiles\Italy\I11718.csv" />
+    <None Include="ExcelFiles\Italy\I11819.csv" />
+    <None Include="ExcelFiles\Netherlands\N01617.csv" />
+    <None Include="ExcelFiles\Netherlands\N01718.csv" />
+    <None Include="ExcelFiles\Netherlands\N01819.csv" />
+    <None Include="ExcelFiles\Portugal\P01617.csv" />
+    <None Include="ExcelFiles\Portugal\P01718.csv" />
+    <None Include="ExcelFiles\Portugal\P01819.csv" />
+    <None Include="ExcelFiles\Spain\SP01617.csv" />
+    <None Include="ExcelFiles\Spain\SP01718.csv" />
+    <None Include="ExcelFiles\Spain\SP01819.csv" />
+    <None Include="ExcelFiles\Spain\SP10809.csv" />
+    <None Include="ExcelFiles\Spain\SP10910.csv" />
+    <None Include="ExcelFiles\Spain\SP11011.csv" />
+    <None Include="ExcelFiles\Spain\SP11112.csv" />
+    <None Include="ExcelFiles\Spain\SP11213.csv" />
+    <None Include="ExcelFiles\Spain\SP11314.csv" />
+    <None Include="ExcelFiles\Spain\SP11415.csv" />
+    <None Include="ExcelFiles\Spain\SP11516.csv" />
+    <None Include="ExcelFiles\Spain\SP11617.csv" />
+    <None Include="ExcelFiles\Spain\SP11718.csv" />
+    <None Include="ExcelFiles\Spain\SP11819.csv" />
+    <None Include="ExcelFiles\Turkey\T00809.csv" />
+    <None Include="ExcelFiles\Turkey\T00910.csv" />
+    <None Include="ExcelFiles\Turkey\T01011.csv" />
+    <None Include="ExcelFiles\Turkey\T01112.csv" />
+    <None Include="ExcelFiles\Turkey\T01213.csv" />
+    <None Include="ExcelFiles\Turkey\T01314.csv" />
+    <None Include="ExcelFiles\Turkey\T01415.csv" />
+    <None Include="ExcelFiles\Turkey\T01516.csv" />
+    <None Include="ExcelFiles\Turkey\T01617.csv" />
+    <None Include="ExcelFiles\Turkey\T01718.csv" />
+    <None Include="ExcelFiles\Turkey\T01819.csv" />
+    <None Include="ExcelFiles\WorldCup\WorldCupMatches.csv" />
+    <None Include="ExcelFiles\WorldCup\WorldCupPlayers.csv" />
+    <None Include="ExcelFiles\WorldCup\WorldCups.csv" />
     <None Include="packages.config" />
     <None Include="Scheme\DatabaseScheme.edmx.diagram">
       <DependentUpon>DatabaseScheme.edmx</DependentUpon>
@@ -116,6 +192,7 @@
     <Compile Include="Scheme\Team_Attributes.cs">
       <DependentUpon>DatabaseScheme.tt</DependentUpon>
     </Compile>
+    <Compile Include="WorldCupConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scheme\DatabaseScheme.Context.tt">
