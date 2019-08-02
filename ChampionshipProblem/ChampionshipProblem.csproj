@@ -81,6 +81,9 @@
     <Compile Include="Classes\ResultClasses\PositionComputationalResult.cs" />
     <Compile Include="Classes\Team.cs" />
     <Compile Include="Classes\UI\CompleteLeagueStandingEntry.cs" />
+    <Compile Include="Classes\WorldCup\GroupStage.cs" />
+    <Compile Include="Classes\WorldCup\WorldCup.cs" />
+    <Compile Include="Classes\WorldCup\WorldCupMatch.cs" />
     <Compile Include="DatabaseFiles\MainSoccerDb.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />

@@ -146,7 +146,6 @@
     <None Include="ExcelFiles\Turkey\T01718.csv" />
     <None Include="ExcelFiles\Turkey\T01819.csv" />
     <None Include="ExcelFiles\WorldCup\WorldCupMatches.csv" />
-    <None Include="ExcelFiles\WorldCup\WorldCupPlayers.csv" />
     <None Include="ExcelFiles\WorldCup\WorldCups.csv" />
     <None Include="packages.config" />
     <None Include="Scheme\DatabaseScheme.edmx.diagram">

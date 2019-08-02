@@ -1,6 +1,7 @@
 namespace ChampionshipProblem.DatabaseFiles
 {
     using ChampionshipProblem.Classes;
+    using ChampionshipProblem.Classes.WorldCup;
     using SQLite.CodeFirst;
     using System.Data.Entity;
     using System.Data.SQLite;
@@ -19,7 +20,7 @@ namespace ChampionshipProblem.DatabaseFiles
         /// Konstruktor zum Erstellen des DbContextes.
         /// </summary>
         public MainSoccerDb()
-            : base(new SQLiteConnection(){
+            : base(new SQLiteConnection() {
                 ConnectionString = new SQLiteConnectionStringBuilder()
                 {
                     DataSource = PathToDatabase,
@@ -53,5 +54,15 @@ namespace ChampionshipProblem.DatabaseFiles
         /// Die Spiele.
         /// </summary>
         public virtual DbSet<Match> Matches { get; set; }
+
+        /// <summary>
+        /// Die Weltmeisterschaften.
+        /// </summary>
+        public virtual DbSet<WorldCup> WorldCups { get; set; }
+
+        /// <summary>
+        /// Die WorldCup-Matches.
+        /// </summary>
+        public virtual DbSet<WorldCupMatch> WorldCupMatches { get; set; }
     }
 }

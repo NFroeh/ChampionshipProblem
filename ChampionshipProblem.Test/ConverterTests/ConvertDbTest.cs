@@ -12,8 +12,8 @@
         /// <summary>
         /// Methode zum Konvertieren der Datenbanken in die neue Datenbank.
         /// </summary>
-        [TestMethod]
         [Ignore]
+        [TestMethod]
         public void TestConvertDb()
         {
             if (File.Exists(MainSoccerDb.PathToDatabase))
@@ -145,14 +145,16 @@
             ExcelFileConverter.ConvertExcelFile("Greece\\G00809.csv", League.GreeceD0LeagueName, Country.Greece, 16, "2008/2009");
             ExcelFileConverter.ConvertExcelFile("Greece\\G00910.csv", League.GreeceD0LeagueName, Country.Greece, 16, "2009/2010");
             //ExcelFileConverter.ConvertExcelFile("Greece\\G01011.csv", League.GreeceD0LeagueName, Country.Greece, 16, "2010/2011");
-//            ExcelFileConverter.ConvertExcelFile("Greece\\G01112.csv", League.GreeceD0LeagueName, Country.Greece, 16, "2011/2012");
+            //ExcelFileConverter.ConvertExcelFile("Greece\\G01112.csv", League.GreeceD0LeagueName, Country.Greece, 16, "2011/2012");
             //ExcelFileConverter.ConvertExcelFile("Greece\\G01213.csv", League.GreeceD0LeagueName, Country.Greece, 16, "2012/2013");
             ExcelFileConverter.ConvertExcelFile("Greece\\G01314.csv", League.GreeceD0LeagueName, Country.Greece, 18, "2013/2014");
-//            ExcelFileConverter.ConvertExcelFile("Greece\\G01415.csv", League.GreeceD0LeagueName, Country.Greece, 18, "2014/2015");
+            //ExcelFileConverter.ConvertExcelFile("Greece\\G01415.csv", League.GreeceD0LeagueName, Country.Greece, 18, "2014/2015");
             //ExcelFileConverter.ConvertExcelFile("Greece\\G01516.csv", League.GreeceD0LeagueName, Country.Greece, 16, "2015/2016");
             ExcelFileConverter.ConvertExcelFile("Greece\\G01617.csv", League.GreeceD0LeagueName, Country.Greece, 16, "2016/2017"); // bis 18
             ExcelFileConverter.ConvertExcelFile("Greece\\G01718.csv", League.GreeceD0LeagueName, Country.Greece, 16, "2017/2018");
-//            ExcelFileConverter.ConvertExcelFile("Greece\\G01819.csv", League.GreeceD0LeagueName, Country.Greece, 16, "2018/2019");
+            //ExcelFileConverter.ConvertExcelFile("Greece\\G01819.csv", League.GreeceD0LeagueName, Country.Greece, 16, "2018/2019");
+            
+            WorldCupConverter.ConvertWorldCups();
         }
     }
 }
