@@ -840,5 +840,19 @@ namespace ChampionshipProblem
             this.RefreshStandings();
         }
         #endregion
+
+        #region ChangeToWorldClubButton_Click
+        /// <summary>
+        /// Wird ausgeführt, wenn auf das andere Form gewechselt werden soll.
+        /// </summary>
+        /// <param name="sender">Der Sender.</param>
+        /// <param name="e">Das Event.</param>
+        private void ChangeToWorldClubButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            WorldCupForm worldCupForm = new WorldCupForm(this.ChampionshipViewModel);
+            worldCupForm.Show();
+        }
+        #endregion
     }
 }

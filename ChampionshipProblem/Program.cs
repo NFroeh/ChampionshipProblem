@@ -20,7 +20,8 @@ namespace ChampionshipProblem
             // Form starten
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ChampionshipProblemForm(championshipViewModel));
+            new ChampionshipProblemForm(championshipViewModel).Show();
+            Application.Run();
         }
     }
 }

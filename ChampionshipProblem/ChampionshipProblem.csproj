@@ -106,6 +106,12 @@
     <Compile Include="Services\PositionService.cs" />
     <Compile Include="Services\TeamService.cs" />
     <Compile Include="Services\WorstPossiblePositionService.cs" />
+    <Compile Include="WorldCupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorldCupForm.Designer.cs">
+      <DependentUpon>WorldCupForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="ChampionshipProblemForm.resx">
       <DependentUpon>ChampionshipProblemForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -118,6 +124,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="WorldCupForm.resx">
+      <DependentUpon>WorldCupForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="DatabaseFiles\MainSoccerDb.sqlite" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

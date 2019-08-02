@@ -49,6 +49,7 @@ namespace ChampionshipProblem
             this.Country = new System.Windows.Forms.Label();
             this.CountryComboBox = new System.Windows.Forms.ComboBox();
             this.ResultGrid = new System.Windows.Forms.PropertyGrid();
+            this.changeToWorldCubButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.StandingsView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RemainingMatchesView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ComputationStandingView)).BeginInit();
@@ -252,12 +253,26 @@ namespace ChampionshipProblem
             this.ResultGrid.Size = new System.Drawing.Size(360, 458);
             this.ResultGrid.TabIndex = 21;
             // 
+            // changeToWorldCubButton
+            // 
+            this.changeToWorldCubButton.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.changeToWorldCubButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.changeToWorldCubButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.changeToWorldCubButton.Location = new System.Drawing.Point(1348, 10);
+            this.changeToWorldCubButton.Name = "changeToWorldCubButton";
+            this.changeToWorldCubButton.Size = new System.Drawing.Size(188, 23);
+            this.changeToWorldCubButton.TabIndex = 22;
+            this.changeToWorldCubButton.Text = "Change to World Cubs";
+            this.changeToWorldCubButton.UseVisualStyleBackColor = false;
+            this.changeToWorldCubButton.Click += new System.EventHandler(this.ChangeToWorldClubButton_Click);
+            // 
             // ChampionshipProblemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1548, 1022);
+            this.Controls.Add(this.changeToWorldCubButton);
             this.Controls.Add(this.ResultGrid);
             this.Controls.Add(this.CountryComboBox);
             this.Controls.Add(this.Country);
@@ -314,6 +329,7 @@ namespace ChampionshipProblem
         private System.Windows.Forms.Label Country;
         private System.Windows.Forms.ComboBox CountryComboBox;
         private System.Windows.Forms.PropertyGrid ResultGrid;
+        private System.Windows.Forms.Button changeToWorldCubButton;
     }
 }
 
