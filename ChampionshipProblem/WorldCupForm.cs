@@ -2,6 +2,7 @@
 
 namespace ChampionshipProblem
 {
+    using ChampionshipProblem.Classes.WorldCup;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -22,6 +23,11 @@ namespace ChampionshipProblem
         /// Die Daten.
         /// </summary>
         public ChampionshipViewModel ChampionshipViewModel;
+
+        /// <summary>
+        /// Der aktuelle WorldCup.
+        /// </summary>
+        public WorldCup CurrentWorldCup;
         #endregion
 
         #region ctors
@@ -33,9 +39,12 @@ namespace ChampionshipProblem
         {
             this.ChampionshipViewModel = championshipViewModel;
             InitializeComponent();
+            this.WorldCupsComboBox.DisplayMember = "Name";
+            this.WorldCupsComboBox.DataSource = championshipViewModel.WorldCups.ToArray();
         }
         #endregion
 
+        #region ChangeToLeagueButton_Click
         /// <summary>
         /// Wird ausgeführt, wenn auf das andere Form gewechselt werden soll.
         /// </summary>
@@ -47,5 +56,18 @@ namespace ChampionshipProblem
             ChampionshipProblemForm championshipProblemForm = new ChampionshipProblemForm(this.ChampionshipViewModel);
             championshipProblemForm.Show();
         }
+        #endregion
+
+        #region WorldCupsComboBox_SelectedValueChanged
+        /// <summary>
+        /// Methode wird ausgeführt, wenn sich der Wert der ComboBox ändert.
+        /// </summary>
+        /// <param name="sender">Der Sender.</param>
+        /// <param name="e">Die Event-Argumente.</param>
+        private void WorldCupsComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            this.CurrentWorldCup = (WorldCup) this.WorldCupsComboBox.SelectedValue;
+        }
+        #endregion
     }
 }

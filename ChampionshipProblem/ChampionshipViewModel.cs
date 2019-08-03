@@ -1,6 +1,7 @@
 ﻿namespace ChampionshipProblem
 {
     using ChampionshipProblem.Classes;
+    using ChampionshipProblem.Classes.WorldCup;
     using ChampionshipProblem.DatabaseFiles;
     using ChampionshipProblem.Services;
     using System.Collections.Generic;
@@ -23,6 +24,16 @@
         /// Die Mannschaften.
         /// </summary>
         public List<Team> Teams { get; }
+
+        /// <summary>
+        /// Die WorldCups.
+        /// </summary>
+        public List<WorldCup> WorldCups { get;  }
+
+        /// <summary>
+        /// Die WorldCupMatches.
+        /// </summary>
+        public List<WorldCupMatch> WorldCupMatches { get; }
 
         /// <summary>
         /// Die Ligenservice.
@@ -56,6 +67,8 @@
                 this.Leagues = soccerDb.Leagues.ToList();
                 this.Matches = soccerDb.Matches.ToList();
                 this.Teams = soccerDb.Teams.ToList();
+                this.WorldCups = soccerDb.WorldCups.ToList();
+                this.WorldCupMatches = soccerDb.WorldCupMatches.ToList();
             }
 
             this.LeagueService = new LeagueService(this);
