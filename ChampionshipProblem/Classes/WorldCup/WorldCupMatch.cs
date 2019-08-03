@@ -79,6 +79,11 @@
         public GroupStage GroupStage { get; set; }
 
         /// <summary>
+        /// Der String, falls das Spiel durch Verlängerung bzw. Elfmeterschießen beendet wurde. 
+        /// </summary>
+        public string MatchEndingString { get; set; }
+
+        /// <summary>
         /// Der WorldCup.
         /// </summary>
         public WorldCup WorldCup { get; set; }

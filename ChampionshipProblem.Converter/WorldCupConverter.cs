@@ -111,7 +111,8 @@
             {
                 // Werte und Zeile holen (Erste Zeile überspringen)
                 matchesReader.ReadLine();
-
+                int stage = 0;
+                string currentYear = "";
                 while (!matchesReader.EndOfStream)
                 {
                     string line = matchesReader.ReadLine();
@@ -125,6 +126,14 @@
                     string homeTeamGoals = values[6];
                     string awayTeamGoals = values[7];
                     string awayTeamName = values[8];
+
+                    if (currentYear != year)
+                    {
+                        currentYear = year;
+                        stage = 0;
+                    }
+
+                    stage++;
 
                     GroupStage wcStage = GroupStage.None;
                     switch (groupStage)
@@ -211,8 +220,10 @@
                         AwayId = teams.Single((t) => t.Name == awayTeamName).Id,
                         HomeGoals = Convert.ToInt32(homeTeamGoals),
                         AwayGoals = Convert.ToInt32(awayTeamGoals),
+                        MatchEndingString = values[9],
                         GroupStage = wcStage,
-                        Date = date
+                        Date = date,
+                        Stage = stage
                     });
                 }
 
