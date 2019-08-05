@@ -69,6 +69,16 @@
         public int AwayGoals { get; set; }
 
         /// <summary>
+        /// Der Heimteamname.
+        /// </summary>
+        public string HomeTeamName { get; set; }
+
+        /// <summary>
+        /// Der Auswärtsteamname.
+        /// </summary>
+        public string AwayTeamName { get; set; }
+
+        /// <summary>
         /// Das Ergebnis.
         /// </summary>
         public MatchResult MatchResult { get; set; }

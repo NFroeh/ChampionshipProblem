@@ -89,5 +89,16 @@
             this.LeagueStandingService = new LeagueStandingService(this, country, leagueName, season);
         }
         #endregion
+
+        #region SetLeague
+        /// <summary>
+        /// Methode zum Setzen der Liga.
+        /// </summary>
+        /// <param name="leagueId">Die WorldCubnummer.</param>
+        public void SetLeague(int worldCupId)
+        {
+            this.LeagueStandingService = new LeagueStandingService(this, worldCupId);
+        }
+        #endregion
     }
 }

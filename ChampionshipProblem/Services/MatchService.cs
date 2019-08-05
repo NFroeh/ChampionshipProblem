@@ -7,7 +7,7 @@
     /// <summary>
     /// Klasse repräsentiert den Service für die Spiele.
     /// </summary>
-    public class MatchService
+    public partial class MatchService
     {
         #region fields
         /// <summary>
@@ -184,14 +184,14 @@
         }
         #endregion
 
-        #region GetNumberOfMatches
+        #region GetNumberOfStages
         /// <summary>
         /// Methode zum Ermitteln der Anzahl der Spiele einer Saison.
         /// </summary>
         /// <param name="leagueId">Die Liganummer.</param>
         /// <param name="season">Die Saison.</param>
         /// <returns>Die Anzahl der Spieltage.</returns>
-        public int GetNumberOfMatches(int leagueId, string season)
+        public int GetNumberOfStages(int leagueId, string season)
         {
             return ChampionshipViewModel.Matches.Where((match) => match.LeagueId == leagueId && match.Season == season).Max((match) => match.Stage);
         }

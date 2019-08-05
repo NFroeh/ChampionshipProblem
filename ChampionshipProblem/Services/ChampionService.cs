@@ -70,7 +70,7 @@
         public ChampionComputationalResult CalculateIfTeamCanWinChampionship(int stage, int teamId, bool computeStanding)
         {
             // Anzahl der Spiele ermitteln
-            long numberOfMatches = this.ChampionshipViewModel.MatchService.GetNumberOfMatches(this.LeagueId, this.Season);
+            long numberOfMatches = this.ChampionshipViewModel.MatchService.GetNumberOfStages(this.LeagueId, this.Season);
 
             // Den aktuellen Stand der Tabelle berechnen
             List<LeagueStandingEntry> leagueStandingEntries = this.LeagueStandingService.CalculateStanding(stage);
@@ -306,7 +306,7 @@
         /// <param name="teamId">Die TeamId.</param>
         public int CalculateNumberOfRemainingMatchesForChampion(int stage, long teamId)
         {
-            long numberOfMatches = this.ChampionshipViewModel.MatchService.GetNumberOfMatches(this.LeagueId, this.Season);
+            long numberOfMatches = this.ChampionshipViewModel.MatchService.GetNumberOfStages(this.LeagueId, this.Season);
             long numberOfMissingStages = numberOfMatches - stage;
 
             // Den aktuellen Stand berechnen

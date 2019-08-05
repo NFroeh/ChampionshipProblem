@@ -101,10 +101,14 @@
     <Compile Include="Services\BestPossiblePositionService.cs" />
     <Compile Include="Services\ChampionService.cs" />
     <Compile Include="Services\LeagueService.cs" />
+    <Compile Include="Services\LeagueService.WorldCup.cs" />
     <Compile Include="Services\LeagueStandingService.cs" />
+    <Compile Include="Services\LeagueStandingService.WorldCup.cs" />
     <Compile Include="Services\MatchService.cs" />
+    <Compile Include="Services\MatchService.WorldCup.cs" />
     <Compile Include="Services\PositionService.cs" />
     <Compile Include="Services\TeamService.cs" />
+    <Compile Include="Services\TeamService.WorldCup.cs" />
     <Compile Include="Services\WorstPossiblePositionService.cs" />
     <Compile Include="WorldCupForm.cs">
       <SubType>Form</SubType>

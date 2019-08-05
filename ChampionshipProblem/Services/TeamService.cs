@@ -7,7 +7,7 @@
     /// <summary>
     /// Klasse repräsentiert den Service für die Mannschaften.
     /// </summary>
-    public class TeamService
+    public partial class TeamService
     {
         #region fields
         /// <summary>

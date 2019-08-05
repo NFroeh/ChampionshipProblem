@@ -163,7 +163,7 @@ namespace ChampionshipProblem
             this.CurrentSelectedSeason = (string)SeasonComboBox.SelectedValue;
 
             // Die Anzahl der Spieltage ermitteln und setzen (Bei Saisonänderung kann auch die Anzahl der Mannschaften verändert worden sein)
-            this.NumberOfStages = (int)this.ChampionshipViewModel.MatchService.GetNumberOfMatches(this.CurrentSelectedLeague.Id, this.CurrentSelectedSeason);
+            this.NumberOfStages = (int)this.ChampionshipViewModel.MatchService.GetNumberOfStages(this.CurrentSelectedLeague.Id);
             StageComboBox.DataSource = Enumerable.Range(1, this.NumberOfStages).ToArray();
 
             this.RefreshStandings();

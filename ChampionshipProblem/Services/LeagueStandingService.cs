@@ -9,7 +9,7 @@
     /// <summary>
     /// Klasse repräsentiert Methoden zum Verwalten von <see cref="LeagueStandingEntry"/>.
     /// </summary>
-    public class LeagueStandingService
+    public partial class LeagueStandingService
     {
         #region fields
         /// <summary>

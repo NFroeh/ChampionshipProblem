@@ -7,7 +7,7 @@
     /// <summary>
     /// Klasse repräsentiert den Service für die Ligen.
     /// </summary>
-    public class LeagueService
+    public partial class LeagueService
     {
         #region fields
         /// <summary>

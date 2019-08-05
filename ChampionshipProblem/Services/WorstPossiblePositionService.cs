@@ -69,7 +69,7 @@
         /// <returns>Die schlechtmöglichste Position.</returns>
         public PositionComputationalResult CalculateWorstPossibleFinalPositionForTeam(int stage, int teamId, bool computeStanding)
         {
-            long numberOfMatches = this.ChampionshipViewModel.MatchService.GetNumberOfMatches(this.LeagueId, this.Season);
+            long numberOfMatches = this.ChampionshipViewModel.MatchService.GetNumberOfStages(this.LeagueId, this.Season);
 
             // Den aktuellen Stand berechnen
             List<LeagueStandingEntry> leagueStandingEntries = this.LeagueStandingService.CalculateStanding(stage);
@@ -254,7 +254,7 @@
         /// <param name="teamId">Die Teamnummer.</param>
         public int CalculateNumberOfRemainingMatchesForWorstPossiblePosition(int stage, long teamId)
         {
-            long numberOfMatches = this.ChampionshipViewModel.MatchService.GetNumberOfMatches(this.LeagueId, this.Season);
+            long numberOfMatches = this.ChampionshipViewModel.MatchService.GetNumberOfStages(this.LeagueId, this.Season);
             long numberOfMissingStages = numberOfMatches - stage;
 
             // Den aktuellen Stand berechnen

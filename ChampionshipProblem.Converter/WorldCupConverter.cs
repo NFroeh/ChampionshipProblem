@@ -220,10 +220,13 @@
                         AwayId = teams.Single((t) => t.Name == awayTeamName).Id,
                         HomeGoals = Convert.ToInt32(homeTeamGoals),
                         AwayGoals = Convert.ToInt32(awayTeamGoals),
+                        HomeTeamName = homeTeamName,
+                        AwayTeamName = awayTeamName,
                         MatchEndingString = values[9],
                         GroupStage = wcStage,
                         Date = date,
-                        Stage = stage
+                        Stage = stage,
+                        Season = ""
                     });
                 }
 

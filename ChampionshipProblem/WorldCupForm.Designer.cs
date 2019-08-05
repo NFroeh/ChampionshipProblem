@@ -44,9 +44,11 @@
             this.SemifinalView = new System.Windows.Forms.DataGridView();
             this.FinalView = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
-            this.remainingMatchesView = new System.Windows.Forms.DataGridView();
+            this.RemainingMatchesView = new System.Windows.Forms.DataGridView();
             this.StageComboBox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.RemainingMatchComboBox = new System.Windows.Forms.ComboBox();
+            this.remainingMatchesLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GroupAView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GroupBView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GroupCView)).BeginInit();
@@ -59,7 +61,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.QuarterfinalView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SemifinalView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FinalView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.remainingMatchesView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RemainingMatchesView)).BeginInit();
             this.SuspendLayout();
             // 
             // ChangeToLeagueButton
@@ -99,31 +101,31 @@
             this.GroupAView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GroupAView.Location = new System.Drawing.Point(15, 51);
             this.GroupAView.Name = "GroupAView";
-            this.GroupAView.Size = new System.Drawing.Size(240, 150);
+            this.GroupAView.Size = new System.Drawing.Size(350, 150);
             this.GroupAView.TabIndex = 26;
             // 
             // GroupBView
             // 
             this.GroupBView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GroupBView.Location = new System.Drawing.Point(261, 51);
+            this.GroupBView.Location = new System.Drawing.Point(371, 51);
             this.GroupBView.Name = "GroupBView";
-            this.GroupBView.Size = new System.Drawing.Size(240, 150);
+            this.GroupBView.Size = new System.Drawing.Size(350, 150);
             this.GroupBView.TabIndex = 27;
             // 
             // GroupCView
             // 
             this.GroupCView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GroupCView.Location = new System.Drawing.Point(507, 51);
+            this.GroupCView.Location = new System.Drawing.Point(727, 51);
             this.GroupCView.Name = "GroupCView";
-            this.GroupCView.Size = new System.Drawing.Size(240, 150);
+            this.GroupCView.Size = new System.Drawing.Size(350, 150);
             this.GroupCView.TabIndex = 28;
             // 
             // GroupDView
             // 
             this.GroupDView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GroupDView.Location = new System.Drawing.Point(753, 51);
+            this.GroupDView.Location = new System.Drawing.Point(1083, 51);
             this.GroupDView.Name = "GroupDView";
-            this.GroupDView.Size = new System.Drawing.Size(240, 150);
+            this.GroupDView.Size = new System.Drawing.Size(350, 150);
             this.GroupDView.TabIndex = 29;
             // 
             // GroupEView
@@ -131,63 +133,63 @@
             this.GroupEView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GroupEView.Location = new System.Drawing.Point(15, 207);
             this.GroupEView.Name = "GroupEView";
-            this.GroupEView.Size = new System.Drawing.Size(240, 150);
+            this.GroupEView.Size = new System.Drawing.Size(350, 150);
             this.GroupEView.TabIndex = 30;
             // 
             // GroupFView
             // 
             this.GroupFView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GroupFView.Location = new System.Drawing.Point(261, 207);
+            this.GroupFView.Location = new System.Drawing.Point(371, 207);
             this.GroupFView.Name = "GroupFView";
-            this.GroupFView.Size = new System.Drawing.Size(240, 150);
+            this.GroupFView.Size = new System.Drawing.Size(350, 150);
             this.GroupFView.TabIndex = 31;
             // 
             // GroupGView
             // 
             this.GroupGView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GroupGView.Location = new System.Drawing.Point(507, 207);
+            this.GroupGView.Location = new System.Drawing.Point(727, 207);
             this.GroupGView.Name = "GroupGView";
-            this.GroupGView.Size = new System.Drawing.Size(240, 150);
+            this.GroupGView.Size = new System.Drawing.Size(350, 150);
             this.GroupGView.TabIndex = 32;
             // 
             // GroupHView
             // 
             this.GroupHView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GroupHView.Location = new System.Drawing.Point(753, 207);
+            this.GroupHView.Location = new System.Drawing.Point(1083, 207);
             this.GroupHView.Name = "GroupHView";
-            this.GroupHView.Size = new System.Drawing.Size(240, 150);
+            this.GroupHView.Size = new System.Drawing.Size(350, 150);
             this.GroupHView.TabIndex = 33;
             // 
             // RoundOf16View
             // 
             this.RoundOf16View.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.RoundOf16View.Location = new System.Drawing.Point(15, 394);
+            this.RoundOf16View.Location = new System.Drawing.Point(15, 395);
             this.RoundOf16View.Name = "RoundOf16View";
-            this.RoundOf16View.Size = new System.Drawing.Size(240, 204);
+            this.RoundOf16View.Size = new System.Drawing.Size(550, 204);
             this.RoundOf16View.TabIndex = 34;
             // 
             // QuarterfinalView
             // 
             this.QuarterfinalView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.QuarterfinalView.Location = new System.Drawing.Point(261, 394);
+            this.QuarterfinalView.Location = new System.Drawing.Point(571, 395);
             this.QuarterfinalView.Name = "QuarterfinalView";
-            this.QuarterfinalView.Size = new System.Drawing.Size(240, 204);
+            this.QuarterfinalView.Size = new System.Drawing.Size(550, 204);
             this.QuarterfinalView.TabIndex = 35;
             // 
             // SemifinalView
             // 
             this.SemifinalView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.SemifinalView.Location = new System.Drawing.Point(507, 394);
+            this.SemifinalView.Location = new System.Drawing.Point(15, 604);
             this.SemifinalView.Name = "SemifinalView";
-            this.SemifinalView.Size = new System.Drawing.Size(240, 204);
+            this.SemifinalView.Size = new System.Drawing.Size(550, 204);
             this.SemifinalView.TabIndex = 36;
             // 
             // FinalView
             // 
             this.FinalView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.FinalView.Location = new System.Drawing.Point(753, 394);
+            this.FinalView.Location = new System.Drawing.Point(571, 604);
             this.FinalView.Name = "FinalView";
-            this.FinalView.Size = new System.Drawing.Size(240, 204);
+            this.FinalView.Size = new System.Drawing.Size(550, 204);
             this.FinalView.TabIndex = 37;
             // 
             // label2
@@ -201,40 +203,62 @@
             this.label2.Text = "K.O. - Matches";
             this.label2.UseMnemonic = false;
             // 
-            // remainingMatchesView
+            // RemainingMatchesView
             // 
-            this.remainingMatchesView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.remainingMatchesView.Location = new System.Drawing.Point(1048, 51);
-            this.remainingMatchesView.Name = "remainingMatchesView";
-            this.remainingMatchesView.Size = new System.Drawing.Size(240, 150);
-            this.remainingMatchesView.TabIndex = 39;
+            this.RemainingMatchesView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.RemainingMatchesView.Location = new System.Drawing.Point(1136, 427);
+            this.RemainingMatchesView.Name = "RemainingMatchesView";
+            this.RemainingMatchesView.Size = new System.Drawing.Size(400, 150);
+            this.RemainingMatchesView.TabIndex = 39;
             // 
             // StageComboBox
             // 
             this.StageComboBox.FormattingEnabled = true;
-            this.StageComboBox.Location = new System.Drawing.Point(1090, 12);
+            this.StageComboBox.Location = new System.Drawing.Point(261, 7);
             this.StageComboBox.Name = "StageComboBox";
-            this.StageComboBox.Size = new System.Drawing.Size(121, 21);
+            this.StageComboBox.Size = new System.Drawing.Size(42, 21);
             this.StageComboBox.TabIndex = 40;
+            this.StageComboBox.SelectedValueChanged += new System.EventHandler(this.StageComboBox_SelectedValueChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.label3.Location = new System.Drawing.Point(1045, 14);
+            this.label3.Location = new System.Drawing.Point(216, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(39, 15);
             this.label3.TabIndex = 41;
             this.label3.Text = "Stage";
+            // 
+            // RemainingMatchComboBox
+            // 
+            this.RemainingMatchComboBox.FormattingEnabled = true;
+            this.RemainingMatchComboBox.Location = new System.Drawing.Point(1300, 395);
+            this.RemainingMatchComboBox.Name = "RemainingMatchComboBox";
+            this.RemainingMatchComboBox.Size = new System.Drawing.Size(42, 21);
+            this.RemainingMatchComboBox.TabIndex = 43;
+            this.RemainingMatchComboBox.SelectedIndexChanged += new System.EventHandler(this.RemainingMatchComboBox_SelectedIndexChanged);
+            // 
+            // remainingMatchesLabel
+            // 
+            this.remainingMatchesLabel.AutoSize = true;
+            this.remainingMatchesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.remainingMatchesLabel.Location = new System.Drawing.Point(1133, 395);
+            this.remainingMatchesLabel.Name = "remainingMatchesLabel";
+            this.remainingMatchesLabel.Size = new System.Drawing.Size(161, 15);
+            this.remainingMatchesLabel.TabIndex = 42;
+            this.remainingMatchesLabel.Text = "Stage of remaining matches";
             // 
             // WorldCupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1548, 1022);
+            this.Controls.Add(this.RemainingMatchComboBox);
+            this.Controls.Add(this.remainingMatchesLabel);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.StageComboBox);
-            this.Controls.Add(this.remainingMatchesView);
+            this.Controls.Add(this.RemainingMatchesView);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.FinalView);
             this.Controls.Add(this.SemifinalView);
@@ -265,7 +289,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.QuarterfinalView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SemifinalView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FinalView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.remainingMatchesView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RemainingMatchesView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -288,8 +312,10 @@
         private System.Windows.Forms.DataGridView SemifinalView;
         private System.Windows.Forms.DataGridView FinalView;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridView remainingMatchesView;
+        private System.Windows.Forms.DataGridView RemainingMatchesView;
         private System.Windows.Forms.ComboBox StageComboBox;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox RemainingMatchComboBox;
+        private System.Windows.Forms.Label remainingMatchesLabel;
     }
 }

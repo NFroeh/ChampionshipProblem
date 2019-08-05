@@ -70,7 +70,7 @@
         public PositionComputationalResult CalculateBestPossibleFinalPositionForTeam(int stage, int teamId, bool computeStanding)
         {
             // Service erzeugen und Anzahl der Spiele ermitteln
-            int numberOfMatches = this.ChampionshipViewModel.MatchService.GetNumberOfMatches(this.LeagueId, this.Season);
+            int numberOfMatches = this.ChampionshipViewModel.MatchService.GetNumberOfStages(this.LeagueId, this.Season);
 
             // Den aktuellen Stand der Tabelle berechnen
             List<LeagueStandingEntry> leagueStandingEntries = this.LeagueStandingService.CalculateStanding(stage);
@@ -250,7 +250,7 @@
         public int CalculateNumberOfRemainingMatchesForBestPossiblePosition(int stage, int teamId)
         {
             // Service erzeugen und Anzahl der Spiele ermitteln
-            int numberOfMatches = this.ChampionshipViewModel.MatchService.GetNumberOfMatches(this.LeagueId, this.Season);
+            int numberOfMatches = this.ChampionshipViewModel.MatchService.GetNumberOfStages(this.LeagueId, this.Season);
             int numberOfMissingStages = numberOfMatches - stage;
 
             // Den aktuellen Stand der Tabelle berechnen
