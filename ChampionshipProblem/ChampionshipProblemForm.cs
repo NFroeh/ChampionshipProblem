@@ -243,7 +243,7 @@ namespace ChampionshipProblem
                     {
                         PositionComputationalResult positionComputationalResult = this.ChampionshipViewModel.LeagueStandingService.CalculateBestPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamId, true);
                         entry.BestPossiblePosition = positionComputationalResult.Position;
-                        ComputationStandingView.DataSource = positionComputationalResult.ComputationalStanding.ToArray();
+                        ComputationStandingView.DataSource = (positionComputationalResult.ComputationalStanding != null)? positionComputationalResult.ComputationalStanding.ToArray() : null;
                         stopwatch.Stop();
                     }
                     else
@@ -288,7 +288,7 @@ namespace ChampionshipProblem
                     {
                         PositionComputationalResult positionComputationalResult = this.ChampionshipViewModel.LeagueStandingService.CalculateWorstPossibleFinalPositionForTeam(this.CurrentSelectedStage, entry.TeamId, true);
                         entry.WorstPossiblePosition = positionComputationalResult.Position;
-                        ComputationStandingView.DataSource = positionComputationalResult.ComputationalStanding.ToArray();
+                        ComputationStandingView.DataSource = (positionComputationalResult.ComputationalStanding != null) ? positionComputationalResult.ComputationalStanding.ToArray() : null;
                         stopwatch.Stop();
                     }
                     else
@@ -341,8 +341,8 @@ namespace ChampionshipProblem
                             CurrentChampionComputationalResult = championComputationalResult;
 
                             // Die Datengrundlagen setzen
-                            ComputationStandingView.DataSource = championComputationalResult.ComputationalStanding.ToArray();
-                            ComputedRemainingMatchesView.DataSource = championComputationalResult.MissingRemainingMatches.ToArray();
+                            ComputationStandingView.DataSource = (championComputationalResult.ComputationalStanding != null)? championComputationalResult.ComputationalStanding.ToArray() : null;
+                            ComputedRemainingMatchesView.DataSource = (championComputationalResult.MissingRemainingMatches != null)? championComputationalResult.MissingRemainingMatches.ToArray() : null;
                             ResultGrid.SelectedObject = championComputationalResult;
 
                             // Die Änderung signalisieren
