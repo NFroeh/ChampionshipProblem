@@ -163,7 +163,7 @@ namespace ChampionshipProblem
             this.CurrentSelectedSeason = (string)SeasonComboBox.SelectedValue;
 
             // Die Anzahl der Spieltage ermitteln und setzen (Bei Saisonänderung kann auch die Anzahl der Mannschaften verändert worden sein)
-            this.NumberOfStages = (int)this.ChampionshipViewModel.MatchService.GetNumberOfStages(this.CurrentSelectedLeague.Id);
+            this.NumberOfStages = (int)this.ChampionshipViewModel.MatchService.GetNumberOfStages(this.CurrentSelectedLeague.Id, this.CurrentSelectedSeason);
             StageComboBox.DataSource = Enumerable.Range(1, this.NumberOfStages).ToArray();
 
             this.RefreshStandings();
@@ -346,6 +346,7 @@ namespace ChampionshipProblem
                             ResultGrid.SelectedObject = championComputationalResult;
 
                             // Die Änderung signalisieren
+                            this.ComputedStandingComboBox.SelectedItem = this.NumberOfStages;
                             this.ComputedStandingComboBox_SelectedIndexChanged(null, null);
                             this.ComputedRemainingMatchComboxBox_SelectedIndexChanged(null, null);
                         }
@@ -812,7 +813,7 @@ namespace ChampionshipProblem
             this.ComputedRemainingMatchComboBox.SelectedIndex = this.ComputedStandingComboBox.SelectedIndex;
             ComputedRemainingMatchComboxBox_SelectedIndexChanged(null, null);
 
-            if (CurrentChampionComputationalResult != null && CurrentChampionComputationalResult.ComputationalStanding != null)
+            if (CurrentChampionComputationalResult != null && CurrentChampionComputationalResult.ComputationalStanding != null && CurrentChampionComputationalResult.ComputationalStanding.Count != 0 && CurrentChampionComputationalResult.CanWinChampionship == true)
             {
                 // Fehlende Spiele ermitteln
                 IEnumerable<RemainingMatch> remainingMatchesForSingleStage = CurrentChampionComputationalResult
