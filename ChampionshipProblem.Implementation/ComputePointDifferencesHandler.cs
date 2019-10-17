@@ -19,6 +19,8 @@
                         p[match.Home] += 1;
                         p[match.Away] += 1;
                         break;
+                    default:
+                        throw new System.Exception($"Ungültiges MatchResult {match.Result}");
                 }
             }
 

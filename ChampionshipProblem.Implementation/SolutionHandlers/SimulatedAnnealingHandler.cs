@@ -10,7 +10,7 @@
         {
             ChampionshipProblemResult result = new HeuristikL1Handler().Handle(championshipProblemInput);
             Random random = new Random();
-            int iterationTimes = 100000;
+            int iterationTimes = 300000;
 
             if (result.CanBeChampion.HasValue && result.CanBeChampion == true)
             {
@@ -34,7 +34,7 @@
 
                 MatchResult changedResult = result.Matches[changeIndex].Result;
 
-                result.Matches[changeIndex].Result = (MatchResult) change;
+                result.Matches[changeIndex].Result = (MatchResult) (((byte) changedResult + change) % 3);
                 pointDifference = ComputePointDifferencesHandler.Handle(pointDifference, result.Matches);
 
                 if (!pointDifference.Any((d) => d > 0))

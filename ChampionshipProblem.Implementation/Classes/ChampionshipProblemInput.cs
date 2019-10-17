@@ -82,7 +82,7 @@
                     List<RemainingMatch> matches = remainingMatches
                         .Where((match) => match.HomeTeamId == entry.TeamId || match.AwayTeamId == entry.TeamId)
                         .ToList();
-                    if (entry.Points + (matches.Count() * 3) < specificPoints)
+                    if (entry.Points + (matches.Count() * 3) <= specificPoints)
                     {
                         foreach (RemainingMatch match in matches)
                         {
@@ -156,21 +156,6 @@
                 int away = standingsWithoutSpecificTeam.IndexOf(standingsWithoutSpecificTeam.SingleOrDefault((entry) => entry.TeamId == remainingMatches[index].AwayTeamId));
                 this.Matches[index] = new Implementation.Match(home, away);
             }
-        }
-
-        public bool? CheckBaseSolutionHR4()
-        {
-            if (PointDifferences.Any((p) => p > 0))
-            {
-                return false;
-            }
-            
-            if (Matches.Length == 0)
-            {
-                return true;
-            }
-
-            return null;
         }
     }
 }
