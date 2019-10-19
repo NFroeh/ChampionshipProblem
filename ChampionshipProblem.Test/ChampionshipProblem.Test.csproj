@@ -92,6 +92,7 @@
     <Compile Include="ImplementationTests\EA\EAChampionGermanyTest.cs" />
     <Compile Include="ImplementationTests\Germany\ChampionGermanyTest.cs" />
     <Compile Include="ImplementationTests\SimulatedAnnealing\SAChampionGermanyTest.cs" />
+    <Compile Include="NUnit\ImplementationTests\EA\GermanyD1Test.cs" />
     <Compile Include="NUnit\ImplementationTests\EA\GermanyTest.cs" />
     <Compile Include="PositionServiceTest.cs" />
     <Compile Include="ChampionshipTests\CanBeChampionTest.cs" />
