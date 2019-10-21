@@ -102,6 +102,7 @@
     <Compile Include="NUnit\ImplementationTests\EA\ItalianTest.cs" />
     <Compile Include="NUnit\ImplementationTests\EA\NetherlandTest.cs" />
     <Compile Include="NUnit\ImplementationTests\EA\PolandTest.cs" />
+    <Compile Include="NUnit\ImplementationTests\EA\PortugalTest.cs" />
     <Compile Include="PositionServiceTest.cs" />
     <Compile Include="ChampionshipTests\CanBeChampionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
