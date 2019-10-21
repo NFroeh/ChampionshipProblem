@@ -94,6 +94,8 @@
     <Compile Include="ImplementationTests\SimulatedAnnealing\SAChampionGermanyTest.cs" />
     <Compile Include="NUnit\ImplementationTests\EA\BelgiumTest.cs" />
     <Compile Include="NUnit\ImplementationTests\EA\EnglandTest.cs" />
+    <Compile Include="NUnit\ImplementationTests\EA\FranceD1Test.cs" />
+    <Compile Include="NUnit\ImplementationTests\EA\FranceTest.cs" />
     <Compile Include="NUnit\ImplementationTests\EA\GermanyD1Test.cs" />
     <Compile Include="NUnit\ImplementationTests\EA\GermanyTest.cs" />
     <Compile Include="PositionServiceTest.cs" />
