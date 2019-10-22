@@ -1,0 +1,43 @@
+﻿namespace ChampionshipProblem.Test.NUnit.ImplementationTests
+{
+    using ChampionshipProblem.Classes;
+    using ChampionshipProblem.Implementation;
+    using ChampionshipProblem.Services;
+    using System.Collections.Generic;
+
+    public class CurrentTestSetup
+    {
+        public static TestAlgorithm CurrentTestType
+        {
+            get { return TestAlgorithm.EA; }
+        }
+
+        public static bool GetCurrentTestResult(LeagueStandingService leagueStandingService, int stage, int teamNumber)
+        {
+            List<LeagueStandingEntry> standing = leagueStandingService.CalculateStanding(stage);
+            bool? returnedResult = false;
+            ChampionshipProblemInput input = new ChampionshipProblemInput(leagueStandingService, standing[teamNumber].TeamId, stage);
+            switch (CurrentTestSetup.CurrentTestType)
+            {
+                case TestAlgorithm.Heuristic:
+                    returnedResult = new HeuristikLHandler().Handle(input).CanBeChampion;
+                    break;
+                case TestAlgorithm.Brute:
+                    break;
+                case TestAlgorithm.EA:
+                    returnedResult = new EA1And1Handler().Handle(input).CanBeChampion;
+                    break;
+                case TestAlgorithm.SA:
+                    returnedResult = new SimulatedAnnealingHandler().Handle(input).CanBeChampion;
+                    break;
+                case TestAlgorithm.Backtracking:
+                    returnedResult = leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[teamNumber].TeamId, false).CanWinChampionship;
+                    break;
+                default:
+                    throw new System.Exception($"Unkown test type {CurrentTestSetup.CurrentTestType}.");
+            }
+
+            return returnedResult.Value;
+        }
+    }
+}

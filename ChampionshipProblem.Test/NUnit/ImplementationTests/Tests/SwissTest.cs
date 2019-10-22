@@ -1,4 +1,4 @@
-﻿namespace ChampionshipProblem.Test.NUnit.ImplementationTests.EA
+﻿namespace ChampionshipProblem.Test.NUnit.ImplementationTests
 {
     using ChampionshipProblem.Classes;
     using ChampionshipProblem.Implementation;
@@ -249,8 +249,8 @@
         [TestCase(18, 09, true)]
         public void SW0809Test(int stage, int teamNumber, bool result)
         {
-            List<LeagueStandingEntry> standing = LeagueStandingService0809.CalculateStanding(stage);
-            Assert.AreEqual(result, new EA1And1Handler().Handle(new ChampionshipProblemInput(LeagueStandingService0809, standing[teamNumber].TeamId, stage)).CanBeChampion);
+            bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService0809, stage, teamNumber);
+            Assert.AreEqual(result, returnedResult);
         }
         #endregion
 
@@ -469,8 +469,8 @@
         [TestCase(18, 09, true)]
         public void SW0910Test(int stage, int teamNumber, bool result)
         {
-            List<LeagueStandingEntry> standing = LeagueStandingService0910.CalculateStanding(stage);
-            Assert.AreEqual(result, new EA1And1Handler().Handle(new ChampionshipProblemInput(LeagueStandingService0910, standing[teamNumber].TeamId, stage)).CanBeChampion);
+            bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService0910, stage, teamNumber);
+            Assert.AreEqual(result, returnedResult);
         }
         #endregion
 
@@ -689,8 +689,8 @@
         [TestCase(18, 09, true)]
         public void SW1011Test(int stage, int teamNumber, bool result)
         {
-            List<LeagueStandingEntry> standing = LeagueStandingService1011.CalculateStanding(stage);
-            Assert.AreEqual(result, new EA1And1Handler().Handle(new ChampionshipProblemInput(LeagueStandingService1011, standing[teamNumber].TeamId, stage)).CanBeChampion);
+            bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1011, stage, teamNumber);
+            Assert.AreEqual(result, returnedResult);
         }
         #endregion
 
@@ -909,8 +909,8 @@
         [TestCase(18, 09, true)]
         public void SW1213Test(int stage, int teamNumber, bool result)
         {
-            List<LeagueStandingEntry> standing = LeagueStandingService1213.CalculateStanding(stage);
-            Assert.AreEqual(result, new EA1And1Handler().Handle(new ChampionshipProblemInput(LeagueStandingService1213, standing[teamNumber].TeamId, stage)).CanBeChampion);
+            bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1213, stage, teamNumber);
+            Assert.AreEqual(result, returnedResult);
         }
         #endregion
 
@@ -1129,8 +1129,8 @@
         [TestCase(18, 09, true)]
         public void SW1314Test(int stage, int teamNumber, bool result)
         {
-            List<LeagueStandingEntry> standing = LeagueStandingService1314.CalculateStanding(stage);
-            Assert.AreEqual(result, new EA1And1Handler().Handle(new ChampionshipProblemInput(LeagueStandingService1314, standing[teamNumber].TeamId, stage)).CanBeChampion);
+            bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1314, stage, teamNumber);
+            Assert.AreEqual(result, returnedResult);
         }
         #endregion
 
@@ -1349,8 +1349,8 @@
         [TestCase(18, 09, true)]
         public void SW1415Test(int stage, int teamNumber, bool result)
         {
-            List<LeagueStandingEntry> standing = LeagueStandingService1415.CalculateStanding(stage);
-            Assert.AreEqual(result, new EA1And1Handler().Handle(new ChampionshipProblemInput(LeagueStandingService1415, standing[teamNumber].TeamId, stage)).CanBeChampion);
+            bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1415, stage, teamNumber);
+            Assert.AreEqual(result, returnedResult);
         }
         #endregion
 
@@ -1569,8 +1569,8 @@
         [TestCase(18, 09, true)]
         public void SW1516Test(int stage, int teamNumber, bool result)
         {
-            List<LeagueStandingEntry> standing = LeagueStandingService1516.CalculateStanding(stage);
-            Assert.AreEqual(result, new EA1And1Handler().Handle(new ChampionshipProblemInput(LeagueStandingService1516, standing[teamNumber].TeamId, stage)).CanBeChampion);
+            bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1516, stage, teamNumber);
+            Assert.AreEqual(result, returnedResult);
         }
         #endregion
     }
