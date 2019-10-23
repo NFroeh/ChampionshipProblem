@@ -6,7 +6,7 @@
     using global::NUnit.Framework.Interfaces;
     using Utility;
 
-    [TestFixture]
+    [TestFixture, Timeout(CurrentTestSetup.TestTimeout)]
     public class SpanienD1Test : BaseTestClass
     {
         private const string leagueName = League.SpainD1LeagueName;
@@ -37,7 +37,7 @@
         {
             bool success = TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed;
             bool expected = (bool)TestContext.CurrentContext.Test.Arguments[2];
-            bool returned = (success == expected) ? expected : !expected;
+            bool returned = (success) ? expected : !expected;
             CSVWriter.WriteTestResult(
                 CurrentTestSetup.CurrentTestType,
                 country.ToString(),

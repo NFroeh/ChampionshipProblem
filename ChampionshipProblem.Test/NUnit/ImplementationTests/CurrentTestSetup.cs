@@ -7,9 +7,11 @@
 
     public class CurrentTestSetup
     {
+        public const int TestTimeout = 30000;
+
         public static TestAlgorithm CurrentTestType
         {
-            get { return TestAlgorithm.EA; }
+            get { return TestAlgorithm.Brute; }
         }
 
         public static bool GetCurrentTestResult(LeagueStandingService leagueStandingService, int stage, int teamNumber)
@@ -23,6 +25,7 @@
                     returnedResult = new HeuristikLHandler().Handle(input).CanBeChampion;
                     break;
                 case TestAlgorithm.Brute:
+                    returnedResult = new BruteForceHandler().Handle(input).CanBeChampion;
                     break;
                 case TestAlgorithm.EA:
                     returnedResult = new EA1And1Handler().Handle(input).CanBeChampion;

@@ -1,6 +1,5 @@
 ﻿namespace ChampionshipProblem.Implementation
 {
-    using ChampionshipProblem.Classes;
     using System.Linq;
 
     public class HeuristikL1Handler

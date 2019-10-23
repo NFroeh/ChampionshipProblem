@@ -10,7 +10,7 @@
         {
             ChampionshipProblemResult result = new HeuristikL1Handler().Handle(championshipProblemInput);
             Random random = new Random();
-            int iterationTimes = 300000;
+            int iterationTimes = 1000000;
 
             if (result.CanBeChampion.HasValue && result.CanBeChampion == true)
             {

@@ -46,6 +46,7 @@
     <Compile Include="Classes\Match.cs" />
     <Compile Include="ComputePointDifferencesHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SolutionHandlers\BruteForceHandler.cs" />
     <Compile Include="SolutionHandlers\EA1And1Handler.cs" />
     <Compile Include="SolutionHandlers\BacktrackingHandler.cs" />
     <Compile Include="SolutionHandlers\HeuristikL1Handler.cs" />
