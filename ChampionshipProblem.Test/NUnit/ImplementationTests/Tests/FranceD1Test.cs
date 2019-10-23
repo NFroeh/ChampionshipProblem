@@ -1,29 +1,48 @@
 ﻿namespace ChampionshipProblem.Test.NUnit.ImplementationTests
 {
     using ChampionshipProblem.Classes;
-    using ChampionshipProblem.Implementation;
     using ChampionshipProblem.Services;
     using global::NUnit.Framework;
-    using System.Collections.Generic;
+    using global::NUnit.Framework.Interfaces;
+    using Utility;
 
     [TestFixture]
-    public class FranceD1Test
+    public class FranceD1Test : BaseTestClass
     {
         private const string leagueName = League.FranceD1LeagueName;
-
+        private const Country country = Country.France;
         private ChampionshipViewModel ChampionshipViewModel;
         private LeagueStandingService LeagueStandingService1011;
         private LeagueStandingService LeagueStandingService1516;
         private LeagueStandingService LeagueStandingService1819;
 
-
         [OneTimeSetUp]
         public void SetUp()
         {
             this.ChampionshipViewModel = new ChampionshipViewModel();
-            LeagueStandingService1011 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.France, leagueName, "2010/2011");
-            LeagueStandingService1516 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.France, leagueName, "2015/2016");
-            LeagueStandingService1819 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.France, leagueName, "2018/2019");
+            LeagueStandingService1011 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2010/2011");
+            LeagueStandingService1516 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2015/2016");
+            LeagueStandingService1819 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2018/2019");
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            bool success = TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed;
+            bool expected = (bool)TestContext.CurrentContext.Test.Arguments[2];
+            bool returned = (success == expected) ? expected : !expected;
+            CSVWriter.WriteTestResult(
+                CurrentTestSetup.CurrentTestType,
+                country.ToString(),
+                leagueName,
+                TestContext.CurrentContext.Test.Name.Substring(1, 4),
+                (int)TestContext.CurrentContext.Test.Arguments[0],
+                (int)TestContext.CurrentContext.Test.Arguments[1],
+                expected,
+                returned,
+                success,
+                this.stopWatch.ElapsedMilliseconds
+            );
         }
 
         #region F1011Test

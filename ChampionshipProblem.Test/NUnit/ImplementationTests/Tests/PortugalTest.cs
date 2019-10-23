@@ -1,16 +1,16 @@
 ﻿namespace ChampionshipProblem.Test.NUnit.ImplementationTests
 {
     using ChampionshipProblem.Classes;
-    using ChampionshipProblem.Implementation;
     using ChampionshipProblem.Services;
     using global::NUnit.Framework;
-    using System.Collections.Generic;
+    using global::NUnit.Framework.Interfaces;
+    using Utility;
 
     [TestFixture]
-    public class PortugalTest
+    public class PortugalTest : BaseTestClass
     {
         private const string leagueName = League.PortugalD0LeagueName;
-
+        private const Country country = Country.Portugal;
         private ChampionshipViewModel ChampionshipViewModel;
         private LeagueStandingService LeagueStandingService0809;
         private LeagueStandingService LeagueStandingService0910;
@@ -29,20 +29,40 @@
         public void SetUp()
         {
             this.ChampionshipViewModel = new ChampionshipViewModel();
-            LeagueStandingService0809 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Portugal, leagueName, "2008/2009");
-            LeagueStandingService0910 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Portugal, leagueName, "2009/2010");
-            LeagueStandingService1011 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Portugal, leagueName, "2010/2011");
-            LeagueStandingService1112 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Portugal, leagueName, "2011/2012");
-            LeagueStandingService1213 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Portugal, leagueName, "2012/2013");
-            LeagueStandingService1314 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Portugal, leagueName, "2013/2014");
-            LeagueStandingService1415 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Portugal, leagueName, "2014/2015");
-            LeagueStandingService1516 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Portugal, leagueName, "2015/2016");
-            LeagueStandingService1617 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Portugal, leagueName, "2016/2017");
-            LeagueStandingService1718 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Portugal, leagueName, "2017/2018");
-            LeagueStandingService1819 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Portugal, leagueName, "2018/2019");
+            LeagueStandingService0809 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2008/2009");
+            LeagueStandingService0910 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2009/2010");
+            LeagueStandingService1011 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2010/2011");
+            LeagueStandingService1112 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2011/2012");
+            LeagueStandingService1213 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2012/2013");
+            LeagueStandingService1314 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2013/2014");
+            LeagueStandingService1415 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2014/2015");
+            LeagueStandingService1516 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2015/2016");
+            LeagueStandingService1617 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2016/2017");
+            LeagueStandingService1718 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2017/2018");
+            LeagueStandingService1819 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2018/2019");
         }
 
-        #region PG0809Test
+        [TearDown]
+        public void TearDown()
+        {
+            bool success = TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed;
+            bool expected = (bool)TestContext.CurrentContext.Test.Arguments[2];
+            bool returned = (success == expected) ? expected : !expected;
+            CSVWriter.WriteTestResult(
+                CurrentTestSetup.CurrentTestType,
+                country.ToString(),
+                leagueName,
+                TestContext.CurrentContext.Test.Name.Substring(1, 4),
+                (int)TestContext.CurrentContext.Test.Arguments[0],
+                (int)TestContext.CurrentContext.Test.Arguments[1],
+                expected,
+                returned,
+                success,
+                this.stopWatch.ElapsedMilliseconds
+            );
+        }
+
+        #region P0809Test
         /// <summary>
         /// Testet mit der Liga von Portugal.
         /// </summary>
@@ -318,14 +338,14 @@
         [TestCase(15, 13, true)]
         [TestCase(15, 14, true)]
         [TestCase(15, 15, true)]
-        public void PG0809Test(int stage, int teamNumber, bool result)
+        public void P0809Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService0809, stage, teamNumber);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
 
-        #region PG0910Test
+        #region P0910Test
         /// <summary>
         /// Testet mit der Liga von Portugal.
         /// </summary>
@@ -533,14 +553,14 @@
         [TestCase(19, 13, true)]
         [TestCase(19, 14, false)]
         [TestCase(19, 15, false)]
-        public void PG0910Test(int stage, int teamNumber, bool result)
+        public void P0910Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService0910, stage, teamNumber);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
 
-        #region PG1011Test
+        #region P1011Test
         /// <summary>
         /// Testet mit der Liga von Portugal.
         /// </summary>
@@ -816,14 +836,14 @@
         [TestCase(15, 13, true)]
         [TestCase(15, 14, true)]
         [TestCase(15, 15, true)]
-        public void PG1011Test(int stage, int teamNumber, bool result)
+        public void P1011Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1011, stage, teamNumber);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
 
-        #region PG1112Test
+        #region P1112Test
         /// <summary>
         /// Testet mit der Liga von Portugal.
         /// </summary>
@@ -1099,14 +1119,14 @@
         [TestCase(15, 13, true)]
         [TestCase(15, 14, true)]
         [TestCase(15, 15, true)]
-        public void PG1112Test(int stage, int teamNumber, bool result)
+        public void P1112Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1112, stage, teamNumber);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
 
-        #region PG1213Test
+        #region P1213Test
         /// <summary>
         /// Testet mit der Liga von Portugal.
         /// </summary>
@@ -1382,14 +1402,14 @@
         [TestCase(15, 13, true)]
         [TestCase(15, 14, true)]
         [TestCase(15, 15, true)]
-        public void PG1213Test(int stage, int teamNumber, bool result)
+        public void P1213Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1213, stage, teamNumber);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
 
-        #region PG1314Test
+        #region P1314Test
         /// <summary>
         /// Testet mit der Liga von Portugal.
         /// </summary>
@@ -1665,14 +1685,14 @@
         [TestCase(15, 13, true)]
         [TestCase(15, 14, true)]
         [TestCase(15, 15, true)]
-        public void PG1314Test(int stage, int teamNumber, bool result)
+        public void P1314Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1314, stage, teamNumber);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
 
-        #region PG1415Test
+        #region P1415Test
         /// <summary>
         /// Testet mit der Liga von Portugal.
         /// </summary>
@@ -1999,14 +2019,14 @@
         [TestCase(18, 15, true)]
         [TestCase(18, 16, true)]
         [TestCase(18, 17, true)]
-        public void PG1415Test(int stage, int teamNumber, bool result)
+        public void P1415Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1415, stage, teamNumber);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
 
-        #region PG1516Test
+        #region P1516Test
         /// <summary>
         /// Testet mit der Liga von Portugal.
         /// </summary>
@@ -2333,14 +2353,14 @@
         [TestCase(18, 15, true)]
         [TestCase(18, 16, true)]
         [TestCase(18, 17, true)]
-        public void PG1516Test(int stage, int teamNumber, bool result)
+        public void P1516Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1516, stage, teamNumber);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
 
-        #region PG1617Test
+        #region P1617Test
         /// <summary>
         /// Testet mit der Liga von Portugal.
         /// </summary>
@@ -2667,14 +2687,14 @@
         [TestCase(18, 15, true)]
         [TestCase(18, 16, true)]
         [TestCase(18, 17, true)]
-        public void PG1617Test(int stage, int teamNumber, bool result)
+        public void P1617Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1617, stage, teamNumber);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
 
-        #region PG1718Test
+        #region P1718Test
         /// <summary>
         /// Testet mit der Liga von Portugal.
         /// </summary>
@@ -2906,14 +2926,14 @@
         [TestCase(23, 15, false)]
         [TestCase(23, 16, false)]
         [TestCase(23, 17, false)]
-        public void PG1718Test(int stage, int teamNumber, bool result)
+        public void P1718Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1718, stage, teamNumber);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
 
-        #region PG1819Test
+        #region P1819Test
         /// <summary>
         /// Testet mit der Liga von Portugal.
         /// </summary>
@@ -3240,7 +3260,7 @@
         [TestCase(18, 15, true)]
         [TestCase(18, 16, true)]
         [TestCase(18, 17, true)]
-        public void PG1819Test(int stage, int teamNumber, bool result)
+        public void P1819Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1819, stage, teamNumber);
             Assert.AreEqual(result, returnedResult);

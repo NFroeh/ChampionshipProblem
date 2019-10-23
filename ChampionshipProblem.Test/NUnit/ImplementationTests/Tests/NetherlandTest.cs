@@ -1,15 +1,16 @@
 ﻿namespace ChampionshipProblem.Test.NUnit.ImplementationTests
 {
     using ChampionshipProblem.Classes;
-    using ChampionshipProblem.Implementation;
     using ChampionshipProblem.Services;
     using global::NUnit.Framework;
-    using System.Collections.Generic;
+    using global::NUnit.Framework.Interfaces;
+    using Utility;
 
     [TestFixture]
-    public class NetherlandTest
+    public class NetherlandTest : BaseTestClass
     {
         private const string leagueName = League.NetherlandsD0LeagueName;
+        private const Country country = Country.Netherlands;
         private ChampionshipViewModel ChampionshipViewModel;
         private LeagueStandingService LeagueStandingService0809;
         private LeagueStandingService LeagueStandingService0910;
@@ -28,17 +29,37 @@
         public void SetUp()
         {
             this.ChampionshipViewModel = new ChampionshipViewModel();
-            LeagueStandingService0809 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Netherlands, leagueName, "2008/2009");
-            LeagueStandingService0910 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Netherlands, leagueName, "2009/2010");
-            LeagueStandingService1011 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Netherlands, leagueName, "2010/2011");
-            LeagueStandingService1112 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Netherlands, leagueName, "2011/2012");
-            LeagueStandingService1213 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Netherlands, leagueName, "2012/2013");
-            LeagueStandingService1314 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Netherlands, leagueName, "2013/2014");
-            LeagueStandingService1415 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Netherlands, leagueName, "2014/2015");
-            LeagueStandingService1516 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Netherlands, leagueName, "2015/2016");
-            LeagueStandingService1617 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Netherlands, leagueName, "2016/2017");
-            LeagueStandingService1718 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Netherlands, leagueName, "2017/2018");
-            LeagueStandingService1819 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Netherlands, leagueName, "2018/2019");
+            LeagueStandingService0809 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2008/2009");
+            LeagueStandingService0910 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2009/2010");
+            LeagueStandingService1011 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2010/2011");
+            LeagueStandingService1112 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2011/2012");
+            LeagueStandingService1213 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2012/2013");
+            LeagueStandingService1314 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2013/2014");
+            LeagueStandingService1415 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2014/2015");
+            LeagueStandingService1516 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2015/2016");
+            LeagueStandingService1617 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2016/2017");
+            LeagueStandingService1718 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2017/2018");
+            LeagueStandingService1819 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2018/2019");
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            bool success = TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed;
+            bool expected = (bool)TestContext.CurrentContext.Test.Arguments[2];
+            bool returned = (success == expected) ? expected : !expected;
+            CSVWriter.WriteTestResult(
+                CurrentTestSetup.CurrentTestType,
+                country.ToString(),
+                leagueName,
+                TestContext.CurrentContext.Test.Name.Substring(1, 4),
+                (int)TestContext.CurrentContext.Test.Arguments[0],
+                (int)TestContext.CurrentContext.Test.Arguments[1],
+                expected,
+                returned,
+                success,
+                this.stopWatch.ElapsedMilliseconds
+            );
         }
 
         #region N0809Test

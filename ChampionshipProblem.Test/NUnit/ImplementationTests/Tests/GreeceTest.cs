@@ -1,16 +1,16 @@
 ﻿namespace ChampionshipProblem.Test.NUnit.ImplementationTests
 {
     using ChampionshipProblem.Classes;
-    using ChampionshipProblem.Implementation;
     using ChampionshipProblem.Services;
     using global::NUnit.Framework;
-    using System.Collections.Generic;
+    using global::NUnit.Framework.Interfaces;
+    using Utility;
 
     [TestFixture]
-    public class GreeceTest
+    public class GreeceTest : BaseTestClass
     {
         private const string leagueName = League.GreeceD0LeagueName;
-
+        private const Country country = Country.Greece;
         private ChampionshipViewModel ChampionshipViewModel;
         private LeagueStandingService LeagueStandingService0809;
         private LeagueStandingService LeagueStandingService0910;
@@ -23,11 +23,31 @@
         public void SetUp()
         {
             this.ChampionshipViewModel = new ChampionshipViewModel();
-            LeagueStandingService0809 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Greece, leagueName, "2008/2009");
-            LeagueStandingService0910 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Greece, leagueName, "2009/2010");
-            LeagueStandingService1314 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Greece, leagueName, "2013/2014");
-            LeagueStandingService1617 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Greece, leagueName, "2016/2017");
-            LeagueStandingService1718 = new LeagueStandingService(this.ChampionshipViewModel, Classes.Country.Greece, leagueName, "2017/2018");
+            LeagueStandingService0809 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2008/2009");
+            LeagueStandingService0910 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2009/2010");
+            LeagueStandingService1314 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2013/2014");
+            LeagueStandingService1617 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2016/2017");
+            LeagueStandingService1718 = new LeagueStandingService(this.ChampionshipViewModel, country, leagueName, "2017/2018");
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            bool success = TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed;
+            bool expected = (bool)TestContext.CurrentContext.Test.Arguments[2];
+            bool returned = (success == expected) ? expected : !expected;
+            CSVWriter.WriteTestResult(
+                CurrentTestSetup.CurrentTestType,
+                country.ToString(),
+                leagueName,
+                TestContext.CurrentContext.Test.Name.Substring(1, 4),
+                (int)TestContext.CurrentContext.Test.Arguments[0],
+                (int)TestContext.CurrentContext.Test.Arguments[1],
+                expected,
+                returned,
+                success,
+                this.stopWatch.ElapsedMilliseconds
+            );
         }
 
         #region G0809Test

@@ -92,6 +92,7 @@
     <Compile Include="ImplementationTests\EA\EAChampionGermanyTest.cs" />
     <Compile Include="ImplementationTests\Germany\ChampionGermanyTest.cs" />
     <Compile Include="ImplementationTests\SimulatedAnnealing\SAChampionGermanyTest.cs" />
+    <Compile Include="NUnit\ImplementationTests\BaseTestClass.cs" />
     <Compile Include="NUnit\ImplementationTests\Tests\BelgiumTest.cs" />
     <Compile Include="NUnit\ImplementationTests\CurrentTestSetup.cs" />
     <Compile Include="NUnit\ImplementationTests\Tests\EnglandTest.cs" />
@@ -113,6 +114,8 @@
     <Compile Include="ChampionshipTests\CanBeChampionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestUtils.cs" />
+    <Compile Include="Utility\CSVWriter.cs" />
+    <Compile Include="Utility\TestResultProperties.cs" />
     <Compile Include="WorstPossiblePositionTests\WorstPossiblePositionTest.cs" />
   </ItemGroup>
   <ItemGroup>
