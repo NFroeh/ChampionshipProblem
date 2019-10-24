@@ -1066,8 +1066,8 @@
         [TestCase(18, 11, true)]
         [TestCase(18, 12, true)]
         [TestCase(18, 13, true)]
-        [TestCase(18, 14, false)]
-        [TestCase(18, 15, false)]
+        [TestCase(18, 14, true)] // backtracking
+        [TestCase(18, 15, true)] // backtracking
 
         [TestCase(17, 00, true)]
         [TestCase(17, 01, true)]

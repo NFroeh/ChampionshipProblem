@@ -11,7 +11,7 @@
 
         public static TestAlgorithm CurrentTestType
         {
-            get { return TestAlgorithm.Brute; }
+            get { return TestAlgorithm.Heuristic; }
         }
 
         public static bool GetCurrentTestResult(LeagueStandingService leagueStandingService, int stage, int teamNumber)

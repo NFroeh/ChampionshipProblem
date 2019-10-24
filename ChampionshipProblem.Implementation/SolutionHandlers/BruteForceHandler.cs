@@ -23,6 +23,13 @@
             int[] result = r4Result.PointDifferences;
             Match[] matchResults = r4Result.Matches;
             bool canBeChampion = false;
+
+            // Zu viele Iterationen, der Test wird abgebrochen
+            if (numberOfIterations < 1 )
+            {
+                return new ChampionshipProblemResult(championshipProblemInput.PointDifferences, championshipProblemInput.Matches, null);
+            }
+
             Parallel.For(0, numberOfIterations, (index, loopState) =>
             {
                 string ternary = index.ConvertToBase(3);

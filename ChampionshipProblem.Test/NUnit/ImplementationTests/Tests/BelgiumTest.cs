@@ -879,7 +879,7 @@
         [TestCase(19, 12, true)]
         [TestCase(19, 13, true)]
         [TestCase(19, 14, true)]
-        [TestCase(19, 15, false)]
+        [TestCase(19, 15, true)] // backtracking
 
         [TestCase(18, 00, true)]
         [TestCase(18, 01, true)]
@@ -1030,7 +1030,7 @@
 
         [TestCase(26, 00, true)]
         [TestCase(26, 01, true)]
-        [TestCase(26, 02, true)]
+        [TestCase(26, 02, true)] // false?
         [TestCase(26, 03, false)]
         [TestCase(26, 04, false)]
         [TestCase(26, 05, false)]
@@ -1162,7 +1162,7 @@
         [TestCase(19, 12, true)]
         [TestCase(19, 13, true)]
         [TestCase(19, 14, true)]
-        [TestCase(19, 15, false)]
+        [TestCase(19, 15, true)] // backtracking
 
         [TestCase(18, 00, true)]
         [TestCase(18, 01, true)]

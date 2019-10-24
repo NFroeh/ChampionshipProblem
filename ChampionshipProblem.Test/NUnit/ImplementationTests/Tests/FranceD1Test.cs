@@ -144,8 +144,8 @@
         [TestCase(34, 7, true)]
         [TestCase(34, 8, true)]
         [TestCase(34, 9, true)]
-        [TestCase(34, 10, true)]
-        [TestCase(34, 11, true)]
+        [TestCase(34, 10, true)] // false?
+        [TestCase(34, 11, true)] // false?
         [TestCase(34, 12, false)]
         [TestCase(34, 13, false)]
         [TestCase(34, 14, false)]

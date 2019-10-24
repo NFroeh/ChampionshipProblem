@@ -1241,7 +1241,7 @@
         [TestCase(24, 16, true)]
         [TestCase(24, 17, true)]
         [TestCase(24, 18, true)]
-        [TestCase(24, 19, false)]
+        [TestCase(24, 19, true)]
 
         [TestCase(23, 00, true)]
         [TestCase(23, 01, true)]

@@ -86,8 +86,9 @@
             // Wenn es der letzte Spieltag ist, steht die Position fest
             if (stage == numberOfMatches)
             {
+                int neededPoints = leagueStandingEntries.First().Points;
                 return new ChampionComputationalResult(leagueStandingEntries) {
-                    CanWinChampionship = leagueStandingEntries.First().TeamId == teamId
+                    CanWinChampionship = leagueStandingEntries.Single((entry) => entry.TeamId == teamId).Points == neededPoints
                 };
             }
 
