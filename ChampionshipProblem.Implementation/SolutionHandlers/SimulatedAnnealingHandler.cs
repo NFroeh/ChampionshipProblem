@@ -23,7 +23,9 @@
             }
 
             int[] pointDifference = result.PointDifferences;
-            int previousD = result.PointDifferences.Sum();
+            int previousDb = result.PointDifferences
+                .Where((d) => d > 0)
+                .Sum();
             int acceptanceRate = 100;
             double acceptanceDecrease = 0.85;
             for (int i = 0; i < iterationTimes; i++)
@@ -42,10 +44,12 @@
                     return new ChampionshipProblemResult(pointDifference, result.Matches, true);
                 }
 
-                int completeD = pointDifference.Sum();
-                if (previousD > completeD || acceptedProbability < acceptanceRate)
+                int currentDb = pointDifference
+                    .Where((d) => d > 0)
+                    .Sum();
+                if (previousDb > currentDb || acceptedProbability < acceptanceRate)
                 {
-                    previousD = completeD;
+                    previousDb = currentDb;
                 }
                 else
                 {

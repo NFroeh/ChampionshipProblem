@@ -17,7 +17,9 @@
                 return result;
             }
 
-            int lastIndividuumD = championshipProblemInput.PointDifferences.Sum();
+            int lastIndividuumDb = championshipProblemInput.PointDifferences
+                .Where((d) => d > 0)
+                .Sum();
             int[] pointDifferences = championshipProblemInput.PointDifferences;
             Match[] lastIndividuum = championshipProblemInput.Matches;
             for (int i = 0; i < iterationTimes; i++)
@@ -35,11 +37,13 @@
 
                 pointDifferences = ComputePointDifferencesHandler.Handle(championshipProblemInput.PointDifferences, matches);
 
-                int sumD = pointDifferences.Sum();
-                if (sumD <= lastIndividuumD)
+                int sumDb = pointDifferences
+                    .Where((d) => d > 0)
+                    .Sum(); 
+                if (sumDb <= lastIndividuumDb)
                 {
                     lastIndividuum = matches;
-                    lastIndividuumD = sumD;
+                    lastIndividuumDb = sumDb;
                 }
 
                 if (!pointDifferences.Any((d) => d > 0))
