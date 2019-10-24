@@ -20,9 +20,13 @@
 
         public long ComputeTime { get; set; }
 
+        public int NumberTeams { get; set; }
+
+        public int NumberStages { get; set; }
+
         public override string ToString()
         {
-            return $"{Country},{LeagueName},{Season},{Stage},{TeamNumber},{Expected},{Returned},{IsTrue},{ComputeTime}";
+            return $"{Country},{LeagueName},{Season},{Stage},{TeamNumber},{Expected},{Returned},{IsTrue},{ComputeTime},{NumberTeams},{NumberStages}";
         }
     }
 }

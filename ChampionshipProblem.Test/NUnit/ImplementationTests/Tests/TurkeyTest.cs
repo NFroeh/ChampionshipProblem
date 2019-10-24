@@ -11,6 +11,8 @@
     {
         private const string leagueName = League.TurkeyD0LeagueName;
         private const Country country = Country.Turkey;
+        private const int numberTeams = 18;
+        private const int numberStages = 34;
         private ChampionshipViewModel ChampionshipViewModel;
         private LeagueStandingService LeagueStandingService0809;
         private LeagueStandingService LeagueStandingService1011;
@@ -50,7 +52,9 @@
                 expected,
                 returned,
                 success,
-                this.stopWatch.ElapsedMilliseconds
+                this.stopWatch.ElapsedMilliseconds,
+                numberTeams,
+                numberStages
             );
         }
 

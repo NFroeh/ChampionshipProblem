@@ -11,6 +11,8 @@
     {
         private const string leagueName = League.FranceD0LeagueName;
         private const Country country = Country.France;
+        private const int numberTeams = 20;
+        private const int numberStages = 38;
         private ChampionshipViewModel ChampionshipViewModel;
         private LeagueStandingService LeagueStandingService0809;
         private LeagueStandingService LeagueStandingService0910;
@@ -57,7 +59,9 @@
                 expected,
                 returned,
                 success,
-                this.stopWatch.ElapsedMilliseconds
+                this.stopWatch.ElapsedMilliseconds,
+                numberTeams,
+                numberStages
             );
         }
 

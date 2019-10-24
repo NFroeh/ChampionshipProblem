@@ -11,6 +11,8 @@
     {
         private const string leagueName = League.NetherlandsD0LeagueName;
         private const Country country = Country.Netherlands;
+        private const int numberTeams = 18;
+        private const int numberStages = 34;
         private ChampionshipViewModel ChampionshipViewModel;
         private LeagueStandingService LeagueStandingService0809;
         private LeagueStandingService LeagueStandingService0910;
@@ -58,7 +60,9 @@
                 expected,
                 returned,
                 success,
-                this.stopWatch.ElapsedMilliseconds
+                this.stopWatch.ElapsedMilliseconds,
+                numberTeams,
+                numberStages
             );
         }
 

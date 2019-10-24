@@ -11,6 +11,10 @@
     {
         private const string leagueName = League.BelgiumD0LeagueName;
         private const Country country = Country.Belgium;
+        private const int numberTeams1 = 18;
+        private const int numberStages1 = 34;
+        private const int numberTeams2 = 16;
+        private const int numberStages2 = 30;
         private ChampionshipViewModel ChampionshipViewModel;
         private LeagueStandingService LeagueStandingService0809;
         private LeagueStandingService LeagueStandingService1011;
@@ -41,6 +45,14 @@
             bool success = TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed;
             bool expected = (bool) TestContext.CurrentContext.Test.Arguments[2];
             bool returned = (success) ? expected : !expected;
+            string name = TestContext.CurrentContext.Test.Name.Substring(0, 9);
+            int numberTeams = numberTeams2;
+            int numberStages = numberStages2;
+            if (name == nameof(B0809Test))
+            {
+                numberTeams = numberTeams1;
+                numberStages = numberStages1;
+            }
             CSVWriter.WriteTestResult(
                 CurrentTestSetup.CurrentTestType,
                 country.ToString(),
@@ -51,7 +63,9 @@
                 expected,
                 returned,
                 success,
-                this.stopWatch.ElapsedMilliseconds
+                this.stopWatch.ElapsedMilliseconds,
+                numberTeams,
+                numberStages
             );
         }
 
@@ -382,7 +396,7 @@
         [TestCase(18, 15, true)]
         [TestCase(18, 16, true)]
         [TestCase(18, 17, true)]
-        public void B0809Test(int stage, int teamNumber, bool result)
+        public void B0809Test(int stage, int teamNumber, bool result, int numberTeams = 18, int numberStages = 34)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService0809, stage, teamNumber);
             Assert.AreEqual(result, returnedResult);
@@ -665,7 +679,7 @@
         [TestCase(15, 13, true)]
         [TestCase(15, 14, true)]
         [TestCase(15, 15, true)]
-        public void B1011Test(int stage, int teamNumber, bool result)
+        public void B1011Test(int stage, int teamNumber, bool result, int numberTeams = 16, int numberStages = 30)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1011, stage, teamNumber);
             Assert.AreEqual(result, returnedResult);
@@ -948,7 +962,7 @@
         [TestCase(15, 13, true)]
         [TestCase(15, 14, true)]
         [TestCase(15, 15, true)]
-        public void B1112Test(int stage, int teamNumber, bool result)
+        public void B1112Test(int stage, int teamNumber, bool result, int numberTeams = 16, int numberStages = 30)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1112, stage, teamNumber);
             Assert.AreEqual(result, returnedResult);
@@ -1231,7 +1245,7 @@
         [TestCase(15, 13, true)]
         [TestCase(15, 14, true)]
         [TestCase(15, 15, true)]
-        public void B1213Test(int stage, int teamNumber, bool result)
+        public void B1213Test(int stage, int teamNumber, bool result, int numberTeams = 16, int numberStages = 30)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1213, stage, teamNumber);
             Assert.AreEqual(result, returnedResult);
@@ -1514,7 +1528,7 @@
         [TestCase(15, 13, true)]
         [TestCase(15, 14, true)]
         [TestCase(15, 15, true)]
-        public void B1415Test(int stage, int teamNumber, bool result)
+        public void B1415Test(int stage, int teamNumber, bool result, int numberTeams = 16, int numberStages = 30)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1415, stage, teamNumber);
             Assert.AreEqual(result, returnedResult);
@@ -1797,7 +1811,7 @@
         [TestCase(15, 13, true)]
         [TestCase(15, 14, true)]
         [TestCase(15, 15, true)]
-        public void B1516Test(int stage, int teamNumber, bool result)
+        public void B1516Test(int stage, int teamNumber, bool result, int numberTeams = 16, int numberStages = 30)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1516, stage, teamNumber);
             Assert.AreEqual(result, returnedResult);
@@ -2080,7 +2094,7 @@
         [TestCase(15, 13, true)]
         [TestCase(15, 14, true)]
         [TestCase(15, 15, true)]
-        public void B1718Test(int stage, int teamNumber, bool result)
+        public void B1718Test(int stage, int teamNumber, bool result, int numberTeams = 16, int numberStages = 30)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1718, stage, teamNumber);
             Assert.AreEqual(result, returnedResult);
@@ -2363,7 +2377,7 @@
         [TestCase(15, 13, true)]
         [TestCase(15, 14, true)]
         [TestCase(15, 15, true)]
-        public void B1819Test(int stage, int teamNumber, bool result)
+        public void B1819Test(int stage, int teamNumber, bool result, int numberTeams = 16, int numberStages = 30)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1819, stage, teamNumber);
             Assert.AreEqual(result, returnedResult);

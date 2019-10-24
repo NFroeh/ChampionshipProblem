@@ -11,6 +11,8 @@
     {
         private const string leagueName = League.SwitzerlandD0LeagueName;
         private const Country country = Country.Switzerland;
+        private const int numberTeams = 10;
+        private const int numberStages = 36;
         private ChampionshipViewModel ChampionshipViewModel;
         private LeagueStandingService LeagueStandingService0809;
         private LeagueStandingService LeagueStandingService0910;
@@ -50,7 +52,9 @@
                 expected,
                 returned,
                 success,
-                this.stopWatch.ElapsedMilliseconds
+                this.stopWatch.ElapsedMilliseconds,
+                numberTeams,
+                numberStages
             );
         }
 

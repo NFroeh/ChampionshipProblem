@@ -11,6 +11,10 @@
     {
         private const string leagueName = League.PortugalD0LeagueName;
         private const Country country = Country.Portugal;
+        private const int numberTeams1 = 16;
+        private const int numberStages1 = 30;
+        private const int numberTeams2 = 18;
+        private const int numberStages2 = 34;
         private ChampionshipViewModel ChampionshipViewModel;
         private LeagueStandingService LeagueStandingService0809;
         private LeagueStandingService LeagueStandingService0910;
@@ -48,6 +52,16 @@
             bool success = TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed;
             bool expected = (bool)TestContext.CurrentContext.Test.Arguments[2];
             bool returned = (success) ? expected : !expected;
+            string name = TestContext.CurrentContext.Test.Name.Substring(0, 9);
+            int numberTeams = numberTeams2;
+            int numberStages = numberStages2;
+            if (name == nameof(P0809Test) || name == nameof(P0910Test) || name == nameof(P1011Test) || 
+                name == nameof(P1112Test) || name == nameof(P1213Test) || name == nameof(P1314Test))
+            {
+                numberTeams = numberTeams1;
+                numberStages = numberStages1;
+            }
+
             CSVWriter.WriteTestResult(
                 CurrentTestSetup.CurrentTestType,
                 country.ToString(),
@@ -58,7 +72,9 @@
                 expected,
                 returned,
                 success,
-                this.stopWatch.ElapsedMilliseconds
+                this.stopWatch.ElapsedMilliseconds,
+                numberTeams,
+                numberStages
             );
         }
 

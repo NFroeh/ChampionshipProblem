@@ -11,6 +11,8 @@
     {
         private const string leagueName = League.GreeceD0LeagueName;
         private const Country country = Country.Greece;
+        private const int numberTeams = 16;
+        private const int numberStages = 30;
         private ChampionshipViewModel ChampionshipViewModel;
         private LeagueStandingService LeagueStandingService0809;
         private LeagueStandingService LeagueStandingService0910;
@@ -46,7 +48,9 @@
                 expected,
                 returned,
                 success,
-                this.stopWatch.ElapsedMilliseconds
+                this.stopWatch.ElapsedMilliseconds,
+                numberTeams,
+                numberStages
             );
         }
 
