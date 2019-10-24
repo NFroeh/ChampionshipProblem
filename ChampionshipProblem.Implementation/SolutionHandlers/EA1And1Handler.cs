@@ -37,13 +37,13 @@
 
                 pointDifferences = ComputePointDifferencesHandler.Handle(championshipProblemInput.PointDifferences, matches);
 
-                int sumDb = pointDifferences
+                int currentDb = pointDifferences
                     .Where((d) => d > 0)
                     .Sum(); 
-                if (sumDb <= lastIndividuumDb)
+                if (currentDb <= lastIndividuumDb)
                 {
                     lastIndividuum = matches;
-                    lastIndividuumDb = sumDb;
+                    lastIndividuumDb = currentDb;
                 }
 
                 if (!pointDifferences.Any((d) => d > 0))
