@@ -11,7 +11,7 @@
 
         public static TestAlgorithm CurrentTestType
         {
-            get { return TestAlgorithm.EA; }
+            get { return TestAlgorithm.SA; }
         }
 
         public static bool GetCurrentTestResult(LeagueStandingService leagueStandingService, int stage, int teamNumber)

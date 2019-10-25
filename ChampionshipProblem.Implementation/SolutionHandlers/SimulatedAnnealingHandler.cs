@@ -22,7 +22,7 @@
                 return result;
             }
 
-            int[] pointDifference = result.PointDifferences;
+            int[] pointDifferences = result.PointDifferences;
             int previousDb = result.PointDifferences
                 .Where((d) => d > 0)
                 .Sum();
@@ -37,14 +37,14 @@
                 MatchResult changedResult = result.Matches[changeIndex].Result;
 
                 result.Matches[changeIndex].Result = (MatchResult) (((byte) changedResult + change) % 3);
-                pointDifference = ComputePointDifferencesHandler.Handle(pointDifference, result.Matches);
+                pointDifferences = ComputePointDifferencesHandler.Handle(championshipProblemInput.PointDifferences, result.Matches);
 
-                if (!pointDifference.Any((d) => d > 0))
+                if (!pointDifferences.Any((d) => d > 0))
                 {
-                    return new ChampionshipProblemResult(pointDifference, result.Matches, true);
+                    return new ChampionshipProblemResult(pointDifferences, result.Matches, true);
                 }
 
-                int currentDb = pointDifference
+                int currentDb = pointDifferences
                     .Where((d) => d > 0)
                     .Sum();
                 if (previousDb > currentDb || acceptedProbability < acceptanceRate)
@@ -64,7 +64,7 @@
                 }
             }
 
-            return new ChampionshipProblemResult(pointDifference, result.Matches, false);
+            return new ChampionshipProblemResult(pointDifferences, result.Matches, false);
         }
     }
 }
