@@ -45,7 +45,7 @@
         /// <summary>
         /// Ob der Verein die Meisterschaft gewinnen kann.
         /// </summary>
-        public bool CanWinChampionship { get; set; }
+        public bool? CanWinChampionship { get; set; }
         #endregion
 
         #region ComputationalStanding

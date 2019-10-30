@@ -14,7 +14,7 @@
 
         public bool Expected { get; set; }
 
-        public bool Returned { get; set; }
+        public bool? Returned { get; set; }
 
         public bool IsTrue { get; set; }
 
@@ -24,9 +24,13 @@
 
         public int NumberStages { get; set; }
 
+        public int TeamBackIndex { get; set; }
+
+        public int StageBackIndex { get; set; }
+
         public override string ToString()
         {
-            return $"{Country},{LeagueName},{Season},{Stage},{TeamNumber},{Expected},{Returned},{IsTrue},{ComputeTime},{NumberTeams},{NumberStages}";
+            return $"{Country},{LeagueName},{Season},{Stage},{TeamNumber},{Expected},{Returned},{IsTrue},{ComputeTime},{NumberTeams},{NumberStages},{TeamBackIndex},{StageBackIndex}";
         }
     }
 }

@@ -20,7 +20,7 @@
 
             if (pointDifferences.Any((d) => d > 0))
             {
-                return new ChampionshipProblemResult(pointDifferences, championshipProblemInput.Matches, false);
+                return new ChampionshipProblemResult(pointDifferences, championshipProblemInput.Matches, null);
             }
             else
             {

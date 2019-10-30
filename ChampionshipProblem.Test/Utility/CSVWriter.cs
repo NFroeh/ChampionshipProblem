@@ -9,7 +9,7 @@
     {
         private const string name = "AlgorithmResults.csv";
 
-        public static void WriteTestResult(TestAlgorithm currentAlgorithm, string country, string leagueName, string season, int stage, int teamNumber, bool expected, bool returned, bool isTrue, long computeTime, int numberTeams, int numberStages)
+        public static void WriteTestResult(TestAlgorithm currentAlgorithm, string country, string leagueName, string season, int stage, int teamNumber, bool expected, bool? returned, bool isTrue, long computeTime, int numberTeams, int numberStages)
         {
             TestResultProperties testResultProperties = new TestResultProperties()
             {
@@ -23,7 +23,9 @@
                 IsTrue = isTrue,
                 ComputeTime = computeTime,
                 NumberTeams = numberTeams,
-                NumberStages = numberStages
+                NumberStages = numberStages,
+                TeamBackIndex = numberTeams - teamNumber,
+                StageBackIndex = numberStages - stage
             };
             string filename = string.Empty;
             switch (currentAlgorithm)
@@ -57,7 +59,7 @@
             string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\" +  filename;
             if (!File.Exists(path))
             {
-                File.AppendAllText(path, "Country,LeagueName,Season,Stage,TeamNumber,Expected,Returned,IsTrue,ComputeTime,NumberTeams,NumberStages");
+                File.AppendAllText(path, "Country,LeagueName,Season,Stage,TeamNumber,Expected,Returned,IsTrue,ComputeTime,NumberTeams,NumberStages,TeamBackIndex,StageBackIndex");
             }
 
             File.AppendAllText(path, Environment.NewLine);

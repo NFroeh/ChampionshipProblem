@@ -11,10 +11,10 @@
 
         public static TestAlgorithm CurrentTestType
         {
-            get { return TestAlgorithm.SA; }
+            get { return TestAlgorithm.Backtracking; }
         }
 
-        public static bool GetCurrentTestResult(LeagueStandingService leagueStandingService, int stage, int teamNumber)
+        public static bool? GetCurrentTestResult(LeagueStandingService leagueStandingService, int stage, int teamNumber)
         {
             List<LeagueStandingEntry> standing = leagueStandingService.CalculateStanding(stage);
             bool? returnedResult = false;
@@ -40,7 +40,7 @@
                     throw new System.Exception($"Unkown test type {CurrentTestSetup.CurrentTestType}.");
             }
 
-            return returnedResult.Value;
+            return returnedResult;
         }
     }
 }

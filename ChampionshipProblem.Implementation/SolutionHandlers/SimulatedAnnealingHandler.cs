@@ -17,7 +17,7 @@
                 return result;
             }
             
-            if (result.CanBeChampion == false && result.Matches.Length == 0)
+            if (result.CanBeChampion.HasValue && result.CanBeChampion == false)
             {
                 return result;
             }
@@ -64,7 +64,7 @@
                 }
             }
 
-            return new ChampionshipProblemResult(pointDifferences, result.Matches, false);
+            return new ChampionshipProblemResult(pointDifferences, result.Matches, null);
         }
     }
 }

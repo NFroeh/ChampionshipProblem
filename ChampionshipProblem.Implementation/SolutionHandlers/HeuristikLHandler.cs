@@ -15,6 +15,11 @@
             {
                 return result;
             }
+            
+            if (result.CanBeChampion.HasValue && result.CanBeChampion == false)
+            {
+                return result;
+            }
 
             // Heuristik L2: Betrachte die Spiele der besseren Mannschaften, welche keine andere Mannschaft über sich bringt
             int[] pointDifferences = result.PointDifferences;
@@ -96,20 +101,7 @@
             }
             while (betterTeams.Any((bTeam) => teamsAlreadyChecked.None(tId => bTeam == tId)));
 
-            // LeagueStanding neu berechnen
-            /*pointDifferences = ComputePointDifferencesHandler.Handle(pointDifferences, result.Matches);
-            betterTeams = pointDifferences
-                .Select((d, index) => new { D = d, I = index })
-                .Where((t) => t.D > 0)
-                .OrderByDescending(t => t.D)
-                .Select((t) => t.I)
-                .ToList();
-            if (betterTeams.Count() == 0)
-            {
-                return new ChampionshipProblemResult(pointDifferences, championshipProblemInput.Matches, true);
-            }*/
-
-            // Heuristik L4
+            // Heuristik L3
             // Da die Begegnungen, welche nicht durch Teams aus den betterTeams bestehen, keinen Unterschied machen, müssen nun hier die Spiele betrachtet werden, welche 
             // zwischen den Mannschaften sind
             foreach (int betterTeam in betterTeams)
@@ -194,7 +186,7 @@
                 return new ChampionshipProblemResult(pointDifferences, result.Matches, true);
             }
 
-            return new ChampionshipProblemResult(pointDifferences, result.Matches, false);
+            return new ChampionshipProblemResult(pointDifferences, result.Matches, null);
         }
     }
 }

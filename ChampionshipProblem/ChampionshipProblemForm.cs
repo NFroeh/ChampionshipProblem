@@ -335,7 +335,7 @@ namespace ChampionshipProblem
                         ChampionComputationalResult championComputationalResult = this.ChampionshipViewModel.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, entry.TeamId, true);
                         stopwatch.Stop();
                         entry.CanWinChampionship = championComputationalResult.CanWinChampionship;
-                        if (championComputationalResult.CanWinChampionship)
+                        if (championComputationalResult.CanWinChampionship.HasValue && championComputationalResult.CanWinChampionship == true)
                         {
                             // Das Result abspeichern
                             CurrentChampionComputationalResult = championComputationalResult;

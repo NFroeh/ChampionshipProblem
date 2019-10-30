@@ -17,6 +17,11 @@
                 return result;
             }
 
+            if (result.CanBeChampion.HasValue && result.CanBeChampion == false)
+            {
+                return result;
+            }
+
             int lastIndividuumDb = championshipProblemInput.PointDifferences
                 .Where((d) => d > 0)
                 .Sum();
@@ -52,7 +57,7 @@
                 }
             }
 
-            return new ChampionshipProblemResult(pointDifferences, result.Matches, false);
+            return new ChampionshipProblemResult(pointDifferences, result.Matches, null);
         }
     }
 }

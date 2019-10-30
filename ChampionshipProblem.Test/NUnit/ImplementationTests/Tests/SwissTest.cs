@@ -4,6 +4,8 @@
     using ChampionshipProblem.Services;
     using global::NUnit.Framework;
     using global::NUnit.Framework.Interfaces;
+    using System.Collections.Generic;
+    using System.Linq;
     using Utility;
 
     [TestFixture, Timeout(CurrentTestSetup.TestTimeout)]
@@ -39,9 +41,23 @@
         [TearDown]
         public void TearDown()
         {
+            long time = this.stopWatch.ElapsedMilliseconds;
             bool success = TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed;
             bool expected = (bool)TestContext.CurrentContext.Test.Arguments[2];
-            bool returned = (success) ? expected : !expected;
+            bool? returned = null;
+            IEnumerable<AssertionResult> assertions = TestContext.CurrentContext.Result.Assertions;
+            if (success)
+            {
+                returned = expected;
+            }
+            else
+            {
+                if (assertions.Count() > 1)
+                {
+                    returned = !expected;
+                }
+            }
+
             CSVWriter.WriteTestResult(
                 CurrentTestSetup.CurrentTestType,
                 country.ToString(),
@@ -52,7 +68,7 @@
                 expected,
                 returned,
                 success,
-                this.stopWatch.ElapsedMilliseconds,
+                time,
                 numberTeams,
                 numberStages
             );
@@ -274,6 +290,7 @@
         public void S0809Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService0809, stage, teamNumber);
+            Assert.IsNotNull(returnedResult);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
@@ -714,6 +731,7 @@
         public void S1011Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1011, stage, teamNumber);
+            Assert.IsNotNull(returnedResult);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
@@ -934,6 +952,7 @@
         public void S1213Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1213, stage, teamNumber);
+            Assert.IsNotNull(returnedResult);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
@@ -1154,6 +1173,7 @@
         public void S1314Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1314, stage, teamNumber);
+            Assert.IsNotNull(returnedResult);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
@@ -1374,6 +1394,7 @@
         public void S1415Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1415, stage, teamNumber);
+            Assert.IsNotNull(returnedResult);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
@@ -1594,6 +1615,7 @@
         public void S1516Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1516, stage, teamNumber);
+            Assert.IsNotNull(returnedResult);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion

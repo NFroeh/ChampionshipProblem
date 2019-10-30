@@ -4,6 +4,8 @@
     using ChampionshipProblem.Services;
     using global::NUnit.Framework;
     using global::NUnit.Framework.Interfaces;
+    using System.Collections.Generic;
+    using System.Linq;
     using Utility;
 
     [TestFixture, Timeout(CurrentTestSetup.TestTimeout)]
@@ -37,9 +39,23 @@
         [TearDown]
         public void TearDown()
         {
+            long time = this.stopWatch.ElapsedMilliseconds;
             bool success = TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed;
             bool expected = (bool)TestContext.CurrentContext.Test.Arguments[2];
-            bool returned = (success) ? expected : !expected;
+            bool? returned = null;
+            IEnumerable<AssertionResult> assertions = TestContext.CurrentContext.Result.Assertions;
+            if (success)
+            {
+                returned = expected;
+            }
+            else
+            {
+                if (assertions.Count() > 1)
+                {
+                    returned = !expected;
+                }
+            }
+
             CSVWriter.WriteTestResult(
                 CurrentTestSetup.CurrentTestType,
                 country.ToString(),
@@ -50,7 +66,7 @@
                 expected,
                 returned,
                 success,
-                this.stopWatch.ElapsedMilliseconds,
+                time,
                 numberTeams,
                 numberStages
             );
@@ -566,55 +582,10 @@
         [TestCase(21, 19, true)]
         [TestCase(21, 20, true)]
         [TestCase(21, 21, true)]
-
-        [TestCase(20, 00, true)]
-        [TestCase(20, 01, true)]
-        [TestCase(20, 02, true)]
-        [TestCase(20, 03, true)]
-        [TestCase(20, 04, true)]
-        [TestCase(20, 05, true)]
-        [TestCase(20, 06, true)]
-        [TestCase(20, 07, true)]
-        [TestCase(20, 08, true)]
-        [TestCase(20, 09, true)]
-        [TestCase(20, 10, true)]
-        [TestCase(20, 11, true)]
-        [TestCase(20, 12, true)]
-        [TestCase(20, 13, true)]
-        [TestCase(20, 14, true)]
-        [TestCase(20, 15, true)]
-        [TestCase(20, 16, true)]
-        [TestCase(20, 17, true)]
-        [TestCase(20, 18, true)]
-        [TestCase(20, 19, true)]
-        [TestCase(20, 20, true)]
-        [TestCase(20, 21, true)]
-
-        [TestCase(19, 00, true)]
-        [TestCase(19, 01, true)]
-        [TestCase(19, 02, true)]
-        [TestCase(19, 03, true)]
-        [TestCase(19, 04, true)]
-        [TestCase(19, 05, true)]
-        [TestCase(19, 06, true)]
-        [TestCase(19, 07, true)]
-        [TestCase(19, 08, true)]
-        [TestCase(19, 09, true)]
-        [TestCase(19, 10, true)]
-        [TestCase(19, 11, true)]
-        [TestCase(19, 12, true)]
-        [TestCase(19, 13, true)]
-        [TestCase(19, 14, true)]
-        [TestCase(19, 15, true)]
-        [TestCase(19, 16, true)]
-        [TestCase(19, 17, true)]
-        [TestCase(19, 18, true)]
-        [TestCase(19, 19, true)]
-        [TestCase(19, 20, true)]
-        [TestCase(19, 21, true)]
         public void S0809Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService0809, stage, teamNumber);
+            Assert.IsNotNull(returnedResult);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
@@ -1129,55 +1100,10 @@
         [TestCase(21, 19, true)]
         [TestCase(21, 20, true)]
         [TestCase(21, 21, true)]
-
-        [TestCase(20, 00, true)]
-        [TestCase(20, 01, true)]
-        [TestCase(20, 02, true)]
-        [TestCase(20, 03, true)]
-        [TestCase(20, 04, true)]
-        [TestCase(20, 05, true)]
-        [TestCase(20, 06, true)]
-        [TestCase(20, 07, true)]
-        [TestCase(20, 08, true)]
-        [TestCase(20, 09, true)]
-        [TestCase(20, 10, true)]
-        [TestCase(20, 11, true)]
-        [TestCase(20, 12, true)]
-        [TestCase(20, 13, true)]
-        [TestCase(20, 14, true)]
-        [TestCase(20, 15, true)]
-        [TestCase(20, 16, true)]
-        [TestCase(20, 17, true)]
-        [TestCase(20, 18, true)]
-        [TestCase(20, 19, true)]
-        [TestCase(20, 20, true)]
-        [TestCase(20, 21, true)]
-
-        [TestCase(19, 00, true)]
-        [TestCase(19, 01, true)]
-        [TestCase(19, 02, true)]
-        [TestCase(19, 03, true)]
-        [TestCase(19, 04, true)]
-        [TestCase(19, 05, true)]
-        [TestCase(19, 06, true)]
-        [TestCase(19, 07, true)]
-        [TestCase(19, 08, true)]
-        [TestCase(19, 09, true)]
-        [TestCase(19, 10, true)]
-        [TestCase(19, 11, true)]
-        [TestCase(19, 12, true)]
-        [TestCase(19, 13, true)]
-        [TestCase(19, 14, true)]
-        [TestCase(19, 15, true)]
-        [TestCase(19, 16, true)]
-        [TestCase(19, 17, true)]
-        [TestCase(19, 18, true)]
-        [TestCase(19, 19, true)]
-        [TestCase(19, 20, true)]
-        [TestCase(19, 21, true)]
         public void S0910Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService0910, stage, teamNumber);
+            Assert.IsNotNull(returnedResult);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
@@ -1692,55 +1618,10 @@
         [TestCase(21, 19, true)]
         [TestCase(21, 20, true)]
         [TestCase(21, 21, true)]
-
-        [TestCase(20, 00, true)]
-        [TestCase(20, 01, true)]
-        [TestCase(20, 02, true)]
-        [TestCase(20, 03, true)]
-        [TestCase(20, 04, true)]
-        [TestCase(20, 05, true)]
-        [TestCase(20, 06, true)]
-        [TestCase(20, 07, true)]
-        [TestCase(20, 08, true)]
-        [TestCase(20, 09, true)]
-        [TestCase(20, 10, true)]
-        [TestCase(20, 11, true)]
-        [TestCase(20, 12, true)]
-        [TestCase(20, 13, true)]
-        [TestCase(20, 14, true)]
-        [TestCase(20, 15, true)]
-        [TestCase(20, 16, true)]
-        [TestCase(20, 17, true)]
-        [TestCase(20, 18, true)]
-        [TestCase(20, 19, true)]
-        [TestCase(20, 20, true)]
-        [TestCase(20, 21, true)]
-
-        [TestCase(19, 00, true)]
-        [TestCase(19, 01, true)]
-        [TestCase(19, 02, true)]
-        [TestCase(19, 03, true)]
-        [TestCase(19, 04, true)]
-        [TestCase(19, 05, true)]
-        [TestCase(19, 06, true)]
-        [TestCase(19, 07, true)]
-        [TestCase(19, 08, true)]
-        [TestCase(19, 09, true)]
-        [TestCase(19, 10, true)]
-        [TestCase(19, 11, true)]
-        [TestCase(19, 12, true)]
-        [TestCase(19, 13, true)]
-        [TestCase(19, 14, true)]
-        [TestCase(19, 15, true)]
-        [TestCase(19, 16, true)]
-        [TestCase(19, 17, true)]
-        [TestCase(19, 18, true)]
-        [TestCase(19, 19, true)]
-        [TestCase(19, 20, true)]
-        [TestCase(19, 21, true)]
         public void S1011Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1011, stage, teamNumber);
+            Assert.IsNotNull(returnedResult);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
@@ -2255,55 +2136,10 @@
         [TestCase(21, 19, true)]
         [TestCase(21, 20, true)]
         [TestCase(21, 21, true)]
-
-        [TestCase(20, 00, true)]
-        [TestCase(20, 01, true)]
-        [TestCase(20, 02, true)]
-        [TestCase(20, 03, true)]
-        [TestCase(20, 04, true)]
-        [TestCase(20, 05, true)]
-        [TestCase(20, 06, true)]
-        [TestCase(20, 07, true)]
-        [TestCase(20, 08, true)]
-        [TestCase(20, 09, true)]
-        [TestCase(20, 10, true)]
-        [TestCase(20, 11, true)]
-        [TestCase(20, 12, true)]
-        [TestCase(20, 13, true)]
-        [TestCase(20, 14, true)]
-        [TestCase(20, 15, true)]
-        [TestCase(20, 16, true)]
-        [TestCase(20, 17, true)]
-        [TestCase(20, 18, true)]
-        [TestCase(20, 19, true)]
-        [TestCase(20, 20, true)]
-        [TestCase(20, 21, true)]
-
-        [TestCase(19, 00, true)]
-        [TestCase(19, 01, true)]
-        [TestCase(19, 02, true)]
-        [TestCase(19, 03, true)]
-        [TestCase(19, 04, true)]
-        [TestCase(19, 05, true)]
-        [TestCase(19, 06, true)]
-        [TestCase(19, 07, true)]
-        [TestCase(19, 08, true)]
-        [TestCase(19, 09, true)]
-        [TestCase(19, 10, true)]
-        [TestCase(19, 11, true)]
-        [TestCase(19, 12, true)]
-        [TestCase(19, 13, true)]
-        [TestCase(19, 14, true)]
-        [TestCase(19, 15, true)]
-        [TestCase(19, 16, true)]
-        [TestCase(19, 17, true)]
-        [TestCase(19, 18, true)]
-        [TestCase(19, 19, true)]
-        [TestCase(19, 20, true)]
-        [TestCase(19, 21, true)]
         public void S1213Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1213, stage, teamNumber);
+            Assert.IsNotNull(returnedResult);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
@@ -2818,55 +2654,10 @@
         [TestCase(21, 19, true)]
         [TestCase(21, 20, true)]
         [TestCase(21, 21, true)]
-
-        [TestCase(20, 00, true)]
-        [TestCase(20, 01, true)]
-        [TestCase(20, 02, true)]
-        [TestCase(20, 03, true)]
-        [TestCase(20, 04, true)]
-        [TestCase(20, 05, true)]
-        [TestCase(20, 06, true)]
-        [TestCase(20, 07, true)]
-        [TestCase(20, 08, true)]
-        [TestCase(20, 09, true)]
-        [TestCase(20, 10, true)]
-        [TestCase(20, 11, true)]
-        [TestCase(20, 12, true)]
-        [TestCase(20, 13, true)]
-        [TestCase(20, 14, true)]
-        [TestCase(20, 15, true)]
-        [TestCase(20, 16, true)]
-        [TestCase(20, 17, true)]
-        [TestCase(20, 18, true)]
-        [TestCase(20, 19, true)]
-        [TestCase(20, 20, true)]
-        [TestCase(20, 21, true)]
-
-        [TestCase(19, 00, true)]
-        [TestCase(19, 01, true)]
-        [TestCase(19, 02, true)]
-        [TestCase(19, 03, true)]
-        [TestCase(19, 04, true)]
-        [TestCase(19, 05, true)]
-        [TestCase(19, 06, true)]
-        [TestCase(19, 07, true)]
-        [TestCase(19, 08, true)]
-        [TestCase(19, 09, true)]
-        [TestCase(19, 10, true)]
-        [TestCase(19, 11, true)]
-        [TestCase(19, 12, true)]
-        [TestCase(19, 13, true)]
-        [TestCase(19, 14, true)]
-        [TestCase(19, 15, true)]
-        [TestCase(19, 16, true)]
-        [TestCase(19, 17, true)]
-        [TestCase(19, 18, true)]
-        [TestCase(19, 19, true)]
-        [TestCase(19, 20, true)]
-        [TestCase(19, 21, true)]
         public void S1314Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1314, stage, teamNumber);
+            Assert.IsNotNull(returnedResult);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
@@ -3381,55 +3172,10 @@
         [TestCase(21, 19, true)]
         [TestCase(21, 20, true)]
         [TestCase(21, 21, true)]
-
-        [TestCase(20, 00, true)]
-        [TestCase(20, 01, true)]
-        [TestCase(20, 02, true)]
-        [TestCase(20, 03, true)]
-        [TestCase(20, 04, true)]
-        [TestCase(20, 05, true)]
-        [TestCase(20, 06, true)]
-        [TestCase(20, 07, true)]
-        [TestCase(20, 08, true)]
-        [TestCase(20, 09, true)]
-        [TestCase(20, 10, true)]
-        [TestCase(20, 11, true)]
-        [TestCase(20, 12, true)]
-        [TestCase(20, 13, true)]
-        [TestCase(20, 14, true)]
-        [TestCase(20, 15, true)]
-        [TestCase(20, 16, true)]
-        [TestCase(20, 17, true)]
-        [TestCase(20, 18, true)]
-        [TestCase(20, 19, true)]
-        [TestCase(20, 20, true)]
-        [TestCase(20, 21, true)]
-
-        [TestCase(19, 00, true)]
-        [TestCase(19, 01, true)]
-        [TestCase(19, 02, true)]
-        [TestCase(19, 03, true)]
-        [TestCase(19, 04, true)]
-        [TestCase(19, 05, true)]
-        [TestCase(19, 06, true)]
-        [TestCase(19, 07, true)]
-        [TestCase(19, 08, true)]
-        [TestCase(19, 09, true)]
-        [TestCase(19, 10, true)]
-        [TestCase(19, 11, true)]
-        [TestCase(19, 12, true)]
-        [TestCase(19, 13, true)]
-        [TestCase(19, 14, true)]
-        [TestCase(19, 15, true)]
-        [TestCase(19, 16, true)]
-        [TestCase(19, 17, true)]
-        [TestCase(19, 18, true)]
-        [TestCase(19, 19, true)]
-        [TestCase(19, 20, true)]
-        [TestCase(19, 21, true)]
         public void S1819Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService1819, stage, teamNumber);
+            Assert.IsNotNull(returnedResult);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion

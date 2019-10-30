@@ -668,7 +668,7 @@
             // Es wurde nun ein Team ermittelt, was nicht durch durchswitchen vom ersten Platz verdrängt werden kann, hier könnten nun die Schranke benutzt werden
             return new ChampionComputationalResult()
             {
-                CanWinChampionship = false
+                CanWinChampionship = null
             };
         }
         #endregion
