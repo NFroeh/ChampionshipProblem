@@ -377,7 +377,7 @@
         [TestCase(25, 16, true)]
         [TestCase(25, 17, true)]
         [TestCase(25, 18, true)]
-        [TestCase(25, 19, true)] // backtracking
+        [TestCase(25, 19, false)]
 
         [TestCase(24, 00, true)]
         [TestCase(24, 01, true)]
@@ -809,7 +809,7 @@
         [TestCase(25, 16, true)]
         [TestCase(25, 17, true)]
         [TestCase(25, 18, true)]
-        [TestCase(25, 19, false)]
+        [TestCase(25, 19, true)]
 
         [TestCase(24, 00, true)]
         [TestCase(24, 01, true)]

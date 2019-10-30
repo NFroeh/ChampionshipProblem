@@ -1083,7 +1083,7 @@
 
         [TestCase(26, 00, true)]
         [TestCase(26, 01, true)]
-        [TestCase(26, 02, true)] // false?
+        [TestCase(26, 02, false)]
         [TestCase(26, 03, false)]
         [TestCase(26, 04, false)]
         [TestCase(26, 05, false)]
