@@ -11,7 +11,7 @@
 
         public static TestAlgorithm CurrentTestType
         {
-            get { return TestAlgorithm.SA; }
+            get { return TestAlgorithm.HeuristicR; }
         }
 
         public static bool? GetCurrentTestResult(LeagueStandingService leagueStandingService, int stage, int teamNumber)
@@ -35,6 +35,9 @@
                     break;
                 case TestAlgorithm.Backtracking:
                     returnedResult = leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[teamNumber].TeamId, false).CanWinChampionship;
+                    break;
+                case TestAlgorithm.HeuristicR:
+                    returnedResult = new HeuristikR4Handler().Handle(input).CanBeChampion;
                     break;
                 default:
                     throw new System.Exception($"Unkown test type {CurrentTestSetup.CurrentTestType}.");

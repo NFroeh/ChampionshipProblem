@@ -10,6 +10,8 @@
 
         SA = 3,
 
-        Backtracking = 4
+        Backtracking = 4,
+
+        HeuristicR = 5
     }
 }

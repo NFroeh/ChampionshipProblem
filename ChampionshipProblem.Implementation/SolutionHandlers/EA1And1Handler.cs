@@ -22,11 +22,11 @@
                 return result;
             }
 
-            int lastIndividuumDb = championshipProblemInput.PointDifferences
+            int lastIndividuumDb = result.PointDifferences
                 .Where((d) => d > 0)
                 .Sum();
-            int[] pointDifferences = championshipProblemInput.PointDifferences;
-            Match[] lastIndividuum = championshipProblemInput.Matches;
+            int[] pointDifferences = result.PointDifferences;
+            Match[] lastIndividuum = result.Matches;
             for (int i = 0; i < iterationTimes; i++)
             {
                 Match[] matches = (Match[]) lastIndividuum.Clone();
@@ -53,7 +53,7 @@
 
                 if (!pointDifferences.Any((d) => d > 0))
                 {
-                    return new ChampionshipProblemResult(pointDifferences, result.Matches, true);
+                    return new ChampionshipProblemResult(pointDifferences, matches, true);
                 }
             }
 

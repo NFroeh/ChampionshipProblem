@@ -511,6 +511,7 @@
         public void S0910Test(int stage, int teamNumber, bool result)
         {
             bool? returnedResult = CurrentTestSetup.GetCurrentTestResult(LeagueStandingService0910, stage, teamNumber);
+            Assert.IsNotNull(returnedResult);
             Assert.AreEqual(result, returnedResult);
         }
         #endregion
