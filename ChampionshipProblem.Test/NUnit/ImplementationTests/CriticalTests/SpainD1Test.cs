@@ -91,7 +91,7 @@
         [TestCase(27, 21, false)]
 
         [TestCase(26, 20, true)]
-        [TestCase(26, 21, false)]
+        [TestCase(26, 21, true)] // backtracking?
 
         [TestCase(25, 20, true)]
         [TestCase(25, 21, true)]
