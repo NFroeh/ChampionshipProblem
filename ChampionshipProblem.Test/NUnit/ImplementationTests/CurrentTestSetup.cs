@@ -34,7 +34,17 @@
                     returnedResult = new SimulatedAnnealingHandler().Handle(input).CanBeChampion;
                     break;
                 case TestAlgorithm.Backtracking:
-                    returnedResult = leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[teamNumber].TeamId, false).CanWinChampionship;
+                    returnedResult = new SimulatedAnnealingHandler().Handle(input).CanBeChampion;
+
+                    if (!returnedResult.HasValue)
+                    {
+                        returnedResult = leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[teamNumber].TeamId, false).CanWinChampionship;
+                    }
+
+                    if (!returnedResult.HasValue)
+                    {
+                        returnedResult = new BruteForceHandler().Handle(input).CanBeChampion;
+                    }
                     break;
                 case TestAlgorithm.HeuristicR:
                     returnedResult = new HeuristikR4Handler().Handle(input).CanBeChampion;

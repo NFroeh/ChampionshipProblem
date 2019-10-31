@@ -50,6 +50,10 @@
                     filename = nameof(TestAlgorithm.Backtracking) + name;
                     CSVWriter.WriteTestResult(filename, testResultProperties);
                     break;
+                case TestAlgorithm.HeuristicR:
+                    filename = nameof(TestAlgorithm.HeuristicR) + name;
+                    CSVWriter.WriteTestResult(filename, testResultProperties);
+                    break;
                 default:
                     throw new Exception($"Unknown current algorithm {currentAlgorithm}");
             }
