@@ -10,7 +10,7 @@
         {
             ChampionshipProblemResult result = new HeuristikL1Handler().Handle(championshipProblemInput);
             Random random = new Random();
-            int iterationTimes = 300000;
+            int iterationTimes = 2750000;
 
             if (result.CanBeChampion.HasValue && result.CanBeChampion == true)
             {
@@ -29,18 +29,24 @@
             Match[] lastIndividuum = result.Matches;
             for (int i = 0; i < iterationTimes; i++)
             {
-                Match[] matches = (Match[]) lastIndividuum.Clone();
-                foreach (Implementation.Match m in matches)
+                Match[] matches = (Match[])lastIndividuum.Clone();
+                foreach (Match m in matches)
                 {
-                    int changes = random.Next(0, result.Matches.Length + 1);
+                    int changes = random.Next(0, result.Matches.Length);
 
                     if (changes == 0)
                     {
-                        m.Result = (MatchResult) ((byte) (m.Result + 1) % 3);
+                        int change = random.Next(1, 2);
+                        m.Result = (MatchResult) (((byte) m.Result + change) % 3);
                     }
                 }
 
                 pointDifferences = ComputePointDifferencesHandler.Handle(championshipProblemInput.PointDifferences, matches);
+
+                if (!pointDifferences.Any((d) => d > 0))
+                {
+                    return new ChampionshipProblemResult(pointDifferences, matches, true);
+                }
 
                 int currentDb = pointDifferences
                     .Where((d) => d > 0)
@@ -49,11 +55,6 @@
                 {
                     lastIndividuum = matches;
                     lastIndividuumDb = currentDb;
-                }
-
-                if (!pointDifferences.Any((d) => d > 0))
-                {
-                    return new ChampionshipProblemResult(pointDifferences, matches, true);
                 }
             }
 

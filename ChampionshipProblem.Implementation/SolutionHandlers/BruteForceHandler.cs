@@ -23,13 +23,42 @@
             int[] result = r4Result.PointDifferences;
             Match[] matchResults = r4Result.Matches;
             bool canBeChampion = false;
+            bool isComputed = true;
 
             // Zu viele Iterationen, der Test wird abgebrochen
             if (numberOfIterations < 1 )
             {
-                return new ChampionshipProblemResult(championshipProblemInput.PointDifferences, championshipProblemInput.Matches, null);
+                isComputed = false;
+                numberOfIterations = long.MaxValue;
+                //return new ChampionshipProblemResult(championshipProblemInput.PointDifferences, championshipProblemInput.Matches, null);
             }
 
+            for (int index = 0; index < numberOfIterations; index++)
+            {
+                string ternary = index.ConvertToBase(3);
+                Match[] matches = new Match[r4Result.Matches.Length];
+                for (int matchIndex = 0; matchIndex < r4Result.Matches.Length; matchIndex++)
+                {
+                    byte matchResult = (matchIndex < ternary.Length) ? Convert.ToByte(ternary[ternary.Length - 1 - matchIndex].ToString()) : (byte)0;
+                    matches[matchIndex] = new Match(r4Result.Matches[matchIndex].Home, r4Result.Matches[matchIndex].Away, (MatchResult)matchResult);
+                }
+
+                int[] pointDifferences = ComputePointDifferencesHandler.Handle(championshipProblemInput.PointDifferences, matches);
+
+                if (!pointDifferences.Any((d) => d > 0))
+                {
+                    result = pointDifferences;
+                    matchResults = matches;
+                    canBeChampion = true;
+                    return new ChampionshipProblemResult(result, matchResults, canBeChampion);
+                }
+            }
+
+
+            bool? res = (isComputed == false)? canBeChampion : (bool?)null;
+            return new ChampionshipProblemResult(result, matchResults, res);
+
+            /*
             Parallel.For(0, numberOfIterations, (index, loopState) =>
             {
                 string ternary = index.ConvertToBase(3);
@@ -49,9 +78,9 @@
                     canBeChampion = true;
                     loopState.Stop();
                 }
-            });
+            });*/
 
-            return new ChampionshipProblemResult(result, matchResults, canBeChampion);
+            //return new ChampionshipProblemResult(result, matchResults, canBeChampion);
         }
     }
 }

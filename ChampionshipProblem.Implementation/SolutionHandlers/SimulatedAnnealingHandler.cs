@@ -10,8 +10,9 @@
         {
             ChampionshipProblemResult result = new HeuristikL1Handler().Handle(championshipProblemInput);
             Random random = new Random();
-            int iterationTimes = 1000000;
+            int iterationTimes = 3000000;
 
+            // opti: 20 mit 37 und 5MIL oder 10 MIL
             if (result.CanBeChampion.HasValue && result.CanBeChampion == true)
             {
                 return result;
@@ -32,7 +33,7 @@
             {
                 int changeIndex = random.Next(0, result.Matches.Length - 1);
                 int change = random.Next(1, 2);
-                int acceptedProbability = random.Next(0, 100);
+                int acceptedProbability = random.Next(1, 100);
 
                 MatchResult changedResult = result.Matches[changeIndex].Result;
 
@@ -58,7 +59,7 @@
                 }
 
                 // Alle tausend Iterationen Rate senken
-                if (i % 10000 == 0)
+                if (i % (iterationTimes / 500000) == 0)
                 {
                     acceptanceRate = (int) (acceptanceRate * acceptanceDecrease);
                 }

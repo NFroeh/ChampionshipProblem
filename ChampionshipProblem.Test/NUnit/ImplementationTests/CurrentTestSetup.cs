@@ -11,7 +11,7 @@
 
         public static TestAlgorithm CurrentTestType
         {
-            get { return TestAlgorithm.Backtracking; }
+            get { return TestAlgorithm.Brute; }
         }
 
         public static bool? GetCurrentTestResult(LeagueStandingService leagueStandingService, int stage, int teamNumber)
@@ -48,6 +48,19 @@
                     break;
                 case TestAlgorithm.HeuristicR:
                     returnedResult = new HeuristikR4Handler().Handle(input).CanBeChampion;
+                    break;
+                case TestAlgorithm.BackNewTest:
+                    returnedResult = new SimulatedAnnealingHandler().Handle(input).CanBeChampion;
+
+                    if (!returnedResult.HasValue)
+                    {
+                        returnedResult = new BacktrackingHandler().Handle(input).CanBeChampion;
+                    }
+
+                    if (!returnedResult.HasValue)
+                    {
+                        returnedResult = new BruteForceHandler().Handle(input).CanBeChampion;
+                    }
                     break;
                 default:
                     throw new System.Exception($"Unkown test type {CurrentTestSetup.CurrentTestType}.");

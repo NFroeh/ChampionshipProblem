@@ -16,6 +16,11 @@
                 return result;
             }
 
+            if (result.CanBeChampion.HasValue && result.CanBeChampion == false)
+            {
+                return result;
+            }
+
             IEnumerable<int> betterTeams = result.PointDifferences
                 .Select((d, index) => new { D = d, I = index })
                 .Where((t) => t.D > 0)
@@ -34,12 +39,12 @@
 
                 if (backtracked)
                 {
-                    int[] p = ComputePointDifferencesHandler.Handle(championshipProblemInput.PointDifferences, championshipProblemInput.Matches);
-                    return new ChampionshipProblemResult(p, championshipProblemInput.Matches, !championshipProblemInput.PointDifferences.Any(d => d > 0));
+                    int[] p = ComputePointDifferencesHandler.Handle(championshipProblemInput.PointDifferences, result.Matches);
+                    return new ChampionshipProblemResult(p, result.Matches, !championshipProblemInput.PointDifferences.Any(d => d > 0));
                 } 
             }
 
-            return new ChampionshipProblemResult(championshipProblemInput.PointDifferences, championshipProblemInput.Matches, false);
+            return new ChampionshipProblemResult(championshipProblemInput.PointDifferences, championshipProblemInput.Matches, null);
         }
 
         private static bool BacktrackSurplus(int bTeam, int[] pointDifferences, Implementation.Match[] matches, List<Implementation.Match> alreadyCheckedMatches)
