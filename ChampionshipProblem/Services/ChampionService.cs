@@ -277,7 +277,7 @@
                         {
                             // Entweder Unentschieden setzen oder den Match Wert ermitteln, falls vorhanden
                             // Hier muss der Char vorher in einen String umgewandelt werden, da sonst die Konvertierung nach ASCI gemacht wird
-                            byte matchResult = (matchIndex < ternary.Length) ? Convert.ToByte(ternary[matchIndex].ToString()) : (byte)0;
+                            byte matchResult = (matchIndex < ternary.Length) ? Convert.ToByte(ternary[ternary.Length - 1 - matchIndex].ToString()) : (byte)0;
 
                             remainingMatches[matchIndex].MatchResult = (MatchResult)matchResult;
                         }
