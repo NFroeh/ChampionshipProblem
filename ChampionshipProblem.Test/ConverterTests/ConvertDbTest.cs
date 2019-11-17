@@ -16,9 +16,9 @@
         [TestMethod]
         public void TestConvertDb()
         {
-            if (File.Exists(MainSoccerDb.PathToDatabase))
+            if (File.Exists(System.AppDomain.CurrentDomain.BaseDirectory + "DatabaseFiles\\MainSoccerDb.sqlite"))
             {
-                File.Delete(MainSoccerDb.PathToDatabase);
+                File.Delete(System.AppDomain.CurrentDomain.BaseDirectory + "DatabaseFiles\\MainSoccerDb.sqlite");
             }
 
             SoccerDBConverter.ConvertEuropeanSoccerDb();

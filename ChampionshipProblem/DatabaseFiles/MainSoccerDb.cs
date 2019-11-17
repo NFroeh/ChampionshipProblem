@@ -5,6 +5,7 @@ namespace ChampionshipProblem.DatabaseFiles
     using SQLite.CodeFirst;
     using System.Data.Entity;
     using System.Data.SQLite;
+    using System.Windows.Forms;
 
     /// <summary>
     /// Der HauptSoccerDb-Kontext.
@@ -12,18 +13,13 @@ namespace ChampionshipProblem.DatabaseFiles
     public class MainSoccerDb : DbContext
     {
         /// <summary>
-        /// Der Pfad zur Datenbank.
-        /// </summary>
-        public const string PathToDatabase = "C:\\Users\\NicolaiFröhlig\\source\\repos\\ChampionshipProblem\\ChampionshipProblem\\DatabaseFiles\\MainSoccerDb.sqlite";
-
-        /// <summary>
         /// Konstruktor zum Erstellen des DbContextes.
         /// </summary>
         public MainSoccerDb()
             : base(new SQLiteConnection() {
                 ConnectionString = new SQLiteConnectionStringBuilder()
                 {
-                    DataSource = PathToDatabase,
+                    DataSource = System.AppDomain.CurrentDomain.BaseDirectory + "DatabaseFiles\\MainSoccerDb.sqlite",
                     ForeignKeys = true
                 }.ConnectionString
             }, true)

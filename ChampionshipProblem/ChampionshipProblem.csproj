@@ -131,7 +131,9 @@
     <EmbeddedResource Include="WorldCupForm.resx">
       <DependentUpon>WorldCupForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="DatabaseFiles\MainSoccerDb.sqlite" />
+    <None Include="DatabaseFiles\MainSoccerDb.sqlite">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
