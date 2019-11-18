@@ -14,7 +14,7 @@ This can be done through two different approaches in the repository:
 ## How to use the NUnit test part
 1. The project uses the NuGet Package Manager of Visual Studio 2017 with the Package System.Data.SQLite. Therefore the binaries and package need to be installed or restored. (https://system.data.sqlite.org/index.html/doc/trunk/www/index.wiki)<br>
 2. Open your solution in Visual Studio and navigate to the Test Window. There you can find the namespace "ChampionshipProblem.Test.NUnit", which contains the defined test cases. 
-3. In "CurrentTestSetup.cs" one can define the timeout for the tests (property TestTimeout) and the algorithm to solve the different test cases (Heuristic, Brute, evolutionary algorithm, simulated annealing, backtracking and Heuristics R for property CurrentTestType).
+3. In "CurrentTestSetup.cs" one can define the timeout for the tests (property TestTimeout) and the algorithm to solve the different test cases (Heuristic, Brute, evolutionary algorithm, simulated annealing, backtracking and Heuristics R for property CurrentTestType). Furthermore used parameters like the number of iterations or the annealing parameters of the (1+1)-EA and Simulated Annealing can be edited in the "CurrentTestSetup.cs"-file.
 4. Just run the different tests with your test setup by running the desired test cases. The results with different informations are written in the build directory (bin/debug) in a CSV-file (seperated by algorithm) for each test case. This data extraction could easily be extended.
 
 ## How to create your own soccer database with more data
