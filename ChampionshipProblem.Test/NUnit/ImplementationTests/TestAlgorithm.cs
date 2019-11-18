@@ -12,8 +12,6 @@
 
         Backtracking = 4,
 
-        HeuristicR = 5,
-
-        BackNewTest = 6
+        HeuristicR = 5
     }
 }

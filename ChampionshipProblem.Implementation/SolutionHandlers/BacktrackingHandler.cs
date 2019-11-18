@@ -1,26 +1,33 @@
 ﻿namespace ChampionshipProblem.Implementation
 {
     using ChampionshipProblem.Classes;
+    using ChampionshipProblem.Services;
     using System.Collections.Generic;
     using System.Linq;
 
     public class BacktrackingHandler
     {
-        public ChampionshipProblemResult Handle(ChampionshipProblemInput championshipProblemInput)
+        public ChampionshipProblemResult Handle(ChampionshipProblemInput championshipProblemInput, LeagueStandingService leagueStandingService, int stage, int teamNumber)
         {
-            // Heuristiken L ausführen
-            ChampionshipProblemResult result = new HeuristikLHandler().Handle(championshipProblemInput);
+            ChampionshipProblemResult returnedResult = new SimulatedAnnealingHandler().Handle(championshipProblemInput);
+            List<LeagueStandingEntry> standing = leagueStandingService.CalculateStanding(stage);
 
-            if (result.CanBeChampion.HasValue && result.CanBeChampion == true)
+            if (!returnedResult.CanBeChampion.HasValue)
             {
-                return result;
+                returnedResult = new ChampionshipProblemResult(
+                    returnedResult.PointDifferences, 
+                    returnedResult.Matches, 
+                    leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[teamNumber].TeamId, false).CanWinChampionship
+                );
             }
 
-            if (result.CanBeChampion.HasValue && result.CanBeChampion == false)
+            if (!returnedResult.CanBeChampion.HasValue)
             {
-                return result;
+                returnedResult = new BruteForceHandler().Handle(championshipProblemInput);
             }
 
+            return returnedResult;
+            /*
             IEnumerable<int> betterTeams = result.PointDifferences
                 .Select((d, index) => new { D = d, I = index })
                 .Where((t) => t.D > 0)
@@ -44,7 +51,7 @@
                 } 
             }
 
-            return new ChampionshipProblemResult(championshipProblemInput.PointDifferences, championshipProblemInput.Matches, null);
+            return new ChampionshipProblemResult(championshipProblemInput.PointDifferences, championshipProblemInput.Matches, null);*/
         }
 
         private static bool BacktrackSurplus(int bTeam, int[] pointDifferences, Implementation.Match[] matches, List<Implementation.Match> alreadyCheckedMatches)

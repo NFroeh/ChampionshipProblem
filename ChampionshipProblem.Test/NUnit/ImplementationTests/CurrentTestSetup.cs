@@ -34,33 +34,10 @@
                     returnedResult = new SimulatedAnnealingHandler().Handle(input).CanBeChampion;
                     break;
                 case TestAlgorithm.Backtracking:
-                    returnedResult = new SimulatedAnnealingHandler().Handle(input).CanBeChampion;
-
-                    if (!returnedResult.HasValue)
-                    {
-                        returnedResult = leagueStandingService.CalculateIfTeamCanWinChampionship(stage, standing[teamNumber].TeamId, false).CanWinChampionship;
-                    }
-
-                    if (!returnedResult.HasValue)
-                    {
-                        returnedResult = new BruteForceHandler().Handle(input).CanBeChampion;
-                    }
+                    returnedResult = new BacktrackingHandler().Handle(input, leagueStandingService, stage, teamNumber).CanBeChampion;
                     break;
                 case TestAlgorithm.HeuristicR:
                     returnedResult = new HeuristikR4Handler().Handle(input).CanBeChampion;
-                    break;
-                case TestAlgorithm.BackNewTest:
-                    returnedResult = new SimulatedAnnealingHandler().Handle(input).CanBeChampion;
-
-                    if (!returnedResult.HasValue)
-                    {
-                        returnedResult = new BacktrackingHandler().Handle(input).CanBeChampion;
-                    }
-
-                    if (!returnedResult.HasValue)
-                    {
-                        returnedResult = new BruteForceHandler().Handle(input).CanBeChampion;
-                    }
                     break;
                 default:
                     throw new System.Exception($"Unkown test type {CurrentTestSetup.CurrentTestType}.");

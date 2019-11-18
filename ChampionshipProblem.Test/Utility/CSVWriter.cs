@@ -54,10 +54,6 @@
                     filename = nameof(TestAlgorithm.HeuristicR) + name;
                     CSVWriter.WriteTestResult(filename, testResultProperties);
                     break;
-                case TestAlgorithm.BackNewTest:
-                    filename = nameof(TestAlgorithm.BackNewTest) + name;
-                    CSVWriter.WriteTestResult(filename, testResultProperties);
-                    break;
                 default:
                     throw new Exception($"Unknown current algorithm {currentAlgorithm}");
             }

@@ -90,7 +90,6 @@
     <Compile Include="ImplementationTests\ChampionshipProblemInputTest.cs" />
     <Compile Include="ConverterTests\ConvertDbTest.cs" />
     <Compile Include="ImplementationTests\EA\EAChampionGermanyTest.cs" />
-    <Compile Include="ImplementationTests\Germany\ChampionGermanyTest.cs" />
     <Compile Include="ImplementationTests\SimulatedAnnealing\SAChampionGermanyTest.cs" />
     <Compile Include="NUnit\ImplementationTests\BaseTestClass.cs" />
     <Compile Include="NUnit\ImplementationTests\CriticalTests\BelgiumTest.cs" />

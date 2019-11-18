@@ -40,7 +40,6 @@ namespace ChampionshipProblem
             this.RemainingMatchComboBox = new System.Windows.Forms.ComboBox();
             this.ComputationStandingView = new System.Windows.Forms.DataGridView();
             this.ComputeResultCheckbox = new System.Windows.Forms.CheckBox();
-            this.ComputeGoalCheckbox = new System.Windows.Forms.CheckBox();
             this.ComputedRemainingMatchComboBox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.ComputedRemainingMatchesView = new System.Windows.Forms.DataGridView();
@@ -170,17 +169,6 @@ namespace ChampionshipProblem
             this.ComputeResultCheckbox.Text = "Compute result table";
             this.ComputeResultCheckbox.UseVisualStyleBackColor = true;
             // 
-            // ComputeGoalCheckbox
-            // 
-            this.ComputeGoalCheckbox.AutoSize = true;
-            this.ComputeGoalCheckbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.ComputeGoalCheckbox.Location = new System.Drawing.Point(818, 12);
-            this.ComputeGoalCheckbox.Name = "ComputeGoalCheckbox";
-            this.ComputeGoalCheckbox.Size = new System.Drawing.Size(164, 19);
-            this.ComputeGoalCheckbox.TabIndex = 13;
-            this.ComputeGoalCheckbox.Text = "Compute Goal Difference";
-            this.ComputeGoalCheckbox.UseVisualStyleBackColor = true;
-            // 
             // ComputedRemainingMatchComboBox
             // 
             this.ComputedRemainingMatchComboBox.FormattingEnabled = true;
@@ -281,7 +269,6 @@ namespace ChampionshipProblem
             this.Controls.Add(this.ComputedRemainingMatchesView);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.ComputedRemainingMatchComboBox);
-            this.Controls.Add(this.ComputeGoalCheckbox);
             this.Controls.Add(this.ComputeResultCheckbox);
             this.Controls.Add(this.ComputationStandingView);
             this.Controls.Add(this.RemainingMatchComboBox);
@@ -320,7 +307,6 @@ namespace ChampionshipProblem
         private System.Windows.Forms.ComboBox RemainingMatchComboBox;
         private System.Windows.Forms.DataGridView ComputationStandingView;
         private System.Windows.Forms.CheckBox ComputeResultCheckbox;
-        private System.Windows.Forms.CheckBox ComputeGoalCheckbox;
         private System.Windows.Forms.ComboBox ComputedRemainingMatchComboBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView ComputedRemainingMatchesView;

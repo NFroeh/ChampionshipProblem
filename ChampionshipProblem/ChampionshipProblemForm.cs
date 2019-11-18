@@ -307,63 +307,42 @@ namespace ChampionshipProblem
                 DataGridViewRow selectedRow = this.StandingsView.Rows[e.RowIndex];
                 CompleteLeagueStandingEntry entry = (CompleteLeagueStandingEntry)selectedRow.DataBoundItem;
 
-                // Zuerst prüfen, wie viele Matches berücksichtigt werden
-                int remainingMatchesCount = this.ChampionshipViewModel.LeagueStandingService.CalculateNumberOfRemainingMatchesForChampion(this.CurrentSelectedStage, entry.TeamId);
-                long numberOfIterations = (long)Math.Pow(3, remainingMatchesCount);
-                DialogResult result = DialogResult.Yes;
+                // Ausrechnen
+                Stopwatch stopwatch = Stopwatch.StartNew();
 
-                if (numberOfIterations > Double.MaxValue || numberOfIterations <= 0)
+                if (ComputeResultCheckbox.Checked)
                 {
-                    result = MessageBox.Show($"Because of the missing '{remainingMatchesCount}' matches, too many iterations could be needed. Therefore only one iteration will be made. Do you want to continue?",
-                        "Continue computation?",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                }
-                else if (remainingMatchesCount > 9)
-                {
-                    result = MessageBox.Show($"The computation could need '3^{remainingMatchesCount}'('{numberOfIterations}') iterations. Do you want to continue?",
-                        "Continue computation?",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                }
-
-                if (result == DialogResult.Yes)
-                {
-                    // Ausrechnen
-                    Stopwatch stopwatch = Stopwatch.StartNew();
-
-                    if (ComputeResultCheckbox.Checked)
+                    ChampionComputationalResult championComputationalResult = this.ChampionshipViewModel.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, entry.TeamId, true);
+                    stopwatch.Stop();
+                    entry.CanWinChampionship = championComputationalResult.CanWinChampionship;
+                    if (championComputationalResult.CanWinChampionship.HasValue && championComputationalResult.CanWinChampionship == true)
                     {
-                        ChampionComputationalResult championComputationalResult = this.ChampionshipViewModel.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, entry.TeamId, true);
-                        stopwatch.Stop();
-                        entry.CanWinChampionship = championComputationalResult.CanWinChampionship;
-                        if (championComputationalResult.CanWinChampionship.HasValue && championComputationalResult.CanWinChampionship == true)
-                        {
-                            // Das Result abspeichern
-                            CurrentChampionComputationalResult = championComputationalResult;
+                        // Das Result abspeichern
+                        CurrentChampionComputationalResult = championComputationalResult;
 
-                            // Die Datengrundlagen setzen
-                            ComputationStandingView.DataSource = (championComputationalResult.ComputationalStanding != null)? championComputationalResult.ComputationalStanding.ToArray() : null;
-                            ComputedRemainingMatchesView.DataSource = (championComputationalResult.MissingRemainingMatches != null)? championComputationalResult.MissingRemainingMatches.ToArray() : null;
-                            ResultGrid.SelectedObject = championComputationalResult;
+                        // Die Datengrundlagen setzen
+                        ComputationStandingView.DataSource = (championComputationalResult.ComputationalStanding != null)? championComputationalResult.ComputationalStanding.ToArray() : null;
+                        ComputedRemainingMatchesView.DataSource = (championComputationalResult.MissingRemainingMatches != null)? championComputationalResult.MissingRemainingMatches.ToArray() : null;
+                        ResultGrid.SelectedObject = championComputationalResult;
 
-                            // Die Änderung signalisieren
-                            this.ComputedStandingComboBox.SelectedItem = this.NumberOfStages;
-                            this.ComputedStandingComboBox_SelectedIndexChanged(null, null);
-                            this.ComputedRemainingMatchComboxBox_SelectedIndexChanged(null, null);
-                        }
-                        else
-                        {
-                            ComputationStandingView.DataSource = new string[0];
-                        }
+                        // Die Änderung signalisieren
+                        this.ComputedStandingComboBox.SelectedItem = this.NumberOfStages;
+                        this.ComputedStandingComboBox_SelectedIndexChanged(null, null);
+                        this.ComputedRemainingMatchComboxBox_SelectedIndexChanged(null, null);
                     }
                     else
                     {
-                        entry.CanWinChampionship = this.ChampionshipViewModel.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, entry.TeamId, false).CanWinChampionship;
-                        stopwatch.Stop();
+                        ComputationStandingView.DataSource = new string[0];
                     }
-
-                    entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
-                    this.StandingsView.Refresh();
                 }
+                else
+                {
+                    entry.CanWinChampionship = this.ChampionshipViewModel.LeagueStandingService.CalculateIfTeamCanWinChampionship(this.CurrentSelectedStage, entry.TeamId, false).CanWinChampionship;
+                    stopwatch.Stop();
+                }
+
+                entry.LastElapsedTime = (double)stopwatch.ElapsedMilliseconds / 1000;
+                this.StandingsView.Refresh();
             }
         }
         #endregion
