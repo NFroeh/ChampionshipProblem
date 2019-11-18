@@ -380,6 +380,9 @@ namespace ChampionshipProblem
 
             // Die Tabelle binden
             this.StandingsView.DataSource = this.LeagueStandingEntries.ToArray();
+            this.ComputationStandingView.DataSource = Enumerable.Empty<int>();
+            this.ComputedRemainingMatchesView.DataSource = Enumerable.Empty<int>();
+            this.CurrentChampionComputationalResult = null;
         }
         #endregion
 

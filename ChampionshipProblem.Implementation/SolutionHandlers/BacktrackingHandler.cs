@@ -23,7 +23,7 @@
 
             if (!returnedResult.CanBeChampion.HasValue)
             {
-                returnedResult = new BruteForceHandler().Handle(championshipProblemInput);
+                returnedResult = new BruteForceHandler().HandleParallel(championshipProblemInput);
             }
 
             return returnedResult;

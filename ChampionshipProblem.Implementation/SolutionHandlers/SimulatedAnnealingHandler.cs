@@ -10,7 +10,7 @@
         {
             ChampionshipProblemResult result = new HeuristikL1Handler().Handle(championshipProblemInput);
             Random random = new Random();
-            int iterationTimes = 3000000;
+            int iterationTimes = 2750000;
 
             // opti: 20 mit 37 und 5MIL oder 10 MIL
             if (result.CanBeChampion.HasValue && result.CanBeChampion == true)
