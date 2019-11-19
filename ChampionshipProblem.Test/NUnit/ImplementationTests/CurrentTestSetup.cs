@@ -17,7 +17,7 @@
 
         public static TestAlgorithm CurrentTestType
         {
-            get { return TestAlgorithm.SA; }
+            get { return TestAlgorithm.Backtracking; }
         }
 
         public static bool? GetCurrentTestResult(LeagueStandingService leagueStandingService, int stage, int teamNumber)
