@@ -7,9 +7,9 @@
 
     public class BacktrackingHandler
     {
-        public ChampionshipProblemResult Handle(ChampionshipProblemInput championshipProblemInput, LeagueStandingService leagueStandingService, int stage, int teamNumber)
+        public ChampionshipProblemResult Handle(ChampionshipProblemInput championshipProblemInput, LeagueStandingService leagueStandingService, int stage, int teamNumber, int iterationTimes)
         {
-            ChampionshipProblemResult returnedResult = new SimulatedAnnealingHandler().Handle(championshipProblemInput);
+            ChampionshipProblemResult returnedResult = new SimulatedAnnealingHandler().Handle(championshipProblemInput, iterationTimes);
             List<LeagueStandingEntry> standing = leagueStandingService.CalculateStanding(stage);
 
             if (!returnedResult.CanBeChampion.HasValue)

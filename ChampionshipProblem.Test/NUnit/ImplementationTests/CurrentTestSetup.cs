@@ -9,9 +9,15 @@
     {
         public const int TestTimeout = 30000;
 
+        public const int NumberOfSimulatedAnnealingIterations = 5000000;
+
+        public const int NumberOf1And1EAIterations = 2750000;
+
+        public const int NumberOfSimulatedAnnealingIterationsByBacktracking = 2500000;
+
         public static TestAlgorithm CurrentTestType
         {
-            get { return TestAlgorithm.Backtracking; }
+            get { return TestAlgorithm.SA; }
         }
 
         public static bool? GetCurrentTestResult(LeagueStandingService leagueStandingService, int stage, int teamNumber)
@@ -28,13 +34,13 @@
                     returnedResult = new BruteForceHandler().Handle(input).CanBeChampion;
                     break;
                 case TestAlgorithm.EA:
-                    returnedResult = new EA1And1Handler().Handle(input).CanBeChampion;
+                    returnedResult = new EA1And1Handler().Handle(input, NumberOf1And1EAIterations).CanBeChampion;
                     break;
                 case TestAlgorithm.SA:
-                    returnedResult = new SimulatedAnnealingHandler().Handle(input).CanBeChampion;
+                    returnedResult = new SimulatedAnnealingHandler().Handle(input, NumberOfSimulatedAnnealingIterations).CanBeChampion;
                     break;
                 case TestAlgorithm.Backtracking:
-                    returnedResult = new BacktrackingHandler().Handle(input, leagueStandingService, stage, teamNumber).CanBeChampion;
+                    returnedResult = new BacktrackingHandler().Handle(input, leagueStandingService, stage, teamNumber, NumberOfSimulatedAnnealingIterationsByBacktracking).CanBeChampion;
                     break;
                 case TestAlgorithm.HeuristicR:
                     returnedResult = new HeuristikR4Handler().Handle(input).CanBeChampion;

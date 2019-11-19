@@ -6,11 +6,10 @@
 
     public class EA1And1Handler
     {
-        public ChampionshipProblemResult Handle(ChampionshipProblemInput championshipProblemInput)
+        public ChampionshipProblemResult Handle(ChampionshipProblemInput championshipProblemInput, int iterationTimes)
         {
             ChampionshipProblemResult result = new HeuristikL1Handler().Handle(championshipProblemInput);
             Random random = new Random();
-            int iterationTimes = 2750000;
 
             if (result.CanBeChampion.HasValue && result.CanBeChampion == true)
             {
