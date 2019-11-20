@@ -8,9 +8,6 @@
     public class PositionServiceTest
     {
         #region BasicTest
-        /// <summary>
-        /// Testet die Methode zum Kalkulieren, ob eine Mannschaft noch meister werden kann.
-        /// </summary>
         [TestMethod]
         public void BasicTest()
         {
@@ -69,9 +66,6 @@
         #endregion
 
         #region BasicTieTest
-        /// <summary>
-        /// Testet die Methode zum Kalkulieren, ob eine Mannschaft noch Meister werden kann (Für worst).
-        /// </summary>
         [TestMethod]
         public void BasicTieTest()
         {

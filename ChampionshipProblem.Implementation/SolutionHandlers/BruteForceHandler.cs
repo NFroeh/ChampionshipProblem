@@ -25,7 +25,7 @@
             bool canBeChampion = false;
             bool isComputed = true;
 
-            // Zu viele Iterationen, der Test wird abgebrochen
+            // too many iterations
             if (numberOfIterations < 1 )
             {
                 isComputed = false;
@@ -81,7 +81,7 @@
             bool canBeChampion = false;
             bool isComputed = true;
 
-            // Zu viele Iterationen, der Test wird abgebrochen
+            // too many iterations
             if (numberOfIterations < 1)
             {
                 isComputed = false;

@@ -21,7 +21,6 @@
                 return result;
             }
 
-            // Heuristik L2: Betrachte die Spiele der besseren Mannschaften, welche keine andere Mannschaft über sich bringt
             int[] pointDifferences = result.PointDifferences;
             List<int> betterTeams = pointDifferences
                 .Select((d, index) => new { D = d, I = index })
@@ -34,7 +33,6 @@
             {
                 foreach (Match remainingMatch in result.Matches)
                 {
-                    // Alle Spiele für das Team überprüfen, was mit keinem Team zu tun hat, welches über dem Team liegt
                     if (remainingMatch.Home == betterTeam && pointDifferences[remainingMatch.Away] + 2 <= 0)
                     {
                         remainingMatch.Result = MatchResult.WinGuest;
@@ -46,7 +44,6 @@
                 }
             }
 
-            // Berechnen des aktuellen Standes und der neuen besseren Teams
             pointDifferences = ComputePointDifferencesHandler.Handle(pointDifferences, result.Matches);
             betterTeams = pointDifferences
                 .Select((d, index) => new { D = d, I = index })
@@ -62,15 +59,12 @@
             List<int> teamsAlreadyChecked = new List<int>();
             do
             {
-                // Hinzufügen der Teams, welche gecheckt werden
                 teamsAlreadyChecked.AddRange(betterTeams);
 
-                // Die besseren Teams durchlaufen und deren Spiele ändern
                 foreach (int betterTeam in betterTeams)
                 {
                     foreach (Match remainingMatch in result.Matches)
                     {
-                        // Alle Spiele für das Team überprüfen, was mit keinem Team zu tun hat, welches über dem Team liegt
                         if (remainingMatch.Home == betterTeam &&
                             teamsAlreadyChecked.None((tId) => tId == remainingMatch.Away))
                         {
@@ -84,7 +78,6 @@
                     }
                 }
 
-                // Berechnen des aktuellen Standes und der neuen besseren Teams
                 pointDifferences = ComputePointDifferencesHandler.Handle(pointDifferences, result.Matches);
                 betterTeams = pointDifferences
                     .Select((d, index) => new { D = d, I = index })
@@ -93,7 +86,6 @@
                     .Select((t) => t.I)
                     .ToList();
 
-                // LeagueStanding neu berechnen
                 if (betterTeams.Count() == 0)
                 {
                     return new ChampionshipProblemResult(pointDifferences, championshipProblemInput.Matches, true);
@@ -101,9 +93,6 @@
             }
             while (betterTeams.Any((bTeam) => teamsAlreadyChecked.None(tId => bTeam == tId)));
 
-            // Heuristik L3
-            // Da die Begegnungen, welche nicht durch Teams aus den betterTeams bestehen, keinen Unterschied machen, müssen nun hier die Spiele betrachtet werden, welche 
-            // zwischen den Mannschaften sind
             foreach (int betterTeam in betterTeams)
             {
                 IEnumerable<Match> remainingMatchesOfBetterTeam = result.Matches

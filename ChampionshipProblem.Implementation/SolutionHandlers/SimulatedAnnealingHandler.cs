@@ -11,7 +11,7 @@
             ChampionshipProblemResult result = new HeuristikL1Handler().Handle(championshipProblemInput);
             Random random = new Random();
 
-            // opti: 20 mit 37 und 5MIL oder 10 MIL
+            // best setupt: acceptanceDecrease of 0.85 and decreaseIntervall of 0.05
             if (result.CanBeChampion.HasValue && result.CanBeChampion == true)
             {
                 return result;
@@ -28,6 +28,7 @@
                 .Sum();
             int acceptanceRate = 100;
             double acceptanceDecrease = 0.85;
+            double decreaseIntervall = 0.05;
             for (int i = 0; i < iterationTimes; i++)
             {
                 int changeIndex = random.Next(0, result.Matches.Length - 1);
@@ -58,7 +59,7 @@
                 }
 
                 // Alle tausend Iterationen Rate senken
-                if (i % (iterationTimes * 0.05) == 0)
+                if (i % (iterationTimes * decreaseIntervall) == 0)
                 {
                     acceptanceRate = (int) (acceptanceRate * acceptanceDecrease);
                 }
