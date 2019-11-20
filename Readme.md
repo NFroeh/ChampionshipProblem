@@ -1,4 +1,4 @@
-﻿# Code-Repository for the championship problem (np-complete problem)
+﻿# code repository for the championship problem (np-complete problem)
 This application uses different algorithms to solves todays championship problem test cases.
 This can be done through two different approaches in the repository:
 1. The application implemented with Windows.Forms provides a graphical interface, where one can browse the different countries with different leagues and seasons. If you chose all the different parameters through the dropdown boxes, one can select a stage and view the relevant stage standing in the data grid. For this stage standing one can compute the answer for the championship problem ("Can the team still be champion at the end of the season?") and other similiar questions. For some of these questions the computation through the implemented backtracking needs too much time, because the championship problem is NP-complete. If the computation can be done in time and the result was true, one can view the game results, computation results and stage standing results for the last answer computed. Therefore one can easily debug different test cases for the championship problem.
@@ -20,7 +20,7 @@ This can be done through two different approaches in the repository:
 ## How to create your own soccer database with more data
 1. The project uses the NuGet Package Manager of Visual Studio 2017 with the Package System.Data.SQLite. Therefore the binaries and package need to be installed or restored. (https://system.data.sqlite.org/index.html/doc/trunk/www/index.wiki)<br>
 2. As Database the Kaggle Database 'European Soccer Database' is used and needs to be configured in the App.config (projects: converter and test) or place the file in the Folder 'DatabaseFiles' named 'EuropeanSoccer.sqlite' (https://www.kaggle.com/hugomathien/soccer). The connection string in the "app.config" file in the projects ".Test" and ".Converter" need to updated for your system.<br>
-As World Cub data 'https://www.kaggle.com/abecklas/fifa-world-cup/' is used.
+As World Cup data 'https://www.kaggle.com/abecklas/fifa-world-cup/' is used.
 3. Furthermore if you want to create a new Database Scheme for a Soccer Database, you would need an SQLite Provider like https://github.com/ErikEJ/SqlCeToolbox/wiki/EF6-workflow-with-SQLite-DDEX-provider <br>
 4. To create more data from CSV-files like from https://www.football-data.co.uk/ you can put those anywhere in the project (like in the folder "ExcelFiles"). After that just add a line to "ConvertDbTest.cs", where you convert the data from that specific excel file.
 5. To create your own database, you need to unignore the ConvertDbTest.cs and run the test to create your new MainSoccerDb.sqlite.
