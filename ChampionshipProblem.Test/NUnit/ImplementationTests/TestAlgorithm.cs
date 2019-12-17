@@ -12,6 +12,8 @@
 
         Backtracking = 4,
 
-        HeuristicR = 5
+        HeuristicR = 5,
+
+        PointRange = 6
     }
 }

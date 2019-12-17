@@ -25,4 +25,9 @@ As World Cup data 'https://www.kaggle.com/abecklas/fifa-world-cup/' is used.
 4. To create more data from CSV-files like from https://www.football-data.co.uk/ you can put those anywhere in the project (like in the folder "ExcelFiles"). After that just add a line to "ConvertDbTest.cs", where you convert the data from that specific excel file.
 5. To create your own database, you need to unignore the ConvertDbTest.cs and run the test to create your new MainSoccerDb.sqlite.
 
+## Possible errors
+1. NuGet Packages can't be restored - Open the solution file "ChampionshipProblem.sln" with Visual Studio and restore the NuGet-Packages by right-clicking the desired projects. <br>
+2. Unable to load DLL 'SQLite.Interop.dll' - Rebuild the solution and go to "\bin\Debug\x86" or "bin\Debug\x64" and copy the "SQLite.Interop.dll" into the "\bin\Debug"-directory. <br>
+3. OneTimeSetUp: System.BadImageFormatException (HRESULT: 0x8007000B) - The "SQLite.Interop.dll" you copied has the wrong microprocessor architectur. You need to switch the .dll from x64 to x86 or from x86 to x64. <br>
+
 If there are remaining questions just leave a note in the issues section.

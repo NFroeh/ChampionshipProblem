@@ -52,6 +52,7 @@
     <Compile Include="SolutionHandlers\HeuristikL1Handler.cs" />
     <Compile Include="SolutionHandlers\HeuristikLHandler.cs" />
     <Compile Include="SolutionHandlers\HeuristikR4Handler.cs" />
+    <Compile Include="SolutionHandlers\PointRangeHandler.cs" />
     <Compile Include="SolutionHandlers\SimulatedAnnealingHandler.cs" />
   </ItemGroup>
   <ItemGroup>

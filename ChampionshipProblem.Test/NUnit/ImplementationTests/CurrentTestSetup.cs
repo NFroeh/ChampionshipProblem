@@ -45,6 +45,9 @@
                 case TestAlgorithm.HeuristicR:
                     returnedResult = new HeuristikR4Handler().Handle(input).CanBeChampion;
                     break;
+                case TestAlgorithm.PointRange:
+                    returnedResult = new PointRangeHandler().Handle(leagueStandingService, standing, teamNumber).CanBeChampion;
+                    break;
                 default:
                     throw new System.Exception($"Unkown test type {CurrentTestSetup.CurrentTestType}.");
             }
